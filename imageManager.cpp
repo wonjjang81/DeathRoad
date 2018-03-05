@@ -45,7 +45,7 @@ image* imageManager::addImage(string strKey, int width, int height)
 	return img;
 }
 
-image* imageManager::addImage(string strKey, const char* fileName, int width, int height, bool trans, COLORREF transColor)
+image* imageManager::addImage(string strKey, LPCWSTR fileName, int width, int height)
 {
 	image* img = findImage(strKey);
 
@@ -54,7 +54,7 @@ image* imageManager::addImage(string strKey, const char* fileName, int width, in
 	//그게 아니라면 프로세스가 여기까지 내려왔을 것.!
 	img = new image;
 
-	if (FAILED(img->init(fileName, width, height, trans, transColor)))
+	if (FAILED(img->init(fileName, width, height)))
 	{
 		SAFE_DELETE(img);
 
@@ -66,7 +66,7 @@ image* imageManager::addImage(string strKey, const char* fileName, int width, in
 	return img;
 }
 
-image* imageManager::addImage(string strKey, const char* fileName, float x, float y, int width, int height, bool trans, COLORREF transColor)
+image* imageManager::addImage(string strKey, LPCWSTR fileName, float x, float y, int width, int height)
 {
 	image* img = findImage(strKey);
 
@@ -75,7 +75,7 @@ image* imageManager::addImage(string strKey, const char* fileName, float x, floa
 	//그게 아니라면 프로세스가 여기까지 내려왔을 것.!
 	img = new image;
 
-	if (FAILED(img->init(fileName, x, y, width, height, trans, transColor)))
+	if (FAILED(img->init(fileName, x, y, width, height)))
 	{
 		SAFE_DELETE(img);
 
@@ -88,7 +88,7 @@ image* imageManager::addImage(string strKey, const char* fileName, float x, floa
 }
 
 
-image* imageManager::addFrameImage(string strKey, const char* fileName, float x, float y, int width, int height, int frameX, int frameY, bool trans, COLORREF transColor)
+image* imageManager::addFrameImage(string strKey, LPCWSTR fileName, float x, float y, int width, int height, int frameX, int frameY)
 {
 	image* img = findImage(strKey);
 
@@ -97,7 +97,7 @@ image* imageManager::addFrameImage(string strKey, const char* fileName, float x,
 	//그게 아니라면 프로세스가 여기까지 내려왔을 것.!
 	img = new image;
 
-	if (FAILED(img->init(fileName, x, y, width, height, frameX, frameY, trans, transColor)))
+	if (FAILED(img->init(fileName, x, y, width, height, frameX, frameY)))
 	{
 		SAFE_DELETE(img);
 
@@ -109,7 +109,7 @@ image* imageManager::addFrameImage(string strKey, const char* fileName, float x,
 	return img;
 }
 
-image* imageManager::addFrameImage(string strKey, const char* fileName, int width, int height, int frameX, int frameY, bool trans, COLORREF transColor)
+image* imageManager::addFrameImage(string strKey, LPCWSTR fileName, int width, int height, int frameX, int frameY)
 {
 	image* img = findImage(strKey);
 
@@ -118,7 +118,7 @@ image* imageManager::addFrameImage(string strKey, const char* fileName, int widt
 	//그게 아니라면 프로세스가 여기까지 내려왔을 것.!
 	img = new image;
 
-	if (FAILED(img->init(fileName, width, height, frameX, frameY, trans, transColor)))
+	if (FAILED(img->init(fileName, width, height, frameX, frameY)))
 	{
 		SAFE_DELETE(img);
 
@@ -184,51 +184,39 @@ BOOL imageManager::deleteAll(void)
 }
 
 
-void imageManager::render(string strKey, HDC hdc)
+void imageManager::render(string strKey, float opacity)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->render(hdc);
+	if (img) img->render(opacity);
 }
 
-void imageManager::render(string strKey, HDC hdc, int destX, int destY)
+void imageManager::render(string strKey, int destX, int destY, float opacity)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->render(hdc, destX, destY);
+	if (img) img->render(opacity, destX, destY);
 }
 
-void imageManager::render(string strKey, HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight)
+void imageManager::render(string strKey, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, float opacity)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->render(hdc, destX, destY, sourX, sourY, sourWidth, sourHeight);
+	if (img) img->render(opacity, destX, destY, sourX, sourY, sourWidth, sourHeight);
 }
 
-void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY)
+void imageManager::frameRender(string strKey, int destX, int destY, float opacity)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->frameRender(hdc, destX, destY);
+	if (img) img->frameRender(opacity, destX, destY);
 }
 
-void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY)
+void imageManager::frameRender(string strKey, int destX, int destY, int currentFrameX, int currentFrameY, float opacity)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->frameRender(hdc, destX, destY, currentFrameX, currentFrameY);
+	if (img) img->frameRender(opacity, destX, destY, currentFrameX, currentFrameY);
 }
 
-void imageManager::alphaRender(string strKey, HDC hdc, BYTE alpha)
-{
-	image* img = findImage(strKey);
 
-	if (img) img->alphaRender(hdc, alpha);
-}
-
-void imageManager::alphaRender(string strKey, HDC hdc, int destX, int destY, BYTE alpha)
-{
-	image* img = findImage(strKey);
-
-	if (img) img->alphaRender(hdc, destX, destY, alpha);
-}

@@ -23,58 +23,58 @@ image::~image()
 //빈 비트맵 이미지 초기화
 HRESULT image::init(int width, int height)
 {
-	//이미지 정보가 뭔가있다면 해제해줘라
-	if (_imageInfo != NULL) release();
+	////이미지 정보가 뭔가있다면 해제해줘라
+	//if (_imageInfo != NULL) release();
 
-	//이미지 정보 생성
-	HRESULT hr = E_FAIL;
-	_imageInfo = new IMAGE_INFO;
-	_imageInfo->loadType = LOAD_EMPTY;
-	_imageInfo->resID = 0;
-	_imageInfo->x = 0;
-	_imageInfo->y = 0;
-	_imageInfo->width = width;	
-	_imageInfo->height = height;
-	_imageInfo->currentFrameX = 0;
-	_imageInfo->currentFrameY = 0;
-	_imageInfo->frameWidth = width;
-	_imageInfo->frameHeight = height;
+	////이미지 정보 생성
+	//HRESULT hr = E_FAIL;
+	//_imageInfo = new IMAGE_INFO;
+	//_imageInfo->loadType = LOAD_EMPTY;
+	//_imageInfo->resID = 0;
+	//_imageInfo->x = 0;
+	//_imageInfo->y = 0;
+	//_imageInfo->width = width;	
+	//_imageInfo->height = height;
+	//_imageInfo->currentFrameX = 0;
+	//_imageInfo->currentFrameY = 0;
+	//_imageInfo->frameWidth = width;
+	//_imageInfo->frameHeight = height;
 
-	_fileName = NULL;
+	//_fileName = NULL;
 
-	// WIC를 사용하기 위한 Factory 객체 생성
-	hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
-		IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
-	assert(hr == S_OK);
+	//// WIC를 사용하기 위한 Factory 객체 생성
+	//hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
+	//	IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
+	//assert(hr == S_OK);
 
-	//디코더 생성
-	hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
-		&(_imageInfo->pWICDecoder));
-	assert(hr == S_OK);
+	////디코더 생성
+	//hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+	//	&(_imageInfo->pWICDecoder));
+	//assert(hr == S_OK);
 
-	//첫 번째 프레임을 사용할 수 있는 객체구성
-	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
-	assert(hr == S_OK);
+	////첫 번째 프레임을 사용할 수 있는 객체구성
+	//hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
+	//assert(hr == S_OK);
 
-	//포맷 컨버터 생성
-	hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
-	assert(hr == S_OK);
+	////포맷 컨버터 생성
+	//hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
+	//assert(hr == S_OK);
 
-	//비트맵으로 변환
-	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
-		WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
+	////비트맵으로 변환
+	//hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
+	//	WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
 
-	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
-	hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
+	////변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
+	//hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
 
 
-	//비트맵이 생성이 되지않았다면
-	if (_imageInfo->pBitmap == NULL)
-	{
-		//메모리 해제 시키고
-		release();
-		return E_FAIL;	//실패했다고 알려라
-	}
+	////비트맵이 생성이 되지않았다면
+	//if (_imageInfo->pBitmap == NULL)
+	//{
+	//	//메모리 해제 시키고
+	//	release();
+	//	return E_FAIL;	//실패했다고 알려라
+	//}
 
 	return S_OK;
 }
@@ -110,27 +110,27 @@ HRESULT image::init(LPCWSTR fileName, int width, int height)
 
 	// WIC를 사용하기 위한 Factory 객체 생성
 	hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
-		IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
+		IID_PPV_ARGS(&_imageInfo->pWICImagingFactory));
 	assert(hr == S_OK);
 
-	//디코더 생성
-	hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+	// 디코더 생성
+	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
-	//첫 번째 프레임을 사용할 수 있는 객체구성
+	// 첫 번째 프레임을 사용할 수 있는 객체 구성
 	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
 	assert(hr == S_OK);
 
-	//포맷 컨버터 생성
-	hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
+	// 포맷 컨버터 생성
+	hr = _imageInfo->pWICImagingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
 	assert(hr == S_OK);
 
-	//비트맵으로 변환
-	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
+	// 비트맵으로 변환
+	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppPBGRA,
 		WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
 
-	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
+	// 변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
 	hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
 
 
@@ -175,11 +175,11 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height)
 
 	// WIC를 사용하기 위한 Factory 객체 생성
 	hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
-		IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
+		IID_PPV_ARGS(&_imageInfo->pWICImagingFactory));
 	assert(hr == S_OK);
 
 	//디코더 생성
-	hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
@@ -188,7 +188,7 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height)
 	assert(hr == S_OK);
 
 	//포맷 컨버터 생성
-	hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
+	hr = _imageInfo->pWICImagingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
 	assert(hr == S_OK);
 
 	//비트맵으로 변환
@@ -243,11 +243,11 @@ HRESULT image::init(LPCWSTR fileName, int width, int height, int frameX, int fra
 
 	// WIC를 사용하기 위한 Factory 객체 생성
 	hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
-		IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
+		IID_PPV_ARGS(&_imageInfo->pWICImagingFactory));
 	assert(hr == S_OK);
 
 	//디코더 생성
-	hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
@@ -256,7 +256,7 @@ HRESULT image::init(LPCWSTR fileName, int width, int height, int frameX, int fra
 	assert(hr == S_OK);
 
 	//포맷 컨버터 생성
-	hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
+	hr = _imageInfo->pWICImagingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
 	assert(hr == S_OK);
 
 	//비트맵으로 변환
@@ -309,11 +309,11 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 
 	// WIC를 사용하기 위한 Factory 객체 생성
 	hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
-		IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
+		IID_PPV_ARGS(&_imageInfo->pWICImagingFactory));
 	assert(hr == S_OK);
 
 	//디코더 생성
-	hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
@@ -322,7 +322,7 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 	assert(hr == S_OK);
 
 	//포맷 컨버터 생성
-	hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
+	hr = _imageInfo->pWICImagingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
 	assert(hr == S_OK);
 
 	//비트맵으로 변환

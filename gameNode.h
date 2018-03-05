@@ -49,9 +49,6 @@ public:
 
 	image* getBackBuffer(void) { return _backBuffer; }
 
-	HDC getMemDC() { return _backBuffer->getMemDC(); }
-	HDC getHDC() { return _hdc; }
-
 
 	LRESULT MainProc(HWND, UINT, WPARAM, LPARAM);
 

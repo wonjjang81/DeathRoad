@@ -18,11 +18,11 @@ public:
 	void release(void);
 
 	image* addImage(string strKey, int width, int height);
-	image* addImage(string strKey, const char* fileName, int width, int height, bool trans, COLORREF transColor);
-	image* addImage(string strKey, const char* fileName, float x, float y, int width, int height, bool trans, COLORREF transColor);
+	image* addImage(string strKey, LPCWSTR fileName, int width, int height);
+	image* addImage(string strKey, LPCWSTR fileName, float x, float y, int width, int height);
 
-	image* addFrameImage(string strKey, const char* fileName, float x, float y, int width, int height, int frameX, int frameY, bool trans, COLORREF transColor);
-	image* addFrameImage(string strKey, const char* fileName, int width, int height, int frameX, int frameY, bool trans, COLORREF transColor);
+	image* addFrameImage(string strKey, LPCWSTR fileName, float x, float y, int width, int height, int frameX, int frameY);
+	image* addFrameImage(string strKey, LPCWSTR fileName, int width, int height, int frameX, int frameY);
 
 	image* findImage(string strKey);
 
@@ -30,19 +30,17 @@ public:
 
 	BOOL deleteAll(void);
 
-	void render(string strKey, HDC hdc);
-	void render(string strKey, HDC hdc, int destX, int destY);
-	void render(string strKey, HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
+	void render(string strKey, float opacity);
+	void render(string strKey, int destX, int destY, float opacity);
+	void render(string strKey, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, float opacity);
 
 	//ÇÁ·¹ÀÓ ·»´õ
-	void frameRender(string strKey, HDC hdc, int destX, int destY);
-	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
+	void frameRender(string strKey, int destX, int destY, float opacity);
+	void frameRender(string strKey, int destX, int destY, int currentFrameX, int currentFrameY, float opacity);
 
 	//·çÇÁ·»´õ
+	void loopRender(string strKey, const LPRECT drawArea, int offSetX = 0, int offSetY = 0, float opacity = 1.0f);
 
-	//¾ËÆÄ·»´õ
-	void alphaRender(string strKey, HDC hdc, BYTE alpha);
-	void alphaRender(string strKey, HDC hdc, int destX, int destY, BYTE alpha);
 
 	imageManager();
 	~imageManager();

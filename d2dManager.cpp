@@ -81,7 +81,7 @@ void d2dManager::endDraw()
 	pRenderTarget->EndDraw();
 }
 
-ID2D1SolidColorBrush* d2dManager::createBrush(COLORREF rgb, float opacity = 1.0f)
+ID2D1SolidColorBrush* d2dManager::createBrush(COLORREF rgb, float opacity)
 {
 	HRESULT hr;
 	ID2D1SolidColorBrush* brush;
@@ -114,7 +114,7 @@ void d2dManager::drawLine(ID2D1SolidColorBrush* brush, float startX, float start
 }
 
 
-void d2dManager::drawRectangle(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth = 1.0f)
+void d2dManager::drawRectangle(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth)
 {
 	float x1 = startX;
 	float y1 = startY;
@@ -129,7 +129,7 @@ void d2dManager::drawRectangle(ID2D1SolidColorBrush* brush, float startX, float 
 	pRenderTarget->DrawRectangle(RectF(x1, y1, x2, y2), brush, strokeWidth);
 }
 
-void d2dManager::drawEllipse(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth = 1.0f)
+void d2dManager::drawEllipse(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth)
 {
 	float x1 = startX;
 	float y1 = startY;

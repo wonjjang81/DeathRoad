@@ -19,99 +19,91 @@ public:
 
 	typedef struct tagImageInfo
 	{
-		DWORD	resID;		//리소스 불러올때 사용되는 레지스터 넘버
-		HDC		hMemDC;		//메모리 DC
-		HBITMAP hBit;		//비트맵
-		HBITMAP hOBit;		//올드 비트맵
-		float	x;			//이미지 X좌표 (left)
-		float	y;			//이미지 Y좌표 (top)
-		int		width;		//가로 크기(이미지)
-		int		height;		//세로 크기(이미지)
-
-		int		currentFrameX;	//현재 프레임 X
-		int		currentFrameY;	//현재 프레임 Y
-		int		maxFrameX;		//최대 프레임 X
-		int		maxFrameY;		//최대 프레임 Y
-		int		frameWidth;		//프레임 가로크기
-		int		frameHeight;	//프레임 세로크기
-		BYTE	loadType;		//이미지 불러올 타입
-		RECT	boundingBox;	//바운딩 박스(충돌체크용 박스)
+		DWORD					resID;							
+		IWICImagingFactory*		pWICImagingFactory;		//Windows Imagind Component를 위한 Factory 인터페이스
+		IWICFormatConverter*    pWICFormatConverter;	//Format Converter
+		IWICBitmapDecoder*      pWICDecoder;			//Bitmap Decoder
+		IWICBitmapFrameDecode*  pWICFrameDecoder;       //프레임 Decoder 인터페이스
+		ID2D1Bitmap*			pBitmap;                //D2D용 비트맵
+		float                   x, y;                   //이미지 위치
+		int						width;					//가로 크기(이미지)
+		int						height;					//세로 크기(이미지)
+		int						currentFrameX;			//현재 프레임 X
+		int						currentFrameY;			//현재 프레임 Y
+		int						maxFrameX;				//최대 프레임 X
+		int						maxFrameY;				//최대 프레임 Y
+		int						frameWidth;				//프레임 가로크기
+		int						frameHeight;			//프레임 세로크기
+		BYTE					loadType;				//이미지 불러올 타입
+		RECT					boundingBox;			//바운딩 박스(충돌체크용 박스)
 
 		tagImageInfo()
 		{
-			resID			= 0;
-			hMemDC			= NULL;
-			hBit			= NULL;
-			hOBit			= NULL;
-			x				= 0;
-			y				= 0;
-			width			= 0;
-			height			= 0;
-			currentFrameX	= 0;
-			currentFrameY	= 0;
-			maxFrameX		= 0;
-			maxFrameY		= 0;
-			frameWidth		= 0;
-			frameHeight		= 0;
-			loadType		= LOAD_RESOURCE;
-			boundingBox		= RectMake(0, 0, 0, 0);
+			resID				= 0;
+			pWICImagingFactory = nullptr;
+			pWICFormatConverter = nullptr;
+			pWICDecoder			= nullptr;
+			pWICFrameDecoder	= nullptr;
+			pBitmap				= nullptr;
+			x					= 0;
+			y					= 0;
+			width				= 0;
+			height				= 0;
+			currentFrameX		= 0;
+			currentFrameY		= 0;
+			maxFrameX			= 0;
+			maxFrameY			= 0;
+			frameWidth			= 0;
+			frameHeight			= 0;
+			loadType			= LOAD_RESOURCE;
+			boundingBox			= RectMake(0, 0, 0, 0);
 		}
 	}IMAGE_INFO, *LPIMAGE_INFO;
 
 private:
 	LPIMAGE_INFO	_imageInfo;		//이미지 정보 구조체
-	CHAR*			_fileName;		//파일 이름
-	BOOL			_trans;			//트랜스컬러 유무(특정 픽셀값 삭제)
-	COLORREF		_transColor;	//제거한다면 어떤 컬러?
+	WCHAR*			_fileName;		//파일 이름
 
-	BLENDFUNCTION	_blendFunc;		//알파블렌드에 관한 함수
-	LPIMAGE_INFO	_blendImage;	//알파블렌드 먹일 이미지
 public:
 	image();
 	~image();
 	
+	//================================================================== 
+	//	                         이미지 초기화
+	//================================================================== 
+
 	//빈 비트맵 이미지 초기화
 	HRESULT init(int width, int height);
 	//파일로부터 이미지 초기화
-	HRESULT init(const char* fileName, int width, int height,
-		BOOL trans = FALSE, COLORREF transColor = FALSE);
-	//파일로부터 이미지 초기화           처음 시작 좌표      가로       세로
-	HRESULT init(const char* fileName, float x, float y, int width, int height,
-		BOOL trans = FALSE, COLORREF transColor = FALSE);
-
+	HRESULT init(LPCWSTR fileName, int width, int height);
+	//파일로부터 이미지 초기화     처음 시작 좌표    가로       세로
+	HRESULT init(LPCWSTR fileName, float x, float y, int width, int height);
 	//이미지 + 프레임초기화
-	HRESULT init(const char* fileName, float x, float y, int width, int height,
-		int frameX, int frameY, BOOL trans = FALSE, COLORREF transColor = RGB(255, 0, 255));
+	HRESULT init(LPCWSTR fileName, int width, int height, int frameX, int frameY);
+	HRESULT init(LPCWSTR fileName, float x, float y, int width, int height, int frameX, int frameY);
 
-	HRESULT init(const char* fileName, int width, int height, int frameX, int frameY, 
-		BOOL trans = FALSE, COLORREF transColor = RGB(255, 0, 255));
 
 	//이미지 릴리즈
 	void release(void);
 
-	//혹시 트랜스처리를 다른 픽셀값으로 바꿔야한다면
-	void setTransColor(BOOL trans, COLORREF transColor);
+	//=================================================================== 
+	//	                           Render
+	//=================================================================== 
 
-	void render(HDC hdc);
-	//렌더링함수 뿌릴DC , 뿌릴곳X(Left), 뿌릴곳Y(top)
-	void render(HDC hdc, int destX, int destY);
-	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
+	void render(float opacity);
+	void render(float opacity, float destX, float destY, float angle = 0);
+	void render(float opacity, float destX, float destY, float sourX, float sourY, float sourWidth, float sourHeight);
 
-	void frameRender(HDC hdc, int destX, int destY);
-	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
+	void frameRender(float opacity, int destX, int destY, float angle = 0);
+	void frameRender(float opacity, int destX, int destY, int currentFrameX, int currentFrameY, float angle = 0);
 
-	//루프렌더      그릴 DC, 그려주는 영역            오프셋영역X, Y
-	void loopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY);
-
-	void alphaRender(HDC hdc, BYTE alpha);
-	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha);
-	void alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
+	//루프렌더    
+	void loopRender(float opacity, const LPRECT drawArea, int offSetX, int offSetY);
 
 	//애니메이션 렌더링 (뿌려줄 DC, 뿌려줄 위치 X, Y(left, top) 재생하고픈 애니메이션)
-	void aniRender(HDC hdc, int destX, int destY, animation* ani);
+	void aniRender(float opacity, int destX, int destY, animation* ani);
 
 
-	inline HDC getMemDC() { return _imageInfo->hMemDC; }
 
 	//==============================================
 	// ## 이미지 사용 편의를 위한 접근자, 설정자

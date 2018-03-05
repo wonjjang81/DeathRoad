@@ -41,6 +41,7 @@
 #include "collision.h"
 #include "txtData.h"
 #include "database.h"
+#include "d2dManager.h"
 
 using namespace std;
 using namespace HEPTA_UTIL;
@@ -68,6 +69,7 @@ using namespace D2D1;
 #define TXTDATA			txtData::getSingleton()
 #define INIDATA			iniDataManager::getSingleton()
 #define DATABASE		database::getSingleton()
+#define D2DMANAGER		d2dManager::getSingleton()
 
 //=======================================================
 // ## ∏≈≈©∑Œ ## 2017.11.15 ##

@@ -17,7 +17,8 @@ HRESULT playGround::init()
 	gameNode::init(true);
 
 
-	
+	SCENEMANAGER->addScene("test", new testScene);
+	SCENEMANAGER->changeScene("test");
 	
 	return S_OK;
 }
@@ -34,19 +35,21 @@ void playGround::update(void)
 {
 	gameNode::update();
 
-	//SCENEMANAGER->update();
+	SCENEMANAGER->update();
 }
 
 //그리는거.......
 void playGround::render(void)
 {
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
+	D2DMANAGER->beginDraw();
+	//PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 	//================== 이 위는 손대지 마시오 =========================
 
-	//SCENEMANAGER->render();
+	SCENEMANAGER->render();
 
 	//================== 이 아래는 손대지 마시오 ========================
-	this->getBackBuffer()->render(getHDC(), 0, 0);//hdc영역에 그려준다 
+	//this->getBackBuffer()->render(getHDC(), 0, 0);//hdc영역에 그려준다 
+	D2DMANAGER->endDraw();
 }
 
 

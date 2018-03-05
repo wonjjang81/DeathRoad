@@ -64,12 +64,12 @@ void button::render(void)
 	{
 		//버튼의 초기화 및 올라와있는 상태의 이미지는 같다
 		case BUTTONDIRECTION_NULL:	case BUTTONDIRECTION_UP:
-			_image->frameRender(getMemDC(), _rc.left, _rc.top,
+			_image->frameRender(1.0f, _rc.left, _rc.top,
 				_btnUpFramePoint.x, _btnUpFramePoint.y);
 		break;
 		//버튼 눌러졌을때 이미지
 		case BUTTONDIRECTION_DOWN:
-			_image->frameRender(getMemDC(), _rc.left, _rc.top,
+			_image->frameRender(1.0f, _rc.left, _rc.top,
 				_btnDownFramePoint.x, _btnDownFramePoint.y);
 		break;
 

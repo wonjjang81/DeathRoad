@@ -29,7 +29,6 @@ HRESULT gameNode::init(void)
 
 HRESULT gameNode::init(bool managerInit)
 {
-	_hdc = GetDC(_hWnd);
 	_managerInit = managerInit;
 
 	if (_managerInit)
@@ -44,6 +43,7 @@ HRESULT gameNode::init(bool managerInit)
 		KEYANIMANAGER->init();
 		INIDATA->init();
 		DATABASE->init();
+		D2DMANAGER->init();
 	}
 
 	return S_OK;
@@ -71,6 +71,8 @@ void gameNode::release(void)
 		KEYANIMANAGER->releaseSingleton();
 		DATABASE->release();
 		DATABASE->releaseSingleton();
+		D2DMANAGER->release();
+		D2DMANAGER->releaseSingleton();
 	}
 
 	_current = _childrenHead;
@@ -179,19 +181,16 @@ void gameNode::removeChild(gameNode* node)
 
 
 LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
-{
-	HDC hdc;
-	PAINTSTRUCT ps;
-	
+{	
 	switch (iMessage)
 	{
 		case WM_PAINT:
 		{
-			hdc = BeginPaint(hWnd, &ps);
+			D2DMANAGER->beginDraw();
 
 			this->render();
 
-			EndPaint(hWnd, &ps);
+			D2DMANAGER->endDraw();
 		}
 		break;
 		case WM_TIMER:

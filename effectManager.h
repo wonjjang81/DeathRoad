@@ -27,7 +27,7 @@ public:
 	void update();
 	void render();
 
-	void addEffect(string effectName, const char* imageName, int imageWidth, int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer);
+	void addEffect(string effectName, const char* imageName, LPCWSTR fileName, int imageWidth, int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer);
 
 	void play(string effectName, int x, int y);
 
