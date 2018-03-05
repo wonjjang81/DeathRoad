@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+.vs/DeathRoad/v15/.suo
+*.db
+*.opendb
+*.ipch

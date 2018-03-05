@@ -7,17 +7,18 @@
 //멤버 이니셜라이즈
 image::image()
 	: _imageInfo(NULL),
-	_fileName(NULL),
-	_trans(false), 
-	_transColor(RGB(0,0,0))
+	_fileName(NULL)
 {
 }
-
-
 image::~image()
 {
 
 }
+
+
+//================================================================== 
+//	                         이미지 초기화
+//==================================================================
 
 //빈 비트맵 이미지 초기화
 HRESULT image::init(int width, int height)
@@ -25,296 +26,141 @@ HRESULT image::init(int width, int height)
 	//이미지 정보가 뭔가있다면 해제해줘라
 	if (_imageInfo != NULL) release();
 
-	//DC영역을 사용하고싶을때는 가져온다
-	HDC hdc = GetDC(_hWnd);
-
+	//이미지 정보 생성
+	HRESULT hr = E_FAIL;
 	_imageInfo = new IMAGE_INFO;
 	_imageInfo->loadType = LOAD_EMPTY;
 	_imageInfo->resID = 0;
-	_imageInfo->hMemDC = CreateCompatibleDC(hdc);		//빈 DC영역 생성
-	_imageInfo->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, width, height); //빈 비트맵 이미지 생성
-	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
-	_imageInfo->width = width;		//이미지 크기 값 대입 받는다
+	_imageInfo->width = width;	
 	_imageInfo->height = height;
+	_imageInfo->currentFrameX = 0;
+	_imageInfo->currentFrameY = 0;
+	_imageInfo->frameWidth = width;
+	_imageInfo->frameHeight = height;
 
 	_fileName = NULL;
 
-	_trans = FALSE;
-	_transColor = RGB(0, 0, 0);
+	// WIC를 사용하기 위한 Factory 객체 생성
+	hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
+		IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
+	assert(hr == S_OK);
 
-	//알파블렌드 설정
-	_blendFunc.BlendFlags = 0;
-	_blendFunc.AlphaFormat = 0;
-	_blendFunc.BlendOp = AC_SRC_OVER;
+	//디코더 생성
+	hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+		&(_imageInfo->pWICDecoder));
+	assert(hr == S_OK);
 
-	_blendImage = new IMAGE_INFO;
-	_blendImage->loadType = LOAD_EMPTY;
-	_blendImage->resID = 0;
-	_blendImage->hMemDC = CreateCompatibleDC(hdc);
-	_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
-	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-	_blendImage->width = WINSIZEX;
-	_blendImage->height = WINSIZEY;
+	//첫 번째 프레임을 사용할 수 있는 객체구성
+	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
+	assert(hr == S_OK);
+
+	//포맷 컨버터 생성
+	hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
+	assert(hr == S_OK);
+
+	//비트맵으로 변환
+	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
+		WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
+
+	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
+	hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
+
 
 	//비트맵이 생성이 되지않았다면
-	if (_imageInfo->hBit == NULL)
+	if (_imageInfo->pBitmap == NULL)
 	{
 		//메모리 해제 시키고
 		release();
 		return E_FAIL;	//실패했다고 알려라
 	}
-
-	//가져온 DC를 해제
-	ReleaseDC(_hWnd, hdc);
 
 	return S_OK;
 }
 
+
 //파일로부터 이미지 초기화
-HRESULT image::init(const char* fileName, int width, int height,
-	BOOL trans, COLORREF transColor)
+HRESULT image::init(LPCWSTR fileName, int width, int height)
 {
+	if (fileName == NULL) return E_FAIL;
+
 	//이미지 정보가 뭔가있다면 해제해줘라
 	if (_imageInfo != NULL) release();
 
-	//DC영역을 사용하고싶을때는 가져온다
-	HDC hdc = GetDC(_hWnd);
-
+	//이미지 정보 생성
+	HRESULT hr = E_FAIL;
 	_imageInfo = new IMAGE_INFO;
-	_imageInfo->loadType = LOAD_FILE;
+	_imageInfo->loadType = LOAD_EMPTY;
 	_imageInfo->resID = 0;
-	_imageInfo->hMemDC = CreateCompatibleDC(hdc);		//빈 DC영역 생성
-	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
-	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
-	_imageInfo->width = width;		//이미지 크기 값 대입 받는다
+	_imageInfo->width = width;
 	_imageInfo->height = height;
+	_imageInfo->currentFrameX = 0;
+	_imageInfo->currentFrameY = 0;
+	_imageInfo->frameWidth = width;
+	_imageInfo->frameHeight = height;
 
-	//파일 길이를 알아온다
-	int len = strlen(fileName);
+	//파일경로 복사
+	int len;
+	len = lstrlenW(fileName);
+	_fileName = new WCHAR[len + 1];
+	lstrcpyW(_fileName, fileName);
 
+	// WIC를 사용하기 위한 Factory 객체 생성
+	hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
+		IID_PPV_ARGS(&_imageInfo->pWICImageingFactory));
+	assert(hr == S_OK);
 
-	_fileName = new CHAR[len + 1];
-	strcpy_s(_fileName, len + 1, fileName);
+	//디코더 생성
+	hr = _imageInfo->pWICImageingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+		&(_imageInfo->pWICDecoder));
+	assert(hr == S_OK);
 
-	_trans = trans;
-	_transColor = transColor;
+	//첫 번째 프레임을 사용할 수 있는 객체구성
+	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
+	assert(hr == S_OK);
 
-	//알파블렌드 설정
-	_blendFunc.BlendFlags = 0;
-	_blendFunc.AlphaFormat = 0;
-	_blendFunc.BlendOp = AC_SRC_OVER;
+	//포맷 컨버터 생성
+	hr = _imageInfo->pWICImageingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
+	assert(hr == S_OK);
 
-	_blendImage = new IMAGE_INFO;
-	_blendImage->loadType = LOAD_EMPTY;
-	_blendImage->resID = 0;
-	_blendImage->hMemDC = CreateCompatibleDC(hdc);
-	_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
-	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-	_blendImage->width = WINSIZEX;
-	_blendImage->height = WINSIZEY;
+	//비트맵으로 변환
+	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
+		WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
+
+	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
+	hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
 
 
 	//비트맵이 생성이 되지않았다면
-	if (_imageInfo->hBit == NULL)
+	if (_imageInfo->pBitmap == NULL)
 	{
 		//메모리 해제 시키고
 		release();
 		return E_FAIL;	//실패했다고 알려라
 	}
-
-	//가져온 DC를 해제
-	ReleaseDC(_hWnd, hdc);
 
 	return S_OK;
 }
 
 //파일로부터 이미지 초기화           처음 시작 좌표      가로       세로
-HRESULT image::init(const char* fileName, float x, float y, int width, int height,
-	BOOL trans, COLORREF transColor)
+HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height)
 {
-	//이미지 정보가 뭔가있다면 해제해줘라
-	if (_imageInfo != NULL) release();
 
-	//DC영역을 사용하고싶을때는 가져온다
-	HDC hdc = GetDC(_hWnd);
-
-	_imageInfo = new IMAGE_INFO;
-	_imageInfo->loadType = LOAD_FILE;
-	_imageInfo->resID = 0;
-	_imageInfo->hMemDC = CreateCompatibleDC(hdc);		//빈 DC영역 생성
-	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
-	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
-	_imageInfo->x = x;
-	_imageInfo->y = y;
-	_imageInfo->width = width;		//이미지 크기 값 대입 받는다
-	_imageInfo->height = height;
-
-
-	//파일 길이를 알아온다
-	int len = strlen(fileName);
-
-
-	_fileName = new CHAR[len + 1];
-	strcpy_s(_fileName, len + 1, fileName);
-
-	_trans = trans;
-	_transColor = transColor;
-
-	//알파블렌드 설정
-	_blendFunc.BlendFlags = 0;
-	_blendFunc.AlphaFormat = 0;
-	_blendFunc.BlendOp = AC_SRC_OVER;
-
-	_blendImage = new IMAGE_INFO;
-	_blendImage->loadType = LOAD_EMPTY;
-	_blendImage->resID = 0;
-	_blendImage->hMemDC = CreateCompatibleDC(hdc);
-	_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
-	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-	_blendImage->width = WINSIZEX;
-	_blendImage->height = WINSIZEY;
-
-
-	//비트맵이 생성이 되지않았다면
-	if (_imageInfo->hBit == NULL)
-	{
-		//메모리 해제 시키고
-		release();
-		return E_FAIL;	//실패했다고 알려라
-	}
-
-	//가져온 DC를 해제
-	ReleaseDC(_hWnd, hdc);
 
 	return S_OK;
 }
 
 //이미지 + 프레임초기화
-HRESULT image::init(const char* fileName, float x, float y, int width, int height,
-	int frameX, int frameY, BOOL trans, COLORREF transColor)
+HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, int frameX, int frameY)
 {
-	//이미지 정보가 뭔가있다면 해제해줘라
-	if (_imageInfo != NULL) release();
 
-	//DC영역을 사용하고싶을때는 가져온다
-	HDC hdc = GetDC(_hWnd);
-
-	_imageInfo = new IMAGE_INFO;
-	_imageInfo->loadType = LOAD_FILE;
-	_imageInfo->resID = 0;
-	_imageInfo->hMemDC = CreateCompatibleDC(hdc);		//빈 DC영역 생성
-	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
-	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
-	_imageInfo->x = x;
-	_imageInfo->y = y;
-	_imageInfo->width = width;		//이미지 크기 값 대입 받는다
-	_imageInfo->height = height;
-	_imageInfo->frameWidth = width / frameX;
-	_imageInfo->frameHeight = height / frameY;
-	_imageInfo->currentFrameX = 0;
-	_imageInfo->currentFrameY = 0;
-	_imageInfo->maxFrameX = frameX - 1;
-	_imageInfo->maxFrameY = frameY - 1;
-	
-	//파일 길이를 알아온다
-	int len = strlen(fileName);
-
-
-	_fileName = new CHAR[len + 1];
-	strcpy_s(_fileName, len + 1, fileName);
-
-	_trans = trans;
-	_transColor = transColor;
-
-	//알파블렌드 설정
-	_blendFunc.BlendFlags = 0;
-	_blendFunc.AlphaFormat = 0;
-	_blendFunc.BlendOp = AC_SRC_OVER;
-
-	_blendImage = new IMAGE_INFO;
-	_blendImage->loadType = LOAD_EMPTY;
-	_blendImage->resID = 0;
-	_blendImage->hMemDC = CreateCompatibleDC(hdc);
-	_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
-	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-	_blendImage->width = WINSIZEX;
-	_blendImage->height = WINSIZEY;
-
-
-	//비트맵이 생성이 되지않았다면
-	if (_imageInfo->hBit == NULL)
-	{
-		//메모리 해제 시키고
-		release();
-		return E_FAIL;	//실패했다고 알려라
-	}
-
-	//가져온 DC를 해제
-	ReleaseDC(_hWnd, hdc);
 
 	return S_OK;
 }
 
 
-HRESULT image::init(const char* fileName, int width, int height,
-	int frameX, int frameY, BOOL trans, COLORREF transColor)
+HRESULT image::init(LPCWSTR fileName, int width, int height, int frameX, int frameY)
 {
-	//이미지 정보가 뭔가있다면 해제해줘라
-	if (_imageInfo != NULL) release();
 
-	//DC영역을 사용하고싶을때는 가져온다
-	HDC hdc = GetDC(_hWnd);
-
-	_imageInfo = new IMAGE_INFO;
-	_imageInfo->loadType = LOAD_FILE;
-	_imageInfo->resID = 0;
-	_imageInfo->hMemDC = CreateCompatibleDC(hdc);		//빈 DC영역 생성
-	_imageInfo->hBit = (HBITMAP)LoadImage(_hInstance, fileName, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
-	_imageInfo->hOBit = (HBITMAP)SelectObject(_imageInfo->hMemDC, _imageInfo->hBit);
-	_imageInfo->width = width;		//이미지 크기 값 대입 받는다
-	_imageInfo->height = height;
-	_imageInfo->frameWidth = width / frameX;
-	_imageInfo->frameHeight = height / frameY;
-	_imageInfo->currentFrameX = 0;
-	_imageInfo->currentFrameY = 0;
-	_imageInfo->maxFrameX = frameX - 1;
-	_imageInfo->maxFrameY = frameY - 1;
-
-	//파일 길이를 알아온다
-	int len = strlen(fileName);
-
-
-	_fileName = new CHAR[len + 1];
-	strcpy_s(_fileName, len + 1, fileName);
-
-	_trans = trans;
-	_transColor = transColor;
-
-	//알파블렌드 설정
-	_blendFunc.BlendFlags = 0;
-	_blendFunc.AlphaFormat = 0;
-	_blendFunc.BlendOp = AC_SRC_OVER;
-
-	_blendImage = new IMAGE_INFO;
-	_blendImage->loadType = LOAD_EMPTY;
-	_blendImage->resID = 0;
-	_blendImage->hMemDC = CreateCompatibleDC(hdc);
-	_blendImage->hBit = (HBITMAP)CreateCompatibleBitmap(hdc, WINSIZEX, WINSIZEY);
-	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
-	_blendImage->width = WINSIZEX;
-	_blendImage->height = WINSIZEY;
-
-
-	//비트맵이 생성이 되지않았다면
-	if (_imageInfo->hBit == NULL)
-	{
-		//메모리 해제 시키고
-		release();
-		return E_FAIL;	//실패했다고 알려라
-	}
-
-	//가져온 DC를 해제
-	ReleaseDC(_hWnd, hdc);
 
 	return S_OK;
 }

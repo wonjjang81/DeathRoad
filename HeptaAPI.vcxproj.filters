@@ -129,6 +129,9 @@
     <ClInclude Include="database.h">
       <Filter>2DGameFramework\dataBase</Filter>
     </ClInclude>
+    <ClInclude Include="d2dManager.h">
+      <Filter>2DGameFramework\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -193,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="database.cpp">
       <Filter>2DGameFramework\dataBase</Filter>
+    </ClCompile>
+    <ClCompile Include="d2dManager.cpp">
+      <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
