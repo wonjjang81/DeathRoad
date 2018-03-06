@@ -18,7 +18,7 @@ gameNode::~gameNode()
 
 HRESULT gameNode::init(void)  
 {
-	_hdc = GetDC(_hWnd);
+	//_hdc = GetDC(_hWnd);
 	_managerInit = false;
 
 	//이것을 젤 상위로

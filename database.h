@@ -30,7 +30,7 @@ private:
 
 private:
 	arrElement _mTotalElement;
-
+	//vector<elements*>* inventory;//벡터 포인터
 
 public:
 	HRESULT init();

@@ -37,31 +37,29 @@ void timeManager::update(float lock)
 	}
 }
 
-void timeManager::render(HDC hdc)
+void timeManager::render()
 {
-	char str[256];
-	string frameRate;
-	//font ¹é±×¶ó¿îµå ¸ðµå´Â 2°³°¡ ÀÖ´Ù
-	//TRANSPARENT : Åõ¸í
-	//OPAQUE : ºÒÅõ¸í
-	SetBkMode(hdc, TRANSPARENT);
+	WCHAR str[256];
+	string strFrame;
 
 
 #ifdef _DEBUG
 	{
-		wsprintf(str, "framePerSec (FPS) : %d", _timer->getFrameRate());
-		TextOut(hdc, 0, 0, str, strlen(str));
+		swprintf(str, L"FPS : %d", _timer->getFrameRate());
+		D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18.0f, str, 0, 0, 200, 20);
 
-		sprintf_s(str, "worldTime : %f", _timer->getWorldTime());
-		TextOut(hdc, 0, 20, str, strlen(str));
+		swprintf(str, L"worldTime : %f", _timer->getWorldTime());
+		D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18.0f, str, 0, 20, 200, 40);
 
-		sprintf_s(str, "elapsedTime : %f", _timer->getElapsedTime());
-		TextOut(hdc, 0, 40, str, strlen(str));
+
+		swprintf(str, L"elapsedTime : %f", _timer->getElapsedTime());
+		D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18.0f, str, 0, 40, 200, 60);
+
 	}
 #else
 	{
-		wsprintf(str, "framePerSec (FPS) : %d", _timer->getFrameRate());
-		TextOut(hdc, 0, 0, str, strlen(str));
+		swprintf(str, L"FPS : %d", _timer->getFrameRate());
+		D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18.0f, str, 0, 0, 200, 20);
 	}
 #endif
 

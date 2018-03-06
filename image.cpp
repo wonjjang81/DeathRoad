@@ -76,6 +76,8 @@ HRESULT image::init(int width, int height)
 	//	return E_FAIL;	//실패했다고 알려라
 	//}
 
+
+
 	return S_OK;
 }
 

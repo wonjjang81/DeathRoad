@@ -40,3 +40,8 @@
 *.log
 *.idb
 *.log
+*.log
+*.log
+Debug/HeptaAPI.log
+*.log
+Debug/HeptaAPI.log

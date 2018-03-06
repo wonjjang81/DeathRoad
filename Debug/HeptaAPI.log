@@ -1,3 +1,81 @@
-﻿  testScene.cpp
+﻿  stdafx.cpp
+  winMain.cpp
+  utils.cpp
+  txtData.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\txtdata.cpp(56): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\txtdata.cpp(60): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\txtdata.cpp(60): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(89): note: 'strcat' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\txtdata.cpp(93): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: 'strtok' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\txtdata.cpp(96): warning C4996: 'strtok': This function or variable may be unsafe. Consider using strtok_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\string.h(439): note: 'strtok' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\txtdata.cpp(89): warning C4101: 'temp' :참조되지 않은 지역 변수입니다.
+  timer.cpp
+  timeManager.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\timemanager.cpp(48): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_wstdio.h(1822): note: 'swprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\timemanager.cpp(51): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_wstdio.h(1822): note: 'swprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\timemanager.cpp(55): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_wstdio.h(1822): note: 'swprintf' 선언을 참조하십시오.
+  testScene.cpp
 d:\c++\c++ 포트폴리오\github\ff6\deathroad\testscene.cpp(19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  test02.cpp
+  soundManager.cpp
+  sceneManager.cpp
+  playGround.cpp
+  keyManager.cpp
+  keyAniManager.cpp
+  iniDataManager.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\inidatamanager.cpp(54): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\inidatamanager.cpp(48): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\inidatamanager.cpp(72): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\inidatamanager.cpp(91): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+  imageManager.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\imagemanager.cpp(198): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\imagemanager.cpp(205): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\imagemanager.cpp(212): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\imagemanager.cpp(219): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  image.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(382): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(411): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(505): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(504): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(503): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(502): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(539): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(538): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(537): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(536): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(575): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(612): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(636): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  gameNode.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\gamenode.cpp(202): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\gamenode.cpp(203): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  effectManager.cpp
+  effect.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\effect.cpp(61): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  database.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\database.cpp(36): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\database.cpp(68): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\database.cpp(75): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  d2dManager.cpp
+  코드를 생성하고 있습니다...
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\inidatamanager.cpp(81): warning C4172: 지역 변수 또는 임시: data의 주소를 반환하고 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\txtdata.cpp(63): warning C4172: 지역 변수 또는 임시: str의 주소를 반환하고 있습니다.
+  컴파일하고 있습니다...
+  collision.cpp
+  button.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\button.cpp(23): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\button.cpp(24): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\button.cpp(67): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\button.cpp(72): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  animation.cpp
+  코드를 생성하고 있습니다...
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\collision.cpp(41): warning C4715: 'HEPTA_UTIL::isCollisionReaction': 모든 제어 경로에서 값을 반환하지는 않습니다.
   HeptaAPI.vcxproj -> D:\C++\C++ 포트폴리오\github\ff6\DeathRoad\Debug\DeathRoad.exe

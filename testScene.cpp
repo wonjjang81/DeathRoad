@@ -20,6 +20,12 @@ HRESULT testScene::init()
 
 	_degree = 0.0f;
 
+
+	_t2 = new test02;
+	_t2->init();
+
+	addChild(_t2);
+
 	return S_OK;
 }
 
@@ -40,8 +46,6 @@ void testScene::update()
 	EFFECTMANAGER->update();
 	_degree++;
 
-
-
 }
 
 void testScene::render()
@@ -54,4 +58,6 @@ void testScene::render()
 	D2DMANAGER->drawRectangle(D2DMANAGER->defaultBrush, 300, 300, 400, 400);
 	D2DMANAGER->drawLine(D2DMANAGER->defaultBrush, 0, 0, WINSIZEX, WINSIZEY);
 	D2DMANAGER->drawTextD2d(D2DMANAGER->defaultBrush, L"프레임웍", 500, 500, 600, 600);
+
+
 }
