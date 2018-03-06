@@ -25,7 +25,7 @@ public:
 	HRESULT init();
 	void release();
 	void update();
-	void render();
+	void render(float angle = 0.0f);
 
 	void addEffect(string effectName, const char* imageName, LPCWSTR fileName, int imageWidth, int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer);
 

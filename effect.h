@@ -22,7 +22,7 @@ public:
 
 	virtual void release();
 	virtual void update();
-	virtual void render();
+	virtual void render(float angle = 0.0f);
 
 	void startEffect(int x, int y);
 

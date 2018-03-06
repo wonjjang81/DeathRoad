@@ -94,14 +94,18 @@ public:
 	void render(float opacity, float destX, float destY, float angle = 0);
 	void render(float opacity, float destX, float destY, float sourX, float sourY, float sourWidth, float sourHeight);
 
-	void frameRender(float opacity, int destX, int destY, float angle = 0);
-	void frameRender(float opacity, int destX, int destY, int currentFrameX, int currentFrameY, float angle = 0);
+	void frameRender(float opacity, float destX, float destY, float angle = 0);
+	void frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f);
+	void frameEffectRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float frameWidth, float frameHeight, float angle = 0.0f);
 
 	//루프렌더    
 	void loopRender(float opacity, const LPRECT drawArea, int offSetX, int offSetY);
 
 	//애니메이션 렌더링 (뿌려줄 DC, 뿌려줄 위치 X, Y(left, top) 재생하고픈 애니메이션)
-	void aniRender(float opacity, int destX, int destY, animation* ani);
+	void aniRender(float opacity, float destX, float destY, animation* ani, float angle = 0.0f);
+
+	//이펙트 애니메이션 렌더링
+	void aniEffectRender(float opacity, float destX, float destY, animation* ani, float angle = 0.0f);
 
 
 

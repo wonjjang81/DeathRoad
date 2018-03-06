@@ -2,6 +2,7 @@
 #include "testScene.h"
 
 
+
 testScene::testScene()
 {
 }
@@ -12,7 +13,12 @@ testScene::~testScene()
 
 HRESULT testScene::init()
 {
-	IMAGEMANAGER->addImage("title", L".//source//image//ui//dr2c_title_small.png", 144, 48);
+	gameNode::init();
+
+
+	EFFECTMANAGER->addEffect("폭발", "explosion", L".//source//image//test//explosion.bmp", 832, 62, 32, 62, 1.0f, 1.0f, 20);
+
+	_degree = 0.0f;
 
 	return S_OK;
 }
@@ -24,10 +30,28 @@ void testScene::release()
 
 void testScene::update() 
 {
+	gameNode::update();
+
+	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
+	{
+		EFFECTMANAGER->play("폭발", _ptMouse.x, _ptMouse.y);
+	}
+
+	EFFECTMANAGER->update();
+	_degree++;
+
+
 
 }
 
-void testScene::render() 
+void testScene::render()
 {
-	IMAGEMANAGER->render("title", 100, 200, 0.2f);
+	gameNode::render();
+
+	EFFECTMANAGER->render(_degree);
+
+	D2DMANAGER->drawEllipse(D2DMANAGER->defaultBrush, 100, 200, 200, 300);
+	D2DMANAGER->drawRectangle(D2DMANAGER->defaultBrush, 300, 300, 400, 400);
+	D2DMANAGER->drawLine(D2DMANAGER->defaultBrush, 0, 0, WINSIZEX, WINSIZEY);
+	D2DMANAGER->drawTextD2d(D2DMANAGER->defaultBrush, L"프레임웍", 500, 500, 600, 600);
 }

@@ -55,10 +55,10 @@ void effect::update()
 	if (!_effectAnimation->isPlay())killEffect();
 }
 
-void effect::render()
+void effect::render(float angle)
 {
 	if (!_isRunning) return;
-	_effectImage->aniRender(1.0f, _x, _y, _effectAnimation);
+	_effectImage->aniEffectRender(1.0f, _x, _y, _effectAnimation, angle);
 }
 
 //Áß¾ÓÁÂÇ¥

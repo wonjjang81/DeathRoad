@@ -31,15 +31,15 @@ public:
 	BOOL deleteAll(void);
 
 	void render(string strKey, float opacity);
-	void render(string strKey, int destX, int destY, float opacity);
+	void render(string strKey, int destX, int destY, float opacity, float angle);
 	void render(string strKey, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, float opacity);
 
 	//«¡∑π¿” ∑ª¥ı
-	void frameRender(string strKey, int destX, int destY, float opacity);
-	void frameRender(string strKey, int destX, int destY, int currentFrameX, int currentFrameY, float opacity);
+	void frameRender(string strKey, int destX, int destY, float opacity, float angle);
+	void frameRender(string strKey, int destX, int destY, int currentFrameX, int currentFrameY, float opacity, float angle);
 
 	//∑Á«¡∑ª¥ı
-	void loopRender(string strKey, const LPRECT drawArea, int offSetX = 0, int offSetY = 0, float opacity = 1.0f);
+	void loopRender(string strKey, const LPRECT drawArea, int offSetX = 0, int offSetY = 0, float opacity = 1.0f, float angle = 0.0f);
 
 
 	imageManager();

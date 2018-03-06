@@ -114,7 +114,7 @@ HRESULT image::init(LPCWSTR fileName, int width, int height)
 	assert(hr == S_OK);
 
 	// 디코더 생성
-	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
+	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
@@ -192,7 +192,7 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height)
 	assert(hr == S_OK);
 
 	//비트맵으로 변환
-	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
+	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppPBGRA,
 		WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
 
 	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
@@ -260,7 +260,7 @@ HRESULT image::init(LPCWSTR fileName, int width, int height, int frameX, int fra
 	assert(hr == S_OK);
 
 	//비트맵으로 변환
-	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
+	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppPBGRA,
 		WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
 
 	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
@@ -326,7 +326,7 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 	assert(hr == S_OK);
 
 	//비트맵으로 변환
-	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppBGRA,
+	hr = _imageInfo->pWICFormatConverter->Initialize(_imageInfo->pWICFrameDecoder, GUID_WICPixelFormat32bppPBGRA,
 		WICBitmapDitherTypeNone, NULL, 0.0f, WICBitmapPaletteTypeCustom);
 
 	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
@@ -392,8 +392,8 @@ void image::render(float opacity, float destX, float destY, float angle)
 	Matrix3x2F matRot;          //회전
 	Matrix3x2F matTM;           //좌우이동 * 회전
 
-	float posX = destX;
-	float posY = destY;
+	float posX = _imageInfo->x;
+	float posY = _imageInfo->y;
 	float centerX = posX + _imageInfo->width / 2 + destX;
 	float centerY = posY + _imageInfo->height / 2 + destY;
 
@@ -424,25 +424,28 @@ void image::render(float opacity, float destX, float destY, float angle)
 
 void image::render(float opacity, float destX, float destY, float sourX, float sourY, float sourWidth, float sourHeight)
 {
-	float posX = destX;
-	float posY = destY;
+	float posX = _imageInfo->x;
+	float posY = _imageInfo->y;
 
 	if (_imageInfo->pBitmap != NULL)
 	{
 		//화면밖이면 렌더 X
-		if (posX + sourWidth < 0) return;
-		if (posY + sourHeight < 0) return;
+		if (posX + _imageInfo->width < 0) return;
+		if (posY + _imageInfo->height < 0) return;
 		if (posX > WINSIZEX) return;
 		if (posY > WINSIZEY) return;
 
-		D2D1_RECT_F dxArea = RectF(posX, posY, posX + _imageInfo->width, posY + _imageInfo->height);
-		D2D1_RECT_F dxArea2 = RectF(sourX, sourY, sourWidth, sourHeight);
+		D2D1_RECT_F dxArea = RectF(destX, destY, destX + _imageInfo->width, destY + _imageInfo->height);  // 렌더타겟 출력영역
+		D2D1_RECT_F dxArea2 = RectF(sourX, sourY, sourX + sourWidth, sourY + sourHeight);				  // 비트맵상 출력영역
 
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
 			D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
 	}
 }
 
+//------------------------------------------------------------------------------------
+//*************************************** 보류 ***************************************
+//------------------------------------------------------------------------------------
 void image::loopRender(float opacity, const LPRECT drawArea, int offSetX, int offSetY)
 {
 	if (offSetX < 0) offSetX = _imageInfo->width + (offSetX % _imageInfo->width);
@@ -508,14 +511,14 @@ void image::loopRender(float opacity, const LPRECT drawArea, int offSetX, int of
 //	                     프레임 이미지 렌더
 //==================================================================
 
-void image::frameRender(float opacity, int destX, int destY, float angle)
+void image::frameRender(float opacity, float destX, float destY, float angle)
 {
 	Matrix3x2F matTranslation;  //좌우이동
 	Matrix3x2F matRot;          //회전
 	Matrix3x2F matTM;           //좌우이동 * 회전
 
-	float posX = destX;
-	float posY = destY;
+	float posX = _imageInfo->x;
+	float posY = _imageInfo->y;
 	float centerX = posX + _imageInfo->width / 2 + destX;
 	float centerY = posY + _imageInfo->height / 2 + destY;
 
@@ -547,7 +550,7 @@ void image::frameRender(float opacity, int destX, int destY, float angle)
 }
 
 
-void image::frameRender(float opacity, int destX, int destY, int currentFrameX, int currentFrameY, float angle)
+void image::frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle)
 {
 	Matrix3x2F matTranslation;  //좌우이동
 	Matrix3x2F matRot;          //회전
@@ -561,24 +564,20 @@ void image::frameRender(float opacity, int destX, int destY, int currentFrameX, 
 	if (_imageInfo->pBitmap != NULL)
 	{
 		//화면밖이면 렌더 X
-		if (posX + _imageInfo->width < 0) return;
-		if (posY + _imageInfo->height < 0) return;
+		if (posX + _imageInfo->frameWidth < 0) return;
+		if (posY + _imageInfo->frameHeight < 0) return;
 		if (posX > WINSIZEX) return;
 		if (posY > WINSIZEY) return;
 
 		D2D1_RECT_F dxArea = RectF(posX, posY, posX + _imageInfo->frameWidth, posY + _imageInfo->frameHeight);
-		D2D1_RECT_F dxArea2 = RectF(currentFrameX * _imageInfo->frameWidth,
-									currentFrameY * _imageInfo->frameHeight,
-									(currentFrameX + 1) * _imageInfo->frameWidth,
-									(currentFrameY + 1) * _imageInfo->frameHeight);
+		D2D1_RECT_F dxArea2 = RectF(currentFrameX, currentFrameY, (currentFrameX + _imageInfo->frameWidth), (currentFrameY + _imageInfo->frameHeight));
 
 		matTranslation = Matrix3x2F::Translation(destX, destY);
 		matRot = Matrix3x2F::Rotation(angle, D2D1::Point2F(centerX, centerY));
-		matTM = matTranslation * matRot;
+		matTM = matRot;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
-		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
-			D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
 
 		//초기화
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
@@ -586,7 +585,51 @@ void image::frameRender(float opacity, int destX, int destY, int currentFrameX, 
 }
 
 
-void image::aniRender(float opacity, int destX, int destY, animation* ani)
+void image::frameEffectRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float frameWidth, float frameHeight, float angle)
 {
-	render(opacity, destX, destY, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight());
+	Matrix3x2F matTranslation;  //좌우이동
+	Matrix3x2F matRot;          //회전
+	Matrix3x2F matTM;           //좌우이동 * 회전
+
+	float posX = destX;
+	float posY = destY;
+	float centerX = posX + frameWidth / 2;
+	float centerY = posY + frameHeight / 2;
+	float effectFrameWidth = frameWidth;
+	float effectFrameHeight = frameHeight;
+
+	if (_imageInfo->pBitmap != NULL)
+	{
+		//화면밖이면 렌더 X
+		if (posX + _imageInfo->frameWidth < 0) return;
+		if (posY + _imageInfo->frameHeight < 0) return;
+		if (posX > WINSIZEX) return;
+		if (posY > WINSIZEY) return;
+
+		D2D1_RECT_F dxArea = RectF(posX, posY, posX + effectFrameWidth, posY + effectFrameHeight);
+		D2D1_RECT_F dxArea2 = RectF(currentFrameX, currentFrameY, (currentFrameX + effectFrameWidth), (currentFrameY + effectFrameHeight));
+
+		matTranslation = Matrix3x2F::Translation(destX, destY);
+		matRot = Matrix3x2F::Rotation(angle, D2D1::Point2F(centerX, centerY));
+		matTM = matRot;
+
+		D2DMANAGER->pRenderTarget->SetTransform(matTM);
+		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+
+		//초기화
+		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
+	}
+}
+
+
+//keyAnimation용
+void image::aniRender(float opacity, float destX, float destY, animation* ani, float angle)
+{
+	frameRender(opacity, destX, destY, ani->getFramePos().x, ani->getFramePos().y, angle);
+}
+
+//effectManager용
+void image::aniEffectRender(float opacity, float destX, float destY, animation* ani, float angle)
+{
+	frameEffectRender(opacity, destX, destY, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight(), angle);
 }

@@ -138,6 +138,9 @@
     <ClInclude Include="testScene.h">
       <Filter>Test</Filter>
     </ClInclude>
+    <ClInclude Include="test02.h">
+      <Filter>Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -207,6 +210,9 @@
       <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="testScene.cpp">
+      <Filter>Test</Filter>
+    </ClCompile>
+    <ClCompile Include="test02.cpp">
       <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>

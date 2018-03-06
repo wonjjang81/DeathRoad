@@ -62,7 +62,7 @@ void effectManager::update()
 	}
 }
 
-void effectManager::render() 
+void effectManager::render(float angle) 
 {
 	iterTotalEffect vIter;
 	iterEffect		mIter;
@@ -77,7 +77,7 @@ void effectManager::render()
 			iterEffects vArrIter;
 			for (vArrIter = mIter->second.begin(); vArrIter != mIter->second.end(); ++vArrIter)
 			{
-				(*vArrIter)->render();
+				(*vArrIter)->render(angle);
 			}
 		}
 	}
