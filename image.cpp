@@ -450,8 +450,8 @@ void image::render(float opacity, float destX, float destY, float sourX, float s
 //------------------------------------------------------------------------------------
 void image::loopRender(float opacity, const LPRECT drawArea, int offSetX, int offSetY)
 {
-	if (offSetX < 0) offSetX = _imageInfo->width + (offSetX % _imageInfo->width);
-	if (offSetY < 0) offSetY = _imageInfo->height + (offSetY % _imageInfo->height);
+	if (offSetX < 0) offSetX = _imageInfo->width + (offSetX % (int)_imageInfo->width);
+	if (offSetY < 0) offSetY = _imageInfo->height + (offSetY % (int)_imageInfo->height);
 
 	int sourWidth;
 	int sourHeight;
@@ -467,7 +467,7 @@ void image::loopRender(float opacity, const LPRECT drawArea, int offSetX, int of
 	//Y축 루프부터
 	for (int y = 0; y < drawAreaH; y += sourHeight)
 	{
-		rcSour.top = (y + offSetY) % _imageInfo->height;
+		rcSour.top = (y + offSetY) % (int)_imageInfo->height;
 		rcSour.bottom = _imageInfo->height;
 
 		sourHeight = rcSour.bottom - rcSour.top;
@@ -485,7 +485,7 @@ void image::loopRender(float opacity, const LPRECT drawArea, int offSetX, int of
 
 		for (int x = 0; x < drawAreaW; x += sourWidth)
 		{
-			rcSour.left = (x + offSetX) % _imageInfo->width;
+			rcSour.left = (x + offSetX) % (int)_imageInfo->width;
 			rcSour.right = _imageInfo->width;
 
 			sourWidth = rcSour.right - rcSour.left;

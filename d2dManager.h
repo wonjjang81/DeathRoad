@@ -5,12 +5,13 @@
 class d2dManager : public singletonBase<d2dManager>
 {
 public:
-	ID2D1Factory*			pD2DFactory;
-	ID2D1HwndRenderTarget*	pRenderTarget;
-	IDWriteFactory*         pWriteFacory;
-	IDWriteTextFormat*		pDefaultTextFormat;
-	IDWriteTextFormat*		pCustomTextFormat;
-	ID2D1SolidColorBrush*	defaultBrush;
+	ID2D1Factory*				pD2DFactory;
+	ID2D1HwndRenderTarget*		pRenderTarget;
+	ID2D1BitmapRenderTarget*	pBitmapRenderTarget;
+	IDWriteFactory*				pWriteFacory;
+	IDWriteTextFormat*			pDefaultTextFormat;
+	IDWriteTextFormat*			pCustomTextFormat;
+	ID2D1SolidColorBrush*		defaultBrush;
 
 
 public:

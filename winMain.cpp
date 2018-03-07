@@ -4,11 +4,11 @@
 //=======================================================
 //					##  전역변수 ##
 //=======================================================
-HINSTANCE	_hInstance;		//인스턴스 핸들
-HWND		_hWnd;			//핸들
-POINT _ptMouse;             //포인트 구조체
-LPTSTR _lpszClass = TEXT("Hepta Window API");
-BOOL _leftButtonDown;
+HINSTANCE	_hInstance;									//인스턴스 핸들
+HWND		_hWnd;										//핸들
+POINT		_ptMouse;									//포인트 구조체
+LPTSTR		_lpszClass = TEXT("Hepta Window API");
+BOOL		_leftButtonDown;
 
 //정적 바인딩
 playGround _pg;
@@ -110,6 +110,4 @@ void setWindowSize(int x, int y, int width, int height)
 	//윈도우 위치를 재조정
 	SetWindowPos(_hWnd, NULL, x, y, (winRect.right - winRect.left),
 		(winRect.bottom - winRect.top), SWP_NOZORDER | SWP_NOMOVE);
-
-
 }

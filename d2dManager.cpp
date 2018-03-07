@@ -14,6 +14,7 @@ HRESULT d2dManager::init()
 {
 	pD2DFactory = nullptr;
 	pRenderTarget = nullptr;
+	pBitmapRenderTarget = nullptr;
 
 	HRESULT hr = E_FAIL;
 
@@ -28,6 +29,10 @@ HRESULT d2dManager::init()
 	//---------------------------------------------------------------------------
 	hr = pD2DFactory->CreateHwndRenderTarget(RenderTargetProperties(),
 		HwndRenderTargetProperties(_hWnd, SizeU(WINSIZEX, WINSIZEY)), &pRenderTarget);
+	assert(hr == S_OK);
+
+	//renderTarget บนป็
+	hr = pRenderTarget->CreateCompatibleRenderTarget(SizeF((float)WINSIZEX, (float)WINSIZEY), &pBitmapRenderTarget);
 	assert(hr == S_OK);
 
 	//---------------------------------------------------------------------------
@@ -56,6 +61,7 @@ void d2dManager::release()
 	SAFE_RELEASE_D2D(defaultBrush);
 	SAFE_RELEASE_D2D(pDefaultTextFormat);
 	SAFE_RELEASE_D2D(pWriteFacory);	
+	SAFE_RELEASE_D2D(pBitmapRenderTarget);
 	SAFE_RELEASE_D2D(pRenderTarget);
 	SAFE_RELEASE_D2D(pD2DFactory);
 }

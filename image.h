@@ -26,14 +26,14 @@ public:
 		IWICBitmapFrameDecode*  pWICFrameDecoder;       //프레임 Decoder 인터페이스
 		ID2D1Bitmap*			pBitmap;                //D2D용 비트맵
 		float                   x, y;                   //이미지 위치
-		int						width;					//가로 크기(이미지)
-		int						height;					//세로 크기(이미지)
+		float					width;					//가로 크기(이미지)
+		float					height;					//세로 크기(이미지)
 		int						currentFrameX;			//현재 프레임 X
 		int						currentFrameY;			//현재 프레임 Y
 		int						maxFrameX;				//최대 프레임 X
 		int						maxFrameY;				//최대 프레임 Y
-		int						frameWidth;				//프레임 가로크기
-		int						frameHeight;			//프레임 세로크기
+		float					frameWidth;				//프레임 가로크기
+		float					frameHeight;			//프레임 세로크기
 		BYTE					loadType;				//이미지 불러올 타입
 		RECT					boundingBox;			//바운딩 박스(충돌체크용 박스)
 

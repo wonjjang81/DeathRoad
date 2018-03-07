@@ -41,6 +41,7 @@ void testScene::update()
 	if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 	{
 		EFFECTMANAGER->play("폭발", _ptMouse.x, _ptMouse.y);
+		removeChild(_t2);
 	}
 
 	EFFECTMANAGER->update();
@@ -54,7 +55,10 @@ void testScene::render()
 
 	EFFECTMANAGER->render(_degree);
 
-	D2DMANAGER->drawEllipse(D2DMANAGER->defaultBrush, 100, 200, 200, 300);
+	for (int i = 0; i < 100; ++i)
+	{ 
+		D2DMANAGER->drawEllipse(D2DMANAGER->defaultBrush, 100 + (i * 20), 200 + (i * 20), 120, 220);
+	}
 	D2DMANAGER->drawRectangle(D2DMANAGER->defaultBrush, 300, 300, 400, 400);
 	D2DMANAGER->drawLine(D2DMANAGER->defaultBrush, 0, 0, WINSIZEX, WINSIZEY);
 	D2DMANAGER->drawTextD2d(D2DMANAGER->defaultBrush, L"프레임웍", 500, 500, 600, 600);

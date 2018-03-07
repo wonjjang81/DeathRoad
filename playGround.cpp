@@ -18,7 +18,7 @@ HRESULT playGround::init()
 
 
 	SCENEMANAGER->addScene("test", new testScene);
-	SCENEMANAGER->changeScene("test");
+	//SCENEMANAGER->changeScene("test");
 	
 	return S_OK;
 }
