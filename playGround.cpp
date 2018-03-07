@@ -18,7 +18,9 @@ HRESULT playGround::init()
 
 
 	SCENEMANAGER->addScene("test", new testScene);
-	//SCENEMANAGER->changeScene("test");
+	SCENEMANAGER->addScene("¸ÊÅø", new mapTool);
+
+	SCENEMANAGER->changeScene("¸ÊÅø");
 	
 	return S_OK;
 }

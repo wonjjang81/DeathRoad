@@ -52,6 +52,12 @@
     <Filter Include="Test">
       <UniqueIdentifier>{2723c43a-bcee-4ce6-9739-9689d233b4da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mapTool">
+      <UniqueIdentifier>{a1b693bf-8b4c-421c-bb75-b07497dd13c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mapTool\tile">
+      <UniqueIdentifier>{0bf3536c-5f3a-438c-945f-3b806c1b715e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -144,6 +150,15 @@
     <ClInclude Include="cameraManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="tile.h">
+      <Filter>mapTool\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="tileInfo.h">
+      <Filter>mapTool\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="mapTool.h">
+      <Filter>mapTool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -220,6 +235,12 @@
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>mapTool\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool.cpp">
+      <Filter>mapTool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,29 +1,4 @@
-﻿  image.cpp
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(100): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(101): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(104): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(105): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(165): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(166): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(169): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(170): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(230): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(231): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(236): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(237): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(296): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(297): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(302): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(303): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(453): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(454): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(471): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(489): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(505): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(504): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(503): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(502): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(575): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(612): warning C4244: '인수': 'int'에서 'FLOAT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\image.cpp(636): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  mapTool.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool.cpp(46): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool.cpp(47): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   HeptaAPI.vcxproj -> D:\C++\C++ 포트폴리오\github\ff6\DeathRoad\Debug\DeathRoad.exe

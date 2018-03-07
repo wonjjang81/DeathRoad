@@ -94,6 +94,7 @@
     <ClInclude Include="iniDataManager.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="mapTool.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
@@ -104,6 +105,8 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="test02.h" />
     <ClInclude Include="testScene.h" />
+    <ClInclude Include="tile.h" />
+    <ClInclude Include="tileInfo.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="txtData.h" />
@@ -124,6 +127,7 @@
     <ClCompile Include="iniDataManager.cpp" />
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
@@ -133,6 +137,7 @@
     </ClCompile>
     <ClCompile Include="test02.cpp" />
     <ClCompile Include="testScene.cpp" />
+    <ClCompile Include="tile.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="txtData.cpp" />
