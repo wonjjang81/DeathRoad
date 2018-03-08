@@ -242,5 +242,8 @@
     <ClCompile Include="mapTool.cpp">
       <Filter>mapTool</Filter>
     </ClCompile>
+    <ClCompile Include="mapTool_grid.cpp">
+      <Filter>mapTool</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

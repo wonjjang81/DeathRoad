@@ -9,7 +9,7 @@ private:
 	float _moveX, _moveY;
 	float _moveSpeed;
 	float _showWindowX, _showWindowY;
-	int   _tileScale;
+	int   _viewScale;
 
 public:
 	HRESULT init();
