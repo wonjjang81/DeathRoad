@@ -21,7 +21,6 @@ HRESULT test02::init()
 	_btnSceneChange->init("¹öÆ°", WINSIZEX / 2, WINSIZEY / 2, PointMake(0, 1), PointMake(0, 0), cbSceneChange);
 
 
-
 	return S_OK;
 }
 

@@ -55,7 +55,7 @@ using namespace D2D1;
 #define WINSTARTX	50		//윈도우 시작좌표 X
 #define WINSTARTY	50		//윈도우 시작좌표 Y
 #define WINSIZEX	1000	//윈도우 가로크기
-#define WINSIZEY	700		//윈도우 세로크기
+#define WINSIZEY	720		//윈도우 세로크기
 #define WINSTYLE	WS_CAPTION | WS_SYSMENU
 
 #define KEYMANAGER		keyManager::getSingleton()

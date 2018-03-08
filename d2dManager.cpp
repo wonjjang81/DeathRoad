@@ -233,3 +233,24 @@ void d2dManager::drawTextDwd(ID2D1SolidColorBrush* brush, LPCWSTR fontName, floa
 
 	SAFE_RELEASE_D2D(pCustomTextFormat);
 }
+
+
+//영역 클립핑(레이어)
+HRESULT d2dManager::layerContentBound(ID2D1RenderTarget* pRt, D2D1_RECT_F cRect)
+{
+	HRESULT hr = S_OK;
+
+	//레이어 생성
+	ID2D1Layer* player = NULL;
+	hr = pRt->CreateLayer(NULL, &player);
+
+	if (SUCCEEDED(hr))
+	{
+		//push the layer with the content bounds
+		pRt->PushLayer(LayerParameters(cRect), player);
+	}
+
+	SAFE_RELEASE_D2D(player);
+
+	return hr;
+}

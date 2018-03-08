@@ -19,9 +19,12 @@ public:
 	void release();
 	void update();
 	void render();
+
 	void beginDraw();
 	void endDraw();
+
 	ID2D1SolidColorBrush* createBrush(COLORREF rgb, float opacity = 1.0f);
+	HRESULT layerContentBound(ID2D1RenderTarget* prt, D2D1_RECT_F cRect);
 
 	//==================================================================
 	//  Draw, Fill Method(Line, Rectangle, Ellipse)

@@ -5,16 +5,16 @@
 #define TILE_SIZEY 16
 
 //타일갯수
-#define TILEX 30
-#define TILEY 20
+#define TILEX 40
+#define TILEY 40
 
 //타일 총 사이즈
 #define TILE_TOTAL_SIZEX TILE_SIZEX * TILEX
 #define TILE_TOTAL_SIZEY TILE_SIZEY * TILEY
 
 //타일셋팅
-#define SAMPLETILEX 20
-#define SAMPLETILEY 9
+#define SAMPLETILEX 15
+#define SAMPLETILEY 15
 
 //지형속성
 enum TERRAIN

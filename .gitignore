@@ -47,3 +47,5 @@ Debug/HeptaAPI.log
 Debug/HeptaAPI.log
 *.log
 *.log
+*.enc
+*.log
