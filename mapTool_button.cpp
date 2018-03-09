@@ -10,24 +10,24 @@ void mapTool::btnSetup()
 	int imgReX = 765 - imgReWidth / 2;
 	int imgReY = 5 + imgReHeight / 2;
 
-	_btnEnemy = new button;
-	_btnEnemy->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    imgReX + (imgReWidth * 4), imgReY, PointMake(1, 0), PointMake(0, 0), menuTrSetup);
-	_btnItems = new button;
-	_btnItems->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    imgReX + (imgReWidth * 2), imgReY, PointMake(1, 1), PointMake(0, 1), menuTrSetup);
-	_btnBuliding = new button;
-	_btnBuliding->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", imgReX + (imgReWidth * 1), imgReY, PointMake(1, 2), PointMake(0, 2), menuTrSetup);
 	_btnTerrain = new button;
-	_btnTerrain->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  imgReX,					  imgReY, PointMake(1, 3), PointMake(0, 3), menuTrSetup);
+	_btnTerrain->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  imgReX,					  imgReY, PointMake(1, 0), PointMake(0, 0), menuTerrainSetup);
+	_btnBuiliding = new button;
+	_btnBuiliding->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", imgReX + (imgReWidth * 1), imgReY, PointMake(1, 1), PointMake(0, 1), menuBuilidingSetup);
+	_btnItems = new button;
+	_btnItems->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    imgReX + (imgReWidth * 2), imgReY, PointMake(1, 2), PointMake(0, 2), menuItemSetup);
 	_btnWeapon = new button;
-	_btnWeapon->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   imgReX + (imgReWidth * 3), imgReY, PointMake(1, 4), PointMake(0, 4), menuTrSetup);
+	_btnWeapon->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   imgReX + (imgReWidth * 3), imgReY, PointMake(1, 3), PointMake(0, 3), menuWeaponSetup);
+	_btnEnemy = new button;
+	_btnEnemy->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",	   imgReX + (imgReWidth * 4), imgReY, PointMake(1, 4), PointMake(0, 4), menuEnemySetup);
 	_btnSetting = new button;
-	_btnSetting->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  imgReX + (imgReWidth * 5), imgReY, PointMake(1, 5), PointMake(0, 5), menuTrSetup);
+	_btnSetting->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  imgReX + (imgReWidth * 5), imgReY, PointMake(1, 5), PointMake(0, 5), menuSettingSetup);
 }
 
 void mapTool::btnUpdate()
 {
 	_btnTerrain->update();
-	_btnBuliding->update();
+	_btnBuiliding->update();
 	_btnItems->update();
 	_btnWeapon->update();
 	_btnEnemy->update();
@@ -37,7 +37,7 @@ void mapTool::btnUpdate()
 void mapTool::btnRender()
 {
 	_btnTerrain->render(_btnScale);
-	_btnBuliding->render(_btnScale);
+	_btnBuiliding->render(_btnScale);
 	_btnItems->render(_btnScale);
 	_btnWeapon->render(_btnScale);
 	_btnEnemy->render(_btnScale);

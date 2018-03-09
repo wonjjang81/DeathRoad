@@ -26,6 +26,8 @@ HRESULT mapTool::init()
 	//버튼
 	btnSetup();
 
+	//메뉴
+	_currentMenu = NULL;
 
 	return S_OK;
 }
@@ -44,10 +46,11 @@ void mapTool::update()
 
 void mapTool::render() 
 {
-	_editWindow->render(1.0, 720, 0);  //메뉴
+	_editWindow->render(1.0f, 720, 0); //메뉴
 	gridRender(_viewScale);            //타일맵 그리드
 	selectTile(_viewScale);            //타일맵 선택
-	btnRender();             //메뉴 버튼
+	btnRender();					   //메뉴 버튼
+	menuRender();                      //메뉴 창
 }
 
 

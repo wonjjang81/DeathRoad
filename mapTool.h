@@ -5,6 +5,7 @@
 
 #include <vector>
 
+static image* _currentMenu;
 
 class mapTool : public gameNode
 {
@@ -29,11 +30,13 @@ private:
 	//버튼
 	int _btnScale;
 	button* _btnTerrain;
-	button* _btnBuliding;
+	button* _btnBuiliding;
 	button* _btnItems;
 	button* _btnWeapon;
 	button* _btnEnemy;
 	button* _btnSetting;
+
+	//메뉴
 
 
 
@@ -54,8 +57,15 @@ public:
 	void btnRender();
 
 	//----------------- MENU -----------------
-	//Terrain
-	static void menuTrSetup();
+	static void menuTerrainSetup();  	//Terrain
+	static void menuBuilidingSetup();  	//Buliding
+	static void menuItemSetup();  		//Item
+	static void menuWeaponSetup();  	//Weapon
+	static void menuEnemySetup();  		//Enemy
+	static void menuSettingSetup();  	//Setting
+
+	void menuRender();
+	
 
 
 
