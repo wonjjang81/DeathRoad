@@ -120,19 +120,19 @@ void d2dManager::drawLine(ID2D1SolidColorBrush* brush, float startX, float start
 }
 
 
-void d2dManager::drawRectangle(ID2D1SolidColorBrush* brush, D2D1_RECT_F rect, float strokeWidth)
+void d2dManager::drawRectangle(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth)
 {
-	float x1 = rect.left;
-	float y1 = rect.top;
-	float x2 = rect.right;
-	float y2 = rect.bottom;
+	float x1 = startX;
+	float y1 = startY;
+	float x2 = endX;
+	float y2 = endY;
 
 	if (x1 < 0 && x1 > WINSIZEX) return;
 	if (y1 < 0 && y1 > WINSIZEY) return;
 	if (x2 < 0 && x2 > WINSIZEX) return;
 	if (y2 < 0 && y2 > WINSIZEY) return;
 
-	pRenderTarget->DrawRectangle(rect, brush, strokeWidth);
+	pRenderTarget->DrawRectangle(RectF(x1, y1, x2, y2), brush, strokeWidth);
 }
 
 void d2dManager::drawEllipse(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth)

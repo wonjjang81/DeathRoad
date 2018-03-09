@@ -31,10 +31,20 @@ void mapTool::gridRender(float scale)
 				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
 				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
 
-
 				//렉트로 그리기
-				D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), (TILE_SIZEX * j) + _moveX, (TILE_SIZEY * i) + _moveY,
-					(TILE_SIZEX * (j + 1)) + _moveX, (TILE_SIZEY * (i + 1)) + _moveY);
+				RECT tileRect;
+				tileRect.left	 = TILE_SIZEX * j;
+				tileRect.top	 = TILE_SIZEY * i;
+				tileRect.right   = TILE_SIZEX * (j + 1);
+				tileRect.bottom  = TILE_SIZEY * (i + 1); 
+
+				_vTileRect.push_back(tileRect);
+
+				D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), 
+					tileRect.left + _moveX,
+					tileRect.top + _moveY,
+					tileRect.right + _moveX,
+					tileRect.bottom + _moveY);
 
 				//라인으로 그리기
 				//D2DMANAGER->drawLine(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), (TILE_SIZEX * j) + _moveX, 0 + _moveY, (TILE_SIZEX * j) + _moveX, TILE_TOTAL_SIZEY + _moveY, 0.3f);

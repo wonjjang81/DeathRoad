@@ -32,7 +32,7 @@ public:
 	//==================================================================
 
 	void drawLine(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth = 1.0f);
-	D2D1_RECT_F drawRectangle(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth = 1.0f);
+	void drawRectangle(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth = 1.0f);
 	void drawEllipse(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY, float strokeWidth = 1.0f);
 	void fillRectangle(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY);
 	void fillEllipse(ID2D1SolidColorBrush* brush, float startX, float startY, float endX, float endY);
