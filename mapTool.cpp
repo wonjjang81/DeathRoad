@@ -41,6 +41,7 @@ void mapTool::update()
 
 void mapTool::render() 
 {
+	//D2DMANAGER->fillRectangle(D2DMANAGER->defaultBrush, 0, 0, _showWindowX, _showWindowY);
 	_editWindow->render(1.0, 720, 0);
 	gridRender(_viewScale);
 
@@ -51,6 +52,11 @@ void mapTool::render()
 
 void mapTool::selectTile()
 {
+	if ()
+	{
+		D2DMANAGER->pRenderTarget->
+	}
+
 
 }
 

@@ -28,9 +28,9 @@ public:
 	void update();
 	void render();
 
-
 	void gridRender(float scale = 1.0f);  	//타일 그리드맵 렌더
 	void mapKeyControl();                   //맵 키 컨트롤
+	void selectTile();                      //타일 선택시 화면출력
 
 	mapTool();
 	~mapTool();

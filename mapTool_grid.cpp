@@ -21,18 +21,24 @@ void mapTool::gridRender(float scale)
 
 
 		//grid
-		for (int i = 0; i <= TILEY; ++i)
+		for (int i = 0; i < TILEY; ++i)
 		{
-			for (int j = 0; j <= TILEX; ++j)
+			for (int j = 0; j < TILEX; ++j)
 			{
 				//예외처리: 화면밖 렌더X
 				if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
-				if ((j * TILE_SIZEX) + _moveX <= 0)					  continue;	 //가로열(좌측)
+				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;	 //가로열(좌측)
 				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
-				if ((i * TILE_SIZEY) + _moveY <= 0)					  continue;  //세로열(좌측)
+				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
 
-				D2DMANAGER->drawLine(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), (TILE_SIZEX * j) + _moveX, 0 + _moveY, (TILE_SIZEX * j) + _moveX, TILE_TOTAL_SIZEY + _moveY, 0.3f);
-				D2DMANAGER->drawLine(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), 0 + _moveX, (TILE_SIZEY * i) + _moveY, TILE_TOTAL_SIZEX + _moveX, (TILE_SIZEY * i) + _moveY, 0.3f);
+
+				//렉트로 그리기
+				D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), (TILE_SIZEX * j) + _moveX, (TILE_SIZEY * i) + _moveY,
+					(TILE_SIZEX * (j + 1)) + _moveX, (TILE_SIZEY * (i + 1)) + _moveY);
+
+				//라인으로 그리기
+				//D2DMANAGER->drawLine(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), (TILE_SIZEX * j) + _moveX, 0 + _moveY, (TILE_SIZEX * j) + _moveX, TILE_TOTAL_SIZEY + _moveY, 0.3f);
+				//D2DMANAGER->drawLine(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f), 0 + _moveX, (TILE_SIZEY * i) + _moveY, TILE_TOTAL_SIZEX + _moveX, (TILE_SIZEY * i) + _moveY, 0.3f);
 			}
 		}
 
