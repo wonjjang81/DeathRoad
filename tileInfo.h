@@ -5,8 +5,8 @@
 #define TILE_SIZEY 16
 
 //타일갯수
-#define TILEX 40
-#define TILEY 40
+#define TILEX 50
+#define TILEY 50
 
 //타일 총 사이즈
 #define TILE_TOTAL_SIZEX TILE_SIZEX * TILEX

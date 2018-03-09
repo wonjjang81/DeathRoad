@@ -14,6 +14,8 @@ public:
 	virtual void update(void);		//업데이트(연산)
 	virtual void render(void);		//그려주는 함수
 
+	void resourceAdd();
+
 
 	playGround();
 	~playGround();

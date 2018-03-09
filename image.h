@@ -96,6 +96,7 @@ public:
 
 	void frameRender(float opacity, float destX, float destY, float angle = 0);
 	void frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f);
+	void frameAniRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f);
 	void frameEffectRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float frameWidth, float frameHeight, float angle = 0.0f);
 
 	//∑Á«¡∑ª¥ı    

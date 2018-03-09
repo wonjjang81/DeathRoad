@@ -1,11 +1,7 @@
-﻿  mapTool_grid.cpp
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(52): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_wstdio.h(1822): note: 'swprintf' 선언을 참조하십시오.
-  mapTool.cpp
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool.cpp(41): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  playGround.cpp
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
-  playGround.cpp
+  resourceManager.cpp
   코드를 생성하고 있습니다...
   건너뛰고 있습니다... (관련된 변경 내용 없음)
   winMain.cpp

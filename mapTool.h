@@ -1,15 +1,26 @@
 #pragma once
 #include "gameNode.h"
 #include "tile.h"
+#include "button.h"
 
 
 class mapTool : public gameNode
 {
 private:
+	//editWindow
+	image * _editWindow;
+
+	//keyControl
 	float _moveX, _moveY;
 	float _moveSpeed;
+
+	//grid
 	float _showWindowX, _showWindowY;
 	int   _viewScale;
+
+	//¹öÆ°
+	HWND _bt;
+
 
 public:
 	HRESULT init();

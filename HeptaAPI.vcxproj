@@ -129,7 +129,9 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapTool_grid.cpp" />
+    <ClCompile Include="mapTool_keyControl.cpp" />
     <ClCompile Include="playGround.cpp" />
+    <ClCompile Include="resourceManager.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stdafx.cpp">

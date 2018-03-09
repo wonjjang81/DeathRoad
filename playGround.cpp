@@ -16,6 +16,8 @@ HRESULT playGround::init()
 {
 	gameNode::init(true);
 
+	//리소스 추가
+	resourceAdd();
 
 	SCENEMANAGER->addScene("test", new testScene);
 	SCENEMANAGER->addScene("맵툴", new mapTool);
