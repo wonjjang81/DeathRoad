@@ -27,7 +27,13 @@ private:
 	viD2Rect _viTileRect;
 
 	//버튼
-	HWND _bt;
+	int _btnScale;
+	button* _btnTerrain;
+	button* _btnBuliding;
+	button* _btnItems;
+	button* _btnWeapon;
+	button* _btnEnemy;
+	button* _btnSetting;
 
 
 
@@ -42,8 +48,16 @@ public:
 	void mapKeyControl();                   //맵 키 컨트롤
 	void selectTile(int scale = 1.0f);      //타일 선택시 화면출력
 
+	//버튼
+	void btnSetup();
+	void btnUpdate();
+	void btnRender();
 
-	void testDrawText(int value, float x, float y);
+	//----------------- MENU -----------------
+	//Terrain
+	static void menuTrSetup();
+
+
 
 	mapTool();
 	~mapTool();

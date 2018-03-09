@@ -94,8 +94,8 @@ public:
 	void render(float opacity, float destX, float destY, float angle = 0);
 	void render(float opacity, float destX, float destY, float sourX, float sourY, float sourWidth, float sourHeight);
 
-	void frameRender(float opacity, float destX, float destY, float angle = 0);
-	void frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f);
+	void frameRender(float opacity, float destX, float destY, float angle = 0, float scale = 1);
+	void frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f, float scale = 1);
 	void frameAniRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f);
 	void frameEffectRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float frameWidth, float frameHeight, float angle = 0.0f);
 

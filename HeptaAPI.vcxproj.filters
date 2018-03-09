@@ -251,5 +251,11 @@
     <ClCompile Include="resourceManager.cpp">
       <Filter>playGround</Filter>
     </ClCompile>
+    <ClCompile Include="mapTool_button.cpp">
+      <Filter>mapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool_menu.cpp">
+      <Filter>mapTool</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

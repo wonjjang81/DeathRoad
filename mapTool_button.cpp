@@ -1,0 +1,45 @@
+#include "stdafx.h"
+#include "mapTool.h"
+
+
+void mapTool::btnSetup()
+{
+	_btnScale = 2;
+	int imgReWidth = IMAGEMANAGER->findImage("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ")->getFrameWidth() * _btnScale;
+	int imgReHeight = IMAGEMANAGER->findImage("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ")->getFrameHeight() * _btnScale;
+	int imgReX = 765 - imgReWidth / 2;
+	int imgReY = 5 + imgReHeight / 2;
+
+	_btnEnemy = new button;
+	_btnEnemy->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    imgReX + (imgReWidth * 4), imgReY, PointMake(1, 0), PointMake(0, 0), menuTrSetup);
+	_btnItems = new button;
+	_btnItems->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    imgReX + (imgReWidth * 2), imgReY, PointMake(1, 1), PointMake(0, 1), menuTrSetup);
+	_btnBuliding = new button;
+	_btnBuliding->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", imgReX + (imgReWidth * 1), imgReY, PointMake(1, 2), PointMake(0, 2), menuTrSetup);
+	_btnTerrain = new button;
+	_btnTerrain->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  imgReX,					  imgReY, PointMake(1, 3), PointMake(0, 3), menuTrSetup);
+	_btnWeapon = new button;
+	_btnWeapon->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   imgReX + (imgReWidth * 3), imgReY, PointMake(1, 4), PointMake(0, 4), menuTrSetup);
+	_btnSetting = new button;
+	_btnSetting->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  imgReX + (imgReWidth * 5), imgReY, PointMake(1, 5), PointMake(0, 5), menuTrSetup);
+}
+
+void mapTool::btnUpdate()
+{
+	_btnTerrain->update();
+	_btnBuliding->update();
+	_btnItems->update();
+	_btnWeapon->update();
+	_btnEnemy->update();
+	_btnSetting->update();
+}
+
+void mapTool::btnRender()
+{
+	_btnTerrain->render(_btnScale);
+	_btnBuliding->render(_btnScale);
+	_btnItems->render(_btnScale);
+	_btnWeapon->render(_btnScale);
+	_btnEnemy->render(_btnScale);
+	_btnSetting->render(_btnScale);
+}

@@ -128,8 +128,10 @@
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="mapTool_button.cpp" />
     <ClCompile Include="mapTool_grid.cpp" />
     <ClCompile Include="mapTool_keyControl.cpp" />
+    <ClCompile Include="mapTool_menu.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="resourceManager.cpp" />
     <ClCompile Include="sceneManager.cpp" />

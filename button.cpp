@@ -58,19 +58,19 @@ void button::update(void)
 	else _direction = BUTTONDIRECTION_NULL;
 }
 
-void button::render(void) 
+void button::render(float scale) 
 {
 	switch (_direction)
 	{
 		//버튼의 초기화 및 올라와있는 상태의 이미지는 같다
 		case BUTTONDIRECTION_NULL:	case BUTTONDIRECTION_UP:
 			_image->frameRender(1.0f, _rc.left, _rc.top,
-				_btnUpFramePoint.x, _btnUpFramePoint.y);
+				_btnUpFramePoint.x, _btnUpFramePoint.y, 0, scale);
 		break;
 		//버튼 눌러졌을때 이미지
 		case BUTTONDIRECTION_DOWN:
 			_image->frameRender(1.0f, _rc.left, _rc.top,
-				_btnDownFramePoint.x, _btnDownFramePoint.y);
+				_btnDownFramePoint.x, _btnDownFramePoint.y, 0, scale);
 		break;
 
 	}

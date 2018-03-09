@@ -512,16 +512,16 @@ void image::loopRender(float opacity, const LPRECT drawArea, int offSetX, int of
 //	                     프레임 이미지 렌더
 //==================================================================
 
-void image::frameRender(float opacity, float destX, float destY, float angle)
+void image::frameRender(float opacity, float destX, float destY, float angle, float scale)
 {
-	Matrix3x2F matTranslation;  //좌우이동
-	Matrix3x2F matRot;          //회전
-	Matrix3x2F matTM;           //좌우이동 * 회전
+	Matrix3x2F matScale;	//스케일
+	Matrix3x2F matRot;      //회전
+	Matrix3x2F matTM;       //좌우이동 * 회전
 
 	float posX = _imageInfo->x;
 	float posY = _imageInfo->y;
-	float centerX = posX + _imageInfo->width / 2 + destX;
-	float centerY = posY + _imageInfo->height / 2 + destY;
+	float centerX = posX + _imageInfo->frameWidth / 2;
+	float centerY = posY + _imageInfo->frameHeight / 2;
 
 	if (_imageInfo->pBitmap != NULL)
 	{
@@ -537,9 +537,9 @@ void image::frameRender(float opacity, float destX, float destY, float angle)
 									(_imageInfo->currentFrameX + 1) * _imageInfo->frameWidth,
 									(_imageInfo->currentFrameY + 1) * _imageInfo->frameHeight);
 
-		matTranslation = Matrix3x2F::Translation(destX, destY);
-		matRot = Matrix3x2F::Rotation(angle, D2D1::Point2F(centerX, centerY));
-		matTM = matTranslation * matRot;
+		matScale = Matrix3x2F::Scale(scale, scale, Point2F(centerX, centerY));
+		matRot = Matrix3x2F::Rotation(angle, Point2F(centerX, centerY));
+		matTM = matScale * matRot;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
@@ -551,16 +551,16 @@ void image::frameRender(float opacity, float destX, float destY, float angle)
 }
 
 
-void image::frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle)
+void image::frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle, float scale)
 {
-	Matrix3x2F matTranslation;  //좌우이동
-	Matrix3x2F matRot;          //회전
-	Matrix3x2F matTM;           //좌우이동 * 회전
+	Matrix3x2F matScale;	//스케일
+	Matrix3x2F matRot;      //회전
+	Matrix3x2F matTM;       //좌우이동 * 회전
 
 	float posX = destX;
 	float posY = destY;
-	float centerX = posX + _imageInfo->width / 2 + destX;
-	float centerY = posY + _imageInfo->height / 2 + destY;
+	float centerX = posX + _imageInfo->frameWidth / 2;
+	float centerY = posY + _imageInfo->frameHeight / 2;
 
 	if (_imageInfo->pBitmap != NULL)
 	{
@@ -574,9 +574,9 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 		D2D1_RECT_F dxArea2 = RectF(currentFrameX * _imageInfo->frameWidth, currentFrameY * _imageInfo->frameHeight,
 			((currentFrameX + 1) * _imageInfo->frameWidth), ((currentFrameY + 1) * _imageInfo->frameHeight));
 
-		matTranslation = Matrix3x2F::Translation(destX, destY);
-		matRot = Matrix3x2F::Rotation(angle, D2D1::Point2F(centerX, centerY));
-		matTM = matRot;
+		matScale = Matrix3x2F::Scale(scale, scale, Point2F(centerX, centerY));
+		matRot = Matrix3x2F::Rotation(angle, Point2F(centerX, centerY));
+		matTM = matScale * matRot;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);

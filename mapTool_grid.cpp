@@ -27,7 +27,7 @@ void mapTool::gridRender(float scale)
 			{
 				//예외처리: 화면밖 렌더X
 				if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
-				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;	 //가로열(좌측)
+				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
 				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
 				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
 
@@ -59,9 +59,9 @@ void mapTool::gridRender(float scale)
 			{
 				//예외처리: 화면밖 렌더X
 				if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
-				if ((j * TILE_SIZEX) + _moveX < 0)					  continue;	 //가로열(좌측)
+				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;	 //가로열(좌측)
 				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
-				if ((i * TILE_SIZEY) + _moveY < 0)					  continue;  //세로열(좌측)
+				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
 
 				WCHAR strIndex[128];
 				ZeroMemory(&strIndex, sizeof(strIndex));
@@ -78,4 +78,44 @@ void mapTool::gridRender(float scale)
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
 		D2DMANAGER->pRenderTarget->PopAxisAlignedClip();
 	}
+}
+
+
+void mapTool::selectTile(int scale)
+{
+	//타일맵 클립핑
+	D2DMANAGER->pRenderTarget->PushAxisAlignedClip(RectF(0, 0, _showWindowX, _showWindowY), D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
+
+	//스케일 설정
+	Matrix3x2F matScale;
+	matScale = Matrix3x2F::Scale(scale, scale, Point2F(0, 0));
+	D2DMANAGER->pRenderTarget->SetTransform(matScale);
+
+	for (int i = 0; i < _vTileRect.size(); ++i)
+	{
+		//예외처리
+		if (_ptMouse.x > _showWindowX) break;  //우측
+		if (_ptMouse.x < 0)			   break;  //좌측
+		if (_ptMouse.y < 0)			   break;  //상부
+		if (_ptMouse.y > _showWindowY) break;  //하부
+
+		RECT reRect;
+		reRect.left   = _vTileRect[i].left * scale;
+		reRect.top    = _vTileRect[i].top * scale;
+		reRect.right  = _vTileRect[i].right * scale;
+		reRect.bottom = _vTileRect[i].bottom * scale;
+
+		if (PtInRect(&reRect, _ptMouse))
+		{
+			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)),
+				_vTileRect[i].left, _vTileRect[i].top,
+				_vTileRect[i].right, _vTileRect[i].bottom);
+
+			break;
+		}
+	}
+
+	//초기화
+	D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
+	D2DMANAGER->pRenderTarget->PopAxisAlignedClip();
 }
