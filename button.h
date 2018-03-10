@@ -42,7 +42,7 @@ public:
 
 	HRESULT init(const char* imageName, int x, int y,
 		POINT btnDownFramePoint, POINT btnUpFramePoint,
-		CALLBACK_FUNCTION cbFunction);
+		CALLBACK_FUNCTION cbFunction, float scale = 1.0f);
 
 	void release(void);
 	void update(void);

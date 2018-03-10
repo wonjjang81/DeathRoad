@@ -2,6 +2,9 @@
 #include "gameNode.h"
 #include "tileInfo.h"
 
+#include <vector>
+#include <map>
+
 //타일 방향
 enum TILE_DIRECTION
 {
@@ -14,22 +17,30 @@ enum TILE_DIRECTION
 
 struct tagTile
 {
-	int tileType;
-	int attribute;
-	D2D1_RECT_F rc;
+	RECT      rc;
+	image*    img;
+	TILE_TYPE tileType;
+	ATTRIBUTE attribute;
+
+	int index;
+	int x, y;
+	int gapX, gapY;
+	float scale;
 	int frameX;
 	int frameY;
 };
 
 struct tagSampleTile
 {
-	D2D1_RECT_F rc;
+	RECT rc;
+	int index;
 	int frameX;
 	int frameY;
 };
 
 struct tagCurrentTile
 {
+	int index;
 	int x;
 	int y;
 };
@@ -37,9 +48,13 @@ struct tagCurrentTile
 class tile : public gameNode
 {
 private:
-	tagCurrentTile _currentTile;
-	tagSampleTile  _sampleTile[SAMPLETILEX * SAMPLETILEY];
-	tagTile		   _tiles[TILEX * TILEY];
+	typedef vector<tagTile>				 vTile;
+	typedef vector<tagTile>::iterator	 viTile;
+
+	typedef map<string, vTile>           mTile;
+	typedef map<string, vTile>::iterator iterTile;
+private:
+	mTile _mTile;
 
 
 
@@ -48,6 +63,10 @@ public:
 	void release();
 	void update();
 	void render();
+
+	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, float scale);
+	void tileRender(string tileName);
+	tagTile tileSelect(string tileName);
 
 	tile();
 	~tile();

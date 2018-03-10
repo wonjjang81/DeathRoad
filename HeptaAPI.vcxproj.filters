@@ -58,6 +58,12 @@
     <Filter Include="mapTool\tile">
       <UniqueIdentifier>{0bf3536c-5f3a-438c-945f-3b806c1b715e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mapTool\mapTool+">
+      <UniqueIdentifier>{3157c7de-ed89-45dc-9f39-79e05076c050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mapTool\mapTool_child">
+      <UniqueIdentifier>{11c2c71b-4b21-47a6-a4f7-cf018e80922e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -159,6 +165,9 @@
     <ClInclude Include="mapTool.h">
       <Filter>mapTool</Filter>
     </ClInclude>
+    <ClInclude Include="mapTool_menu_terrain.h">
+      <Filter>mapTool\mapTool_child</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -242,20 +251,23 @@
     <ClCompile Include="mapTool.cpp">
       <Filter>mapTool</Filter>
     </ClCompile>
-    <ClCompile Include="mapTool_grid.cpp">
-      <Filter>mapTool</Filter>
-    </ClCompile>
-    <ClCompile Include="mapTool_keyControl.cpp">
-      <Filter>mapTool</Filter>
-    </ClCompile>
     <ClCompile Include="resourceManager.cpp">
       <Filter>playGround</Filter>
     </ClCompile>
     <ClCompile Include="mapTool_button.cpp">
-      <Filter>mapTool</Filter>
+      <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool_grid.cpp">
+      <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool_keyControl.cpp">
+      <Filter>mapTool\mapTool+</Filter>
     </ClCompile>
     <ClCompile Include="mapTool_menu.cpp">
-      <Filter>mapTool</Filter>
+      <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool_menu_terrain.cpp">
+      <Filter>mapTool\mapTool_child</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

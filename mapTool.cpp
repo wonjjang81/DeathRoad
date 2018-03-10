@@ -11,6 +11,8 @@ mapTool::~mapTool()
 
 HRESULT mapTool::init()
 {
+	gameNode::init();
+
 	//에디트창
 	_editWindow = IMAGEMANAGER->findImage("맵툴창");
 
@@ -27,7 +29,10 @@ HRESULT mapTool::init()
 	btnSetup();
 
 	//메뉴
-	_currentMenu = NULL;
+	MENU.imgTab = NULL;
+	MENU.imgTile = NULL;
+	MENU.menuType = MENU_NONE;
+	MENU.typeChange = false;
 
 	return S_OK;
 }
@@ -39,9 +44,11 @@ void mapTool::release()
 
 void mapTool::update() 
 {
+	gameNode::update();
+
 	mapKeyControl();  //타일맵 키 컨트롤
 	btnUpdate();      //메뉴 버튼
-
+	menuAddChild();   //메뉴타입별 타일생성(차일드씬으로 구성)
 }
 
 void mapTool::render() 
@@ -51,6 +58,8 @@ void mapTool::render()
 	selectTile(_viewScale);            //타일맵 선택
 	btnRender();					   //메뉴 버튼
 	menuRender();                      //메뉴 창
+
+	gameNode::render();
 }
 
 

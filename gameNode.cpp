@@ -145,6 +145,7 @@ void gameNode::addChild(gameNode* node)
 	}
 }
 
+//특정 차일드 지우기
 void gameNode::removeChild(gameNode* node)
 {
 	int count = 0;
@@ -155,6 +156,73 @@ void gameNode::removeChild(gameNode* node)
 	while (_current != NULL)
 	{
 		if (_current == node)
+		{
+			if (count != 0)
+			{
+				prev->setNext(_current->getNext());
+				if (_current->getNext() != NULL) _current->getNext()->setPrev(prev);
+				else _childrenTail = _current;
+			}
+			else
+			{
+				_childrenHead = _current->getNext();
+				if (_childrenHead != NULL) _childrenHead->setPrev(NULL);
+			}
+
+			_current->release();
+			SAFE_DELETE(_current);
+			break;
+		}
+
+		prev = _current;
+		_current = _current->getNext();
+		count++;
+	}
+}
+
+//전부 지우기
+void gameNode::removeAllChild()
+{
+	if (_childrenHead == NULL) return;
+
+	int count = 0;
+	_current = _childrenHead;
+
+	gameNode* next = NULL;
+
+	while (_current != NULL)
+	{
+		next = _current->getNext();
+
+		if (next != NULL)
+		{
+			next->release();
+			SAFE_DELETE(next);
+
+			_current = _childrenHead;
+			count++;
+		}
+		else
+		{
+			_current->release();
+			SAFE_DELETE(_current);
+			_childrenHead = NULL;
+			return;
+		}
+	}
+}
+
+//현재씬을 제외한 나머지 차일드 제거
+void gameNode::removeExceptChild(gameNode* node)
+{
+	int count = 0;
+	_current = _childrenHead;
+
+	gameNode* prev = NULL;
+
+	while (_current != NULL)
+	{
+		if (_current != node)
 		{
 			if (count != 0)
 			{

@@ -7,21 +7,21 @@ void mapTool::btnSetup()
 	_btnScale = 2;
 	int imgReWidth = IMAGEMANAGER->findImage("맵툴버튼타이틀탭")->getFrameWidth() * _btnScale;
 	int imgReHeight = IMAGEMANAGER->findImage("맵툴버튼타이틀탭")->getFrameHeight() * _btnScale;
-	int imgReX = 765 - imgReWidth / 2;
-	int imgReY = 5 + imgReHeight / 2;
+	int imgReX = 745 - imgReWidth / 2;
+	int imgReY = imgReHeight / 2 - 15;
 
 	_btnTerrain = new button;
-	_btnTerrain->init("맵툴버튼타이틀탭",  imgReX,					  imgReY, PointMake(1, 0), PointMake(0, 0), menuTerrainSetup);
+	_btnTerrain->init("맵툴버튼타이틀탭",  imgReX,					  imgReY, PointMake(1, 0), PointMake(0, 0), menuTerrainSetup, _btnScale);
 	_btnBuiliding = new button;
-	_btnBuiliding->init("맵툴버튼타이틀탭", imgReX + (imgReWidth * 1), imgReY, PointMake(1, 1), PointMake(0, 1), menuBuilidingSetup);
+	_btnBuiliding->init("맵툴버튼타이틀탭",imgReX + (imgReWidth * 1), imgReY, PointMake(1, 1), PointMake(0, 1), menuBuilidingSetup, _btnScale);
 	_btnItems = new button;
-	_btnItems->init("맵툴버튼타이틀탭",    imgReX + (imgReWidth * 2), imgReY, PointMake(1, 2), PointMake(0, 2), menuItemSetup);
+	_btnItems->init("맵툴버튼타이틀탭",    imgReX + (imgReWidth * 2), imgReY, PointMake(1, 2), PointMake(0, 2), menuItemSetup, _btnScale);
 	_btnWeapon = new button;
-	_btnWeapon->init("맵툴버튼타이틀탭",   imgReX + (imgReWidth * 3), imgReY, PointMake(1, 3), PointMake(0, 3), menuWeaponSetup);
+	_btnWeapon->init("맵툴버튼타이틀탭",   imgReX + (imgReWidth * 3), imgReY, PointMake(1, 3), PointMake(0, 3), menuWeaponSetup, _btnScale);
 	_btnEnemy = new button;
-	_btnEnemy->init("맵툴버튼타이틀탭",	   imgReX + (imgReWidth * 4), imgReY, PointMake(1, 4), PointMake(0, 4), menuEnemySetup);
+	_btnEnemy->init("맵툴버튼타이틀탭",	   imgReX + (imgReWidth * 4), imgReY, PointMake(1, 4), PointMake(0, 4), menuEnemySetup, _btnScale);
 	_btnSetting = new button;
-	_btnSetting->init("맵툴버튼타이틀탭",  imgReX + (imgReWidth * 5), imgReY, PointMake(1, 5), PointMake(0, 5), menuSettingSetup);
+	_btnSetting->init("맵툴버튼타이틀탭",  imgReX + (imgReWidth * 5), imgReY, PointMake(1, 5), PointMake(0, 5), menuSettingSetup, _btnScale);
 }
 
 void mapTool::btnUpdate()

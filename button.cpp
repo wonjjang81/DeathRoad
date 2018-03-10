@@ -13,7 +13,7 @@ button::~button()
 
 HRESULT button::init(const char* imageName, int x, int y,
 	POINT btnDownFramePoint, POINT btnUpFramePoint,
-	CALLBACK_FUNCTION cbFunction)
+	CALLBACK_FUNCTION cbFunction, float scale)
 {
 	//콜백함수는 함수포인터로 전역화 시켜놨기때문에 형변환은 요로케
 	_callbackFunction = static_cast<CALLBACK_FUNCTION>(cbFunction);
@@ -29,7 +29,7 @@ HRESULT button::init(const char* imageName, int x, int y,
 	_imageName = imageName;
 	_image = IMAGEMANAGER->findImage(imageName);
 
-	_rc = RectMakeCenter(x, y, _image->getFrameWidth(), _image->getFrameHeight());
+	_rc = RectMake(x, y, _image->getFrameWidth() * scale, _image->getFrameHeight() * scale);
 
 	return S_OK;
 }
@@ -66,6 +66,9 @@ void button::render(float scale)
 		case BUTTONDIRECTION_NULL:	case BUTTONDIRECTION_UP:
 			_image->frameRender(1.0f, _rc.left, _rc.top,
 				_btnUpFramePoint.x, _btnUpFramePoint.y, 0, scale);
+
+			//렉트 확인용
+			//D2DMANAGER->drawRectangle(D2DMANAGER->defaultBrush, _rc.left, _rc.top, _rc.right, _rc.bottom);
 		break;
 		//버튼 눌러졌을때 이미지
 		case BUTTONDIRECTION_DOWN:

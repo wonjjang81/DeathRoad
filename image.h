@@ -91,7 +91,7 @@ public:
 	//=================================================================== 
 
 	void render(float opacity = 1.0f);
-	void render(float opacity, float destX, float destY, float angle = 0);
+	void render(float opacity, float destX, float destY, float angle = 0, float scale = 1.0f);
 	void render(float opacity, float destX, float destY, float sourX, float sourY, float sourWidth, float sourHeight);
 
 	void frameRender(float opacity, float destX, float destY, float angle = 0, float scale = 1);

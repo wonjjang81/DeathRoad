@@ -27,7 +27,9 @@ public:
 	virtual void render(void);		//그려주는 함수
 
 	virtual void addChild(gameNode* node);
+	virtual void removeAllChild();
 	virtual void removeChild(gameNode* node);
+	virtual void removeExceptChild(gameNode* node);
 
 	inline void setSelf(gameNode* node) { _self = node; }
 	inline gameNode* getSelf() { return _self; }

@@ -3,19 +3,39 @@
 #include "tile.h"
 #include "button.h"
 
+#include "mapTool_menu_terrain.h"
+
 #include <vector>
 
-static image* _currentMenu;
+enum MENU_TYPE
+{
+	MENU_TERRAIN,
+	MENU_BULIDING,
+	MENU_ITEM,
+	MENU_WEAPON,
+	MENU_ENEMY,
+	MENU_SETTING,
+	MENU_NONE
+};
+
+static struct tagMenu
+{
+	image*		imgTab;
+	image*		imgTile;
+	MENU_TYPE	menuType;
+	bool        typeChange;
+}MENU, *LPMENU;
+
 
 class mapTool : public gameNode
 {
 private:
-	typedef vector<RECT>			vD2Rect;
-	typedef vector<RECT>::iterator  viD2Rect;
+	typedef vector<tagSampleTile>			   vD2Tile;
+	typedef vector<tagSampleTile>::iterator   viD2Tile;
 
 private:
 	//editWindow
-	image * _editWindow;
+	image* _editWindow;
 
 	//keyControl
 	float _moveX, _moveY;
@@ -24,8 +44,8 @@ private:
 	//grid
 	float _showWindowX, _showWindowY;
 	int   _viewScale;
-	vD2Rect  _vTileRect;
-	viD2Rect _viTileRect;
+	vD2Tile  _vTile;
+	viD2Tile _viTile;
 
 	//버튼
 	int _btnScale;
@@ -37,8 +57,7 @@ private:
 	button* _btnSetting;
 
 	//메뉴
-
-
+	mapTool_menu_terrain* _menuTr;
 
 
 public:
@@ -65,6 +84,7 @@ public:
 	static void menuSettingSetup();  	//Setting
 
 	void menuRender();
+	void menuAddChild();
 	
 
 
