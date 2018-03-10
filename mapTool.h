@@ -24,14 +24,18 @@ static struct tagMenu
 	image*		imgTile;
 	MENU_TYPE	menuType;
 	bool        typeChange;
-}MENU, *LPMENU;
+}_menuTab;
+
 
 
 class mapTool : public gameNode
 {
 private:
-	typedef vector<tagSampleTile>			   vD2Tile;
-	typedef vector<tagSampleTile>::iterator   viD2Tile;
+	typedef vector<tagSampleTile>			   vSampTile;
+	typedef vector<tagSampleTile>::iterator    viSampTile;
+
+	typedef vector<tagTile>					   vSaveTile;
+	typedef vector<tagTile>::iterator          viSaveTile;
 
 private:
 	//editWindow
@@ -44,8 +48,8 @@ private:
 	//grid
 	float _showWindowX, _showWindowY;
 	int   _viewScale;
-	vD2Tile  _vTile;
-	viD2Tile _viTile;
+	vSampTile  _vTile;
+	viSampTile _viTile;
 
 	//버튼
 	int _btnScale;
@@ -58,6 +62,13 @@ private:
 
 	//메뉴
 	mapTool_menu_terrain* _menuTr;
+
+	//타일 draw & save
+	tagTile    _darwTile;
+	bool       _menuTabOn;  //메뉴탭 활성화 여부
+	vSaveTile  _vSaveTr;
+	viSaveTile _viSaveTr;
+
 
 
 public:
@@ -75,7 +86,7 @@ public:
 	void btnUpdate();
 	void btnRender();
 
-	//----------------- MENU -----------------
+	//------------------- MENU -------------------
 	static void menuTerrainSetup();  	//Terrain
 	static void menuBuilidingSetup();  	//Buliding
 	static void menuItemSetup();  		//Item
@@ -85,7 +96,10 @@ public:
 
 	void menuRender();
 	void menuAddChild();
-	
+	//------------------- MENU -------------------
+
+	//타일 그리기
+	void tileDraw(float scale);
 
 
 

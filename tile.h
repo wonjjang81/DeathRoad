@@ -67,6 +67,7 @@ public:
 	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, float scale);
 	void tileRender(string tileName);
 	tagTile tileSelect(string tileName);
+	void tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity);
 
 	tile();
 	~tile();

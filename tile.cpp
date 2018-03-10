@@ -160,3 +160,12 @@ tagTile tile::tileSelect(string tileName)
 
 	return tmpTile;
 }
+
+void tile::tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity)
+{
+	D2DMANAGER->fillRectangle(D2DMANAGER->createBrush(color, opacity),
+		selectTile.x + selectTile.rc.left,
+		selectTile.y + selectTile.rc.top,
+		selectTile.x + selectTile.rc.right,
+		selectTile.y + selectTile.rc.bottom);
+}

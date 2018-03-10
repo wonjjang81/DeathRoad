@@ -2,6 +2,7 @@
 #include "mapTool.h"
 
 
+
 mapTool::mapTool()
 {
 }
@@ -29,10 +30,11 @@ HRESULT mapTool::init()
 	btnSetup();
 
 	//메뉴
-	MENU.imgTab = NULL;
-	MENU.imgTile = NULL;
-	MENU.menuType = MENU_NONE;
-	MENU.typeChange = false;
+
+
+	//타일 그리기
+	ZeroMemory(&_darwTile, sizeof(tagTile));
+	_menuTabOn = false;
 
 	return S_OK;
 }
@@ -48,7 +50,7 @@ void mapTool::update()
 
 	mapKeyControl();  //타일맵 키 컨트롤
 	btnUpdate();      //메뉴 버튼
-	menuAddChild();   //메뉴타입별 타일생성(차일드씬으로 구성)
+	menuAddChild();   //메뉴타입별 샘플타일 생성(차일드씬으로 구성)
 }
 
 void mapTool::render() 
@@ -58,9 +60,12 @@ void mapTool::render()
 	selectTile(_viewScale);            //타일맵 선택
 	btnRender();					   //메뉴 버튼
 	menuRender();                      //메뉴 창
+	tileDraw(_viewScale);              //타일 그리기
 
-	gameNode::render();
+	gameNode::render();                //샘플 타일탭
 }
+
+
 
 
 

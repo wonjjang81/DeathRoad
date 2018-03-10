@@ -118,6 +118,16 @@ void mapTool::selectTile(int scale)
 				_vTile[i].rc.right  + _moveX,
 				_vTile[i].rc.bottom + _moveY);
 
+			//샘플타일 정보 -> 타일에 저장
+			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			{
+				_vSaveTr[i].img = _darwTile.img;
+				_vSaveTr[i].frameX = _darwTile.frameX;
+				_vSaveTr[i].frameY = _darwTile.frameY;
+				_vSaveTr[i].attribute = _darwTile.attribute;
+				_vSaveTr[i].tileType = _darwTile.tileType;
+			}
+
 			break;
 		}
 	}

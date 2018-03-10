@@ -130,6 +130,7 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapTool_button.cpp" />
+    <ClCompile Include="mapTool_drawTile.cpp" />
     <ClCompile Include="mapTool_grid.cpp" />
     <ClCompile Include="mapTool_keyControl.cpp" />
     <ClCompile Include="mapTool_menu.cpp" />
