@@ -33,7 +33,7 @@ HRESULT mapTool::init()
 
 
 	//타일 그리기
-	ZeroMemory(&_darwTile, sizeof(tagTile));
+	ZeroMemory(&_drawTile, sizeof(tagTile));
 	_menuTabOn = false;
 
 	return S_OK;

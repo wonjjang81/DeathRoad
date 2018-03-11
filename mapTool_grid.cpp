@@ -43,10 +43,10 @@ void mapTool::gridRender(float scale)
 		for (int i = 0; i < _vTile.size(); ++i)
 		{
 			//예외처리: 화면밖 렌더X
-			if (_vTile[i].rc.left + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
-			if (_vTile[i].rc.right + _moveX < 0)					 continue;  //가로열(좌측)
-			if (_vTile[i].rc.top + _moveY >= _showWindowY / scale)  continue;  //세로열(상부)
-			if (_vTile[i].rc.bottom + _moveY < 0)					 continue;  //세로열(하부)
+			if (_vTile[i].rc.left   + _moveX >= _showWindowX / scale)  continue;  //가로열(우측)
+			if (_vTile[i].rc.right  + _moveX < 0)					   continue;  //가로열(좌측)
+			if (_vTile[i].rc.top    + _moveY >= _showWindowY / scale)  continue;  //세로열(상부)
+			if (_vTile[i].rc.bottom + _moveY < 0)					   continue;  //세로열(하부)
 
 			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f),
 				_vTile[i].rc.left + _moveX,
@@ -112,6 +112,7 @@ void mapTool::selectTile(int scale)
 
 		if (PtInRect(&reRect, _ptMouse))
 		{
+			//현재 타일위치 렉트 그리기
 			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)),
 				_vTile[i].rc.left   + _moveX,
 				_vTile[i].rc.top    + _moveY,
@@ -119,13 +120,17 @@ void mapTool::selectTile(int scale)
 				_vTile[i].rc.bottom + _moveY);
 
 			//샘플타일 정보 -> 타일에 저장
-			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
-				_vSaveTr[i].img = _darwTile.img;
-				_vSaveTr[i].frameX = _darwTile.frameX;
-				_vSaveTr[i].frameY = _darwTile.frameY;
-				_vSaveTr[i].attribute = _darwTile.attribute;
-				_vSaveTr[i].tileType = _darwTile.tileType;
+				//예외처리: 타일 정보가 없으면...통과!!
+				if (_vSaveTr.size() == 0) continue;             
+
+				//샘플타일정보 -> 본타일 입력
+				_vSaveTr[i].img       = _drawTile.img;
+				_vSaveTr[i].frameX    = _drawTile.frameX;
+				_vSaveTr[i].frameY    = _drawTile.frameY;
+				_vSaveTr[i].attribute = _drawTile.attribute;
+				_vSaveTr[i].tileType  = _drawTile.tileType;
 			}
 
 			break;

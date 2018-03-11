@@ -7,9 +7,8 @@ void mapTool::tileDraw(float scale)
 	//선택한 타일 정보 가져오기
 	if (_menuTabOn && _menuTr->_selectVTile.size() != 0)
 	{
-		_darwTile = _menuTr->_selectVTile[0];
+		_drawTile = _menuTr->_selectVTile[0];
 	}
-	else return;
 
 
 	//타일맵 클립핑
@@ -42,17 +41,32 @@ void mapTool::tileDraw(float scale)
 	//타일 그리기
 	for (int i = 0; i < _vSaveTr.size(); ++i)
 	{
-		//예외처리: 화면밖 렌더X
-		if (_vSaveTr[i].rc.left   + _moveX >= _showWindowX / scale)  continue;  //가로열(우측)
-		if (_vSaveTr[i].rc.right  + _moveX < 0)					     continue;  //가로열(좌측)
-		if (_vSaveTr[i].rc.top    + _moveY >= _showWindowY / scale)  continue;  //세로열(상부)
-		if (_vSaveTr[i].rc.bottom + _moveY < 0)					     continue;  //세로열(하부)
-		if (_vSaveTr[i].img == NULL) 					             continue;  //이미지X
+		//예외처리: 이미지X
+		if (_vSaveTr[i].img == NULL)continue;  //이미지X
 
-		_vSaveTr[i].img->frameRender(1.0f, 
-			_vSaveTr[i].rc.left + _moveX,
-			_vSaveTr[i].rc.top + _moveY,
-			_vSaveTr[i].frameX, _vSaveTr[i].frameY, 1.0f, scale);
+		//타일렉트 보정
+		RECT reRect;
+		reRect.left   = (_vSaveTr[i].rc.left   + _moveX) * scale;
+		reRect.top    = (_vSaveTr[i].rc.top    + _moveY) * scale;
+		reRect.right  = (_vSaveTr[i].rc.right  + _moveX) * scale;
+		reRect.bottom = (_vSaveTr[i].rc.bottom + _moveY) * scale;
+
+		//예외처리: 화면밖 렌더X
+		if (reRect.left   >= _showWindowX)  continue;  //가로열(우측)
+		if (reRect.right  < 0)			    continue;  //가로열(좌측)
+		if (reRect.top    >= _showWindowY)  continue;  //세로열(상부)
+		if (reRect.bottom < 0)			    continue;  //세로열(하부)
+
+		_vSaveTr[i].img->frameRender(1.0f, reRect.left, reRect.top,
+			_vSaveTr[i].frameX, _vSaveTr[i].frameY, 0.0f, scale);
+
+		//렉트 확인용
+		//D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
+		//	reRect.left   ,
+		//	reRect.top    ,
+		//	reRect.right  ,
+		//	reRect.bottom );
+
 	}
 
 	//초기화

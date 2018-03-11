@@ -64,7 +64,7 @@ private:
 	mapTool_menu_terrain* _menuTr;
 
 	//타일 draw & save
-	tagTile    _darwTile;
+	tagTile    _drawTile;
 	bool       _menuTabOn;  //메뉴탭 활성화 여부
 	vSaveTile  _vSaveTr;
 	viSaveTile _viSaveTr;

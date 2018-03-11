@@ -256,11 +256,11 @@ HRESULT d2dManager::layerContentBound(ID2D1RenderTarget* pRt, D2D1_RECT_F cRect)
 }
 
 
-void  d2dManager::drawIntText(int value, float x, float y)
+void  d2dManager::drawIntText(LPCWSTR title, int value, float x, float y)
 {
 	WCHAR strIndex[128];
 	ZeroMemory(&strIndex, sizeof(strIndex));
-	swprintf(strIndex, L"%d", value);
+	swprintf(strIndex, L"%s :%d", title, value);
 
 	D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18, strIndex, x, y, x + 200, y + 20);
 }

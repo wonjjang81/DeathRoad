@@ -23,8 +23,8 @@ struct tagTile
 	ATTRIBUTE attribute;
 
 	int index;
-	int x, y;
-	int gapX, gapY;
+	float x, y;
+	float gapX, gapY;
 	float scale;
 	int frameX;
 	int frameY;
@@ -41,8 +41,8 @@ struct tagSampleTile
 struct tagCurrentTile
 {
 	int index;
-	int x;
-	int y;
+	float x;
+	float y;
 };
 
 class tile : public gameNode
