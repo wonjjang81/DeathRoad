@@ -169,3 +169,17 @@ void tile::tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity)
 		selectTile.x + selectTile.rc.right,
 		selectTile.y + selectTile.rc.bottom);
 }
+
+//=========================== 타일속성 변경 ===========================
+//타일특성
+void tile::setTileAttribute(tagTile selectTile, ATTRIBUTE attribute)
+{
+	selectTile.attribute = attribute;
+}
+
+//타일타입
+void tile::setTileType(tagTile selectTile, TILE_TYPE tileType)
+{
+	selectTile.tileType = tileType;
+}
+//=========================== 타일속성 변경 ===========================

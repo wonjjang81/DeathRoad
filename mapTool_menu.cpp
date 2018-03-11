@@ -95,5 +95,4 @@ void mapTool::menuRender()
 	{
 		_menuTab.imgTile->render(1.0f, 770, 190, 0, 1.5f);
 	}
-
 }

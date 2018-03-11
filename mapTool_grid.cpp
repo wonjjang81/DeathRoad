@@ -20,26 +20,6 @@ void mapTool::gridRender(float scale)
 		D2DMANAGER->pRenderTarget->SetTransform(matScale);
 
 
-		//grid 벡터에 담기
-		if ((_vTile.size() == 0))
-		{
-			for (int i = 0; i < TILEY; ++i)
-			{
-				for (int j = 0; j < TILEX; ++j)
-				{
-					//렉트로 그리기
-					tagSampleTile tile;
-					tile.rc.left   = TILE_SIZEX * j;
-					tile.rc.top    = TILE_SIZEY * i;
-					tile.rc.right  = TILE_SIZEX * (j + 1);
-					tile.rc.bottom = TILE_SIZEY * (i + 1);
-					tile.index = (TILEX * i) + j;
-
-					_vTile.push_back(tile);  
-				}
-			}
-		}
-
 		for (int i = 0; i < _vTile.size(); ++i)
 		{
 			//예외처리: 화면밖 렌더X
@@ -77,6 +57,45 @@ void mapTool::gridRender(float scale)
 			}
 		}
 
+		//속성 그리기(Ellipse)
+		for (int i = 0; i < TILEY; ++i)
+		{
+			for (int j = 0; j < TILEX; ++j)
+			{
+				//위치정보
+				float rcWidth = _vTile[(TILEX * i) + j].rc.right - _vTile[(TILEX * i) + j].rc.left;
+				float rcHeight = _vTile[(TILEX * i) + j].rc.bottom - _vTile[(TILEX * i) + j].rc.top;
+				float centerX = _vTile[(TILEX * i) + j].rc.left + (rcWidth / 2);
+				float centerY = _vTile[(TILEX * i) + j].rc.top + (rcHeight / 2);
+				float ellipseSize = 3;
+				float startX = centerX - (ellipseSize / 2);
+				float startY = centerY - (ellipseSize / 2);
+				float endX = centerX + (ellipseSize / 2);
+				float endY = centerY + (ellipseSize / 2);
+
+
+				//예외처리: 화면밖 렌더X
+				if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
+				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
+				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
+				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+				if (_vSaveTr[(TILEX * i) + j].attribute == ATTR_NONE)  continue;
+
+				switch (_vSaveTr[(TILEX * i) + j].attribute)
+				{
+					case ATTR_MOVE:
+						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+					break;
+					case ATTR_UNMOVE:
+						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+					break;
+					case ATTR_AFTER_RENDER:
+						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+					break;
+				}
+			}
+		}
+
 
 		//초기화
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
@@ -85,7 +104,7 @@ void mapTool::gridRender(float scale)
 }
 
 
-void mapTool::selectTile(int scale)
+void mapTool::selectTile(float scale)
 {
 	//타일맵 클립핑
 	D2DMANAGER->pRenderTarget->PushAxisAlignedClip(RectF(0, 0, _showWindowX, _showWindowY), D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
@@ -125,12 +144,24 @@ void mapTool::selectTile(int scale)
 				//예외처리: 타일 정보가 없으면...통과!!
 				if (_vSaveTr.size() == 0) continue;             
 
+
 				//샘플타일정보 -> 본타일 입력
-				_vSaveTr[i].img       = _drawTile.img;
-				_vSaveTr[i].frameX    = _drawTile.frameX;
-				_vSaveTr[i].frameY    = _drawTile.frameY;
-				_vSaveTr[i].attribute = _drawTile.attribute;
-				_vSaveTr[i].tileType  = _drawTile.tileType;
+				_vSaveTr[i].img = _drawTile.img;
+				_vSaveTr[i].frameX = _drawTile.frameX;
+				_vSaveTr[i].frameY = _drawTile.frameY;
+				_vSaveTr[i].tileType = _drawTile.tileType;
+
+				//타일속성 변경
+				if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())
+				{
+					tileReAtrribute(_vSaveTr[i]);
+				}
+				else
+				{
+					_vSaveTr[i].attribute = _drawTile.attribute;
+				}
+	
+
 			}
 
 			break;

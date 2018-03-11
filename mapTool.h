@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "tile.h"
 #include "button.h"
+#include "fButton.h"
 
 #include "mapTool_menu_terrain.h"
 
@@ -18,6 +19,7 @@ enum MENU_TYPE
 	MENU_NONE
 };
 
+//------------ 전역화 ------------
 static struct tagMenu
 {
 	image*		imgTab;
@@ -25,6 +27,8 @@ static struct tagMenu
 	MENU_TYPE	menuType;
 	bool        typeChange;
 }_menuTab;
+
+//-------------------------------
 
 
 
@@ -51,7 +55,8 @@ private:
 	vSampTile  _vTile;
 	viSampTile _viTile;
 
-	//버튼
+	//========== 버튼 ==========
+	//--------- 메뉴탭 ---------
 	int _btnScale;
 	button* _btnTerrain;
 	button* _btnBuiliding;
@@ -59,6 +64,29 @@ private:
 	button* _btnWeapon;
 	button* _btnEnemy;
 	button* _btnSetting;
+
+	//-------- 타일리셋 --------
+	//버튼
+	fButton* _btnAttribute;
+	fButton* _btnA_move;
+	fButton* _btnA_unMove;
+	fButton* _btnA_ARender;
+
+	fButton* _btnTileType;
+	fButton* _btnT_terrain;
+	fButton* _btnT_building;
+	fButton* _btnT_item;
+	fButton* _btnT_weapon;
+	fButton* _btnT_enemy;
+
+	float	_btnRCenterX;
+	float   _btnRCenterY;
+	float   _btnImgReWidth;
+	float   _btnImgReHeight;
+	//리셋
+	bool isAResetOn;
+	bool isTResetOn;
+	//==========================
 
 	//메뉴
 	mapTool_menu_terrain* _menuTr;
@@ -79,25 +107,33 @@ public:
 
 	void gridRender(float scale = 1.0f);  	//타일 그리드맵 렌더
 	void mapKeyControl();                   //맵 키 컨트롤
-	void selectTile(int scale = 1.0f);      //타일 선택시 화면출력
+	void selectTile(float scale = 1.0f);    //타일 선택시 화면출력
 
 	//버튼
 	void btnSetup();
 	void btnUpdate();
 	void btnRender();
 
-	//------------------- MENU -------------------
+	//==================== BUTTON ====================
+	//--------------------- MENU ---------------------
 	static void menuTerrainSetup();  	//Terrain
 	static void menuBuilidingSetup();  	//Buliding
 	static void menuItemSetup();  		//Item
 	static void menuWeaponSetup();  	//Weapon
 	static void menuEnemySetup();  		//Enemy
 	static void menuSettingSetup();  	//Setting
-
+	//--------------------- Reset --------------------
+	void tileReAtrribute(tagTile& resetTile);  	//Attribute Reset
+	void tileReType(tagTile resetTile);  		//TileType  Reset
+	//------------------------------------------------
 	void menuRender();
 	void menuAddChild();
-	//------------------- MENU -------------------
+	void btnSwitch();
+	void btnSwitch1(fButton* btn, fButton* offBtn);
+	//================================================
 
+	
+	
 	//타일 그리기
 	void tileDraw(float scale);
 

@@ -168,6 +168,9 @@
     <ClInclude Include="mapTool_menu_terrain.h">
       <Filter>mapTool\mapTool_child</Filter>
     </ClInclude>
+    <ClInclude Include="fButton.h">
+      <Filter>2DGameFramework\button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -271,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="mapTool_drawTile.cpp">
       <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTool_resetTile.cpp">
+      <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
+    <ClCompile Include="fButton.cpp">
+      <Filter>2DGameFramework\button</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

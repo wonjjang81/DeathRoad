@@ -29,8 +29,8 @@ void mapTool::tileDraw(float scale)
 				tile.rc.right  = TILE_SIZEX * (j + 1);
 				tile.rc.bottom = TILE_SIZEY * (i + 1);
 				tile.index     = (TILEX * i) + j;
-				tile.attribute = ATTR_UNMOVE;
-				tile.tileType  = TYPE_TERRAIN;
+				tile.attribute = ATTR_NONE;
+				tile.tileType  = TYPE_NONE;
 
 				_vSaveTr.push_back(tile);
 			}
@@ -68,6 +68,7 @@ void mapTool::tileDraw(float scale)
 		//	reRect.bottom );
 
 	}
+
 
 	//ÃÊ±âÈ­
 	D2DMANAGER->pRenderTarget->PopAxisAlignedClip();

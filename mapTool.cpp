@@ -17,6 +17,28 @@ HRESULT mapTool::init()
 	//에디트창
 	_editWindow = IMAGEMANAGER->findImage("맵툴창");
 
+	//----------------------- grid -----------------------
+	//grid 벡터에 담기
+	if ((_vTile.size() == 0))
+	{
+		for (int i = 0; i < TILEY; ++i)
+		{
+			for (int j = 0; j < TILEX; ++j)
+			{
+				//렉트로 그리기
+				tagSampleTile tile;
+				tile.rc.left = TILE_SIZEX * j;
+				tile.rc.top = TILE_SIZEY * i;
+				tile.rc.right = TILE_SIZEX * (j + 1);
+				tile.rc.bottom = TILE_SIZEY * (i + 1);
+				tile.index = (TILEX * i) + j;
+
+				_vTile.push_back(tile);
+			}
+		}
+	}
+	//----------------------------------------------------
+
 	//맵이동
 	_moveX = _moveY = 0;
 	_moveSpeed = 3.0f;
@@ -36,6 +58,11 @@ HRESULT mapTool::init()
 	ZeroMemory(&_drawTile, sizeof(tagTile));
 	_menuTabOn = false;
 
+	//타일리셋
+	isAResetOn = false;
+	isTResetOn = false;
+	
+
 	return S_OK;
 }
 
@@ -51,18 +78,19 @@ void mapTool::update()
 	mapKeyControl();  //타일맵 키 컨트롤
 	btnUpdate();      //메뉴 버튼
 	menuAddChild();   //메뉴타입별 샘플타일 생성(차일드씬으로 구성)
+
 }
 
 void mapTool::render() 
 {
 	_editWindow->render(1.0f, 720, 0); //메뉴
-	gridRender(_viewScale);            //타일맵 그리드
 	selectTile(_viewScale);            //타일맵 선택
-	btnRender();					   //메뉴 버튼
 	menuRender();                      //메뉴 창
 	tileDraw(_viewScale);              //타일 그리기
 
 	gameNode::render();                //샘플 타일탭
+	gridRender(_viewScale);            //타일맵 그리드
+	btnRender();					   //메뉴 버튼
 }
 
 
