@@ -22,6 +22,8 @@ public:
 	void update();
 	void render();
 
+	//선택한 타일 초기화
+	void resetSelTile();
 
 	mapTool_menu_terrain();
 	~mapTool_menu_terrain();

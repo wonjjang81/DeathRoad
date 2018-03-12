@@ -50,3 +50,10 @@ void mapTool_menu_terrain::render()
 	if (_selectVTile.size() != 0) _tileTr->tileDrawFillRc(_selectVTile[0], RGB(0, 255, 255), 0.5f);
 }
 
+void mapTool_menu_terrain::resetSelTile()
+{
+	if (_selectVTile.size() != 0)
+	{
+		_selectVTile.clear();
+	}
+}

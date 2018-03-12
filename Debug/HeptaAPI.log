@@ -1,32 +1,36 @@
 ﻿  mapTool_button.cpp
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(9): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(10): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(15): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(15): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(17): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(17): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(19): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(21): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(21): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(23): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(25): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(36): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(39): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(41): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(43): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(47): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(50): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(52): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(54): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(56): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(58): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(103): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(104): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(105): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(106): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(107): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_button.cpp(108): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  HeptaAPI.vcxproj -> D:\C++\C++ 포트폴리오\github\ff6\DeathRoad\Debug\DeathRoad.exe
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(9): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(10): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(15): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(15): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(17): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(17): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(19): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(19): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(21): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(21): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(23): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(23): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(25): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(36): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(39): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(41): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(43): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(47): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(50): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(52): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(54): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(56): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(58): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(63): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(66): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(68): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(70): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(128): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(129): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(130): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(131): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(132): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\wonjjang81\desktop\deathroad\maptool_button.cpp(133): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  HeptaAPI.vcxproj -> C:\Users\wonjjang81\Desktop\DeathRoad\Debug\DeathRoad.exe

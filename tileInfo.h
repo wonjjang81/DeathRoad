@@ -18,28 +18,29 @@
 
 enum TILE_TYPE
 {
+	TYPE_NONE,
 	TYPE_TERRAIN,
 	TYPE_BUILDING,
 	TYPE_ITEM,
 	TYPE_WEAPON,
-	TYPE_ENEMY,
-	TYPE_NONE
+	TYPE_ENEMY
 };
 
 //지형속성
 enum TERRAIN
 {
+	TR_NONE,
 	TR_LAND,
 	TR_STREET,
 	TR_GRASS,
 	TR_WALL,
-	TR_HILL,
-	TR_NONE
+	TR_HILL
 };
 
 //고정된 물체 (타격 불가능)
 enum FIX_OBJECT
 {
+	FOBJ_NONE,
 	FOBJ_TREE, 
 	FOBJ_HOUSE_BOTTOM, FOBJ_HOUSE_TOP, FOBJ_HOUSE_DOOR,
 	FOBJ_TREE_BOTTOM, FOBJ_TREE_TOP,
@@ -48,55 +49,54 @@ enum FIX_OBJECT
 	FOBJ_SHELVES,
 	FOBJ_FENCE,
 	FOBJ_FURNITURE,
-	FOBJ_TRASH,
-	FOBJ_NONE
+	FOBJ_TRASH
 };
 
 //움직일 수 있는 물체 (타격 가능)
 enum MOVE_OBJECT
 {
+	MOBJ_NONE,
 	MOBJ_OBSTACLE,
 	MOBJ_CAR,
-	MOBJ_FURNITURE,
-	MOBJ_NONE
+	MOBJ_FURNITURE
 };
 
 //아이템
 enum ITEM
 {
+	ITEM_NONE,
 	ITEM_HEAL,    //약품류
 	ITEM_FOOD,    //음식류
 	ITEM_OIL,     //기름류
-	ITEM_BULLET,  //총알류
-	ITEM_NONE
+	ITEM_BULLET   //총알류
 };
 
 //무기
 enum WEAPON
 {
+	WP_NONE,
 	WP_GUN,		//총류
 	WP_BOMB,	//폭탄류
 	WP_SWORD,	//칼류
 	WP_ROD,		//창류 (휘두를수 있는것)
 	WP_AXE,		//도끼류
 	WP_BOW,		//활류
-	WP_MACHINE,	//기계류 (기름소비)
-	WP_NONE
+	WP_MACHINE 	//기계류 (기름소비)
 };
 
 //기타속성
 enum ATTRIBUTE
 {
+	ATTR_NONE,
 	ATTR_MOVE,
 	ATTR_UNMOVE,
-	ATTR_AFTER_RENDER,
-	ATTR_NONE
+	ATTR_AFTER_RENDER
 };
 
 //포지션
 enum POSITION
 {
+	POS_NONE,
 	POS_START,
-	POS_END,
-	POS_NONE
+	POS_END
 };

@@ -86,6 +86,12 @@ private:
 	//리셋
 	bool isAResetOn;
 	bool isTResetOn;
+
+	//-------- Edit버튼 --------
+	fButton* _btnAllReset;  //버튼 초기화
+	fButton* _btnEraser;    //타일 초기화
+	fButton* _btnOneEraser; //타일 초기화(하나만)
+	fButton* _btnAllEraser; //타일 초기화(전체)
 	//==========================
 
 	//메뉴
@@ -124,12 +130,15 @@ public:
 	static void menuSettingSetup();  	//Setting
 	//--------------------- Reset --------------------
 	void tileReAtrribute(tagTile& resetTile);  	//Attribute Reset
-	void tileReType(tagTile resetTile);  		//TileType  Reset
+	void tileReType(tagTile& resetTile);  		//TileType  Reset
+	//------------------ Edit Button -----------------
+	void btnAllReset();
+	void btnTile1Eraser(tagTile& resetTile);
+	void btnTileAllEraser();
 	//------------------------------------------------
 	void menuRender();
 	void menuAddChild();
 	void btnSwitch();
-	void btnSwitch1(fButton* btn, fButton* offBtn);
 	//================================================
 
 	

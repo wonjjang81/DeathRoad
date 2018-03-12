@@ -57,6 +57,19 @@ void mapTool::btnSetup()
 	_btnT_enemy = new fButton;
 	_btnT_enemy->init("맵툴버튼타이틀탭",    L"Em", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+
+	//------------------------------------------------------------------ Edit 버튼 ----------------------------------------------------------------
+	_btnAllReset = new fButton;
+	_btnAllReset->init("맵툴버튼타이틀탭", L"R", 18, imgReX + (_btnImgReWidth * 5), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
+	
+	_btnEraser = new fButton;
+	_btnEraser->init("맵툴버튼타이틀탭",    L"E", 18, imgReX + (_btnImgReWidth * 4), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnOneEraser = new fButton;
+	_btnOneEraser->init("맵툴버튼타이틀탭", L"1", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnAllEraser = new fButton;
+	_btnAllEraser->init("맵툴버튼타이틀탭", L"A", 10, imgReX + (_btnImgReWidth * 5), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	//--------------------------------------------------------------------------------------------------------------------------------------------
+
 }
 
 void mapTool::btnUpdate()
@@ -70,7 +83,7 @@ void mapTool::btnUpdate()
 	_btnSetting->update();
 	//-----------------------
 
-	//------ 타일 리셋 ------
+	//------ 타일 리셋 -------
 	_btnAttribute->update();
 	_btnTileType->update();
 
@@ -93,6 +106,18 @@ void mapTool::btnUpdate()
 		_btnT_item->update();
 		_btnT_weapon->update();
 		_btnT_enemy->update();
+	}
+	//-----------------------
+
+	//------ Edit 버튼 ------
+	_btnAllReset->update();
+	btnAllReset();
+
+	_btnEraser->update();
+	if (_btnEraser->getBtnOn())
+	{
+		_btnOneEraser->update();
+		_btnAllEraser->update();
 	}
 	//-----------------------
 }
@@ -130,6 +155,17 @@ void mapTool::btnRender()
 		_btnT_enemy->render();
 	}
 	//-------------------------------
+
+	//---------- Edit 버튼 ----------
+	_btnAllReset->render();
+
+	_btnEraser->render();
+	if (_btnEraser->getBtnOn())
+	{
+		_btnOneEraser->render();
+		_btnAllEraser->render();
+	}
+	//-------------------------------
 }
 
 
@@ -137,52 +173,17 @@ void mapTool::btnRender()
 void mapTool::btnSwitch()
 {
 	//-------------------------------------------- 속성버튼 --------------------------------------------
-	//버튼 ON/OFF
-	if (_btnAttribute->getBtnOn()) //버튼ON 이면...
-	{
-		_btnTileType->setBtnOff(false);  //다른버튼 Off
-
-		if (!_btnAttribute->getPtIn())  //버튼밖에 커서가 있고
-		{
-			if (!_btnA_move->getPtIn() && !_btnA_unMove->getPtIn() && !_btnA_ARender->getPtIn())  //하부버튼에도 커서가 없고
-			{
-				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))  //클릭을 하면
-				{
-					_btnAttribute->setBtnOff(false);  //버튼 Off
-				}
-			}
-		}
-	}
-
 	//하부버튼 ON/OFF
 	if (!_btnAttribute->getBtnOn())
 	{
-		//_btnA_move->setBtnOff(false);
-		//_btnA_unMove->setBtnOff(false);
-		//_btnA_ARender->setBtnOff(false);
+		_btnA_move->setBtnOff(false);
+		_btnA_unMove->setBtnOff(false);
+		_btnA_ARender->setBtnOff(false);
 	}
 	//--------------------------------------------------------------------------------------------------
 
 
 	//-------------------------------------------- 타입버튼 --------------------------------------------
-	//버튼 ON/OFF
-	if (_btnTileType->getBtnOn()) //버튼ON 이면...
-	{
-		_btnAttribute->setBtnOff(false);  //다른버튼 Off
-
-		if (!_btnTileType->getPtIn())  //버튼밖에 커서가 있고
-		{
-			if (!_btnT_terrain->getPtIn() && !_btnT_building->getPtIn() && !_btnT_item->getPtIn() &&
-				!_btnT_weapon->getPtIn() && !_btnT_enemy->getPtIn())  //하부버튼에도 커서가 없고
-			{
-				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))  //클릭을 하면
-				{
-					_btnTileType->setBtnOff(false);  //버튼 Off
-				}
-			}
-		}
-	}
-
 	//하부버튼 ON/OFF
 	if (!_btnTileType->getBtnOn())
 	{
@@ -194,9 +195,26 @@ void mapTool::btnSwitch()
 	}
 	//--------------------------------------------------------------------------------------------------
 
+	//--------------------------------------------- Eraser ---------------------------------------------
+	//하부버튼 ON/OFF
+	if (!_btnTileType->getBtnOn())
+	{
+		_btnOneEraser->setBtnOff(false);
+		_btnAllEraser->setBtnOff(false);
+	}
+	//--------------------------------------------------------------------------------------------------
+
 }
 
-void mapTool::btnSwitch1(fButton* btn, fButton* offBtn)
-{
 
+void mapTool::btnAllReset()
+{
+	if (_btnAllReset->getBtnOn()) //버튼ON 이면...
+	{
+		_btnAttribute->setBtnOff(false);  //속성버튼 Off
+		_btnTileType->setBtnOff(false);   //타입버튼 Off
+		_btnAllReset->setBtnOff(false);   //리셋버튼 Off
+		_btnEraser->setBtnOff(false);     //타일초기화 버튼 Off
+		_btnEraser->setBtnOff(false);
+	}
 }
