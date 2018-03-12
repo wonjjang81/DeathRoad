@@ -39,8 +39,8 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 	//타일정보
 	tagTile tile;
 	tile.img = IMAGEMANAGER->findImage(tileName);
-	int tileX = tile.img->getMaxFrameX();
-	int tileY = tile.img->getMaxFrameY();
+	int tileX = tile.img->getMaxFrameX() + 1;  //총타일 수X (*이미지 정보의 maxFrameX는 총 프레임수 - 1)
+	int tileY = tile.img->getMaxFrameY() + 1;  //총타일 수Y
 
 	//벡터에 담기
 	for (int i = 0; i < tileY; ++i)
@@ -80,6 +80,12 @@ void tile::tileRender(string tileName)
 
 		for (viter; viter != iter->second.end(); ++viter)
 		{
+			//예외처리: 화면밖 render(X)
+			//if (viter->rc.left   < 0) continue;
+			//if (viter->rc.right  > 0) continue;
+			//if (viter->rc.top    < 0) continue;
+			//if (viter->rc.bottom > 0) continue;
+
 			viter->img->frameRender(1.0f, 
 				viter->x + viter->gapX,
 				viter->y + viter->gapY,
@@ -93,6 +99,7 @@ void tile::tileRender(string tileName)
 				viter->x + viter->rc.right, 
 				viter->y + viter->rc.bottom);
 		}
+
 	}
 }
 

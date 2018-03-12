@@ -21,4 +21,14 @@ void playGround::resourceAdd()
 	//타일
 	IMAGEMANAGER->addFrameImage("맵툴타일바닥", L".//source//image//mapTool//tile//floors.png", 128, 352, 8, 22);
 	IMAGEMANAGER->addFrameImage("맵툴타일거리", L".//source//image//mapTool//tile//street.png", 256, 512, 16, 32);
+	IMAGEMANAGER->addFrameImage("맵툴타일빌딩A", L".//source//image//mapTool//tile//buildings.png", 224, 512, dFrame(224, 16), dFrame(512, 16));
+	IMAGEMANAGER->addFrameImage("맵툴타일빌딩F", L".//source//image//mapTool//tile//city_florida.png", 224, 768, dFrame(224, 16), dFrame(768, 16));
+}
+
+
+//총 프레임 넘버       이미지길이  프레임픽셀
+int playGround::dFrame(int length, int pixel)
+{
+	int divisionFrame = length / pixel;
+	return divisionFrame;
 }

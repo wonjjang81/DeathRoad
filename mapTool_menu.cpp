@@ -56,10 +56,17 @@ void mapTool::menuUpdate()
 
 			//탭 넘버 카운팅
 			menuTabArrowAction();
+			//탭 변경
 			menuTerrainTileChange(_btnTabNum);
 		break;
 		case MENU_BULIDING:
+			_btnArrowL->update();
+			_btnArrowR->update();
 
+			//탭 넘버 카운팅
+			menuTabArrowAction();
+			//탭 변경
+			menuBuildingTileChange(_btnTabNum);
 		break;
 		case MENU_ITEM:
 
@@ -94,7 +101,11 @@ void mapTool::menuRender()
 			D2DMANAGER->drawIntText(L"", _btnTabNum, 847, WINSIZEY - (113));
 		break;
 		case MENU_BULIDING:
+			_btnArrowL->render();
+			_btnArrowR->render();
 
+			//탭 넘버
+			D2DMANAGER->drawIntText(L"", _btnTabNum, 847, WINSIZEY - (113));
 		break;
 		case MENU_ITEM:
 
@@ -131,7 +142,8 @@ void mapTool::menuAddChild()
 				//초기화
 				_menuTab.typeChange = false;
 				removeAllChild();
-
+				_btnTabNum = 1;
+				_preTabNum = 0;
 			break;
 			case MENU_ITEM:
 				//초기화
@@ -192,6 +204,45 @@ void mapTool::menuTerrainTileChange(int num)
 		case 4:
 			removeAllChild();
 
+		break;
+		case 5:
+			removeAllChild();
+
+		break;
+	}
+
+	_preTabNum = num;
+}
+
+//빌딩 타일교체
+void mapTool::menuBuildingTileChange(int num)
+{
+	//예외처리: 탭이 변경되지 않았으면...통과 
+	if (_preTabNum == num) return;
+
+	switch (num)
+	{
+		case 1:
+			removeAllChild();
+
+			_tileBuildingA = new tileBuildingA;
+			_tileBuildingA->init();
+			addChild(_tileBuildingA);
+		break;
+		case 2:
+			removeAllChild();
+			
+			_tileBuildingF = new tileBuildingF;
+			_tileBuildingF->init();
+			addChild(_tileBuildingF);
+		break;
+		case 3:
+			removeAllChild();
+
+		break;
+		case 4:
+			removeAllChild();
+	
 		break;
 		case 5:
 			removeAllChild();

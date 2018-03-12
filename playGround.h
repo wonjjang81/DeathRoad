@@ -15,7 +15,7 @@ public:
 	virtual void render(void);		//그려주는 함수
 
 	void resourceAdd();
-
+	int dFrame(int length, int pixel);
 
 	playGround();
 	~playGround();

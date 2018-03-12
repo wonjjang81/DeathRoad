@@ -97,6 +97,8 @@
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="sampleTile.h" />
+    <ClInclude Include="tileBuildingA.h" />
+    <ClInclude Include="tileBuildingF.h" />
     <ClInclude Include="tileFloor.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="randomFunction.h" />
@@ -139,6 +141,8 @@
     <ClCompile Include="mapTool_keyControl.cpp" />
     <ClCompile Include="mapTool_menu.cpp" />
     <ClCompile Include="sampleTile.cpp" />
+    <ClCompile Include="tileBuildingA.cpp" />
+    <ClCompile Include="tileBuildingF.cpp" />
     <ClCompile Include="tileFloor.cpp" />
     <ClCompile Include="mapTool_resetTile.cpp" />
     <ClCompile Include="playGround.cpp" />

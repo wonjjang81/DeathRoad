@@ -64,6 +64,12 @@
     <Filter Include="mapTool\mapTool_child">
       <UniqueIdentifier>{11c2c71b-4b21-47a6-a4f7-cf018e80922e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mapTool\mapTool_child\floor">
+      <UniqueIdentifier>{b74b8732-1fa0-4bfd-9bd2-9944c5aaf0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mapTool\mapTool_child\building">
+      <UniqueIdentifier>{8ec3b104-c83b-4fd7-8562-464f2f86b02d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -168,14 +174,20 @@
     <ClInclude Include="fButton.h">
       <Filter>2DGameFramework\button</Filter>
     </ClInclude>
-    <ClInclude Include="tileFloor.h">
-      <Filter>mapTool\mapTool_child</Filter>
-    </ClInclude>
-    <ClInclude Include="tileStreet.h">
-      <Filter>mapTool\mapTool_child</Filter>
-    </ClInclude>
     <ClInclude Include="sampleTile.h">
       <Filter>mapTool\mapTool_child</Filter>
+    </ClInclude>
+    <ClInclude Include="tileFloor.h">
+      <Filter>mapTool\mapTool_child\floor</Filter>
+    </ClInclude>
+    <ClInclude Include="tileStreet.h">
+      <Filter>mapTool\mapTool_child\floor</Filter>
+    </ClInclude>
+    <ClInclude Include="tileBuildingA.h">
+      <Filter>mapTool\mapTool_child\building</Filter>
+    </ClInclude>
+    <ClInclude Include="tileBuildingF.h">
+      <Filter>mapTool\mapTool_child\building</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,14 +296,20 @@
     <ClCompile Include="fButton.cpp">
       <Filter>2DGameFramework\button</Filter>
     </ClCompile>
-    <ClCompile Include="tileFloor.cpp">
-      <Filter>mapTool\mapTool_child</Filter>
-    </ClCompile>
-    <ClCompile Include="tileStreet.cpp">
-      <Filter>mapTool\mapTool_child</Filter>
-    </ClCompile>
     <ClCompile Include="sampleTile.cpp">
       <Filter>mapTool\mapTool_child</Filter>
+    </ClCompile>
+    <ClCompile Include="tileFloor.cpp">
+      <Filter>mapTool\mapTool_child\floor</Filter>
+    </ClCompile>
+    <ClCompile Include="tileStreet.cpp">
+      <Filter>mapTool\mapTool_child\floor</Filter>
+    </ClCompile>
+    <ClCompile Include="tileBuildingA.cpp">
+      <Filter>mapTool\mapTool_child\building</Filter>
+    </ClCompile>
+    <ClCompile Include="tileBuildingF.cpp">
+      <Filter>mapTool\mapTool_child\building</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

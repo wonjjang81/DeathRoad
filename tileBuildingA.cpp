@@ -1,19 +1,19 @@
 #include "stdafx.h"
-#include "tileFloor.h"
+#include "tileBuildingA.h"
 
 
-tileFloor::tileFloor()
+tileBuildingA::tileBuildingA()
 {
 }
-tileFloor::~tileFloor()
+tileBuildingA::~tileBuildingA()
 {
 }
 
-HRESULT tileFloor::init()
+HRESULT tileBuildingA::init()
 {
 	//샘플타일 초기화
 	_tileSample = new tile;
-	_tileSample->tileSetup("맵툴타일바닥", 740, 100, ATTR_NONE, TYPE_TERRAIN, 1.5);
+	_tileSample->tileSetup("맵툴타일빌딩A", 740, 100, ATTR_NONE, TYPE_BUILDING, 1);
 
 	//선택할 샘플타일 담을 구조체
 	ZeroMemory(&_selectTile, sizeof(tagTile));
@@ -24,35 +24,34 @@ HRESULT tileFloor::init()
 	return S_OK;
 }
 
-void tileFloor::release()
+void tileBuildingA::release()
 {
 
 }
 
-void tileFloor::update()	
+void tileBuildingA::update()
 {
 
 }
 
-void tileFloor::render()	
+void tileBuildingA::render()
 {
-
 	//-------------------------------------------------- 타일맵 클립핑 Start --------------------------------------------------
 	D2DMANAGER->pRenderTarget->PushAxisAlignedClip(RectF(0, 0, _showWindowX, _showWindowY), D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
 	//-------------------------------------------------- 타일맵 클립핑 Start --------------------------------------------------
 
 
 	//샘플타일 그리기
-	_tileSample->tileRender("맵툴타일바닥");
+	_tileSample->tileRender("맵툴타일빌딩A");
 
 	//샘플타일 선택(빨강 렉트 그리기)
-	_selectTile = _tileSample->tileSelect("맵툴타일바닥");  //선택한 타일정보 담기
+	_selectTile = _tileSample->tileSelect("맵툴타일빌딩A");  //선택한 타일정보 담기
 
 	//선택한 샘플타일 벡터에 담기
 	if (_selectTile.img != NULL)
 	{
 		_selectVTile.clear();
-		_selectVTile.push_back(_selectTile);	
+		_selectVTile.push_back(_selectTile);
 	}
 
 	//선택한 샘플타일 칠해주기
@@ -63,4 +62,3 @@ void tileFloor::render()
 	D2DMANAGER->pRenderTarget->PopAxisAlignedClip();
 	//--------------------------------------------------- 타일맵 클립핑 end ---------------------------------------------------
 }
-

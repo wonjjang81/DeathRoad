@@ -13,6 +13,8 @@ protected:
 	tile*   _tileSample;
 	tagTile _selectTile;   //선택한 타일정보
 
+	float _showWindowX;  //클립핑 영역X
+	float _showWindowY;  //클립핑 영역Y
 public:
 	vTile _selectVTile;    //선택한 타일정보를 담아둘 벡터
 
