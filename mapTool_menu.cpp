@@ -53,6 +53,10 @@ void mapTool::menuUpdate()
 		case MENU_TERRAIN:
 			_btnArrowL->update();
 			_btnArrowR->update();
+
+			//탭 넘버 카운팅
+			menuTabArrowAction();
+			menuTerrainTileChange(_btnTabNum);
 		break;
 		case MENU_BULIDING:
 
@@ -85,6 +89,9 @@ void mapTool::menuRender()
 		case MENU_TERRAIN:
 			_btnArrowL->render();
 			_btnArrowR->render();
+
+			//탭 넘버
+			D2DMANAGER->drawIntText(L"", _btnTabNum, 847, WINSIZEY - (113));
 		break;
 		case MENU_BULIDING:
 
@@ -113,36 +120,84 @@ void mapTool::menuAddChild()
 	{
 		switch (_menuTab.menuType)
 		{
-		case MENU_TERRAIN:
-			_menuTab.typeChange = false;
-			removeAllChild();
+			case MENU_TERRAIN:
+				//초기화
+				_menuTab.typeChange = false;
+				removeAllChild();
+				_btnTabNum = 1;
+				_preTabNum = 0;
+			break;
+			case MENU_BULIDING:
+				//초기화
+				_menuTab.typeChange = false;
+				removeAllChild();
 
-			_menuTr = new mapTool_menu_terrain;
-			_menuTr->init();
-			addChild(_menuTr);
 			break;
-		case MENU_BULIDING:
-			removeAllChild();
-			_menuTab.typeChange = false;
+			case MENU_ITEM:
+				//초기화
+				_menuTab.typeChange = false;
+				removeAllChild();
+
 			break;
-		case MENU_ITEM:
-			removeAllChild();
-			_menuTab.typeChange = false;
+			case MENU_WEAPON:
+				//초기화
+				_menuTab.typeChange = false;
+				removeAllChild();
+
 			break;
-		case MENU_WEAPON:
-			removeAllChild();
-			_menuTab.typeChange = false;
+			case MENU_ENEMY:
+				//초기화
+				_menuTab.typeChange = false;
+				removeAllChild();
+
 			break;
-		case MENU_ENEMY:
-			removeAllChild();
-			_menuTab.typeChange = false;
-			break;
-		case MENU_SETTING:
-			removeAllChild();
-			_menuTab.typeChange = false;
+			case MENU_SETTING:
+				//초기화
+				_menuTab.typeChange = false;
+				removeAllChild();
+
 			break;
 		}
 
 		_menuTabOn = true;
 	}
+}
+
+//지형 타일교체
+void mapTool::menuTerrainTileChange(int num)
+{
+	//예외처리: 탭이 변경되지 않았으면...통과 
+	if (_preTabNum == num) return;
+
+	switch (num)
+	{
+		case 1:
+			removeAllChild();
+
+			_tileFloor = new tileFloor;
+			_tileFloor->init();
+			addChild(_tileFloor);
+		break;
+		case 2:
+			removeAllChild();
+
+			_tileStreet = new tileStreet;
+			_tileStreet->init();
+			addChild(_tileStreet);
+		break;
+		case 3:
+			removeAllChild();
+
+		break;
+		case 4:
+			removeAllChild();
+
+		break;
+		case 5:
+			removeAllChild();
+
+		break;
+	}
+
+	_preTabNum = num;
 }

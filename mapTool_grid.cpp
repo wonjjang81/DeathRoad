@@ -201,13 +201,7 @@ void mapTool::selectTile(float scale)
 				//예외처리: 타일 정보가 없으면...통과!!
 				if (_vSaveTr.size() == 0) continue;             
 
-				//샘플타일정보 -> 본타일 입력
-				_vSaveTr[i].img = _drawTile.img;
-				_vSaveTr[i].frameX = _drawTile.frameX;
-				_vSaveTr[i].frameY = _drawTile.frameY;
-		
-
-
+				//========================== 샘플타일정보 -> 본타일 입력 ==========================	
 				//타일속성 변경
 				if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())
 				{
@@ -216,7 +210,12 @@ void mapTool::selectTile(float scale)
 				else
 				{
 					if (!_btnTileType->getBtnOn())
-					_vSaveTr[i].attribute = _drawTile.attribute;
+					{
+						_vSaveTr[i].attribute = _drawTile.attribute;
+						_vSaveTr[i].img = _drawTile.img;
+						_vSaveTr[i].frameX = _drawTile.frameX;
+						_vSaveTr[i].frameY = _drawTile.frameY;
+					}
 				}
 
 				//타일타입 변경
@@ -228,7 +227,13 @@ void mapTool::selectTile(float scale)
 				else
 				{
 					if (!_btnAttribute->getBtnOn())
-					_vSaveTr[i].tileType = _drawTile.tileType;
+					{
+						_vSaveTr[i].tileType = _drawTile.tileType;
+						_vSaveTr[i].img = _drawTile.img;
+						_vSaveTr[i].frameX = _drawTile.frameX;
+						_vSaveTr[i].frameY = _drawTile.frameY;
+					}
+		
 				}
 			}
 

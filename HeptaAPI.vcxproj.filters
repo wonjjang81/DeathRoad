@@ -165,11 +165,17 @@
     <ClInclude Include="mapTool.h">
       <Filter>mapTool</Filter>
     </ClInclude>
-    <ClInclude Include="mapTool_menu_terrain.h">
-      <Filter>mapTool\mapTool_child</Filter>
-    </ClInclude>
     <ClInclude Include="fButton.h">
       <Filter>2DGameFramework\button</Filter>
+    </ClInclude>
+    <ClInclude Include="tileFloor.h">
+      <Filter>mapTool\mapTool_child</Filter>
+    </ClInclude>
+    <ClInclude Include="tileStreet.h">
+      <Filter>mapTool\mapTool_child</Filter>
+    </ClInclude>
+    <ClInclude Include="sampleTile.h">
+      <Filter>mapTool\mapTool_child</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -269,9 +275,6 @@
     <ClCompile Include="mapTool_menu.cpp">
       <Filter>mapTool\mapTool+</Filter>
     </ClCompile>
-    <ClCompile Include="mapTool_menu_terrain.cpp">
-      <Filter>mapTool\mapTool_child</Filter>
-    </ClCompile>
     <ClCompile Include="mapTool_drawTile.cpp">
       <Filter>mapTool\mapTool+</Filter>
     </ClCompile>
@@ -280,6 +283,15 @@
     </ClCompile>
     <ClCompile Include="fButton.cpp">
       <Filter>2DGameFramework\button</Filter>
+    </ClCompile>
+    <ClCompile Include="tileFloor.cpp">
+      <Filter>mapTool\mapTool_child</Filter>
+    </ClCompile>
+    <ClCompile Include="tileStreet.cpp">
+      <Filter>mapTool\mapTool_child</Filter>
+    </ClCompile>
+    <ClCompile Include="sampleTile.cpp">
+      <Filter>mapTool\mapTool_child</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -79,7 +79,8 @@ void mapTool::btnSetup()
 	_btnArrowR = new fButton;
 	_btnArrowR->init("맵툴버튼화살", L"", 5, imgReX + 30, imgReY, PointMake(1, 1), PointMake(0, 1), 1);
 
-	_btnTabNum = 1;
+	_btnTabNum = 1;  //현재 탭넘버
+	_preTabNum = 0;	 //이전 탭넘버
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 }
 
@@ -236,10 +237,24 @@ void mapTool::btnAllReset()
 }
 
 
+//메뉴하단 화살표 버튼 액션: 탭 넘버 카운팅 
 void mapTool::menuTabArrowAction()
 {
-	if (_btnArrowL->)
+	//좌측탭
+	if (_btnArrowL->getBtnOn())
 	{
-		TABMAXNUM
+		_btnTabNum--;
+
+		if (_btnTabNum <= 1) _btnTabNum = 1;
+		_btnArrowL->setBtnOff(false);
+	}
+
+	//우측탭
+	if (_btnArrowR->getBtnOn())
+	{
+		_btnTabNum++;
+
+		if (_btnTabNum >= TABMAXNUM) _btnTabNum = TABMAXNUM;
+		_btnArrowR->setBtnOff(false);
 	}
 }

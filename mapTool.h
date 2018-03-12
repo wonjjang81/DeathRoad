@@ -4,9 +4,12 @@
 #include "button.h"
 #include "fButton.h"
 
-#include "mapTool_menu_terrain.h"
+#include "tileFloor.h"
+#include "tileStreet.h"
 
 #include <vector>
+
+#define TABMAXNUM 5
 
 enum MENU_TYPE
 {
@@ -67,7 +70,8 @@ private:
 
 	fButton* _btnArrowL;
 	fButton* _btnArrowR;
-
+	int _btnTabNum;  //현재 탭넘버
+	int _preTabNum;  //이전 탭넘버
 	//-------- 타일리셋 --------
 	//버튼
 	fButton* _btnAttribute;
@@ -97,8 +101,10 @@ private:
 	fButton* _btnAllEraser; //타일 초기화(전체)
 	//==========================
 
-	//메뉴
-	mapTool_menu_terrain* _menuTr;
+	//======== 샘플타일 ========
+	tileFloor*  _tileFloor;
+	tileStreet* _tileStreet;
+	//==========================
 
 	//타일 draw & save
 	tagTile    _drawTile;
@@ -131,6 +137,9 @@ public:
 	static void menuWeaponSetup();  	//Weapon
 	static void menuEnemySetup();  		//Enemy
 	static void menuSettingSetup();  	//Setting
+
+	void menuTabArrowAction();          //탭 화살표 버튼 카운팅
+	void menuTerrainTileChange(int num);       //지형 타일교체
 	//--------------------- Reset --------------------
 	void tileReAtrribute(tagTile& resetTile);  	//Attribute Reset
 	void tileReType(tagTile& resetTile);  		//TileType  Reset

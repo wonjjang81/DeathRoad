@@ -5,9 +5,9 @@
 void mapTool::tileDraw(float scale)
 {
 	//선택한 타일 정보 가져오기
-	if (_menuTabOn && _menuTr->_selectVTile.size() != 0)
+	if (_menuTabOn && _tileFloor->_selectVTile.size() != 0)
 	{
-		_drawTile = _menuTr->_selectVTile[0];
+		_drawTile = _tileFloor->_selectVTile[0];
 	}
 
 

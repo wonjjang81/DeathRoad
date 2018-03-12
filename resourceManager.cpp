@@ -20,4 +20,5 @@ void playGround::resourceAdd()
 
 	//타일
 	IMAGEMANAGER->addFrameImage("맵툴타일바닥", L".//source//image//mapTool//tile//floors.png", 128, 352, 8, 22);
+	IMAGEMANAGER->addFrameImage("맵툴타일거리", L".//source//image//mapTool//tile//street.png", 256, 512, 16, 32);
 }

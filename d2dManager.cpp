@@ -260,7 +260,7 @@ void  d2dManager::drawIntText(LPCWSTR title, int value, float x, float y)
 {
 	WCHAR strIndex[128];
 	ZeroMemory(&strIndex, sizeof(strIndex));
-	swprintf(strIndex, L"%s :%d", title, value);
+	swprintf(strIndex, L"%s %d", title, value);
 
 	D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18, strIndex, x, y, x + 200, y + 20);
 }
