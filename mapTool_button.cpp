@@ -78,6 +78,8 @@ void mapTool::btnSetup()
 	_btnArrowL->init("맵툴버튼화살", L"", 5, imgReX - 30, imgReY, PointMake(1, 0), PointMake(0, 0), 1);
 	_btnArrowR = new fButton;
 	_btnArrowR->init("맵툴버튼화살", L"", 5, imgReX + 30, imgReY, PointMake(1, 1), PointMake(0, 1), 1);
+
+	_btnTabNum = 1;
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 }
 
@@ -230,5 +232,14 @@ void mapTool::btnAllReset()
 		_btnTileType->setBtnOff(false);   //타입버튼 Off
 		_btnEraser->setBtnOff(false);     //타일초기화 버튼 Off
 		_btnAllReset->setBtnOff(false);   //리셋버튼 Off
+	}
+}
+
+
+void mapTool::menuTabArrowAction()
+{
+	if (_btnArrowL->)
+	{
+		TABMAXNUM
 	}
 }

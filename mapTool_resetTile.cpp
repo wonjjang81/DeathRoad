@@ -34,28 +34,22 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 	switch (selectBtn)
 	{
 		case BTN_MOVE:
-			//다른버튼 Off
-			_btnA_unMove->setBtnOff(false);
-			_btnA_ARender->setBtnOff(false);
 
 			//속성변경
 			resetTile.attribute = ATTR_MOVE;
+
 		break;
 		case BTN_UNMOVE:
-			//다른버튼 Off
-			_btnA_move->setBtnOff(false);
-			_btnA_ARender->setBtnOff(false);
 
 			//속성변경
 			resetTile.attribute = ATTR_UNMOVE;
+
 		break;
 		case BTN_ARENDER:
-			//다른버튼 Off
-			_btnA_move->setBtnOff(false);
-			_btnA_unMove->setBtnOff(false);
 
 			//속성변경
 			resetTile.attribute = ATTR_AFTER_RENDER;
+
 		break;
 	}
 }

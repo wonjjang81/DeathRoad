@@ -62,6 +62,8 @@ void mapTool::gridRender(float scale)
 		{
 			for (int j = 0; j < TILEX; ++j)
 			{
+				if (_vSaveTr[(TILEX * i) + j].attribute == ATTR_NONE)  continue;  //속성이 없으면...
+
 				//위치정보
 				float rcWidth = _vTile[(TILEX * i) + j].rc.right - _vTile[(TILEX * i) + j].rc.left;
 				float rcHeight = _vTile[(TILEX * i) + j].rc.bottom - _vTile[(TILEX * i) + j].rc.top;
@@ -79,7 +81,7 @@ void mapTool::gridRender(float scale)
 				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
 				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
 				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
-				if (_vSaveTr[(TILEX * i) + j].attribute == ATTR_NONE)  continue;  //속성이 없으면...
+	
 
 				switch (_vSaveTr[(TILEX * i) + j].attribute)
 				{
@@ -93,8 +95,6 @@ void mapTool::gridRender(float scale)
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
 					break;
 				}
-
-				break;
 			}
 		}
 
@@ -104,6 +104,8 @@ void mapTool::gridRender(float scale)
 		{
 			for (int j = 0; j < TILEX; ++j)
 			{
+				if (_vSaveTr[(TILEX * i) + j].tileType == TYPE_NONE)   continue;  //타입이 없으면...
+
 				//위치정보
 				float rcWidth = _vTile[(TILEX * i) + j].rc.right - _vTile[(TILEX * i) + j].rc.left;
 				float rcHeight = _vTile[(TILEX * i) + j].rc.bottom - _vTile[(TILEX * i) + j].rc.top;
@@ -121,7 +123,7 @@ void mapTool::gridRender(float scale)
 				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
 				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
 				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
-				if (_vSaveTr[(TILEX * i) + j].tileType == TYPE_NONE)   continue;  //타입이 없으면...
+
 
 				switch (_vSaveTr[(TILEX * i) + j].tileType)
 				{
@@ -141,8 +143,6 @@ void mapTool::gridRender(float scale)
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
 					break;
 				}
-
-				break;
 			}
 		}
 
