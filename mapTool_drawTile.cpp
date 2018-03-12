@@ -66,7 +66,6 @@ void mapTool::tileDraw(float scale)
 		//	reRect.top    ,
 		//	reRect.right  ,
 		//	reRect.bottom);
-
 	}
 
 

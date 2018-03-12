@@ -34,7 +34,6 @@ private:
 	tagButton _button;
 
 
-
 public:
 	//================================ button ===============================
 	HRESULT init(const char* imageName , LPCWSTR titleText, float textSize, float x, float y, POINT downFrame, POINT upFrame, float scale);

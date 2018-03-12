@@ -44,44 +44,33 @@ void mapTool::menuSettingSetup()
 	_menuTab.typeChange = true;
 }
 
-void mapTool::menuAddChild()
+void mapTool::menuUpdate()
 {
-	if (_menuTab.typeChange)
+	menuAddChild();
+
+	switch (_menuTab.menuType)
 	{
-		switch (_menuTab.menuType)
-		{
-			case MENU_TERRAIN:
-				_menuTab.typeChange = false;
-				removeAllChild();
+		case MENU_TERRAIN:
+			_btnArrowL->update();
+			_btnArrowR->update();
+		break;
+		case MENU_BULIDING:
 
-				_menuTr = new mapTool_menu_terrain;
-				_menuTr->init();
-				addChild(_menuTr);
-			break;
-			case MENU_BULIDING:
-				removeAllChild();
-				_menuTab.typeChange = false;
-			break;
-			case MENU_ITEM:
-				removeAllChild();
-				_menuTab.typeChange = false;
-			break;
-			case MENU_WEAPON:
-				removeAllChild();
-				_menuTab.typeChange = false;
-			break;
-			case MENU_ENEMY:
-				removeAllChild();
-				_menuTab.typeChange = false;
-			break;
-			case MENU_SETTING:
-				removeAllChild();
-				_menuTab.typeChange = false;
-			break;
-		}
+		break;
+		case MENU_ITEM:
 
-		_menuTabOn = true;
+		break;
+		case MENU_WEAPON:
+
+		break;
+		case MENU_ENEMY:
+
+		break;
+		case MENU_SETTING:
+
+		break;
 	}
+
 }
 
 void mapTool::menuRender()
@@ -91,8 +80,69 @@ void mapTool::menuRender()
 		_menuTab.imgTab->render(1.0f, 725, 45);
 	}
 
-	if (_menuTab.imgTile)
+	switch (_menuTab.menuType)
 	{
-		_menuTab.imgTile->render(1.0f, 770, 190, 0, 1.5f);
+		case MENU_TERRAIN:
+			_btnArrowL->render();
+			_btnArrowR->render();
+		break;
+		case MENU_BULIDING:
+
+		break;
+		case MENU_ITEM:
+
+		break;
+		case MENU_WEAPON:
+
+		break;
+		case MENU_ENEMY:
+
+		break;
+		case MENU_SETTING:
+
+		break;
+	}
+
+}
+
+
+//메뉴타입별 샘플타일 생성(차일드씬으로 구성)
+void mapTool::menuAddChild()
+{
+	if (_menuTab.typeChange)
+	{
+		switch (_menuTab.menuType)
+		{
+		case MENU_TERRAIN:
+			_menuTab.typeChange = false;
+			removeAllChild();
+
+			_menuTr = new mapTool_menu_terrain;
+			_menuTr->init();
+			addChild(_menuTr);
+			break;
+		case MENU_BULIDING:
+			removeAllChild();
+			_menuTab.typeChange = false;
+			break;
+		case MENU_ITEM:
+			removeAllChild();
+			_menuTab.typeChange = false;
+			break;
+		case MENU_WEAPON:
+			removeAllChild();
+			_menuTab.typeChange = false;
+			break;
+		case MENU_ENEMY:
+			removeAllChild();
+			_menuTab.typeChange = false;
+			break;
+		case MENU_SETTING:
+			removeAllChild();
+			_menuTab.typeChange = false;
+			break;
+		}
+
+		_menuTabOn = true;
 	}
 }

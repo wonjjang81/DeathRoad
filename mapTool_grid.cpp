@@ -93,6 +93,8 @@ void mapTool::gridRender(float scale)
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
 					break;
 				}
+
+				break;
 			}
 		}
 
@@ -139,6 +141,8 @@ void mapTool::gridRender(float scale)
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
 					break;
 				}
+
+				break;
 			}
 		}
 
@@ -203,6 +207,7 @@ void mapTool::selectTile(float scale)
 				_vSaveTr[i].frameY = _drawTile.frameY;
 		
 
+
 				//타일속성 변경
 				if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())
 				{
@@ -210,6 +215,7 @@ void mapTool::selectTile(float scale)
 				}
 				else
 				{
+					if (!_btnTileType->getBtnOn())
 					_vSaveTr[i].attribute = _drawTile.attribute;
 				}
 
@@ -221,6 +227,7 @@ void mapTool::selectTile(float scale)
 				}
 				else
 				{
+					if (!_btnAttribute->getBtnOn())
 					_vSaveTr[i].tileType = _drawTile.tileType;
 				}
 			}

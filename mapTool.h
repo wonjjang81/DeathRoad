@@ -10,13 +10,13 @@
 
 enum MENU_TYPE
 {
+	MENU_NONE,
 	MENU_TERRAIN,
 	MENU_BULIDING,
 	MENU_ITEM,
 	MENU_WEAPON,
 	MENU_ENEMY,
-	MENU_SETTING,
-	MENU_NONE
+	MENU_SETTING
 };
 
 //------------ 전역화 ------------
@@ -64,6 +64,9 @@ private:
 	button* _btnWeapon;
 	button* _btnEnemy;
 	button* _btnSetting;
+
+	fButton* _btnArrowL;
+	fButton* _btnArrowR;
 
 	//-------- 타일리셋 --------
 	//버튼
@@ -137,6 +140,7 @@ public:
 	void btnTileAllEraser();
 	//------------------------------------------------
 	void menuRender();
+	void menuUpdate();
 	void menuAddChild();
 	void btnSwitch();
 	//================================================

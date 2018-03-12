@@ -12,7 +12,7 @@ void mapTool::btnSetup()
 	float imgReY = _btnImgReHeight / 2 - 15;
 
 	_btnTerrain = new button;
-	_btnTerrain->init("맵툴버튼타이틀탭",  imgReX,					  imgReY, PointMake(1, 0), PointMake(0, 0), menuTerrainSetup, _btnScale);
+	_btnTerrain->init("맵툴버튼타이틀탭",  imgReX,					      imgReY, PointMake(1, 0), PointMake(0, 0), menuTerrainSetup, _btnScale);
 	_btnBuiliding = new button;
 	_btnBuiliding->init("맵툴버튼타이틀탭",imgReX + (_btnImgReWidth * 1), imgReY, PointMake(1, 1), PointMake(0, 1), menuBuilidingSetup, _btnScale);
 	_btnItems = new button;
@@ -70,6 +70,15 @@ void mapTool::btnSetup()
 	_btnAllEraser->init("맵툴버튼타이틀탭", L"A", 10, imgReX + (_btnImgReWidth * 5), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 
+	//------------------------------------------------------------------ Etc 버튼 ----------------------------------------------------------------
+	imgReX = 850;
+	imgReY = WINSIZEY - (105);
+
+	_btnArrowL = new fButton;
+	_btnArrowL->init("맵툴버튼화살", L"", 5, imgReX - 30, imgReY, PointMake(1, 0), PointMake(0, 0), 1);
+	_btnArrowR = new fButton;
+	_btnArrowR->init("맵툴버튼화살", L"", 5, imgReX + 30, imgReY, PointMake(1, 1), PointMake(0, 1), 1);
+	//--------------------------------------------------------------------------------------------------------------------------------------------
 }
 
 void mapTool::btnUpdate()
@@ -119,6 +128,12 @@ void mapTool::btnUpdate()
 		_btnOneEraser->update();
 		_btnAllEraser->update();
 	}
+
+	if (_btnAllEraser->getBtnOn())
+	{
+		btnTileAllEraser();
+		_btnAllEraser->setBtnOff(false);
+	}
 	//-----------------------
 }
 
@@ -166,6 +181,7 @@ void mapTool::btnRender()
 		_btnAllEraser->render();
 	}
 	//-------------------------------
+
 }
 
 
@@ -182,7 +198,6 @@ void mapTool::btnSwitch()
 	}
 	//--------------------------------------------------------------------------------------------------
 
-
 	//-------------------------------------------- 타입버튼 --------------------------------------------
 	//하부버튼 ON/OFF
 	if (!_btnTileType->getBtnOn())
@@ -197,7 +212,7 @@ void mapTool::btnSwitch()
 
 	//--------------------------------------------- Eraser ---------------------------------------------
 	//하부버튼 ON/OFF
-	if (!_btnTileType->getBtnOn())
+	if (!_btnEraser->getBtnOn())
 	{
 		_btnOneEraser->setBtnOff(false);
 		_btnAllEraser->setBtnOff(false);
@@ -213,8 +228,7 @@ void mapTool::btnAllReset()
 	{
 		_btnAttribute->setBtnOff(false);  //속성버튼 Off
 		_btnTileType->setBtnOff(false);   //타입버튼 Off
-		_btnAllReset->setBtnOff(false);   //리셋버튼 Off
 		_btnEraser->setBtnOff(false);     //타일초기화 버튼 Off
-		_btnEraser->setBtnOff(false);
+		_btnAllReset->setBtnOff(false);   //리셋버튼 Off
 	}
 }

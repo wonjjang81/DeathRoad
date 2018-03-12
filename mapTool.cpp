@@ -77,9 +77,9 @@ void mapTool::update()
 
 	mapKeyControl();  //타일맵 키 컨트롤
 	btnUpdate();      //메뉴 버튼
-	menuAddChild();   //메뉴타입별 샘플타일 생성(차일드씬으로 구성)
+	menuUpdate();     //메뉴 탭
 
-}
+} 
 
 void mapTool::render() 
 {

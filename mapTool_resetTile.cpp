@@ -128,10 +128,6 @@ void mapTool::tileReType(tagTile& resetTile)
 //타일정보 지우기: 1
 void mapTool::btnTile1Eraser(tagTile& resetTile)
 {
-	//ZeroMemory(&resetTile, sizeof(tagTile));  //선택한 타일정보 지우기
-	//ZeroMemory(&_drawTile, sizeof(tagTile));  //샘플   타일정보 지우기
-	//_menuTr->resetSelTile();                  //샘플 타일 초기화
-
 	resetTile.img = NULL;
 	resetTile.attribute = ATTR_NONE;
 	resetTile.tileType = TYPE_NONE;
