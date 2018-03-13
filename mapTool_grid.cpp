@@ -244,10 +244,8 @@ void mapTool::selectTile(float scale)
 						_vSaveTr[i].frameX = _drawTile.frameX;
 						_vSaveTr[i].frameY = _drawTile.frameY;
 					}
-		
 				}
 			}
-
 			break;
 		}
 	}

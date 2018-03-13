@@ -4,13 +4,6 @@
 
 void mapTool::tileDraw(float scale)
 {
-	//선택한 타일 정보 가져오기
-	if (_menuTabOn && _tileFloor->_selectVTile.size() != 0)
-	{
-		_drawTile = _tileFloor->_selectVTile[0];
-	}
-
-
 	//-------------------------------------------------- 타일맵 클립핑 Start --------------------------------------------------
 	D2DMANAGER->pRenderTarget->PushAxisAlignedClip(RectF(0, 0, _showWindowX, _showWindowY), D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
 	//-------------------------------------------------- 타일맵 클립핑 Start --------------------------------------------------
@@ -43,8 +36,10 @@ void mapTool::tileDraw(float scale)
 	//타일 그리기
 	for (int i = 0; i < _vSaveTr.size(); ++i)
 	{
-		//예외처리: 이미지X
-		if (_vSaveTr[i].img == NULL)continue;  //이미지X
+		//예외처리
+		//if (_drawTile.img == NULL) return;      //선택한 타일 X
+		if (_vSaveTr[i].img == NULL) continue;  //이미지 X
+
 
 		//타일렉트 보정
 		RECT reRect;

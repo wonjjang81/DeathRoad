@@ -4,6 +4,7 @@
 #include "button.h"
 #include "fButton.h"
 
+#include "sampleTile.h"
 #include "tileFloor.h"
 #include "tileStreet.h"
 #include "tileBuildingA.h"
@@ -104,11 +105,10 @@ private:
 	//==========================
 
 	//======== 샘플타일 ========
-	tileFloor*  _tileFloor;
-	tileStreet* _tileStreet;
-
-	tileBuildingA* _tileBuildingA;
-	tileBuildingF* _tileBuildingF;
+	sampleTile* _tileFloor;
+	sampleTile* _tileStreet;
+	sampleTile* _tileBuildingA;
+	sampleTile* _tileBuildingF;
 	//==========================
 
 	//타일 draw & save
@@ -143,6 +143,9 @@ public:
 	static void menuEnemySetup();  		//Enemy
 	static void menuSettingSetup();  	//Setting
 
+	void selectTileInput(sampleTile* selectTile);
+	void sTileInputTerrain(int num);
+	void sTileInputBuilding(int num);
 	void menuTabArrowAction();          //탭 화살표 버튼 카운팅
 	void menuTerrainTileChange(int num);       //지형 타일교체
 	void menuBuildingTileChange(int num);      //빌딩 타일교체

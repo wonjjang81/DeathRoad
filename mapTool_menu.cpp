@@ -58,6 +58,8 @@ void mapTool::menuUpdate()
 			menuTabArrowAction();
 			//탭 변경
 			menuTerrainTileChange(_btnTabNum);
+			//선택한 타일 정보 가져오기
+			sTileInputTerrain(_btnTabNum);
 		break;
 		case MENU_BULIDING:
 			_btnArrowL->update();
@@ -67,6 +69,8 @@ void mapTool::menuUpdate()
 			menuTabArrowAction();
 			//탭 변경
 			menuBuildingTileChange(_btnTabNum);
+			//선택한 타일 정보 가져오기
+			sTileInputBuilding(_btnTabNum);
 		break;
 		case MENU_ITEM:
 
@@ -186,15 +190,15 @@ void mapTool::menuTerrainTileChange(int num)
 		case 1:
 			removeAllChild();
 
-			_tileFloor = new tileFloor;
-			_tileFloor->init();
+			_tileFloor = new sampleTile;
+			_tileFloor->init("맵툴타일바닥", ATTR_NONE, TYPE_TERRAIN, 1.5);
 			addChild(_tileFloor);
 		break;
 		case 2:
 			removeAllChild();
 
-			_tileStreet = new tileStreet;
-			_tileStreet->init();
+			_tileStreet = new sampleTile;
+			_tileStreet->init("맵툴타일거리", ATTR_NONE, TYPE_NONE, 1.5);
 			addChild(_tileStreet);
 		break;
 		case 3:
@@ -225,15 +229,15 @@ void mapTool::menuBuildingTileChange(int num)
 		case 1:
 			removeAllChild();
 
-			_tileBuildingA = new tileBuildingA;
-			_tileBuildingA->init();
+			_tileBuildingA = new sampleTile;
+			_tileBuildingA->init("맵툴타일빌딩A", ATTR_NONE, TYPE_BUILDING, 1);
 			addChild(_tileBuildingA);
 		break;
 		case 2:
 			removeAllChild();
 			
-			_tileBuildingF = new tileBuildingF;
-			_tileBuildingF->init();
+			_tileBuildingF = new sampleTile;
+			_tileBuildingF->init("맵툴타일빌딩F", ATTR_NONE, TYPE_BUILDING, 1);
 			addChild(_tileBuildingF);
 		break;
 		case 3:
@@ -252,3 +256,60 @@ void mapTool::menuBuildingTileChange(int num)
 
 	_preTabNum = num;
 }
+
+//======================== 타일정보 가져오기 Start ========================
+//선택한 샘플타일 클래스 정보 가져오기
+void mapTool::selectTileInput(sampleTile* selectTile)
+{
+	if (_menuTabOn && selectTile->_selectVTile.size() != 0)
+	{
+		_drawTile = selectTile->_selectVTile[0];
+	}
+}
+
+//지형정보 
+void mapTool::sTileInputTerrain(int num)
+{
+	switch (num)
+	{
+		case 1:
+			selectTileInput(_tileFloor);
+		break;
+		case 2:
+			selectTileInput(_tileStreet);
+		break;
+		case 3:
+
+		break;
+		case 4:
+
+		break;
+		case 5:
+
+		break;
+	}
+}
+
+//빌딩정보
+void mapTool::sTileInputBuilding(int num)
+{
+	switch (num)
+	{
+		case 1:
+			selectTileInput(_tileBuildingA);
+		break;
+		case 2:
+			selectTileInput(_tileBuildingF);
+		break;
+		case 3:
+
+		break;
+		case 4:
+
+		break;
+		case 5:
+
+		break;
+	}
+}
+//========================= 타일정보 가져오기 End =========================
