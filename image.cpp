@@ -381,7 +381,7 @@ void image::render(float opacity)
 		D2D1_RECT_F dxArea2 = RectF(0, 0, _imageInfo->width, _imageInfo->height);
 
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
-			D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+			D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
 	}
 }
 
@@ -417,7 +417,7 @@ void image::render(float opacity, float destX, float destY, float angle, float s
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
-			D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+			D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
 
 		//초기화
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
@@ -442,7 +442,7 @@ void image::render(float opacity, float destX, float destY, float sourX, float s
 		D2D1_RECT_F dxArea2 = RectF(sourX, sourY, sourX + sourWidth, sourY + sourHeight);				  // 비트맵상 출력영역
 
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
-			D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+			D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
 	}
 }
 
@@ -545,7 +545,7 @@ void image::frameRender(float opacity, float destX, float destY, float angle, fl
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
-			D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+			D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
 
 		//초기화
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
@@ -581,7 +581,7 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 		matTM = matScale * matRot;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
-		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
 
 		//초기화
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
@@ -617,7 +617,7 @@ void image::frameAniRender(float opacity, float destX, float destY, int framePos
 		matTM = matRot;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
-		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
 
 		//초기화
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
@@ -655,7 +655,7 @@ void image::frameEffectRender(float opacity, float destX, float destY, int frame
 		matTM = matRot;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
-		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, dxArea2);
+		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
 
 		//초기화
 		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());

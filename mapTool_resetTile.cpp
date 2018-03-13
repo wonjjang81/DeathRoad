@@ -5,8 +5,8 @@
 void mapTool::tileReAtrribute(tagTile& resetTile)
 {
 
-	//예외처리: 타일 셋팅일 안되어 있으면(이미지X)
-	if (resetTile.img == NULL) return;
+	//예외처리: 타일 셋팅이 안되어 있으면(이미지X)
+	if (resetTile.tileType == TYPE_NONE) return;
 
 	enum BUTTONSELECT
 	{
@@ -57,7 +57,7 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 void mapTool::tileReType(tagTile& resetTile)
 {
 	//예외처리: 타일 셋팅일 안되어 있으면(이미지X)
-	if (resetTile.img == NULL) return;
+	if (resetTile.tileType == TYPE_NONE) return;
 
 	TILE_TYPE selectBtn;
 
