@@ -123,7 +123,8 @@ private:
 	//---------- Building --------
 	vSaveTile  _vSaveBd;
 	viSaveTile _viSaveBd;
-
+	bool       _isSaveVector;
+	RECT       _saveGTileRc;
 	//============================
 
 
@@ -172,7 +173,8 @@ public:
 	void btnSwitch();
 	//================================================
 
-	
+	//타일정보 저장
+	void saveTileVectorBd();
 	
 	//타일 그리기
 	void tileDraw(float scale);

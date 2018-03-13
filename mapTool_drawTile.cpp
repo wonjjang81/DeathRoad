@@ -65,7 +65,34 @@ void mapTool::tileDraw(float scale)
 		//	reRect.bottom);
 	}
 	//------------------------------- Building ------------------------------
+	for (int i = 0; i < _vSaveBd.size(); ++i)
+	{
+		//예외처리
+		if (_vSaveBd[i].img == NULL) continue;  //이미지 X
 
+		//타일렉트 보정
+		RECT reRect;
+		reRect.left   = (_vSaveBd[i].rc.left   + _moveX) * scale;
+		reRect.top    = (_vSaveBd[i].rc.top    + _moveY) * scale;
+		reRect.right  = (_vSaveBd[i].rc.right  + _moveX) * scale;
+		reRect.bottom = (_vSaveBd[i].rc.bottom + _moveY) * scale;
+
+		//예외처리: 화면밖 렌더X
+		if (reRect.left >= _showWindowX)  continue;  //가로열(우측)
+		if (reRect.right  < 0)			  continue;  //가로열(좌측)
+		if (reRect.top  >= _showWindowY)  continue;  //세로열(상부)
+		if (reRect.bottom < 0)			  continue;  //세로열(하부)
+
+		_vSaveBd[i].img->frameRender(1.0f, reRect.left, reRect.top,
+			_vSaveBd[i].frameX, _vSaveBd[i].frameY, 0.0f, scale);
+
+		//렉트 확인용
+		D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
+			reRect.left   ,
+			reRect.top    ,
+			reRect.right  ,
+			reRect.bottom);
+	}
 
 	//=========================== 타일 그리기 End ===========================
 

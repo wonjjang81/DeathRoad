@@ -203,14 +203,10 @@ void mapTool::selectTile(float scale)
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
 				//예외처리: 타일 정보가 없으면...통과!!
-				if (_vSaveTr.size() == 0) continue;
+				if (_vSaveTr.size() == 0 && _vSaveBd.size() == 0) continue;
 				if (_drawTile.img == NULL) continue;
 
 				//=================================== 타일 타입별 삭제 ===================================
-				int tileStandardNum = i;  //지울 기준타일
-				int tileNumX = _drawTile.img->getFrameWidth() / TILE_SIZEX;  //X축 타일갯수
-				int tileNumY = _drawTile.img->getFrameHeight() / TILE_SIZEY; //Y축 타일갯수
-
 				if (_btnOneEraser->getBtnOn())
 				{
 					switch (_drawTile.tileType)
@@ -223,13 +219,7 @@ void mapTool::selectTile(float scale)
 							}
 						break;
 						case TYPE_BUILDING:
-							for (int i = 0; i < tileNumY; ++i)
-							{
-								for (int j = 0; j < tileNumX; ++j)
-								{
-									btnTile1Eraser(_vSaveTr[(tileStandardNum + j) + (50 * i)]);
-								}
-							}
+
 						break;
 						case TYPE_ITEM:
 
@@ -248,7 +238,7 @@ void mapTool::selectTile(float scale)
 				//샘플타일정보->본타일 입력
 
 				//------------------------------------ 타일 속성 변경 ------------------------------------
-				if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())
+				if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())  //속성변경 버튼을 눌렀으면...
 				{
 					switch (_drawTile.tileType)
 					{
@@ -256,7 +246,7 @@ void mapTool::selectTile(float scale)
 							tileReAtrribute(_vSaveTr[i]);
 						break;
 						case TYPE_BUILDING:
-							tileReAtrribute(_vSaveTr[tileStandardNum]);
+							
 						break;
 						case TYPE_ITEM:
 
@@ -269,31 +259,24 @@ void mapTool::selectTile(float scale)
 						break;
 					}
 				}
-				else
+				else  //타일을 새로 그린다면...
 				{
 					if (!_btnTileType->getBtnOn())
 					{
 						switch (_drawTile.tileType)
 						{
 							case TYPE_TERRAIN:
-								_vSaveTr[i].attribute = _drawTile.attribute;
-
 								_vSaveTr[i].img    = _drawTile.img;
 								_vSaveTr[i].frameX = _drawTile.frameX;
 								_vSaveTr[i].frameY = _drawTile.frameY;
+								_vSaveTr[i].attribute = _drawTile.attribute;
+								_vSaveTr[i].tileType = _drawTile.tileType;
 							break;
 							case TYPE_BUILDING:
-								for (int i = 0; i < tileNumY; ++i)
-								{
-									for (int j = 0; j < tileNumX; ++j)
-									{
-										_vSaveTr[(tileStandardNum + j) + (50 * i)].attribute = _drawTile.attribute;
-									}
-								}
 
-								_vSaveTr[tileStandardNum].img    = _drawTile.img;
-								_vSaveTr[tileStandardNum].frameX = _drawTile.frameX;
-								_vSaveTr[tileStandardNum].frameY = _drawTile.frameY;
+								_isSaveVector = true;
+								_saveGTileRc = _vSaveTr[i].rc;
+
 							break;
 							case TYPE_ITEM:
 
@@ -312,7 +295,7 @@ void mapTool::selectTile(float scale)
 
 				//------------------------------------ 타일 타입 변경 ------------------------------------
 				if (_btnT_terrain->getBtnOn() || _btnT_building->getBtnOn() || _btnT_item->getBtnOn() ||
-					_btnT_weapon->getBtnOn() || _btnT_enemy->getBtnOn())
+					_btnT_weapon->getBtnOn() || _btnT_enemy->getBtnOn())    //타입변경 버튼을 눌렀으면...
 				{
 					switch (_drawTile.tileType)
 					{
@@ -320,7 +303,7 @@ void mapTool::selectTile(float scale)
 							tileReType(_vSaveTr[i]);
 						break;
 						case TYPE_BUILDING:
-							tileReType(_vSaveTr[tileStandardNum]);
+	
 						break;
 						case TYPE_ITEM:
 
@@ -334,8 +317,11 @@ void mapTool::selectTile(float scale)
 					}
 				
 				}
-				else
+				else  //타일을 새로 그린다면...
 				{
+					//예외처리: 위에서 입력되었으면... 통과
+					if (!_btnTileType->getBtnOn()) break;
+
 					if (!_btnAttribute->getBtnOn())
 					{
 						switch (_drawTile.tileType)
@@ -348,17 +334,10 @@ void mapTool::selectTile(float scale)
 								_vSaveTr[i].frameY = _drawTile.frameY;
 							break;
 							case TYPE_BUILDING:
-								for (int i = 0; i < tileNumY; ++i)
-								{
-									for (int j = 0; j < tileNumX; ++j)
-									{
-										_vSaveTr[(tileStandardNum + j) + (50 * i)].tileType = _drawTile.tileType;
-									}
-								}
 
-								_vSaveTr[tileStandardNum].img    = _drawTile.img;
-								_vSaveTr[tileStandardNum].frameX = _drawTile.frameX;
-								_vSaveTr[tileStandardNum].frameY = _drawTile.frameY;
+								_isSaveVector = true;
+								_saveGTileRc = _vSaveTr[i].rc;
+
 							break;
 							case TYPE_ITEM:
 
@@ -376,7 +355,15 @@ void mapTool::selectTile(float scale)
 			}
 			break;
 		}
+
 	}
+
+	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
+	{
+		saveTileVectorBd();
+	}
+
+
 
 	//--------------------------------------------------- 타일맵 스케일 end ---------------------------------------------------
 	D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
@@ -386,4 +373,31 @@ void mapTool::selectTile(float scale)
 	//--------------------------------------------------- 타일맵 클립핑 end ---------------------------------------------------
 	D2DMANAGER->pRenderTarget->PopAxisAlignedClip();
 	//--------------------------------------------------- 타일맵 클립핑 end ---------------------------------------------------
+}
+
+
+void mapTool::saveTileVectorBd()
+{
+	if (_isSaveVector)
+	{
+		//타일정보 가져오기
+		tagTile tmpTile;
+		ZeroMemory(&tmpTile, sizeof(tagTile));
+		tmpTile.img = _drawTile.img;
+		tmpTile.attribute = _drawTile.attribute;
+		tmpTile.tileType = _drawTile.tileType;
+		tmpTile.frameX = _drawTile.frameX;
+		tmpTile.frameY = _drawTile.frameY;
+		tmpTile.rc.left = _saveGTileRc.left;
+		tmpTile.rc.top = _saveGTileRc.top;
+		tmpTile.rc.right = _saveGTileRc.left + tmpTile.img->getFrameWidth();
+		tmpTile.rc.bottom = _saveGTileRc.top + tmpTile.img->getFrameHeight();
+
+
+
+		//벡터에 담기
+		_vSaveBd.push_back(tmpTile);
+	}
+
+	_isSaveVector = false;
 }

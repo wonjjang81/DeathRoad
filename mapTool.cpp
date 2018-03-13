@@ -61,7 +61,9 @@ HRESULT mapTool::init()
 	//鸥老府悸
 	isAResetOn = false;
 	isTResetOn = false;
-	
+
+	//鸥老历厘
+	_isSaveVector = false;
 
 	return S_OK;
 }
