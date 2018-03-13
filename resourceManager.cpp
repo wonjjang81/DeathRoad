@@ -6,7 +6,7 @@ void playGround::resourceAdd()
 {
 	//버튼
 	IMAGEMANAGER->addFrameImage("맵툴버튼", L".//source//image//mapTool//mapTool_button.png", 44, 64, 1, 4);
-	IMAGEMANAGER->addFrameImage("맵툴버튼타이틀탭", L".//source//image//mapTool//mapTool_btn_titleTab.png", 40, 160, 2, 8);
+	IMAGEMANAGER->addFrameImage("맵툴버튼타이틀탭", L".//source//image//mapTool//mapTool_btn_titleTab.png", 40, 180, 2, 9);
 	IMAGEMANAGER->addFrameImage("맵툴버튼화살", L".//source//image//mapTool//mapTool_menu_arrow.png", 28, 20, 2, 2);
 
 	//메뉴
@@ -21,8 +21,9 @@ void playGround::resourceAdd()
 	//타일
 	IMAGEMANAGER->addFrameImage("맵툴타일바닥", L".//source//image//mapTool//tile//floors.png", 128, 352, 8, 22);
 	IMAGEMANAGER->addFrameImage("맵툴타일거리", L".//source//image//mapTool//tile//street.png", 256, 512, 16, 32);
-	IMAGEMANAGER->addFrameImage("맵툴타일빌딩A", L".//source//image//mapTool//tile//buildings.png", 224, 512, dFrame(224, 16), dFrame(512, 16));
-	IMAGEMANAGER->addFrameImage("맵툴타일빌딩F", L".//source//image//mapTool//tile//city_florida.png", 224, 768, dFrame(224, 16), dFrame(768, 16));
+	IMAGEMANAGER->addFrameImage("맵툴타일빌딩1", L".//source//image//mapTool//tile//buildings.png", 224, 448, dFrame(224, 112), dFrame(512, 112));
+	IMAGEMANAGER->addFrameImage("맵툴타일빌딩2", L".//source//image//mapTool//tile//city_florida.png", 224, 768, dFrame(224, 112), dFrame(768, 128));
+	IMAGEMANAGER->addFrameImage("맵툴타일가구1", L".//source//image//mapTool//tile//dr2c_housefurniture_32px.png", 256, 960, dFrame(256, 32), dFrame(960, 32));
 }
 
 

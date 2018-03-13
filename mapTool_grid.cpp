@@ -185,8 +185,8 @@ void mapTool::selectTile(float scale)
 
 		//타일렉트 보정
 		RECT reRect;
-		reRect.left   = (_vTile[i].rc.left	  + _moveX) * scale;
-		reRect.top    = (_vTile[i].rc.top	  + _moveY) * scale;
+		reRect.left   = (_vTile[i].rc.left	 + _moveX) * scale;
+		reRect.top    = (_vTile[i].rc.top	 + _moveY) * scale;
 		reRect.right  = (_vTile[i].rc.right  + _moveX) * scale;
 		reRect.bottom = (_vTile[i].rc.bottom + _moveY) * scale;
 
@@ -202,49 +202,121 @@ void mapTool::selectTile(float scale)
 			//샘플타일 정보 -> 타일에 저장
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
-				//타일 Eraser
-				if (_btnOneEraser->getBtnOn())
-				{
-					btnTile1Eraser(_vSaveTr[i]);
-					break;
-				}
-
 				//예외처리: 타일 정보가 없으면...통과!!
-				if (_vSaveTr.size() == 0) continue;             
+				if (_vSaveTr.size() == 0) continue;
+				if (_drawTile.img == NULL) continue;
 
-				//========================== 샘플타일정보 -> 본타일 입력 ==========================	
-				//타일속성 변경
-				if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())
+				//이미지가 타일사이즈보다 클 경우
+				if (_drawTile.img->getFrameWidth() > TILE_SIZEX)
 				{
-					tileReAtrribute(_vSaveTr[i]);
-				}
-				else
-				{
-					if (!_btnTileType->getBtnOn())
+					int tileStandardNum = i;  //지울 기준타일
+					int tileNumX = _drawTile.img->getFrameWidth() / TILE_SIZEX;  //X축 타일갯수
+					int tileNumY = _drawTile.img->getFrameHeight() / TILE_SIZEY; //Y축 타일갯수
+
+					//=================================== 타일 Eraser =================================
+					if (_btnOneEraser->getBtnOn())
 					{
-						_vSaveTr[i].attribute = _drawTile.attribute;
-						_vSaveTr[i].img = _drawTile.img;
-						_vSaveTr[i].frameX = _drawTile.frameX;
-						_vSaveTr[i].frameY = _drawTile.frameY;
+						//타일삭제
+						for (int i = 0; i < tileNumY; ++i)
+						{
+							for (int j = 0; j < tileNumX; ++j)
+							{
+								btnTile1Eraser(_vSaveTr[(tileStandardNum + j) + (50 * i)]);
+							}
+						}
+						break;
+					}
+
+					//========================== 샘플타일정보 -> 본타일 입력 ==========================	
+					//타일 이미지 변경
+					_vSaveTr[tileStandardNum].img = _drawTile.img;
+					_vSaveTr[tileStandardNum].frameX = _drawTile.frameX;
+					_vSaveTr[tileStandardNum].frameY = _drawTile.frameY;
+
+					//타일속성 변경
+					if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())
+					{
+						tileReAtrribute(_vSaveTr[tileStandardNum]);
+					}
+					else
+					{
+						if (!_btnTileType->getBtnOn())
+						{
+							for (int i = 0; i < tileNumY; ++i)
+							{
+								for (int j = 0; j < tileNumX; ++j)
+								{
+									_vSaveTr[(tileStandardNum + j) + (50 * i)].attribute = _drawTile.attribute;
+								}
+							}
+						}
+					}
+
+					//타일타입 변경
+					if (_btnT_terrain->getBtnOn() || _btnT_building->getBtnOn() || _btnT_item->getBtnOn() ||
+						_btnT_weapon->getBtnOn() || _btnT_enemy->getBtnOn())
+					{
+						tileReType(_vSaveTr[tileStandardNum]);
+					}
+					else
+					{
+						if (!_btnAttribute->getBtnOn())
+						{
+							for (int i = 0; i < tileNumY; ++i)
+							{
+								for (int j = 0; j < tileNumX; ++j)
+								{
+									_vSaveTr[(tileStandardNum + j) + (50 * i)].tileType = _drawTile.tileType;
+								}
+							}
+						}
+					}
+
+				}
+				else  //타일이 16 X 16일 경우
+				{
+					//=================================== 타일 Eraser =================================
+					if (_btnOneEraser->getBtnOn())
+					{
+						btnTile1Eraser(_vSaveTr[i]);
+						break;
+					}
+
+					//========================== 샘플타일정보 -> 본타일 입력 ==========================	
+					//타일속성 변경
+					if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())
+					{
+						tileReAtrribute(_vSaveTr[i]);
+					}
+					else
+					{
+						if (!_btnTileType->getBtnOn())
+						{
+							_vSaveTr[i].attribute = _drawTile.attribute;
+							_vSaveTr[i].img = _drawTile.img;
+							_vSaveTr[i].frameX = _drawTile.frameX;
+							_vSaveTr[i].frameY = _drawTile.frameY;
+						}
+					}
+
+					//타일타입 변경
+					if (_btnT_terrain->getBtnOn() || _btnT_building->getBtnOn() || _btnT_item->getBtnOn() ||
+						_btnT_weapon->getBtnOn() || _btnT_enemy->getBtnOn())
+					{
+						tileReType(_vSaveTr[i]);
+					}
+					else
+					{
+						if (!_btnAttribute->getBtnOn())
+						{
+							_vSaveTr[i].tileType = _drawTile.tileType;
+							_vSaveTr[i].img = _drawTile.img;
+							_vSaveTr[i].frameX = _drawTile.frameX;
+							_vSaveTr[i].frameY = _drawTile.frameY;
+						}
 					}
 				}
 
-				//타일타입 변경
-				if (_btnT_terrain->getBtnOn() || _btnT_building->getBtnOn() || _btnT_item->getBtnOn() ||
-					_btnT_weapon->getBtnOn() || _btnT_enemy->getBtnOn())
-				{
-					tileReType(_vSaveTr[i]);
-				}
-				else
-				{
-					if (!_btnAttribute->getBtnOn())
-					{
-						_vSaveTr[i].tileType = _drawTile.tileType;
-						_vSaveTr[i].img = _drawTile.img;
-						_vSaveTr[i].frameX = _drawTile.frameX;
-						_vSaveTr[i].frameY = _drawTile.frameY;
-					}
-				}
 			}
 			break;
 		}

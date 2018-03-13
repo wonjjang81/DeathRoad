@@ -57,13 +57,13 @@ private:
 
 	//grid
 	float _showWindowX, _showWindowY;
-	int   _viewScale;
+	float _viewScale;
 	vSampTile  _vTile;
 	viSampTile _viTile;
 
 	//========== 버튼 ==========
 	//--------- 메뉴탭 ---------
-	int _btnScale;
+	float _btnScale;
 	button* _btnTerrain;
 	button* _btnBuiliding;
 	button* _btnItems;
@@ -98,25 +98,33 @@ private:
 	bool isTResetOn;
 
 	//-------- Edit버튼 --------
-	fButton* _btnAllReset;  //버튼 초기화
+	fButton* _btnAllReset;   //버튼 초기화
+
 	fButton* _btnEraser;    //타일 초기화
 	fButton* _btnOneEraser; //타일 초기화(하나만)
 	fButton* _btnAllEraser; //타일 초기화(전체)
+	fButton* _btnAllSet;    //타일 셋팅(전체)
 	//==========================
 
 	//======== 샘플타일 ========
 	sampleTile* _tileFloor;
 	sampleTile* _tileStreet;
-	sampleTile* _tileBuildingA;
-	sampleTile* _tileBuildingF;
+	sampleTile* _tileBuilding1;
+	sampleTile* _tileBuilding2;
+	sampleTile* _tileFurniture1;
 	//==========================
 
-	//타일 draw & save
+	//===== 타일 draw & save =====
+	//---------- Terrain ---------
 	tagTile    _drawTile;
 	bool       _menuTabOn;  //메뉴탭 활성화 여부
 	vSaveTile  _vSaveTr;
 	viSaveTile _viSaveTr;
+	//---------- Building --------
+	vSaveTile  _vSaveBd;
+	viSaveTile _viSaveBd;
 
+	//============================
 
 
 public:
@@ -156,6 +164,7 @@ public:
 	void btnAllReset();
 	void btnTile1Eraser(tagTile& resetTile);
 	void btnTileAllEraser();
+	void btnTileAllSet(tagTile& resetTile);
 	//------------------------------------------------
 	void menuRender();
 	void menuUpdate();

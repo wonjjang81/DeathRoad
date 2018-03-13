@@ -33,10 +33,10 @@ void mapTool::btnSetup()
 
 	//¼Ó¼ºº¯°æ ¹öÆ°
 	_btnAttribute = new fButton;
-	_btnAttribute->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"A", 18,  imgReX,						 imgReY, PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnAttribute->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"A", 18,  imgReX, imgReY, PointMake(1, 6), PointMake(0, 6), _btnScale);
 
 	_btnA_move = new fButton;
-	_btnA_move->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"Mv", 10, imgReX,						 imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnA_move->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"Mv", 10, imgReX,						  imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 	_btnA_unMove = new fButton;
 	_btnA_unMove->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"Um", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 	_btnA_ARender = new fButton;
@@ -59,15 +59,24 @@ void mapTool::btnSetup()
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
 	//------------------------------------------------------------------ Edit ¹öÆ° ----------------------------------------------------------------
+	imgReX = 962;
+	imgReY = WINSIZEY - (40);
+	float tmpScale = 1.5;
+	float tmpImgWidth = _btnImgReWidth / _btnScale * tmpScale;
+	float tmpImgHeight = _btnImgReHeight / _btnScale * tmpScale;
+
+
 	_btnAllReset = new fButton;
-	_btnAllReset->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"R", 18, imgReX + (_btnImgReWidth * 5), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
-	
-	_btnEraser = new fButton;
-	_btnEraser->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"E", 18, imgReX + (_btnImgReWidth * 4), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnAllReset->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"R", 18, imgReX, imgReY, PointMake(1, 8), PointMake(0, 8), tmpScale);
+																	  
+	_btnEraser = new fButton;										  
+	_btnEraser->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"E", 18, imgReX - (tmpImgWidth * 1), imgReY,					   PointMake(1, 8), PointMake(0, 8), tmpScale);
 	_btnOneEraser = new fButton;
-	_btnOneEraser->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"1", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnOneEraser->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"1", 18, imgReX - (tmpImgWidth * 1), imgReY - (tmpImgHeight * 1), PointMake(1, 8), PointMake(0, 8), tmpScale);
 	_btnAllEraser = new fButton;
-	_btnAllEraser->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"A", 10, imgReX + (_btnImgReWidth * 5), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnAllEraser->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"-", 18, imgReX					, imgReY - (tmpImgHeight * 1), PointMake(1, 8), PointMake(0, 8), tmpScale);
+	_btnAllSet = new fButton;
+	_btnAllSet->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"+", 18, imgReX - (tmpImgWidth * 2), imgReY - (tmpImgHeight * 1), PointMake(1, 8), PointMake(0, 8), tmpScale);
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 
 	//------------------------------------------------------------------ Etc ¹öÆ° ----------------------------------------------------------------
@@ -130,13 +139,23 @@ void mapTool::btnUpdate()
 	{
 		_btnOneEraser->update();
 		_btnAllEraser->update();
+		_btnAllSet->update();
 	}
 
+	//¸ðµç Å¸ÀÏÁ¤º¸ Áö¿ì±â
 	if (_btnAllEraser->getBtnOn())
 	{
 		btnTileAllEraser();
 		_btnAllEraser->setBtnOff(false);
 	}
+
+	//¸ðµç Å¸ÀÏ¿¡ ¼±ÅÃÇÑ Å¸ÀÏÁ¤º¸ ³Ö±â
+	if (_btnAllSet->getBtnOn())
+	{
+		btnTileAllSet(_drawTile);
+		_btnAllSet->setBtnOff(false);
+	}
+
 	//-----------------------
 }
 
@@ -182,6 +201,7 @@ void mapTool::btnRender()
 	{
 		_btnOneEraser->render();
 		_btnAllEraser->render();
+		_btnAllSet->render();
 	}
 	//-------------------------------
 
@@ -219,6 +239,7 @@ void mapTool::btnSwitch()
 	{
 		_btnOneEraser->setBtnOff(false);
 		_btnAllEraser->setBtnOff(false);
+		_btnAllSet->setBtnOff(false);
 	}
 	//--------------------------------------------------------------------------------------------------
 

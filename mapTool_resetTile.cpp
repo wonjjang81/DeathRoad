@@ -137,3 +137,18 @@ void mapTool::btnTileAllEraser()
 		_vSaveTr[i].tileType = TYPE_NONE;
 	}
 }
+
+void mapTool::btnTileAllSet(tagTile& resetTile)
+{
+	//예외처리
+	if (resetTile.img == NULL) return;
+
+	for (int i = 0; i < _vSaveTr.size(); ++i)
+	{
+		_vSaveTr[i].img = resetTile.img;
+		_vSaveTr[i].attribute = resetTile.attribute;
+		_vSaveTr[i].tileType = resetTile.tileType;
+		_vSaveTr[i].frameX = resetTile.frameX;
+		_vSaveTr[i].frameY = resetTile.frameY;
+	}
+}

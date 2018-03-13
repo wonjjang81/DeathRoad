@@ -47,10 +47,10 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 	{
 		for (int j = 0; j < tileX; ++j)
 		{
-			tile.rc.left   = TILE_SIZEX * scale * j;
-			tile.rc.top	   = TILE_SIZEY * scale * i;
-			tile.rc.right  = TILE_SIZEX * scale * (j + 1);
-			tile.rc.bottom = TILE_SIZEY * scale * (i + 1);
+			tile.rc.left   = tile.img->getFrameWidth()  * scale * j;
+			tile.rc.top	   = tile.img->getFrameHeight() * scale * i;
+			tile.rc.right  = tile.img->getFrameWidth()  * scale * (j + 1);
+			tile.rc.bottom = tile.img->getFrameHeight() * scale * (i + 1);
 			tile.index     = (tileX * i) + j;
 			tile.x		   = x;
 			tile.y		   = y;

@@ -229,20 +229,23 @@ void mapTool::menuBuildingTileChange(int num)
 		case 1:
 			removeAllChild();
 
-			_tileBuildingA = new sampleTile;
-			_tileBuildingA->init("∏ ≈¯≈∏¿œ∫Ùµ˘A", ATTR_NONE, TYPE_BUILDING, 1);
-			addChild(_tileBuildingA);
+			_tileBuilding1 = new sampleTile;
+			_tileBuilding1->init("∏ ≈¯≈∏¿œ∫Ùµ˘1", ATTR_UNMOVE, TYPE_BUILDING, 1);
+			addChild(_tileBuilding1);
 		break;
 		case 2:
 			removeAllChild();
 			
-			_tileBuildingF = new sampleTile;
-			_tileBuildingF->init("∏ ≈¯≈∏¿œ∫Ùµ˘F", ATTR_NONE, TYPE_BUILDING, 1);
-			addChild(_tileBuildingF);
+			_tileBuilding2 = new sampleTile;
+			_tileBuilding2->init("∏ ≈¯≈∏¿œ∫Ùµ˘2", ATTR_UNMOVE, TYPE_BUILDING, 1);
+			addChild(_tileBuilding2);
 		break;
 		case 3:
 			removeAllChild();
 
+			_tileFurniture1 = new sampleTile;
+			_tileFurniture1->init("∏ ≈¯≈∏¿œ∞°±∏1", ATTR_UNMOVE, TYPE_BUILDING, 1);
+			addChild(_tileFurniture1);
 		break;
 		case 4:
 			removeAllChild();
@@ -296,13 +299,13 @@ void mapTool::sTileInputBuilding(int num)
 	switch (num)
 	{
 		case 1:
-			selectTileInput(_tileBuildingA);
+			selectTileInput(_tileBuilding1);
 		break;
 		case 2:
-			selectTileInput(_tileBuildingF);
+			selectTileInput(_tileBuilding2);
 		break;
 		case 3:
-
+			selectTileInput(_tileFurniture1);
 		break;
 		case 4:
 
