@@ -136,6 +136,7 @@
     <ClCompile Include="mapTool_grid.cpp" />
     <ClCompile Include="mapTool_keyControl.cpp" />
     <ClCompile Include="mapTool_menu.cpp" />
+    <ClCompile Include="mapTool_saveLoad.cpp" />
     <ClCompile Include="sampleTile.cpp" />
     <ClCompile Include="mapTool_resetTile.cpp" />
     <ClCompile Include="playGround.cpp" />

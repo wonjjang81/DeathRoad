@@ -21,13 +21,6 @@ void mapTool::gridRender(float scale)
 		D2DMANAGER->pRenderTarget->SetTransform(matScale);
 		//-------------------------------------------------- 타일맵 스케일 Start --------------------------------------------------
 
-		//그리기 타일탭 키보드가 비활성이면...
-		if (_keyBoardTab)
-		{
-			_moveX = 0;
-			_moveY = 0;
-		}
-
 
 		for (int i = 0; i < _vTile.size(); ++i)
 		{
@@ -182,14 +175,6 @@ void mapTool::selectTile(float scale)
 	//-------------------------------------------------- 타일맵 스케일 Start --------------------------------------------------
 
 
-	//그리기 타일탭 키보드가 비활성이면...
-	if (_keyBoardTab)
-	{
-		_moveX = 0;
-		_moveY = 0;
-	}
-
-
 	for (int i = 0; i < _vTile.size(); ++i)
 	{
 		//예외처리
@@ -282,6 +267,7 @@ void mapTool::selectTile(float scale)
 						{
 							case TYPE_TERRAIN:
 								_vSaveTr[i].img    = _drawTile.img;
+								sprintf(_vSaveTr[i].imgName, "%s", _drawTile.imgName);
 								_vSaveTr[i].frameX = _drawTile.frameX;
 								_vSaveTr[i].frameY = _drawTile.frameY;
 								_vSaveTr[i].attribute = _drawTile.attribute;
@@ -345,6 +331,7 @@ void mapTool::selectTile(float scale)
 								_vSaveTr[i].tileType = _drawTile.tileType;
 
 								_vSaveTr[i].img    = _drawTile.img;
+								sprintf(_vSaveTr[i].imgName, "%s", _drawTile.imgName);
 								_vSaveTr[i].frameX = _drawTile.frameX;
 								_vSaveTr[i].frameY = _drawTile.frameY;
 							break;
@@ -399,6 +386,7 @@ void mapTool::saveTileVectorBd()
 		tagTile tmpTile;
 		ZeroMemory(&tmpTile, sizeof(tagTile));
 		tmpTile.img = _drawTile.img;
+		sprintf(tmpTile.imgName, "%s", _drawTile.imgName);
 		tmpTile.attribute = _drawTile.attribute;
 		tmpTile.tileType = _drawTile.tileType;
 		tmpTile.frameX = _drawTile.frameX;

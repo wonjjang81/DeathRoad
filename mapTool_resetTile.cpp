@@ -57,7 +57,7 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 void mapTool::tileReType(tagTile& resetTile)
 {
 	//예외처리: 타일 셋팅이 안되어 있으면
-	if (resetTile.tileType == TYPE_NONE) return;
+	//if (resetTile.tileType == TYPE_NONE) return;
 
 	TILE_TYPE selectBtn;
 
@@ -90,12 +90,14 @@ void mapTool::tileReType(tagTile& resetTile)
 
 			//속성변경
 			resetTile.tileType = TYPE_TERRAIN;
+			save();
 
 		break;
 		case TYPE_BUILDING:
 
 			//속성변경
 			resetTile.tileType = TYPE_BUILDING;
+			load();
 
 		break;
 		case TYPE_ITEM:
@@ -123,6 +125,7 @@ void mapTool::tileReType(tagTile& resetTile)
 void mapTool::btnTile1Eraser(tagTile& resetTile)
 {
 	resetTile.img = NULL;
+	sprintf(resetTile.imgName, "");
 	resetTile.attribute = ATTR_NONE;
 	resetTile.tileType = TYPE_NONE;
 }
@@ -133,6 +136,7 @@ void mapTool::btnTileAllEraser()
 	for (int i = 0; i < _vSaveTr.size(); ++i)
 	{
 		_vSaveTr[i].img = NULL;
+		sprintf(_vSaveTr[i].imgName, "");
 		_vSaveTr[i].attribute = ATTR_NONE;
 		_vSaveTr[i].tileType = TYPE_NONE;
 	}
@@ -146,9 +150,20 @@ void mapTool::btnTileAllSet(tagTile& resetTile)
 	for (int i = 0; i < _vSaveTr.size(); ++i)
 	{
 		_vSaveTr[i].img = resetTile.img;
+		sprintf(_vSaveTr[i].imgName, "%s", resetTile.imgName);
 		_vSaveTr[i].attribute = resetTile.attribute;
 		_vSaveTr[i].tileType = resetTile.tileType;
 		_vSaveTr[i].frameX = resetTile.frameX;
 		_vSaveTr[i].frameY = resetTile.frameY;
+	}
+
+	for (int i = 0; i < _vSaveBd.size(); ++i)
+	{
+		_vSaveBd[i].img = resetTile.img;
+		sprintf(_vSaveBd[i].imgName, "%s", resetTile.imgName);
+		_vSaveBd[i].attribute = resetTile.attribute;
+		_vSaveBd[i].tileType = resetTile.tileType;
+		_vSaveBd[i].frameX = resetTile.frameX;
+		_vSaveBd[i].frameY = resetTile.frameY;
 	}
 }

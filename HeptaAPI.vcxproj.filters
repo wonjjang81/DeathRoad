@@ -281,5 +281,8 @@
     <ClCompile Include="sampleTile.cpp">
       <Filter>mapTool\mapTool_child</Filter>
     </ClCompile>
+    <ClCompile Include="mapTool_saveLoad.cpp">
+      <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

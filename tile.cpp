@@ -38,7 +38,9 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 
 	//타일정보
 	tagTile tile;
+	wsprintf(tile.imgName, "%s", tileName);
 	tile.img = IMAGEMANAGER->findImage(tileName);
+	sprintf(tile.imgName, "%s", tileName.c_str());
 	int tileX = tile.img->getMaxFrameX() + 1;  //총타일 수X (*이미지 정보의 maxFrameX는 총 프레임수 - 1)
 	int tileY = tile.img->getMaxFrameY() + 1;  //총타일 수Y
 
@@ -142,6 +144,7 @@ tagTile tile::tileSelect(string tileName, float moveX, float moveY)
 				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 				{
 					tmpTile.img = viter->img;
+					sprintf(tmpTile.imgName, "%s", viter->imgName);
 					tmpTile.rc.left = viter->rc.left;
 					tmpTile.rc.top = viter->rc.top;
 					tmpTile.rc.right = viter->rc.right;

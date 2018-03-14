@@ -11,6 +11,7 @@
 #include "tileBuildingF.h"
 
 #include <vector>
+#include <commdlg.h>
 
 #define TABMAXNUM 5
 
@@ -33,7 +34,6 @@ static struct tagMenu
 	MENU_TYPE	menuType;
 	bool        typeChange;
 }_menuTab;
-
 //-------------------------------
 
 
@@ -44,8 +44,8 @@ private:
 	typedef vector<tagSampleTile>			   vSampTile;
 	typedef vector<tagSampleTile>::iterator    viSampTile;
 
-	typedef vector<tagTile>					   vSaveTile;
-	typedef vector<tagTile>::iterator          viSaveTile;
+	typedef vector<tagTile>					vSaveTile;
+	typedef vector<tagTile>::iterator       viSaveTile;
 
 private:
 	//editWindow
@@ -113,8 +113,6 @@ private:
 	sampleTile* _tileBuilding1;
 	sampleTile* _tileBuilding2;
 	sampleTile* _tileFurniture1;
-
-	bool _keyBoardTab;
 	//==========================
 
 	//===== 타일 draw & save =====
@@ -182,6 +180,12 @@ public:
 	//타일 그리기
 	void tileDraw(float scale);
 
+
+	//저장, 불러오기
+	void save();
+	void load();
+	void loadVectorTileData(tagTile setTile, tagTile& getTile);
+	void saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int tileSize);
 
 
 	mapTool();
