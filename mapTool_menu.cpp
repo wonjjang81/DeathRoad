@@ -59,7 +59,7 @@ void mapTool::menuUpdate()
 			//탭 변경
 			menuTerrainTileChange(_btnTabNum);
 			//선택한 타일 정보 가져오기
-			sTileInputTerrain(_btnTabNum);
+			sTileInputTerrain(_btnTabNum);	
 		break;
 		case MENU_BULIDING:
 			_btnArrowL->update();
@@ -191,18 +191,19 @@ void mapTool::menuTerrainTileChange(int num)
 			removeAllChild();
 
 			_tileFloor = new sampleTile;
-			_tileFloor->init("맵툴타일바닥", ATTR_NONE, TYPE_TERRAIN, 1.5);
+			_tileFloor->init("맵툴타일바닥", ATTR_MOVE, TYPE_TERRAIN, 1.5);
 			addChild(_tileFloor);
 		break;
 		case 2:
 			removeAllChild();
 
 			_tileStreet = new sampleTile;
-			_tileStreet->init("맵툴타일거리", ATTR_NONE, TYPE_NONE, 1.5);
+			_tileStreet->init("맵툴타일거리", ATTR_MOVE, TYPE_TERRAIN, 1.5);
 			addChild(_tileStreet);
 		break;
 		case 3:
 			removeAllChild();
+
 
 		break;
 		case 4:
@@ -250,6 +251,9 @@ void mapTool::menuBuildingTileChange(int num)
 		case 4:
 			removeAllChild();
 	
+			_tileWall = new sampleTile;
+			_tileWall->init("맵툴타일벽", ATTR_UNMOVE, TYPE_BUILDING, 1.5);
+			addChild(_tileWall);
 		break;
 		case 5:
 			removeAllChild();
@@ -282,7 +286,7 @@ void mapTool::sTileInputTerrain(int num)
 			selectTileInput(_tileStreet);
 		break;
 		case 3:
-
+		
 		break;
 		case 4:
 
@@ -308,7 +312,7 @@ void mapTool::sTileInputBuilding(int num)
 			selectTileInput(_tileFurniture1);
 		break;
 		case 4:
-
+			selectTileInput(_tileWall);
 		break;
 		case 5:
 

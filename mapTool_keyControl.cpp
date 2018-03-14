@@ -24,7 +24,7 @@ void mapTool::mapKeyControl()
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		//예외처리:이동X   (타일크기 X 스케일 X 화면밖 타일수)
-		if (abs(_moveY) >= (TILE_SIZEY) * (TILEY - (int)(_showWindowX / (TILE_SIZEY * _viewScale)))) return;
+		if (abs(_moveY) >= (TILE_SIZEY) * (TILEY - (int)(_showWindowY / (TILE_SIZEY * _viewScale)))) return;
 		_moveY -= 1 * _moveSpeed;
 	}
 

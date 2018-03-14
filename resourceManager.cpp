@@ -24,6 +24,7 @@ void playGround::resourceAdd()
 	IMAGEMANAGER->addFrameImage("맵툴타일빌딩1", L".//source//image//mapTool//tile//buildings.png", 224, 448, dFrame(224, 112), dFrame(512, 112));
 	IMAGEMANAGER->addFrameImage("맵툴타일빌딩2", L".//source//image//mapTool//tile//city_florida.png", 224, 768, dFrame(224, 112), dFrame(768, 128));
 	IMAGEMANAGER->addFrameImage("맵툴타일가구1", L".//source//image//mapTool//tile//dr2c_housefurniture_32px.png", 256, 960, dFrame(256, 32), dFrame(960, 32));
+	IMAGEMANAGER->addFrameImage("맵툴타일벽", L".//source//image//mapTool//tile//walls.png", 256, 256, dFrame(256, 16), dFrame(256, 16));
 }
 
 

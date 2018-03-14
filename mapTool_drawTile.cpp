@@ -87,11 +87,11 @@ void mapTool::tileDraw(float scale)
 			_vSaveBd[i].frameX, _vSaveBd[i].frameY, 0.0f, scale);
 
 		//렉트 확인용
-		D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
-			reRect.left   ,
-			reRect.top    ,
-			reRect.right  ,
-			reRect.bottom);
+		//D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
+		//	reRect.left   ,
+		//	reRect.top    ,
+		//	reRect.right  ,
+		//	reRect.bottom);
 	}
 
 	//=========================== 타일 그리기 End ===========================

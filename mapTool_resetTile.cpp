@@ -56,7 +56,7 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 
 void mapTool::tileReType(tagTile& resetTile)
 {
-	//예외처리: 타일 셋팅일 안되어 있으면(이미지X)
+	//예외처리: 타일 셋팅이 안되어 있으면
 	if (resetTile.tileType == TYPE_NONE) return;
 
 	TILE_TYPE selectBtn;

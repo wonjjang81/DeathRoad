@@ -28,6 +28,8 @@ struct tagTile
 	float scale;
 	int frameX;
 	int frameY;
+	float moveX;
+	float moveY;
 };
 
 struct tagSampleTile
@@ -65,9 +67,9 @@ public:
 	void render();
 
 	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, float scale);
-	void tileRender(string tileName);
-	tagTile tileSelect(string tileName);
-	void tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity);
+	void tileRender(string tileName, float moveX = 0, float moveY = 0);
+	tagTile tileSelect(string tileName, float moveX = 0, float moveY = 0);
+	void tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity, float moveX = 0, float moveY = 0);
 	void setTileAttribute(tagTile selectTile, ATTRIBUTE attribute);
 	void setTileType(tagTile selectTile, TILE_TYPE tileType);
 

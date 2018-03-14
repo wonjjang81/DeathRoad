@@ -65,6 +65,7 @@ HRESULT mapTool::init()
 	//타일저장
 	_isSaveVector = false;
 
+
 	return S_OK;
 }
 

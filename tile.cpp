@@ -70,7 +70,7 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 }
 
 
-void tile::tileRender(string tileName)
+void tile::tileRender(string tileName, float moveX, float moveY)
 {
 	iterTile iter = _mTile.find(tileName);
 
@@ -87,23 +87,23 @@ void tile::tileRender(string tileName)
 			//if (viter->rc.bottom > 0) continue;
 
 			viter->img->frameRender(1.0f, 
-				viter->x + viter->gapX,
-				viter->y + viter->gapY,
+				viter->x + viter->gapX + moveX,
+				viter->y + viter->gapY + moveY,
 				viter->frameX, viter->frameY,
 				0, viter->scale);
 
 			//RECT 확인용
 			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.2f), 
-				viter->x + viter->rc.left, 
-				viter->y + viter->rc.top,
-				viter->x + viter->rc.right, 
-				viter->y + viter->rc.bottom);
+				moveX + viter->x + viter->rc.left, 
+				moveY + viter->y + viter->rc.top,
+				moveX + viter->x + viter->rc.right, 
+				moveY + viter->y + viter->rc.bottom);
 		}
 
 	}
 }
 
-tagTile tile::tileSelect(string tileName)
+tagTile tile::tileSelect(string tileName, float moveX, float moveY)
 {
 	tagTile tmpTile;
 	ZeroMemory(&tmpTile, sizeof(tagTile));
@@ -125,18 +125,18 @@ tagTile tile::tileSelect(string tileName)
 		{
 			//타일렉트 보정
 			RECT reRect;
-			reRect.left   = viter->x + viter->gapX;
-			reRect.top    = viter->y + viter->gapY;
-			reRect.right  = viter->x + viter->gapX + viter->img->getFrameWidth();
-			reRect.bottom = viter->y + viter->gapY + viter->img->getFrameHeight();
+			reRect.left   = moveX +viter->x + viter->gapX;
+			reRect.top    = moveY +viter->y + viter->gapY;
+			reRect.right  = moveX +viter->x + viter->gapX + viter->img->getFrameWidth();
+			reRect.bottom = moveY +viter->y + viter->gapY + viter->img->getFrameHeight();
 
 			if (PtInRect(&reRect, _ptMouse))
 			{
 				D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)),
-					viter->x + viter->rc.left,
-					viter->y + viter->rc.top,
-					viter->x + viter->rc.right,
-					viter->y + viter->rc.bottom);
+					moveX + viter->x + viter->rc.left,
+					moveY + viter->y + viter->rc.top,
+					moveX + viter->x + viter->rc.right,
+					moveY + viter->y + viter->rc.bottom);
 
 				//tile 정보 입력
 				if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -168,13 +168,13 @@ tagTile tile::tileSelect(string tileName)
 	return tmpTile;
 }
 
-void tile::tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity)
+void tile::tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity, float moveX, float moveY)
 {
 	D2DMANAGER->fillRectangle(D2DMANAGER->createBrush(color, opacity),
-		selectTile.x + selectTile.rc.left,
-		selectTile.y + selectTile.rc.top,
-		selectTile.x + selectTile.rc.right,
-		selectTile.y + selectTile.rc.bottom);
+		moveX + selectTile.x + selectTile.rc.left,
+		moveY + selectTile.y + selectTile.rc.top,
+		moveX + selectTile.x + selectTile.rc.right,
+		moveY + selectTile.y + selectTile.rc.bottom);
 }
 
 //=========================== 타일속성 변경 ===========================

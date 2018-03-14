@@ -108,10 +108,13 @@ private:
 
 	//======== 샘플타일 ========
 	sampleTile* _tileFloor;
+	sampleTile* _tileWall;
 	sampleTile* _tileStreet;
 	sampleTile* _tileBuilding1;
 	sampleTile* _tileBuilding2;
 	sampleTile* _tileFurniture1;
+
+	bool _keyBoardTab;
 	//==========================
 
 	//===== 타일 draw & save =====
