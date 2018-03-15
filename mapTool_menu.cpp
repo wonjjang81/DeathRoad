@@ -82,10 +82,29 @@ void mapTool::menuUpdate()
 
 		break;
 		case MENU_SETTING:
+			//버튼생성
+			_isSetBtnOn = true;
 
+			if (_btnSave->getBtnOn())
+			{
+				save();
+				_btnSave->setBtnOff(false);
+			}
+			if (_btnLoad->getBtnOn())
+			{
+				load();
+				_btnLoad->setBtnOff(false);
+			}
+
+			
 		break;
 	}
 
+	//셋팅버튼 초기화
+	if (_menuTab.menuType != MENU_SETTING)
+	{
+		_isSetBtnOn = false;
+	}
 }
 
 void mapTool::menuRender()
@@ -172,6 +191,7 @@ void mapTool::menuAddChild()
 				_menuTab.typeChange = false;
 				removeAllChild();
 
+				newTileMap();
 			break;
 		}
 

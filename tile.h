@@ -22,7 +22,7 @@ struct tagTile
 	TILE_TYPE tileType;
 	ATTRIBUTE attribute;
 
-	TCHAR imgName[128];
+	TCHAR imgName[64];
 	int index;
 	float x, y;
 	float gapX, gapY;

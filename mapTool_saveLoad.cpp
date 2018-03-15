@@ -55,35 +55,7 @@ void mapTool::save()
 	WriteFile(hFile, &tmpTile, sizeof(tagTile) * terrainSize, &numOfByteWritten, NULL);
 
 
-
-
-	//HANDLE hMapFile = CreateFileMapping(hFile,  //파일을 매핑할 파일의 핸들
-	//	NULL,                                   //파일 보안 속성
-	//	PAGE_READWRITE,                         //접근권한
-	//	0,                                      //매핑할 파일의 크기 지정
-	//	0,                                      //매핑할 파일의 크기 지정 
-	//	NULL);                                  //파일매핑 이름 / 메모리 공유에 사용되는 식별자 문자열
-	//if (hMapFile == NULL)
-	//{
-	//	MessageBoxA(0, "CreateFileMapping Error", "", 0);
-	//}
-
-
-	//CHAR *pWrite = (CHAR *)MapViewOfFile(hMapFile,  //파일맵 핸들
-	//	FILE_MAP_WRITE,                             //파일뷰의 접근권한
-	//	0,                                          //매핑할 파일의 시작위치
-	//	0,                                          //매핑할 파일의 시작위치
-	//	0);                                         //매핑할 크기 / 0이면 파일 전체를 매핑
-	//if (pWrite == NULL)
-	//{
-	//	MessageBoxA(0, "MapViewOfFile Error", "", 0);
-	//}
-
-
-	//UnmapViewOfFile(pWrite);   //매핑된 데이터 영역 해제
-	//CloseHandle(hMapFile);     //핸들 반환
 	CloseHandle(hFile);
-
 }
 
 //타일 로드
@@ -109,7 +81,7 @@ void mapTool::load()
 	if (GetSaveFileName(&ofn) == FALSE) return;
 
 	//초기화
-	this->init();
+	SCENEMANAGER->changeScene("맵툴");
 
 	string tempName;
 	tempName.append(ofn.lpstrFile);
@@ -121,17 +93,6 @@ void mapTool::load()
 		MessageBoxA(0, "CreateFile Error", "", 0);
 	}
 
-	//HANDLE hMapFile = CreateFileMapping(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
-	//if (hMapFile == NULL)
-	//{
-	//	MessageBoxA(0, "CreateFileMapping Error", "", 0);
-	//}
-
-	//CHAR *pWrite = (CHAR *)MapViewOfFile(hMapFile, FILE_MAP_READ, 0, 0, 0);
-	//if (pWrite == NULL)
-	//{
-	//	MessageBoxA(0, "MapViewOfFile Error", "", 0);
-	//}
 
 	const int terrainSize = TILEX * TILEY;
 	tagTile tmpTile[terrainSize];
@@ -144,23 +105,20 @@ void mapTool::load()
 
 	//========================================= 로드한 파일 저장하기 =========================================
 	//----------------------------------------- 지형정보 벡터에 입력 -----------------------------------------
-	saveVectorTileData(tmpTile, _vSaveTr, terrainSize);
+	saveVectorTileData(tmpTile, _vSaveTr, terrainSize);  //지형
+	//saveVectorTileData(tmpTile, _vSaveTr, terrainSize);  //빌딩
 	//========================================================================================================
 
 
-	//UnmapViewOfFile(pWrite);
-	//CloseHandle(hMapFile);
 	CloseHandle(hFile);
 }
 
 
 void mapTool::loadVectorTileData(tagTile setTile, tagTile& getTile)
 {
-	//if (setTile.img == NULL) return;
-
+	getTile.index = setTile.index;
 	getTile.attribute = setTile.attribute;
 	getTile.tileType  = setTile.tileType;
-	getTile.index	  = setTile.index;
 	getTile.img		  = IMAGEMANAGER->findImage(setTile.imgName);
 	sprintf(getTile.imgName, "%s", setTile.imgName);
 	getTile.frameX    = setTile.frameX;
@@ -183,9 +141,9 @@ void mapTool::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 	{
 		if (getTile[i].img == NULL) continue;
 
+		vSaveTile[i].index = getTile[i].index;
 		vSaveTile[i].attribute = getTile[i].attribute;
 		vSaveTile[i].tileType  = getTile[i].tileType;
-		vSaveTile[i].index	   = getTile[i].index;
 		vSaveTile[i].img	   = IMAGEMANAGER->findImage(getTile[i].imgName);
 		sprintf(vSaveTile[i].imgName, "%s", getTile[i].imgName);
 		vSaveTile[i].frameX    = getTile[i].frameX;
@@ -200,3 +158,4 @@ void mapTool::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile[i].moveY	   = getTile[i].moveY;
 	}
 }
+

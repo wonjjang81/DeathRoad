@@ -3,6 +3,7 @@
 #include "tile.h"
 #include "button.h"
 #include "fButton.h"
+#include "Resource1.h"
 
 #include "sampleTile.h"
 #include "tileFloor.h"
@@ -12,6 +13,7 @@
 
 #include <vector>
 #include <commdlg.h>
+
 
 #define TABMAXNUM 5
 
@@ -104,6 +106,11 @@ private:
 	fButton* _btnOneEraser; //타일 초기화(하나만)
 	fButton* _btnAllEraser; //타일 초기화(전체)
 	fButton* _btnAllSet;    //타일 셋팅(전체)
+
+	//------ SaveLoad버튼 ------
+	fButton* _btnSave;
+	fButton* _btnLoad;
+	bool     _isSetBtnOn;
 	//==========================
 
 	//======== 샘플타일 ========
@@ -125,10 +132,14 @@ private:
 	vSaveTile  _vSaveBd;
 	viSaveTile _viSaveBd;
 	bool       _isSaveVector;
-	RECT       _saveGTileRc;
+	tagTile    tmpSaveTileBd;
 	//============================
 
+	//========= NewTile ==========
+	//타일 사이즈 입력
+	HWND _hDlgNewTile;
 
+	//============================
 public:
 	HRESULT init();
 	void release();
@@ -187,6 +198,11 @@ public:
 	void loadVectorTileData(tagTile setTile, tagTile& getTile);
 	void saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int tileSize);
 
+	//타일생성(사이즈 입력)
+	void newTileMap();
+	void createDefaultMap(POINT mapSize);
+	inline void setHandleNewTile(HWND handle) { _hDlgNewTile = handle; }
+	inline HWND getHandleNewTile(void) { return _hDlgNewTile; }
 
 	mapTool();
 	~mapTool();

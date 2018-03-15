@@ -91,6 +91,19 @@ void mapTool::btnSetup()
 	_btnTabNum = 1;  //현재 탭넘버
 	_preTabNum = 0;	 //이전 탭넘버
 	//--------------------------------------------------------------------------------------------------------------------------------------------
+
+	//---------------------------------------------------------------- SaveLoad 버튼 -------------------------------------------------------------
+	imgReX = 790;
+	imgReY = 120;
+
+	_btnSave = new fButton;
+	_btnSave->initB("맵툴버튼", L"SAVE", 18, imgReX, imgReY,      11, 4, PointMake(1, 0), PointMake(0, 0), 3);
+	_btnLoad = new fButton;
+	_btnLoad->initB("맵툴버튼", L"LOAD", 18, imgReX, imgReY + 50, 11, 4, PointMake(1, 1), PointMake(0, 1), 3);
+
+	_isSetBtnOn = false;
+	//--------------------------------------------------------------------------------------------------------------------------------------------
+
 }
 
 void mapTool::btnUpdate()
@@ -155,7 +168,14 @@ void mapTool::btnUpdate()
 		btnTileAllSet(_drawTile);
 		_btnAllSet->setBtnOff(false);
 	}
+	//-----------------------
 
+	//---- SaveLoad 버튼 ----
+	if (_isSetBtnOn)
+	{
+		_btnSave->update();
+		_btnLoad->update();
+	}
 	//-----------------------
 }
 
@@ -205,6 +225,13 @@ void mapTool::btnRender()
 	}
 	//-------------------------------
 
+	//---- SaveLoad 버튼 ----
+	if (_isSetBtnOn)
+	{
+		_btnSave->render();
+		_btnLoad->render();
+	}
+	//-----------------------
 }
 
 
@@ -242,7 +269,6 @@ void mapTool::btnSwitch()
 		_btnAllSet->setBtnOff(false);
 	}
 	//--------------------------------------------------------------------------------------------------
-
 }
 
 

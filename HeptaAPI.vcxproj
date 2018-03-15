@@ -86,6 +86,7 @@
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="d2dManager.h" />
     <ClInclude Include="database.h" />
+    <ClInclude Include="dialogProc.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="fButton.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="mapTool.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="sampleTile.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="randomFunction.h" />
@@ -136,6 +138,7 @@
     <ClCompile Include="mapTool_grid.cpp" />
     <ClCompile Include="mapTool_keyControl.cpp" />
     <ClCompile Include="mapTool_menu.cpp" />
+    <ClCompile Include="mapTool_newTile.cpp" />
     <ClCompile Include="mapTool_saveLoad.cpp" />
     <ClCompile Include="sampleTile.cpp" />
     <ClCompile Include="mapTool_resetTile.cpp" />
@@ -155,6 +158,9 @@
     <ClCompile Include="txtData.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="winMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -29,6 +29,26 @@ HRESULT fButton::init(const char* imageName, LPCWSTR titleText, float textSize, 
 	return S_OK;
 }
 
+HRESULT fButton::initB(const char* imageName, LPCWSTR titleText, float textSize, float x, float y, float textX, float textY, POINT downFrame, POINT upFrame, float scale)
+{
+	_button.direction = BUTTONSTATE_NULL;
+	_button.img = IMAGEMANAGER->findImage(imageName);
+	_button.titleText = titleText;
+	_button.x = x;
+	_button.y = y;
+	_button.btnDownFrame = downFrame;
+	_button.btnUPFrame = upFrame;
+	_button.rc = RectMake(x, y, _button.img->getFrameWidth() * scale, _button.img->getFrameHeight() * scale);
+	_button.centerX = x + textX * scale;
+	_button.centerY = y + textY * scale;
+	_button.scale = scale;
+	_button.textSize = textSize;
+	_button.isOn = false;
+	_button.ptIn = false;
+
+	return S_OK;
+}
+
 void fButton::release()
 {
 

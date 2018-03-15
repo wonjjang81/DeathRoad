@@ -171,6 +171,12 @@
     <ClInclude Include="sampleTile.h">
       <Filter>mapTool\mapTool_child</Filter>
     </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="dialogProc.h">
+      <Filter>mapTool\mapTool+</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -284,5 +290,13 @@
     <ClCompile Include="mapTool_saveLoad.cpp">
       <Filter>mapTool\mapTool+</Filter>
     </ClCompile>
+    <ClCompile Include="mapTool_newTile.cpp">
+      <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

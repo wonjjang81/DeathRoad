@@ -219,7 +219,22 @@ void mapTool::selectTile(float scale)
 							}
 						break;
 						case TYPE_BUILDING:
+							if (_btnOneEraser->getBtnOn())
+							{
+								int tmpIndex = 0;
+								int tmpSelectIndex = i;
 
+								//타일 인덱스번호 -> 벡터넘버
+								for (int i = 0; i < _vSaveBd.size(); ++i)
+								{
+									if (tmpSelectIndex == _vSaveBd[i].index) tmpIndex = i;
+									break;
+								}
+
+								//지우기
+								btnTile1Eraser(_vSaveBd[tmpIndex]);
+								break;
+							}
 						break;
 						case TYPE_ITEM:
 
@@ -246,7 +261,7 @@ void mapTool::selectTile(float scale)
 							tileReAtrribute(_vSaveTr[i]);
 						break;
 						case TYPE_BUILDING:
-							
+							tileReAtrribute(_vSaveBd[i]);
 						break;
 						case TYPE_ITEM:
 
@@ -276,7 +291,8 @@ void mapTool::selectTile(float scale)
 							case TYPE_BUILDING:
 
 								_isSaveVector = true;
-								_saveGTileRc = _vSaveTr[i].rc;
+								tmpSaveTileBd.rc = _vSaveTr[i].rc;
+								tmpSaveTileBd.index = i;
 
 							break;
 							case TYPE_ITEM:
@@ -304,7 +320,7 @@ void mapTool::selectTile(float scale)
 							tileReType(_vSaveTr[i]);
 						break;
 						case TYPE_BUILDING:
-	
+							tileReType(_vSaveBd[i]);
 						break;
 						case TYPE_ITEM:
 
@@ -330,6 +346,7 @@ void mapTool::selectTile(float scale)
 							case TYPE_TERRAIN:
 								_vSaveTr[i].tileType = _drawTile.tileType;
 
+								_vSaveTr[i].index = _drawTile.index;
 								_vSaveTr[i].img    = _drawTile.img;
 								sprintf(_vSaveTr[i].imgName, "%s", _drawTile.imgName);
 								_vSaveTr[i].frameX = _drawTile.frameX;
@@ -338,7 +355,8 @@ void mapTool::selectTile(float scale)
 							case TYPE_BUILDING:
 
 								_isSaveVector = true;
-								_saveGTileRc = _vSaveTr[i].rc;
+								tmpSaveTileBd.rc = _vSaveTr[i].rc;
+								tmpSaveTileBd.index = i;
 
 							break;
 							case TYPE_ITEM:
@@ -385,16 +403,17 @@ void mapTool::saveTileVectorBd()
 		//타일정보 가져오기
 		tagTile tmpTile;
 		ZeroMemory(&tmpTile, sizeof(tagTile));
-		tmpTile.img = _drawTile.img;
+		tmpTile.index     = tmpSaveTileBd.index;
+		tmpTile.img       = _drawTile.img;
 		sprintf(tmpTile.imgName, "%s", _drawTile.imgName);
 		tmpTile.attribute = _drawTile.attribute;
-		tmpTile.tileType = _drawTile.tileType;
-		tmpTile.frameX = _drawTile.frameX;
-		tmpTile.frameY = _drawTile.frameY;
-		tmpTile.rc.left = _saveGTileRc.left;
-		tmpTile.rc.top = _saveGTileRc.top;
-		tmpTile.rc.right = _saveGTileRc.left + tmpTile.img->getFrameWidth();
-		tmpTile.rc.bottom = _saveGTileRc.top + tmpTile.img->getFrameHeight();
+		tmpTile.tileType  = _drawTile.tileType;
+		tmpTile.frameX    = _drawTile.frameX;
+		tmpTile.frameY    = _drawTile.frameY;
+		tmpTile.rc.left   = tmpSaveTileBd.rc.left;
+		tmpTile.rc.top	  = tmpSaveTileBd.rc.top;
+		tmpTile.rc.right  = tmpSaveTileBd.rc.left + tmpTile.img->getFrameWidth();
+		tmpTile.rc.bottom = tmpSaveTileBd.rc.top + tmpTile.img->getFrameHeight();
 
 
 

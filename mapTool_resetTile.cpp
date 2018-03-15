@@ -90,14 +90,16 @@ void mapTool::tileReType(tagTile& resetTile)
 
 			//속성변경
 			resetTile.tileType = TYPE_TERRAIN;
-			save();
+
+		break;
+		case TYPE_WALL:
+
 
 		break;
 		case TYPE_BUILDING:
 
 			//속성변경
 			resetTile.tileType = TYPE_BUILDING;
-			load();
 
 		break;
 		case TYPE_ITEM:
@@ -133,6 +135,7 @@ void mapTool::btnTile1Eraser(tagTile& resetTile)
 //타일정보 지우기: All
 void mapTool::btnTileAllEraser()
 {
+	//Terrain
 	for (int i = 0; i < _vSaveTr.size(); ++i)
 	{
 		_vSaveTr[i].img = NULL;
@@ -140,30 +143,62 @@ void mapTool::btnTileAllEraser()
 		_vSaveTr[i].attribute = ATTR_NONE;
 		_vSaveTr[i].tileType = TYPE_NONE;
 	}
+
+	//Building
+	for (int i = 0; i < _vSaveBd.size(); ++i)
+	{
+		_vSaveBd[i].index = 0;
+		_vSaveBd[i].img = NULL;
+		sprintf(_vSaveBd[i].imgName, "");
+		_vSaveBd[i].attribute = ATTR_NONE;
+		_vSaveBd[i].tileType = TYPE_NONE;
+	}
 }
 
 void mapTool::btnTileAllSet(tagTile& resetTile)
 {
 	//예외처리
-	if (resetTile.img == NULL) return;
+	if (resetTile.tileType == TYPE_NONE) return;
 
-	for (int i = 0; i < _vSaveTr.size(); ++i)
+	switch (resetTile.tileType)
 	{
-		_vSaveTr[i].img = resetTile.img;
-		sprintf(_vSaveTr[i].imgName, "%s", resetTile.imgName);
-		_vSaveTr[i].attribute = resetTile.attribute;
-		_vSaveTr[i].tileType = resetTile.tileType;
-		_vSaveTr[i].frameX = resetTile.frameX;
-		_vSaveTr[i].frameY = resetTile.frameY;
+		case TYPE_TERRAIN:
+			for (int i = 0; i < _vSaveTr.size(); ++i)
+			{
+				_vSaveTr[i].img = resetTile.img;
+				sprintf(_vSaveTr[i].imgName, "%s", resetTile.imgName);
+				_vSaveTr[i].attribute = resetTile.attribute;
+				_vSaveTr[i].tileType = resetTile.tileType;
+				_vSaveTr[i].frameX = resetTile.frameX;
+				_vSaveTr[i].frameY = resetTile.frameY;
+			}
+		break;		
+		case TYPE_WALL:
+
+
+		break;
+		case TYPE_BUILDING:
+			for (int i = 0; i < _vSaveBd.size(); ++i)
+			{
+				_vSaveBd[i].img = resetTile.img;
+				sprintf(_vSaveBd[i].imgName, "%s", resetTile.imgName);
+				_vSaveBd[i].attribute = resetTile.attribute;
+				_vSaveBd[i].tileType = resetTile.tileType;
+				_vSaveBd[i].frameX = resetTile.frameX;
+				_vSaveBd[i].frameY = resetTile.frameY;
+			}
+		break;
+		case TYPE_ITEM:
+
+		break;
+		case TYPE_WEAPON:
+
+		break;
+		case TYPE_ENEMY:
+
+		break;
 	}
 
-	for (int i = 0; i < _vSaveBd.size(); ++i)
-	{
-		_vSaveBd[i].img = resetTile.img;
-		sprintf(_vSaveBd[i].imgName, "%s", resetTile.imgName);
-		_vSaveBd[i].attribute = resetTile.attribute;
-		_vSaveBd[i].tileType = resetTile.tileType;
-		_vSaveBd[i].frameX = resetTile.frameX;
-		_vSaveBd[i].frameY = resetTile.frameY;
-	}
+
+
 }

@@ -37,6 +37,7 @@ private:
 public:
 	//================================ button ===============================
 	HRESULT init(const char* imageName , LPCWSTR titleText, float textSize, float x, float y, POINT downFrame, POINT upFrame, float scale);
+	HRESULT initB(const char* imageName, LPCWSTR titleText, float textSize, float x, float y, float textX, float textY, POINT downFrame, POINT upFrame, float scale);
 	void release();
 	void update();
 	void render();
