@@ -27,9 +27,9 @@ BOOL CALLBACK newTileProc(HWND hDlg, UINT iMessage, WPARAM wParam, LPARAM lParam
 					pThis->init();
 					mapSizeX = GetDlgItemInt(hDlg, IDC_EDIT1, NULL, FALSE);
 					mapSizeY = GetDlgItemInt(hDlg, IDC_EDIT2, NULL, FALSE);
-					//pThis->createDefaultMap(PointMake(mapSizeX, mapSizeY));
+					pThis->createDefaultMap(PointMake(mapSizeX, mapSizeY));
 				case IDCANCEL:
-					//EndDialog(pThis->getHandleNewTile(), 0);
+				    EndDialog(pThis->getHandleNewTile(), 0);
 				return TRUE;
 			}
 

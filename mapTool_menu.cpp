@@ -191,7 +191,6 @@ void mapTool::menuAddChild()
 				_menuTab.typeChange = false;
 				removeAllChild();
 
-				newTileMap();
 			break;
 		}
 

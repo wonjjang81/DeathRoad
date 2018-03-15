@@ -38,21 +38,42 @@ void mapTool::save()
 
 	//========================================= 저장할 파일 불러오기 =========================================
 	//-------------------------------------- 지형정보 벡터에서 가져오기 --------------------------------------
-	const int terrainSize = TILEX * TILEY;
-	tagTile tmpTile[terrainSize];
-	ZeroMemory(&tmpTile, sizeof(tagTile) * terrainSize);
+	//타일 사이즈 저장
+	char tmpBuff[16];
+	INIDATA->addData("mapData", "tileX", itoa(_tileX, tmpBuff, 10));
+	INIDATA->addData("mapData", "tileY", itoa(_tileY, tmpBuff, 10));
+	INIDATA->iniSave("deathRoad");
 
+	//지형 사이즈 먼저 가져오기
+	const int terrainSize = _tileX * _tileY;
+	tagTile* ptSaveTileTr = new tagTile[terrainSize];
+
+	//파일 저장을 위한 옮겨담기(형변환)
 	for (int i = 0; i < _vSaveTr.size(); ++i)
 	{
-		 loadVectorTileData(_vSaveTr[i], tmpTile[i]);
+		 loadVectorTileData(_vSaveTr[i], ptSaveTileTr[i]);
 	}
-	//-------------------------------------- 빌딩정보 벡터에서 가져오기 --------------------------------------
 
-
-	//========================================================================================================
-
+	//파일저장
 	DWORD numOfByteWritten = 0;
-	WriteFile(hFile, &tmpTile, sizeof(tagTile) * terrainSize, &numOfByteWritten, NULL);
+	WriteFile(hFile, ptSaveTileTr, sizeof(tagTile) * terrainSize, &numOfByteWritten, NULL);
+	//-------------------------------------- 빌딩정보 벡터에서 가져오기 --------------------------------------
+	//벡터 사이즈 저장
+	INIDATA->addData("mapData", "vBdSize", itoa(_vSaveBd.size(), tmpBuff, 10));
+	INIDATA->iniSave("deathRoad");
+
+	//빌딩 사이즈 먼저 가져오기
+	tagTile* ptSaveTileBd = new tagTile[_vSaveBd.size()];
+
+	//파일 저장을 위한 옮겨담기(형변환)
+	for (int i = 0; i < _vSaveBd.size(); ++i)
+	{
+		loadVectorTileData(_vSaveBd[i], ptSaveTileBd[i]);
+	}
+
+	//파일저장
+	WriteFile(hFile, ptSaveTileBd, sizeof(tagTile) * terrainSize, &numOfByteWritten, NULL);
+	//========================================================================================================
 
 
 	CloseHandle(hFile);
@@ -94,19 +115,27 @@ void mapTool::load()
 	}
 
 
-	const int terrainSize = TILEX * TILEY;
-	tagTile tmpTile[terrainSize];
-	ZeroMemory(&tmpTile, sizeof(tagTile) * terrainSize);
-
-
-
-	DWORD numOfByteWritten = 0;
-	ReadFile(hFile, &tmpTile, sizeof(tagTile) * terrainSize, &numOfByteWritten, NULL);
-
 	//========================================= 로드한 파일 저장하기 =========================================
 	//----------------------------------------- 지형정보 벡터에 입력 -----------------------------------------
-	saveVectorTileData(tmpTile, _vSaveTr, terrainSize);  //지형
-	//saveVectorTileData(tmpTile, _vSaveTr, terrainSize);  //빌딩
+	//벡터크기 로드
+	int tmpTileX = INIDATA->loadDataInterger("deathRoad", "mapData", "tileX");
+	int tmpTileY = INIDATA->loadDataInterger("deathRoad", "mapData", "tileY");
+	const int terrainSize = tmpTileX * tmpTileY;
+	tagTile* ptTmpTileTr = new tagTile[terrainSize];
+
+	//파일로드
+	DWORD numOfByteWritten = 0;
+	ReadFile(hFile, ptTmpTileTr, sizeof(tagTile) * terrainSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileTr, _vSaveTr, terrainSize);
+
+	//----------------------------------------- 빌딩정보 벡터에 입력 -----------------------------------------
+	//벡터크기 로드
+	const int buildingSize = INIDATA->loadDataInterger("deathRoad", "mapData", "vBdSize");
+	tagTile* ptTmpTileBd = new tagTile[buildingSize];
+
+	//파일로드
+	ReadFile(hFile, ptTmpTileBd, sizeof(tagTile) * buildingSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileBd, _vSaveBd, buildingSize);
 	//========================================================================================================
 
 
@@ -116,7 +145,7 @@ void mapTool::load()
 
 void mapTool::loadVectorTileData(tagTile setTile, tagTile& getTile)
 {
-	getTile.index = setTile.index;
+	getTile.index     = setTile.index;
 	getTile.attribute = setTile.attribute;
 	getTile.tileType  = setTile.tileType;
 	getTile.img		  = IMAGEMANAGER->findImage(setTile.imgName);

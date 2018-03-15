@@ -63,6 +63,9 @@ private:
 	vSampTile  _vTile;
 	viSampTile _viTile;
 
+	//타일 갯수
+	int _tileX, _tileY;
+
 	//========== 버튼 ==========
 	//--------- 메뉴탭 ---------
 	float _btnScale;
@@ -111,6 +114,8 @@ private:
 	fButton* _btnSave;
 	fButton* _btnLoad;
 	bool     _isSetBtnOn;
+
+	fButton* _btnExit;
 	//==========================
 
 	//======== 샘플타일 ========
@@ -138,7 +143,7 @@ private:
 	//========= NewTile ==========
 	//타일 사이즈 입력
 	HWND _hDlgNewTile;
-
+	fButton* _btnNewTile;
 	//============================
 public:
 	HRESULT init();
@@ -199,10 +204,14 @@ public:
 	void saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int tileSize);
 
 	//타일생성(사이즈 입력)
-	void newTileMap();
-	void createDefaultMap(POINT mapSize);
-	inline void setHandleNewTile(HWND handle) { _hDlgNewTile = handle; }
-	inline HWND getHandleNewTile(void) { return _hDlgNewTile; }
+	void newTileMap();					   //입력한 사이즈의 그리드 타일 생성
+	void createDefaultMap(POINT mapSize);  //타일 사이즈 입력
+	void vTileClear();
+
+	//=========================== getter & setter ===========================
+	inline void setHandleNewTile(HWND handle) { _hDlgNewTile = handle; }  //다이얼로그 박스 get
+	inline HWND getHandleNewTile(void) { return _hDlgNewTile; }           //다이얼로그 박스 set
+
 
 	mapTool();
 	~mapTool();

@@ -92,14 +92,18 @@ void mapTool::btnSetup()
 	_preTabNum = 0;	 //ÀÌÀü ÅÇ³Ñ¹ö
 	//--------------------------------------------------------------------------------------------------------------------------------------------
 
-	//---------------------------------------------------------------- SaveLoad ¹öÆ° -------------------------------------------------------------
+	//----------------------------------------------------------------- Setting ¹öÆ° -------------------------------------------------------------
 	imgReX = 790;
 	imgReY = 120;
 
+	_btnNewTile = new fButton;
+	_btnNewTile->initB("¸ÊÅø¹öÆ°", L"NEW", 18, imgReX, imgReY,       14, 4, PointMake(1, 2), PointMake(0, 2), 3);
 	_btnSave = new fButton;
-	_btnSave->initB("¸ÊÅø¹öÆ°", L"SAVE", 18, imgReX, imgReY,      11, 4, PointMake(1, 0), PointMake(0, 0), 3);
+	_btnSave->initB("¸ÊÅø¹öÆ°",   L"SAVE", 18, imgReX, imgReY + 60,  11, 4, PointMake(1, 0), PointMake(0, 0), 3);
 	_btnLoad = new fButton;
-	_btnLoad->initB("¸ÊÅø¹öÆ°", L"LOAD", 18, imgReX, imgReY + 50, 11, 4, PointMake(1, 1), PointMake(0, 1), 3);
+	_btnLoad->initB("¸ÊÅø¹öÆ°",   L"LOAD", 18, imgReX, imgReY + 120, 11, 4, PointMake(1, 1), PointMake(0, 1), 3);
+	_btnExit = new fButton;
+	_btnExit->initB("¸ÊÅø¹öÆ°",   L"EXIT", 18, imgReX, imgReY + 180, 11, 4, PointMake(1, 3), PointMake(0, 3), 3);
 
 	_isSetBtnOn = false;
 	//--------------------------------------------------------------------------------------------------------------------------------------------
@@ -173,10 +177,19 @@ void mapTool::btnUpdate()
 	//---- SaveLoad ¹öÆ° ----
 	if (_isSetBtnOn)
 	{
+		_btnNewTile->update();
 		_btnSave->update();
 		_btnLoad->update();
+		_btnExit->update();
 	}
 	//-----------------------
+
+	//newTile
+	if (_btnNewTile->getBtnOn())
+	{
+		newTileMap();
+		_btnNewTile->setBtnOff(false);
+	}
 }
 
 void mapTool::btnRender()
@@ -228,8 +241,10 @@ void mapTool::btnRender()
 	//---- SaveLoad ¹öÆ° ----
 	if (_isSetBtnOn)
 	{
+		_btnNewTile->render();
 		_btnSave->render();
 		_btnLoad->render();
+		_btnExit->render();
 	}
 	//-----------------------
 }

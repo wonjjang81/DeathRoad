@@ -135,6 +135,11 @@ void mapTool::btnTile1Eraser(tagTile& resetTile)
 //타일정보 지우기: All
 void mapTool::btnTileAllEraser()
 {
+	//선택한 타일정보 초기화
+	ZeroMemory(&_drawTile, sizeof(tagTile));
+	//선택 FillRect 지우기
+
+
 	//Terrain
 	for (int i = 0; i < _vSaveTr.size(); ++i)
 	{

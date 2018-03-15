@@ -12,9 +12,9 @@ void mapTool::tileDraw(float scale)
 	//기본타일 벡터에 담기
 	if ((_vSaveTr.size() == 0))
 	{
-		for (int i = 0; i < TILEY; ++i)
+		for (int i = 0; i < _tileY; ++i)
 		{
-			for (int j = 0; j < TILEX; ++j)
+			for (int j = 0; j < _tileX; ++j)
 			{
 				tagTile tile;
 				ZeroMemory(&tile, sizeof(tagTile));
@@ -23,7 +23,7 @@ void mapTool::tileDraw(float scale)
 				tile.rc.top    = TILE_SIZEY * i;
 				tile.rc.right  = TILE_SIZEX * (j + 1);
 				tile.rc.bottom = TILE_SIZEY * (i + 1);
-				tile.index     = (TILEX * i) + j;
+				tile.index     = (_tileX * i) + j;
 				tile.attribute = ATTR_NONE;
 				tile.tileType  = TYPE_NONE;
 

@@ -17,27 +17,6 @@ HRESULT mapTool::init()
 	//에디트창
 	_editWindow = IMAGEMANAGER->findImage("맵툴창");
 
-	//----------------------- grid -----------------------
-	//grid 벡터에 담기
-	if ((_vTile.size() == 0))
-	{
-		for (int i = 0; i < TILEY; ++i)
-		{
-			for (int j = 0; j < TILEX; ++j)
-			{
-				//렉트로 그리기
-				tagSampleTile tile;
-				tile.rc.left = TILE_SIZEX * j;
-				tile.rc.top = TILE_SIZEY * i;
-				tile.rc.right = TILE_SIZEX * (j + 1);
-				tile.rc.bottom = TILE_SIZEY * (i + 1);
-				tile.index = (TILEX * i) + j;
-
-				_vTile.push_back(tile);
-			}
-		}
-	}
-	//----------------------------------------------------
 
 	//맵이동
 	_moveX = _moveY = 0;
@@ -65,6 +44,9 @@ HRESULT mapTool::init()
 	//타일저장
 	_isSaveVector = false;
 
+	//타일 
+	_tileX = _tileY = 0;
+
 
 	return S_OK;
 }
@@ -89,9 +71,9 @@ void mapTool::render()
 	_editWindow->render(1.0f, 720, 0); //메뉴
 	selectTile(_viewScale);            //타일맵 선택
 	menuRender();                      //메뉴 창
-	tileDraw(_viewScale);              //타일 그리기
 
 	gameNode::render();                //샘플 타일탭
+	tileDraw(_viewScale);              //타일 그리기
 	gridRender(_viewScale);            //타일맵 그리드
 	btnRender();					   //메뉴 버튼
 }
