@@ -73,10 +73,26 @@ void mapTool::menuUpdate()
 			sTileInputBuilding(_btnTabNum);
 		break;
 		case MENU_ITEM:
+			_btnArrowL->update();
+			_btnArrowR->update();
 
+			//탭 넘버 카운팅
+			menuTabArrowAction();
+			//탭 변경
+			menuItemTileChange(_btnTabNum);
+			//선택한 타일 정보 가져오기
+			sTileInputItem(_btnTabNum);
 		break;
 		case MENU_WEAPON:
+			_btnArrowL->update();
+			_btnArrowR->update();
 
+			//탭 넘버 카운팅
+			menuTabArrowAction();
+			//탭 변경
+			menuWeaponTileChange(_btnTabNum);
+			//선택한 타일 정보 가져오기
+			sTileInputWeapon(_btnTabNum);
 		break;
 		case MENU_ENEMY:
 
@@ -94,9 +110,7 @@ void mapTool::menuUpdate()
 			{
 				load();
 				_btnLoad->setBtnOff(false);
-			}
-
-			
+			}			
 		break;
 	}
 
@@ -131,13 +145,25 @@ void mapTool::menuRender()
 			D2DMANAGER->drawIntText(L"", _btnTabNum, 847, WINSIZEY - (113));
 		break;
 		case MENU_ITEM:
+			_btnArrowL->render();
+			_btnArrowR->render();
 
+			//탭 넘버
+			D2DMANAGER->drawIntText(L"", _btnTabNum, 847, WINSIZEY - (113));
 		break;
 		case MENU_WEAPON:
+			_btnArrowL->render();
+			_btnArrowR->render();
 
+			//탭 넘버
+			D2DMANAGER->drawIntText(L"", _btnTabNum, 847, WINSIZEY - (113));
 		break;
 		case MENU_ENEMY:
+			_btnArrowL->render();
+			_btnArrowR->render();
 
+			//탭 넘버
+			D2DMANAGER->drawIntText(L"", _btnTabNum, 847, WINSIZEY - (113));
 		break;
 		case MENU_SETTING:
 
@@ -172,19 +198,22 @@ void mapTool::menuAddChild()
 				//초기화
 				_menuTab.typeChange = false;
 				removeAllChild();
-
+				_btnTabNum = 1;
+				_preTabNum = 0;
 			break;
 			case MENU_WEAPON:
 				//초기화
 				_menuTab.typeChange = false;
 				removeAllChild();
-
+				_btnTabNum = 1;
+				_preTabNum = 0;
 			break;
 			case MENU_ENEMY:
 				//초기화
 				_menuTab.typeChange = false;
 				removeAllChild();
-
+				_btnTabNum = 1;
+				_preTabNum = 0;
 			break;
 			case MENU_SETTING:
 				//초기화
@@ -223,7 +252,9 @@ void mapTool::menuTerrainTileChange(int num)
 		case 3:
 			removeAllChild();
 
-
+			_tileTree1 = new sampleTile;
+			_tileTree1->init("맵툴타일나무", ATTR_MOVE, TYPE_ROAD, 1.5);
+			addChild(_tileTree1);
 		break;
 		case 4:
 			removeAllChild();
@@ -277,6 +308,100 @@ void mapTool::menuBuildingTileChange(int num)
 		case 5:
 			removeAllChild();
 
+			_tileDoor = new sampleTile;
+			_tileDoor->init("맵툴타일문", ATTR_UNMOVE, TYPE_BUILDING, 1.5);
+			addChild(_tileDoor);
+		break;
+		case 6:
+			removeAllChild();
+
+			_tileFurniture1 = new sampleTile;
+			_tileFurniture1->init("맵툴타일가구1", ATTR_UNMOVE, TYPE_FURNITURE, 1.5);
+			addChild(_tileFurniture1);
+		break;
+		case 7:
+			removeAllChild();
+
+			_tileShelves = new sampleTile;
+			_tileShelves->init("맵툴타일책장", ATTR_UNMOVE, TYPE_FURNITURE, 1.5);
+			addChild(_tileShelves);
+		break;
+		case 8:
+			removeAllChild();
+
+		break;
+	}
+
+	_preTabNum = num;
+}
+
+//아이템 교체
+void mapTool::menuItemTileChange(int num)
+{
+	//예외처리: 탭이 변경되지 않았으면...통과 
+	if (_preTabNum == num) return;
+
+	switch (num)
+	{
+		case 1:
+			removeAllChild();
+
+			_tileItem1 = new sampleTile;
+			_tileItem1->init("맵툴타일아이템", ATTR_UNMOVE, TYPE_ITEM, 1.5);
+			addChild(_tileItem1);
+		break;
+		case 2:
+			removeAllChild();
+
+		break;
+		case 3:
+			removeAllChild();
+
+
+		break;
+		case 4:
+			removeAllChild();
+
+		break;
+		case 5:
+			removeAllChild();
+
+		break;
+	}
+
+	_preTabNum = num;
+}
+
+//무기 교체
+void mapTool::menuWeaponTileChange(int num)
+{
+	//예외처리: 탭이 변경되지 않았으면...통과 
+	if (_preTabNum == num) return;
+
+	switch (num)
+	{
+		case 1:
+			removeAllChild();
+
+			_tileWeapon1 = new sampleTile;
+			_tileWeapon1->init("맵툴타일무기", ATTR_UNMOVE, TYPE_WEAPON, 3);
+			addChild(_tileWeapon1);
+		break;
+		case 2:
+			removeAllChild();
+
+		break;
+		case 3:
+			removeAllChild();
+
+		break;
+		case 4:
+			removeAllChild();
+
+		break;
+		case 5:
+			removeAllChild();
+
 		break;
 	}
 
@@ -305,7 +430,7 @@ void mapTool::sTileInputTerrain(int num)
 			selectTileInput(_tileStreet);
 		break;
 		case 3:
-		
+			selectTileInput(_tileTree1);
 		break;
 		case 4:
 
@@ -332,6 +457,61 @@ void mapTool::sTileInputBuilding(int num)
 		break;
 		case 4:
 			selectTileInput(_tileWall);
+		break;
+		case 5:
+			selectTileInput(_tileDoor);
+		break;
+		case 6:
+			selectTileInput(_tileFurniture1);
+		break;
+		case 7:
+			selectTileInput(_tileShelves);
+		break;
+		case 8:
+
+		break;
+	}
+}
+
+//아이템 정보
+void mapTool::sTileInputItem(int num)
+{
+	switch (num)
+	{
+		case 1:
+			selectTileInput(_tileItem1);
+		break;
+		case 2:
+		
+		break;
+		case 3:
+	
+		break;
+		case 4:
+
+		break;
+		case 5:
+
+		break;
+	}
+}
+
+//무기 정보
+void mapTool::sTileInputWeapon(int num)
+{
+	switch (num)
+	{
+		case 1:
+			selectTileInput(_tileWeapon1);
+		break;
+		case 2:
+		
+		break;
+		case 3:
+		
+		break;
+		case 4:
+
 		break;
 		case 5:
 

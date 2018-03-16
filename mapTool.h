@@ -15,7 +15,7 @@
 #include <commdlg.h>
 
 
-#define TABMAXNUM 5
+#define TABMAXNUM 10
 
 enum MENU_TYPE
 {
@@ -119,12 +119,23 @@ private:
 	//==========================
 
 	//======== 샘플타일 ========
+	//지형
 	sampleTile* _tileFloor;
-	sampleTile* _tileWall;
+	//지형: 길
+	sampleTile* _tileTree1;
 	sampleTile* _tileStreet;
+	//빌딩
+	sampleTile* _tileWall;
 	sampleTile* _tileBuilding1;
 	sampleTile* _tileBuilding2;
+	sampleTile* _tileDoor;
+	//빌딩: 가구
 	sampleTile* _tileFurniture1;
+	sampleTile* _tileShelves;
+	//아이템
+	sampleTile* _tileItem1;
+	//무기
+	sampleTile* _tileWeapon1;
 	//==========================
 
 	//===== 타일 draw & save =====
@@ -133,18 +144,38 @@ private:
 	bool       _menuTabOn;  //메뉴탭 활성화 여부
 	vSaveTile  _vSaveTr;
 	viSaveTile _viSaveTr;
+	//----------- PUBLIC ---------
+	bool       _isSaveVector;
+	tagTile    _tmpSaveTile;
 	//---------- Building --------
 	vSaveTile  _vSaveBd;
 	viSaveTile _viSaveBd;
-	bool       _isSaveVector;
-	tagTile    tmpSaveTileBd;
+	//------------ Road ----------
+	vSaveTile  _vSaveRd;
+	viSaveTile _viSaveRd;
+	//---------- Furniture -------
+	vSaveTile  _vSaveFt;
+	viSaveTile _viSaveFt;
+	//------------ Item ----------
+	vSaveTile  _vSaveIt;
+	viSaveTile _viSaveIt;
+	//----------- Weapon ---------
+	vSaveTile  _vSaveWp;
+	viSaveTile _viSaveWp;
+	//----------- Enemy ----------
+	vSaveTile  _vSaveEm;
+	viSaveTile _viSaveEm;
 	//============================
+
+
 
 	//========= NewTile ==========
 	//타일 사이즈 입력
 	HWND _hDlgNewTile;
 	fButton* _btnNewTile;
 	//============================
+
+
 public:
 	HRESULT init();
 	void release();
@@ -172,9 +203,13 @@ public:
 	void selectTileInput(sampleTile* selectTile);
 	void sTileInputTerrain(int num);
 	void sTileInputBuilding(int num);
-	void menuTabArrowAction();          //탭 화살표 버튼 카운팅
-	void menuTerrainTileChange(int num);       //지형 타일교체
-	void menuBuildingTileChange(int num);      //빌딩 타일교체
+	void sTileInputItem(int num);
+	void sTileInputWeapon(int num);
+	void menuTabArrowAction();             //탭 화살표 버튼 카운팅
+	void menuTerrainTileChange(int num);   //지형   타일교체
+	void menuBuildingTileChange(int num);  //빌딩   타일교체
+	void menuItemTileChange(int num);	   //아이템 타일교체
+	void menuWeaponTileChange(int num);    //무기   타일교체 
 	//--------------------- Reset --------------------
 	void tileReAtrribute(tagTile& resetTile);  	//Attribute Reset
 	void tileReType(tagTile& resetTile);  		//TileType  Reset
@@ -183,6 +218,9 @@ public:
 	void btnTile1Eraser(tagTile& resetTile);
 	void btnTileAllEraser();
 	void btnTileAllSet(tagTile& resetTile);
+
+	void vTileInitialize(vSaveTile& saveTile);
+	void vTileSet(vSaveTile& saveTile, tagTile& resetTile);
 	//------------------------------------------------
 	void menuRender();
 	void menuUpdate();
@@ -191,10 +229,11 @@ public:
 	//================================================
 
 	//타일정보 저장
-	void saveTileVectorBd();
+	void saveTileVector(vSaveTile& tileVector);
 	
 	//타일 그리기
 	void tileDraw(float scale);
+	void vTileDraw(vSaveTile tileVector, float scale);
 
 
 	//저장, 불러오기

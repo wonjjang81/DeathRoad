@@ -132,7 +132,10 @@ void mapTool::gridRender(float scale)
 					case TYPE_TERRAIN:
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 					break;
-					case TYPE_WALL:
+					case TYPE_ROAD:
+						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+					break;
+					case TYPE_FURNITURE:
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 					break;
 					case TYPE_BUILDING:
@@ -195,6 +198,7 @@ void mapTool::selectTile(float scale)
 
 		if (PtInRect(&reRect, _ptMouse))
 		{
+
 			//현재 타일위치 렉트 그리기
 			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)),
 				_vTile[i].rc.left   + _moveX,
@@ -206,7 +210,7 @@ void mapTool::selectTile(float scale)
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
 				//예외처리: 타일 정보가 없으면...통과!!
-				if (_vSaveTr.size() == 0 && _vSaveBd.size() == 0) continue;
+				if (_vSaveTr.size() == 0) continue;
 				if (_drawTile.img == NULL) continue;
 
 				//=================================== 타일 타입별 삭제 ===================================
@@ -279,44 +283,72 @@ void mapTool::selectTile(float scale)
 				}
 				else  //타일을 새로 그린다면...
 				{
-					if (!_btnTileType->getBtnOn())
+					if (!_btnAttribute->getBtnOn())
 					{
 						switch (_drawTile.tileType)
 						{
 							case TYPE_TERRAIN:
-								_vSaveTr[i].img    = _drawTile.img;
+								_vSaveTr[i].tileType = _drawTile.tileType;
+
+								_vSaveTr[i].index = _drawTile.index;
+								_vSaveTr[i].img = _drawTile.img;
 								sprintf(_vSaveTr[i].imgName, "%s", _drawTile.imgName);
 								_vSaveTr[i].frameX = _drawTile.frameX;
 								_vSaveTr[i].frameY = _drawTile.frameY;
-								_vSaveTr[i].attribute = _drawTile.attribute;
-								_vSaveTr[i].tileType = _drawTile.tileType;
 							break;
 							case TYPE_BUILDING:
 
 								_isSaveVector = true;
-								tmpSaveTileBd.rc = _vSaveTr[i].rc;
-								tmpSaveTileBd.index = i;
+								_tmpSaveTile.rc = _vSaveTr[i].rc;
+								_tmpSaveTile.index = i;
+
+							break;
+							case TYPE_ROAD:
+
+								_isSaveVector = true;
+								_tmpSaveTile.rc = _vSaveTr[i].rc;
+								_tmpSaveTile.index = i;
+
+							break;
+							case TYPE_FURNITURE:
+
+								_isSaveVector = true;
+								_tmpSaveTile.rc = _vSaveTr[i].rc;
+								_tmpSaveTile.index = i;
 
 							break;
 							case TYPE_ITEM:
 
+								_isSaveVector = true;
+								_tmpSaveTile.rc = _vSaveTr[i].rc;
+								_tmpSaveTile.index = i;
+
 							break;
 							case TYPE_WEAPON:
 
+								_isSaveVector = true;
+								_tmpSaveTile.rc = _vSaveTr[i].rc;
+								_tmpSaveTile.index = i;
+
 							break;
 							case TYPE_ENEMY:
-	
+
+								_isSaveVector = true;
+								_tmpSaveTile.rc = _vSaveTr[i].rc;
+								_tmpSaveTile.index = i;
+
 							break;
 						}
+
 					}
 				}
-			
-			
+	
 
 				//------------------------------------ 타일 타입 변경 ------------------------------------
 				if (_btnT_terrain->getBtnOn() || _btnT_building->getBtnOn() || _btnT_item->getBtnOn() ||
 					_btnT_weapon->getBtnOn() || _btnT_enemy->getBtnOn())    //타입변경 버튼을 눌렀으면...
 				{
+					
 					switch (_drawTile.tileType)
 					{
 						case TYPE_TERRAIN:
@@ -337,44 +369,7 @@ void mapTool::selectTile(float scale)
 					}
 				
 				}
-				else  //타일을 새로 그린다면...
-				{
-					//예외처리: 위에서 입력되었으면... 통과
-					if (!_btnTileType->getBtnOn()) break;
 
-					if (!_btnAttribute->getBtnOn())
-					{
-						switch (_drawTile.tileType)
-						{
-							case TYPE_TERRAIN:
-								_vSaveTr[i].tileType = _drawTile.tileType;
-
-								_vSaveTr[i].index = _drawTile.index;
-								_vSaveTr[i].img    = _drawTile.img;
-								sprintf(_vSaveTr[i].imgName, "%s", _drawTile.imgName);
-								_vSaveTr[i].frameX = _drawTile.frameX;
-								_vSaveTr[i].frameY = _drawTile.frameY;
-							break;
-							case TYPE_BUILDING:
-
-								_isSaveVector = true;
-								tmpSaveTileBd.rc = _vSaveTr[i].rc;
-								tmpSaveTileBd.index = i;
-
-							break;
-							case TYPE_ITEM:
-
-							break;
-							case TYPE_WEAPON:
-
-							break;
-							case TYPE_ENEMY:
-
-							break;
-						}
-
-					}
-				}
 			}
 			break;
 		}
@@ -383,7 +378,28 @@ void mapTool::selectTile(float scale)
 
 	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
 	{
-		saveTileVectorBd();
+		switch (_drawTile.tileType)
+		{
+			case TYPE_BUILDING:
+				saveTileVector(_vSaveBd);  //빌딩
+			break;
+			case TYPE_ROAD:
+				saveTileVector(_vSaveRd);  //도로
+			break;
+			case TYPE_FURNITURE:
+				saveTileVector(_vSaveFt);  //가구
+			break;
+			case TYPE_ITEM:
+				saveTileVector(_vSaveIt);  //아이템
+			break;
+			case TYPE_WEAPON:
+				saveTileVector(_vSaveWp);  //무기
+			break;
+			case TYPE_ENEMY:
+				saveTileVector(_vSaveEm);  //적
+			break;
+		}
+
 	}
 
 
@@ -399,30 +415,33 @@ void mapTool::selectTile(float scale)
 }
 
 
-void mapTool::saveTileVectorBd()
+//선택한 타일정보 벡터에 담기 [원형]
+void mapTool::saveTileVector(vSaveTile& tileVector)
 {
 	if (_isSaveVector)
 	{
 		//타일정보 가져오기
 		tagTile tmpTile;
 		ZeroMemory(&tmpTile, sizeof(tagTile));
-		tmpTile.index     = tmpSaveTileBd.index;
+		tmpTile.index     = _tmpSaveTile.index;
 		tmpTile.img       = _drawTile.img;
 		sprintf(tmpTile.imgName, "%s", _drawTile.imgName);
 		tmpTile.attribute = _drawTile.attribute;
 		tmpTile.tileType  = _drawTile.tileType;
 		tmpTile.frameX    = _drawTile.frameX;
 		tmpTile.frameY    = _drawTile.frameY;
-		tmpTile.rc.left   = tmpSaveTileBd.rc.left;
-		tmpTile.rc.top	  = tmpSaveTileBd.rc.top;
-		tmpTile.rc.right  = tmpSaveTileBd.rc.left + tmpTile.img->getFrameWidth();
-		tmpTile.rc.bottom = tmpSaveTileBd.rc.top + tmpTile.img->getFrameHeight();
-
-
+		tmpTile.rc.left   = _tmpSaveTile.rc.left;
+		tmpTile.rc.top	  = _tmpSaveTile.rc.top;
+		tmpTile.rc.right  = _tmpSaveTile.rc.right;
+		tmpTile.rc.bottom = _tmpSaveTile.rc.bottom;
+		tmpTile.centerX   = _drawTile.centerX;
+		tmpTile.centerY   = _drawTile.centerY;
 
 		//벡터에 담기
-		_vSaveBd.push_back(tmpTile);
+		tileVector.push_back(tmpTile);
 	}
 
+	//초기화
+	ZeroMemory(&_tmpSaveTile, sizeof(tagTile));
 	_isSaveVector = false;
 }

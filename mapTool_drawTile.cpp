@@ -34,70 +34,69 @@ void mapTool::tileDraw(float scale)
 
 
 	//========================== 타일 그리기 Start ==========================
-	//------------------------------- Terrain -------------------------------
-	for (int i = 0; i < _vSaveTr.size(); ++i)
-	{
-		//예외처리
-		if (_vSaveTr[i].img == NULL) continue;  //이미지 X
+	//Terrain
+	vTileDraw(_vSaveTr, scale);
 
+	//Building
+	vTileDraw(_vSaveBd, scale);
 
-		//타일렉트 보정
-		RECT reRect;
-		reRect.left   = (_vSaveTr[i].rc.left   + _moveX) * scale;
-		reRect.top    = (_vSaveTr[i].rc.top    + _moveY) * scale;
-		reRect.right  = (_vSaveTr[i].rc.right  + _moveX) * scale;
-		reRect.bottom = (_vSaveTr[i].rc.bottom + _moveY) * scale;
+	//Road
+	vTileDraw(_vSaveRd, scale);
 
-		//예외처리: 화면밖 렌더X
-		if (reRect.left   >= _showWindowX)  continue;  //가로열(우측)
-		if (reRect.right  < 0)			    continue;  //가로열(좌측)
-		if (reRect.top    >= _showWindowY)  continue;  //세로열(상부)
-		if (reRect.bottom < 0)			    continue;  //세로열(하부)
+	//Furniture
+	vTileDraw(_vSaveFt, scale);
 
-		_vSaveTr[i].img->frameRender(1.0f, reRect.left, reRect.top,
-			_vSaveTr[i].frameX, _vSaveTr[i].frameY, 0.0f, scale);
+	//Item
+	vTileDraw(_vSaveIt, scale);
 
-		//렉트 확인용
-		//D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
-		//	reRect.left   ,
-		//	reRect.top    ,
-		//	reRect.right  ,
-		//	reRect.bottom);
-	}
-	//------------------------------- Building ------------------------------
-	for (int i = 0; i < _vSaveBd.size(); ++i)
-	{
-		//예외처리
-		if (_vSaveBd[i].img == NULL) continue;  //이미지 X
+	//Weapon
+	vTileDraw(_vSaveWp, scale);
 
-		//타일렉트 보정
-		RECT reRect;
-		reRect.left   = (_vSaveBd[i].rc.left   + _moveX) * scale;
-		reRect.top    = (_vSaveBd[i].rc.top    + _moveY) * scale;
-		reRect.right  = (_vSaveBd[i].rc.right  + _moveX) * scale;
-		reRect.bottom = (_vSaveBd[i].rc.bottom + _moveY) * scale;
-
-		//예외처리: 화면밖 렌더X
-		if (reRect.left >= _showWindowX)  continue;  //가로열(우측)
-		if (reRect.right  < 0)			  continue;  //가로열(좌측)
-		if (reRect.top  >= _showWindowY)  continue;  //세로열(상부)
-		if (reRect.bottom < 0)			  continue;  //세로열(하부)
-
-		_vSaveBd[i].img->frameRender(1.0f, reRect.left, reRect.top,
-			_vSaveBd[i].frameX, _vSaveBd[i].frameY, 0.0f, scale);
-
-		//렉트 확인용
-		//D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
-		//	reRect.left   ,
-		//	reRect.top    ,
-		//	reRect.right  ,
-		//	reRect.bottom);
-	}
-
+	//Enemy
+	vTileDraw(_vSaveEm, scale);
 	//=========================== 타일 그리기 End ===========================
 
 
 	//--------------------------------------------------- 타일맵 클립핑 end ---------------------------------------------------
 	D2DMANAGER->pRenderTarget->PopAxisAlignedClip();
 	//--------------------------------------------------- 타일맵 클립핑 end ---------------------------------------------------
+}
+
+
+//타일 그리기 [원형]: 벡터
+void mapTool::vTileDraw(vSaveTile tileVector, float scale)
+{
+	for (int i = 0; i < tileVector.size(); ++i)
+	{
+		//예외처리
+		if (tileVector[i].img == NULL) continue;  //이미지 X
+
+												//타일렉트 보정
+		RECT reRect;
+		reRect.left = (tileVector[i].rc.left     + _moveX) * scale;
+		reRect.top = (tileVector[i].rc.top       + _moveY) * scale;
+		reRect.right = (tileVector[i].rc.right   + _moveX) * scale;
+		reRect.bottom = (tileVector[i].rc.bottom + _moveY) * scale;
+
+		//위치 보정(타일 중심)
+		float tmpCenterX = reRect.left + (tileVector[i].centerX * scale);
+		float tmpCenterY = reRect.top  + (tileVector[i].centerY * scale);
+
+		//예외처리: 화면밖 렌더X
+		if (reRect.left >= _showWindowX)  continue;  //가로열(우측)
+		if (reRect.right  < 0)			  continue;  //가로열(좌측)
+		if (reRect.top >= _showWindowY)  continue;  //세로열(상부)
+		if (reRect.bottom < 0)			  continue;  //세로열(하부)
+
+		tileVector[i].img->frameRender(1.0f, tmpCenterX, tmpCenterY,
+			tileVector[i].frameX, tileVector[i].frameY, 0.0f, scale);
+
+		//렉트 확인용
+		D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
+			reRect.left,
+			reRect.top,
+			reRect.right,
+			reRect.bottom);
+	}
+
 }

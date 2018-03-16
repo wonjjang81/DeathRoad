@@ -92,7 +92,11 @@ void mapTool::tileReType(tagTile& resetTile)
 			resetTile.tileType = TYPE_TERRAIN;
 
 		break;
-		case TYPE_WALL:
+		case TYPE_ROAD:
+
+
+		break;
+		case TYPE_FURNITURE:
 
 
 		break;
@@ -141,23 +145,26 @@ void mapTool::btnTileAllEraser()
 
 
 	//Terrain
-	for (int i = 0; i < _vSaveTr.size(); ++i)
-	{
-		_vSaveTr[i].img = NULL;
-		sprintf(_vSaveTr[i].imgName, "");
-		_vSaveTr[i].attribute = ATTR_NONE;
-		_vSaveTr[i].tileType = TYPE_NONE;
-	}
+	vTileInitialize(_vSaveTr);
 
 	//Building
-	for (int i = 0; i < _vSaveBd.size(); ++i)
-	{
-		_vSaveBd[i].index = 0;
-		_vSaveBd[i].img = NULL;
-		sprintf(_vSaveBd[i].imgName, "");
-		_vSaveBd[i].attribute = ATTR_NONE;
-		_vSaveBd[i].tileType = TYPE_NONE;
-	}
+	vTileInitialize(_vSaveBd);
+
+	//Road
+	vTileInitialize(_vSaveRd);
+
+	//Furniture
+	vTileInitialize(_vSaveFt);
+
+	//Item
+	vTileInitialize(_vSaveIt);
+
+	//Weapon
+	vTileInitialize(_vSaveWp);
+
+	//Enemy
+	vTileInitialize(_vSaveEm);
+
 }
 
 void mapTool::btnTileAllSet(tagTile& resetTile)
@@ -168,42 +175,64 @@ void mapTool::btnTileAllSet(tagTile& resetTile)
 	switch (resetTile.tileType)
 	{
 		case TYPE_TERRAIN:
-			for (int i = 0; i < _vSaveTr.size(); ++i)
-			{
-				_vSaveTr[i].img = resetTile.img;
-				sprintf(_vSaveTr[i].imgName, "%s", resetTile.imgName);
-				_vSaveTr[i].attribute = resetTile.attribute;
-				_vSaveTr[i].tileType = resetTile.tileType;
-				_vSaveTr[i].frameX = resetTile.frameX;
-				_vSaveTr[i].frameY = resetTile.frameY;
-			}
-		break;		
-		case TYPE_WALL:
 
+			vTileSet(_vSaveTr, resetTile);
+
+		break;		
+		case TYPE_ROAD:
+			
+			vTileSet(_vSaveRd, resetTile);
+
+		break;
+		case TYPE_FURNITURE:
+
+			vTileSet(_vSaveFt, resetTile);
 
 		break;
 		case TYPE_BUILDING:
-			for (int i = 0; i < _vSaveBd.size(); ++i)
-			{
-				_vSaveBd[i].img = resetTile.img;
-				sprintf(_vSaveBd[i].imgName, "%s", resetTile.imgName);
-				_vSaveBd[i].attribute = resetTile.attribute;
-				_vSaveBd[i].tileType = resetTile.tileType;
-				_vSaveBd[i].frameX = resetTile.frameX;
-				_vSaveBd[i].frameY = resetTile.frameY;
-			}
+
+			vTileSet(_vSaveBd, resetTile);
+
 		break;
 		case TYPE_ITEM:
+
+			vTileSet(_vSaveIt, resetTile);
 
 		break;
 		case TYPE_WEAPON:
 
+			vTileSet(_vSaveWp, resetTile);
+
 		break;
 		case TYPE_ENEMY:
+
+			vTileSet(_vSaveEm, resetTile);
 
 		break;
 	}
 
+}
 
+void mapTool::vTileInitialize(vSaveTile& saveTile)
+{
+	for (int i = 0; i < saveTile.size(); ++i)
+	{
+		saveTile[i].img = NULL;
+		sprintf(saveTile[i].imgName, "");
+		saveTile[i].attribute = ATTR_NONE;
+		saveTile[i].tileType = TYPE_NONE;
+	}
+}
 
+void mapTool::vTileSet(vSaveTile& saveTile, tagTile& resetTile)
+{
+	for (int i = 0; i < saveTile.size(); ++i)
+	{
+		saveTile[i].img = resetTile.img;
+		sprintf(saveTile[i].imgName, "%s", resetTile.imgName);
+		saveTile[i].attribute = resetTile.attribute;
+		saveTile[i].tileType = resetTile.tileType;
+		saveTile[i].frameX = resetTile.frameX;
+		saveTile[i].frameY = resetTile.frameY;
+	}
 }

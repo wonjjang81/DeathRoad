@@ -44,6 +44,7 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 	int tileX = tile.img->getMaxFrameX() + 1;  //총타일 수X (*이미지 정보의 maxFrameX는 총 프레임수 - 1)
 	int tileY = tile.img->getMaxFrameY() + 1;  //총타일 수Y
 
+
 	//벡터에 담기
 	for (int i = 0; i < tileY; ++i)
 	{
@@ -63,6 +64,20 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 			tile.gapY = tile.img->getFrameHeight() * tile.scale * tile.frameY;
 			tile.attribute = attribute;
 			tile.tileType  = tileType;
+			tile.id		   = tile.index;
+
+			//----------------------------- 타일 사이즈에 맞게 위치 보정 -----------------------------
+			float tileRatioX = (tile.img->getFrameWidth() / (float)TILE_SIZEX);
+			float tileRatioY = (tile.img->getFrameHeight() / (float)TILE_SIZEY);
+	
+			if (tileRatioX < 1) tile.centerX = (TILE_SIZEX / (tileRatioX * 4 * 2));							//타일사이즈X 보다 이미지가 작으면
+			else tileRatioX == 1 ? tile.centerX = 0 : tile.centerX = -(TILE_SIZEX * (tileRatioX / 4));  //타일사이즈X 보다 이미지가 크면
+			if (tileRatioY < 1) tile.centerY = (TILE_SIZEY / (tileRatioY * 4 * 2));							//타일사이즈Y 보다 이미지가 작으면
+			else tileRatioY == 1 ? tile.centerY = 0 : tile.centerY = -(TILE_SIZEY * (tileRatioY / 4));	//타일사이즈Y 보다 이미지가 크면	
+			//----------------------------- 타일 사이즈에 맞게 위치 보정 -----------------------------
+		
+			tile.reWidth   = TILE_SIZEX;
+			tile.reHeight  = TILE_SIZEY;
 
 			tileVector.push_back(tile);
 		}
@@ -127,10 +142,10 @@ tagTile tile::tileSelect(string tileName, float moveX, float moveY)
 		{
 			//타일렉트 보정
 			RECT reRect;
-			reRect.left   = moveX +viter->x + viter->gapX;
-			reRect.top    = moveY +viter->y + viter->gapY;
-			reRect.right  = moveX +viter->x + viter->gapX + viter->img->getFrameWidth();
-			reRect.bottom = moveY +viter->y + viter->gapY + viter->img->getFrameHeight();
+			reRect.left   = moveX + viter->x + viter->gapX;
+			reRect.top    = moveY + viter->y + viter->gapY;
+			reRect.right  = reRect.left + (viter->img->getFrameWidth() * viter->scale);
+			reRect.bottom = reRect.top  + (viter->img->getFrameHeight() * viter->scale);
 
 			if (PtInRect(&reRect, _ptMouse))
 			{
@@ -159,6 +174,11 @@ tagTile tile::tileSelect(string tileName, float moveX, float moveY)
 					tmpTile.gapY = viter->gapY;
 					tmpTile.attribute = viter->attribute;
 					tmpTile.tileType = viter->tileType;
+					tmpTile.id = viter->id;
+					tmpTile.centerX = viter->centerX;
+					tmpTile.centerY = viter->centerY;
+					tmpTile.reWidth = viter->reWidth;
+					tmpTile.reHeight = viter->reHeight;
 
 					return tmpTile;
 				}

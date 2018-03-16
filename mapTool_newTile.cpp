@@ -46,4 +46,9 @@ void mapTool::vTileClear()
 	_vTile.clear();    //그리드
 	_vSaveTr.clear();  //지형
 	_vSaveBd.clear();  //빌딩
+	_vSaveRd.clear();  //도로
+	_vSaveFt.clear();  //가구
+	_vSaveIt.clear();  //아이템
+	_vSaveWp.clear();  //무기
+	_vSaveEm.clear();  //적
 }

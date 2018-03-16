@@ -18,13 +18,26 @@ void playGround::resourceAdd()
 	IMAGEMANAGER->addImage("맵툴메뉴창무기", L".//source//image//mapTool//mapTool_menu_window_weapon.png", 270, 670);
 	IMAGEMANAGER->addImage("맵툴메뉴창셋팅", L".//source//image//mapTool//mapTool_menu_window_setting.png", 270, 670);
 
-	//타일
-	IMAGEMANAGER->addFrameImage("맵툴타일바닥", L".//source//image//mapTool//tile//floors.png", 128, 352, dFrame(128, 16), dFrame(352, 16));
-	IMAGEMANAGER->addFrameImage("맵툴타일거리", L".//source//image//mapTool//tile//street.png", 256, 512, 16, 32);
-	IMAGEMANAGER->addFrameImage("맵툴타일빌딩1", L".//source//image//mapTool//tile//buildings.png", 224, 448, dFrame(224, 112), dFrame(512, 112));
-	IMAGEMANAGER->addFrameImage("맵툴타일빌딩2", L".//source//image//mapTool//tile//city_florida.png", 224, 768, dFrame(224, 112), dFrame(768, 128));
-	IMAGEMANAGER->addFrameImage("맵툴타일가구1", L".//source//image//mapTool//tile//dr2c_housefurniture_32px.png", 256, 960, dFrame(256, 32), dFrame(960, 32));
-	IMAGEMANAGER->addFrameImage("맵툴타일벽", L".//source//image//mapTool//tile//walls.png", 256, 256, dFrame(256, 16), dFrame(256, 16));
+	//==================================================================== 타일 ===================================================================
+	//빌딩
+	IMAGEMANAGER->addFrameImage("맵툴타일빌딩1", L".//source//image//mapTool//tile//building//buildings.png", 224, 448, dFrame(224, 112), dFrame(512, 112));
+	IMAGEMANAGER->addFrameImage("맵툴타일빌딩2", L".//source//image//mapTool//tile//building//city_florida.png", 224, 768, dFrame(224, 112), dFrame(768, 128));
+	IMAGEMANAGER->addFrameImage("맵툴타일문", L".//source//image//mapTool//tile//building//doors.png", 256, 96, dFrame(256, 16), dFrame(96, 16));
+	IMAGEMANAGER->addFrameImage("맵툴타일기계", L".//source//image//mapTool//tile//building//special32.png", 256, 768, dFrame(256, 16), dFrame(768, 16));
+	IMAGEMANAGER->addFrameImage("맵툴타일벽", L".//source//image//mapTool//tile//building//walls.png", 256, 256, dFrame(256, 16), dFrame(256, 16));
+	//가구
+	IMAGEMANAGER->addFrameImage("맵툴타일가구1", L".//source//image//mapTool//tile//furniture//dr2c_housefurniture_32px.png", 256, 960, dFrame(256, 32), dFrame(960, 32));
+	IMAGEMANAGER->addFrameImage("맵툴타일책장", L".//source//image//mapTool//tile//furniture//shelves.png", 256, 128, dFrame(256, 16), dFrame(128, 16));
+	//아이템
+	IMAGEMANAGER->addFrameImage("맵툴타일아이템", L".//source//image//mapTool//tile//item//dr2c_loot16.png", 128, 48, dFrame(128, 16), dFrame(48, 16));
+	//길
+	IMAGEMANAGER->addFrameImage("맵툴타일거리", L".//source//image//mapTool//tile//road//street.png", 256, 512, dFrame(256, 16), dFrame(512, 16));
+	IMAGEMANAGER->addFrameImage("맵툴타일나무", L".//source//image//mapTool//tile//road//trees_96px.png", 480, 480, dFrame(480, 16), dFrame(480, 16));
+	//지형
+	IMAGEMANAGER->addFrameImage("맵툴타일바닥", L".//source//image//mapTool//tile//terrain//floors.png", 128, 352, dFrame(128, 16), dFrame(352, 16));
+	//무기
+	IMAGEMANAGER->addFrameImage("맵툴타일무기", L".//source//image//mapTool//tile//weapon//dr2c_weapons.png", 128, 448, dFrame(128, 8), dFrame(448, 32));
+
 }
 
 

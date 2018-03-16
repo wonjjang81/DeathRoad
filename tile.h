@@ -31,6 +31,9 @@ struct tagTile
 	int frameY;
 	float moveX;
 	float moveY;
+	float centerX, centerY;   //렉트 중심좌표
+	float reWidth, reHeight;  //렉트 사이즈 재설정(16 X 16)
+	int id;                   //tile ID
 };
 
 struct tagSampleTile

@@ -34,7 +34,7 @@ HRESULT sampleTile::init(string imgName, ATTRIBUTE att, TILE_TYPE type, float sc
 	_tileY = IMAGEMANAGER->findImage(_sTile.imgName)->getFrameY();
 	_tileSizeX = IMAGEMANAGER->findImage(_sTile.imgName)->getFrameWidth();
 	_tileSizeY = IMAGEMANAGER->findImage(_sTile.imgName)->getFrameHeight();
-	_isKeyOn = true;
+
 
 	return S_OK;
 }
@@ -46,10 +46,8 @@ void sampleTile::release()
 
 void sampleTile::update() 
 {
-	if (_isKeyOn)
-	{
-		mapKeyControl();
-	}
+	mapKeyControl();
+
 }
 
 void sampleTile::render() 

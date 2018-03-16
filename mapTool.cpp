@@ -69,12 +69,11 @@ void mapTool::update()
 void mapTool::render() 
 {
 	_editWindow->render(1.0f, 720, 0); //메뉴
-	selectTile(_viewScale);            //타일맵 선택
 	menuRender();                      //메뉴 창
-
 	gameNode::render();                //샘플 타일탭
 	tileDraw(_viewScale);              //타일 그리기
 	gridRender(_viewScale);            //타일맵 그리드
+	selectTile(_viewScale);            //타일맵 선택
 	btnRender();					   //메뉴 버튼
 }
 

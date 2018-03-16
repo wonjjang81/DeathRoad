@@ -90,6 +90,7 @@ HRESULT image::init(LPCWSTR fileName, int width, int height)
 	//이미지 정보가 뭔가있다면 해제해줘라
 	if (_imageInfo != NULL) release();
 
+
 	//이미지 정보 생성
 	HRESULT hr = E_FAIL;
 	_imageInfo = new IMAGE_INFO;
@@ -103,6 +104,8 @@ HRESULT image::init(LPCWSTR fileName, int width, int height)
 	_imageInfo->currentFrameY = 0;
 	_imageInfo->frameWidth = width;
 	_imageInfo->frameHeight = height;
+
+
 
 	//파일경로 복사
 	int len;
@@ -267,7 +270,7 @@ HRESULT image::init(LPCWSTR fileName, int width, int height, int frameX, int fra
 
 	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
 	hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
-
+	
 
 	//비트맵이 생성이 되지않았다면
 	if (_imageInfo->pBitmap == NULL)
@@ -335,6 +338,7 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 	hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
 
 
+
 	//비트맵이 생성이 되지않았다면
 	if (_imageInfo->pBitmap == NULL)
 	{
@@ -346,6 +350,57 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 	return S_OK;
 }
 
+
+//================================================================== 
+//	                         Pixel 충돌
+//==================================================================
+
+const HRESULT image::loadImageFromWIC(IWICBitmapSource* const source, int gridCountX, int gridCountY)
+{
+	//assert(_bitmapData->hMemDC == 0);
+
+	//HRESULT hr;
+
+	//WICPixelFormatGUID pixelFormat;
+	//CHECK_HRESULT_RETURN_HR(source->GetPixelFormat(&pixelFormat));
+
+	//if (pixelFormat != GUID_WICPixelFormat32bppBGR &&
+	//	pixelFormat != GUID_WICPixelFormat32bppBGRA &&
+	//	pixelFormat != GUID_WICPixelFormat32bppPBGRA)
+	//	return E_FAIL;
+	//
+	//UINT width, height;
+	//CHECK_HRESULT_RETURN_HR(source->GetSize(&width, &height));
+
+	//BITMAPINFO bminfo;
+	//ZeroMemory(&bminfo, sizeof(bminfo));
+	//bminfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	//bminfo.bmiHeader.biWidth = width;
+	//bminfo.bmiHeader.biHeight = -(LONG)height;
+	//bminfo.bmiHeader.biPlanes = 1;
+	//bminfo.bmiHeader.biBitCount = 32;
+	//bminfo.bmiHeader.biCompression = BI_RGB;
+
+	//HDC moniterDC = GetDC(NULL);
+	//void* buffer = nullptr;
+
+	//_bitmapData->hMemDC = CreateCompatibleDC(moniterDC);
+	//_bitmapData->hBit = CreateDIBSection(_bitmapData->hMemDC, &bminfo, DIB_PAL_COLORS, &buffer, NULL, 0);
+	//_bitmapData->hOBit = (HBITMAP)SelectObject(_bitmapData->hMemDC, _bitmapData->hBit);
+	//_bitmapData->width = width;
+	//_bitmapData->height = height;
+	//_bitmapData->gridCountX = gridCountX;
+	//_bitmapData->gridCountY = gridCountY;
+
+	//ReleaseDC(NULL, moniterDC);
+
+	return S_OK;
+}
+
+
+//================================================================== 
+//	                         이미지 해제
+//==================================================================
 
 //이미지 릴리즈
 void image::release(void)
@@ -567,10 +622,10 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 	if (_imageInfo->pBitmap != NULL)
 	{
 		//화면밖이면 렌더 X
-		if (posX + _imageInfo->frameWidth < 0) return;
-		if (posY + _imageInfo->frameHeight < 0) return;
-		if (posX > WINSIZEX) return;
-		if (posY > WINSIZEY) return;
+		if (posX / scale + _imageInfo->frameWidth < 0) return;
+		if (posY / scale + _imageInfo->frameHeight < 0) return;
+		if (posX / scale > WINSIZEX) return;
+		if (posY / scale > WINSIZEY) return;
 
 		D2D1_RECT_F dxArea = RectF(posX, posY, posX + _imageInfo->frameWidth, posY + _imageInfo->frameHeight);
 		D2D1_RECT_F dxArea2 = RectF(currentFrameX * _imageInfo->frameWidth, currentFrameY * _imageInfo->frameHeight,
@@ -674,3 +729,5 @@ void image::aniEffectRender(float opacity, float destX, float destY, animation* 
 {
 	frameEffectRender(opacity, destX, destY, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight(), angle);
 }
+
+

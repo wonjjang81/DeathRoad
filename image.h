@@ -4,6 +4,8 @@
 // ## 17.11.24 ## - image Class - ##
 //============================================
 
+#define CHECK_HRESULT_RETURN_HR(hr) if (HRESULT(hr) < 0) return hr
+
 class image
 {
 public:
@@ -19,7 +21,7 @@ public:
 
 	typedef struct tagImageInfo
 	{
-		DWORD					resID;							
+		DWORD					resID;
 		IWICImagingFactory*		pWICImagingFactory;		//Windows Imagind Component를 위한 Factory 인터페이스
 		IWICFormatConverter*    pWICFormatConverter;	//Format Converter
 		IWICBitmapDecoder*      pWICDecoder;			//Bitmap Decoder
@@ -37,32 +39,47 @@ public:
 		BYTE					loadType;				//이미지 불러올 타입
 		RECT					boundingBox;			//바운딩 박스(충돌체크용 박스)
 
+
 		tagImageInfo()
 		{
-			resID				= 0;
+			resID = 0;
 			pWICImagingFactory = nullptr;
 			pWICFormatConverter = nullptr;
-			pWICDecoder			= nullptr;
-			pWICFrameDecoder	= nullptr;
-			pBitmap				= nullptr;
-			x					= 0;
-			y					= 0;
-			width				= 0;
-			height				= 0;
-			currentFrameX		= 0;
-			currentFrameY		= 0;
-			maxFrameX			= 0;
-			maxFrameY			= 0;
-			frameWidth			= 0;
-			frameHeight			= 0;
-			loadType			= LOAD_RESOURCE;
-			boundingBox			= RectMake(0, 0, 0, 0);
+			pWICDecoder = nullptr;
+			pWICFrameDecoder = nullptr;
+			pBitmap = nullptr;
+			x = 0;
+			y = 0;
+			width = 0;
+			height = 0;
+			currentFrameX = 0;
+			currentFrameY = 0;
+			maxFrameX = 0;
+			maxFrameY = 0;
+			frameWidth = 0;
+			frameHeight = 0;
+			loadType = LOAD_RESOURCE;
+			boundingBox = RectMake(0, 0, 0, 0);
 		}
 	}IMAGE_INFO, *LPIMAGE_INFO;
+
+	typedef struct tagBitmapData
+	{
+		HDC		hMemDC;		//메모리 DC
+		HBITMAP hBit;		//비트맵
+		HBITMAP hOBit;		//올드 비트맵
+		int		width;		//가로 크기(이미지)
+		int		height;		//세로 크기(이미지)
+		int		gridCountX;		
+		int		gridCountY;		
+	};
+
 
 private:
 	LPIMAGE_INFO	_imageInfo;		//이미지 정보 구조체
 	WCHAR*			_fileName;		//파일 이름
+
+	tagBitmapData*  _bitmapData;
 
 public:
 	image();
@@ -81,7 +98,6 @@ public:
 	//이미지 + 프레임초기화
 	HRESULT init(LPCWSTR fileName, int width, int height, int frameX, int frameY);
 	HRESULT init(LPCWSTR fileName, float x, float y, int width, int height, int frameX, int frameY);
-
 
 	//이미지 릴리즈
 	void release(void);
@@ -175,6 +191,11 @@ public:
 
 	inline int getFrameWidth(void) { return _imageInfo->frameWidth; }
 	inline int getFrameHeight(void) { return _imageInfo->frameHeight; }
+
+
+	//==================================== Pixel Collision ====================================
+	const HRESULT loadImageFromWIC(IWICBitmapSource* source, int gridCountX, int gridCountY);
+
 
 };
 

@@ -35,6 +35,7 @@ HRESULT d2dManager::init()
 	hr = pRenderTarget->CreateCompatibleRenderTarget(SizeF((float)WINSIZEX, (float)WINSIZEY), &pBitmapRenderTarget);
 	assert(hr == S_OK);
 
+
 	//---------------------------------------------------------------------------
 	//	IDWriteFactory »ý¼º
 	//---------------------------------------------------------------------------
