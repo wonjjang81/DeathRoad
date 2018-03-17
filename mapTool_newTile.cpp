@@ -19,24 +19,7 @@ void mapTool::createDefaultMap(POINT mapSize)
 
 	//----------------------- grid -----------------------
 	//grid 벡터에 담기
-	if ((_vTile.size() == 0))
-	{
-		for (int i = 0; i < _tileY; ++i)
-		{
-			for (int j = 0; j < _tileX; ++j)
-			{
-				//렉트로 그리기
-				tagSampleTile tile;
-				tile.rc.left = TILE_SIZEX * j;
-				tile.rc.top = TILE_SIZEY * i;
-				tile.rc.right = TILE_SIZEX * (j + 1);
-				tile.rc.bottom = TILE_SIZEY * (i + 1);
-				tile.index = (_tileX * i) + j;
-
-				_vTile.push_back(tile);
-			}
-		}
-	}
+	gridVectorDraw(_tileX, _tileY);
 	//----------------------------------------------------
 }
 
@@ -51,4 +34,27 @@ void mapTool::vTileClear()
 	_vSaveIt.clear();  //아이템
 	_vSaveWp.clear();  //무기
 	_vSaveEm.clear();  //적
+}
+
+
+void mapTool::gridVectorDraw(int tileX, int tileY)
+{
+	if ((_vTile.size() == 0))
+	{
+		for (int i = 0; i < tileY; ++i)
+		{
+			for (int j = 0; j < tileX; ++j)
+			{
+				//렉트로 그리기
+				tagSampleTile tile;
+				tile.rc.left = TILE_SIZEX * j;
+				tile.rc.top = TILE_SIZEY * i;
+				tile.rc.right = TILE_SIZEX * (j + 1);
+				tile.rc.bottom = TILE_SIZEY * (i + 1);
+				tile.index = (_tileX * i) + j;
+
+				_vTile.push_back(tile);
+			}
+		}
+	}
 }

@@ -237,6 +237,7 @@ public:
 	void samTileFRectInitialize();
 	
 	//타일 그리기
+	void gridVectorDraw(int tileX, int tileY);
 	void tileDraw(float scale);
 	void vTileDraw(vSaveTile tileVector, float scale);
 

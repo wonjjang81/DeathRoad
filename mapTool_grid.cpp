@@ -458,82 +458,88 @@ void mapTool::selectTile(float scale)
 					}
 				}
 			}
+
+
+			if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
+			{
+				switch (_drawTile.tileType)
+				{
+					case TYPE_BUILDING:
+						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+						{
+							setTile1Eraser(_vSaveBd, _tmpSelectIndex);
+							_tmpSelectIndex = -1;
+						}
+						else
+						{
+							saveTileVector(_vSaveBd);  //빌딩
+						}
+					break;
+					case TYPE_ROAD:
+						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+						{
+							setTile1Eraser(_vSaveBd, _tmpSelectIndex);
+							_tmpSelectIndex = -1;
+						}
+						else
+						{
+							saveTileVector(_vSaveRd);  //도로
+						}
+					break;
+					case TYPE_FURNITURE:
+						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+						{
+							setTile1Eraser(_vSaveFt, _tmpSelectIndex);
+							_tmpSelectIndex = -1;
+						}
+						else
+						{
+							saveTileVector(_vSaveFt);  //가구
+						}
+					break;
+					case TYPE_ITEM:
+						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+						{
+							setTile1Eraser(_vSaveIt, _tmpSelectIndex);
+							_tmpSelectIndex = -1;
+						}
+						else
+						{
+							saveTileVector(_vSaveIt);  //아이템
+						}
+					break;
+					case TYPE_WEAPON:
+						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+						{
+							setTile1Eraser(_vSaveWp, _tmpSelectIndex);
+							_tmpSelectIndex = -1;
+						}
+						else
+						{
+							saveTileVector(_vSaveWp);  //무기
+						}
+					break;
+					case TYPE_ENEMY:
+						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+						{
+							setTile1Eraser(_vSaveEm, _tmpSelectIndex);
+							_tmpSelectIndex = -1;
+						}
+						else
+						{
+							saveTileVector(_vSaveEm);  //적
+						}
+
+					break;
+				}
+
+
 			break;
 		}
 
 	}
 
-	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
-	{
-		switch (_drawTile.tileType)
-		{
-			case TYPE_BUILDING:
-				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-				{
-					setTile1Eraser(_vSaveBd, _tmpSelectIndex);
-					_tmpSelectIndex = -1;
-				}
-				else
-				{
-					saveTileVector(_vSaveBd);  //빌딩
-				}
-			break;
-			case TYPE_ROAD:
-				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-				{
-					setTile1Eraser(_vSaveBd, _tmpSelectIndex);
-					_tmpSelectIndex = -1;
-				}
-				else
-				{
-					saveTileVector(_vSaveRd);  //도로
-				}
-			break;
-			case TYPE_FURNITURE:
-				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-				{
-					setTile1Eraser(_vSaveFt, _tmpSelectIndex);
-					_tmpSelectIndex = -1;
-				}
-				else
-				{
-					saveTileVector(_vSaveFt);  //가구
-				}
-			break;
-			case TYPE_ITEM:
-				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-				{
-					setTile1Eraser(_vSaveIt, _tmpSelectIndex);
-					_tmpSelectIndex = -1;
-				}
-				else
-				{
-					saveTileVector(_vSaveIt);  //아이템
-				}
-			break;
-			case TYPE_WEAPON:
-				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-				{
-					setTile1Eraser(_vSaveWp, _tmpSelectIndex);
-					_tmpSelectIndex = -1;
-				}
-				else
-				{
-					saveTileVector(_vSaveWp);  //무기
-				}
-			break;
-			case TYPE_ENEMY:
-				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-				{
-					setTile1Eraser(_vSaveEm, _tmpSelectIndex);
-					_tmpSelectIndex = -1;
-				}
-				else
-				{
-					saveTileVector(_vSaveEm);  //적
-				}
-			break;
-		}
+
 
 	}
 
@@ -568,6 +574,8 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 			}
 		}
 
+		//예외처리
+		if (indexSame && tileVector[tmpIndex].id == _tmpSaveTile.id) return;
 
 		//타일정보 가져오기
 		tagTile tmpTile;
@@ -647,4 +655,6 @@ int mapTool::getTileIndex(vSaveTile& vTile, int tsIndex)
 			return j;
 		}
 	}
+
+	return -1;
 }
