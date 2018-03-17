@@ -102,3 +102,10 @@ enum POSITION
 	POS_START,
 	POS_END
 };
+
+//중복위치 렌더
+enum OVERLAPPOSITION
+{
+	OVERPO_NO,
+	OVERPO_YES
+};

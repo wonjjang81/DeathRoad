@@ -30,34 +30,34 @@ void mapTool::gridRender(float scale)
 			if (_vTile[i].rc.top    + _moveY >= _showWindowY / scale)  continue;  //세로열(상부)
 			if (_vTile[i].rc.bottom + _moveY < 0)					   continue;  //세로열(하부)
 
-			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.03f),
+			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.3f),
 				_vTile[i].rc.left + _moveX,
 				_vTile[i].rc.top + _moveY,
 				_vTile[i].rc.right + _moveX,
-				_vTile[i].rc.bottom + _moveY);
+				_vTile[i].rc.bottom + _moveY, 0.3f);
 		}
 
 
 		//index
-		for (int i = 0; i < _tileY; ++i)
-		{
-			for (int j = 0; j < _tileX; ++j)
-			{
-				//예외처리: 화면밖 렌더X
-				if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
-				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;	 //가로열(좌측)
-				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
-				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+		//for (int i = 0; i < _tileY; ++i)
+		//{
+		//	for (int j = 0; j < _tileX; ++j)
+		//	{
+		//		//예외처리: 화면밖 렌더X
+		//		if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
+		//		if ((j * TILE_SIZEX) + _moveX < 0)					   continue;	 //가로열(좌측)
+		//		if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
+		//		if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
 
-				WCHAR strIndex[128];
-				ZeroMemory(&strIndex, sizeof(strIndex));
-				swprintf(strIndex, L"%d", (_tileX * i) + j);
+		//		WCHAR strIndex[128];
+		//		ZeroMemory(&strIndex, sizeof(strIndex));
+		//		swprintf(strIndex, L"%d", (_tileX * i) + j);
 
-				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RGB(0, 0, 255), 0.3f), L"맑은고딕", 3, strIndex,
-					(j * TILE_SIZEX) + _moveX, (i * TILE_SIZEY) + _moveY,
-					(j * TILE_SIZEX) + 30 + _moveX, (i * TILE_SIZEY) + 30 + _moveY);
-			}
-		}
+		//		D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RGB(0, 0, 255), 0.3f), L"맑은고딕", 3, strIndex,
+		//			(j * TILE_SIZEX) + _moveX, (i * TILE_SIZEY) + _moveY,
+		//			(j * TILE_SIZEX) + 30 + _moveX, (i * TILE_SIZEY) + 30 + _moveY);
+		//	}
+		//}
 
 		//속성 그리기(Ellipse)
 		for (int i = 0; i < _tileY; ++i)
@@ -102,57 +102,57 @@ void mapTool::gridRender(float scale)
 
 
 		//타입 그리기(Ellipse)
-		for (int i = 0; i < _tileY; ++i)
-		{
-			for (int j = 0; j < _tileX; ++j)
-			{
-				if (_vSaveTr[(_tileX * i) + j].tileType == TYPE_NONE)   continue;  //타입이 없으면...
+		//for (int i = 0; i < _tileY; ++i)
+		//{
+		//	for (int j = 0; j < _tileX; ++j)
+		//	{
+		//		if (_vSaveTr[(_tileX * i) + j].tileType == TYPE_NONE)   continue;  //타입이 없으면...
 
-				//위치정보
-				float rcWidth = _vTile[(_tileX * i) + j].rc.right - _vTile[(_tileX * i) + j].rc.left;
-				float rcHeight = _vTile[(_tileX * i) + j].rc.bottom - _vTile[(_tileX * i) + j].rc.top;
-				float centerX = _vTile[(_tileX * i) + j].rc.left + (rcWidth / 2);
-				float centerY = _vTile[(_tileX * i) + j].rc.top + (rcHeight / 2);
-				float ellipseSize = 5;
-				float startX = centerX - (ellipseSize / 2);
-				float startY = centerY - (ellipseSize / 2);
-				float endX = centerX + (ellipseSize / 2);
-				float endY = centerY + (ellipseSize / 2);
-
-
-				//예외처리: 화면밖 렌더X
-				if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
-				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
-				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
-				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+		//		//위치정보
+		//		float rcWidth = _vTile[(_tileX * i) + j].rc.right - _vTile[(_tileX * i) + j].rc.left;
+		//		float rcHeight = _vTile[(_tileX * i) + j].rc.bottom - _vTile[(_tileX * i) + j].rc.top;
+		//		float centerX = _vTile[(_tileX * i) + j].rc.left + (rcWidth / 2);
+		//		float centerY = _vTile[(_tileX * i) + j].rc.top + (rcHeight / 2);
+		//		float ellipseSize = 5;
+		//		float startX = centerX - (ellipseSize / 2);
+		//		float startY = centerY - (ellipseSize / 2);
+		//		float endX = centerX + (ellipseSize / 2);
+		//		float endY = centerY + (ellipseSize / 2);
 
 
-				switch (_vSaveTr[(_tileX * i) + j].tileType)
-				{
-					case TYPE_TERRAIN:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case TYPE_ROAD:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case TYPE_FURNITURE:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case TYPE_BUILDING:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case TYPE_ITEM:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case TYPE_WEAPON:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case TYPE_ENEMY:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-				}
-			}
-		}
+		//		//예외처리: 화면밖 렌더X
+		//		if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
+		//		if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
+		//		if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
+		//		if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+
+
+		//		switch (_vSaveTr[(_tileX * i) + j].tileType)
+		//		{
+		//			case TYPE_TERRAIN:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case TYPE_ROAD:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case TYPE_FURNITURE:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case TYPE_BUILDING:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case TYPE_ITEM:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case TYPE_WEAPON:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case TYPE_ENEMY:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//		}
+		//	}
+		//}
 
 
 		//--------------------------------------------------- 타일맵 스케일 end ---------------------------------------------------
@@ -180,6 +180,11 @@ void mapTool::selectTile(float scale)
 	D2DMANAGER->pRenderTarget->SetTransform(matScale);
 	//-------------------------------------------------- 타일맵 스케일 Start --------------------------------------------------
 
+	if (!_btnOneEraser->getBtnOn())
+	{
+		_tmpSelectIndex = -1;
+	}
+
 
 	for (int i = 0; i < _vTile.size(); ++i)
 	{
@@ -198,58 +203,59 @@ void mapTool::selectTile(float scale)
 
 		if (PtInRect(&reRect, _ptMouse))
 		{
-
 			//현재 타일위치 렉트 그리기
 			D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)),
 				_vTile[i].rc.left   + _moveX,
 				_vTile[i].rc.top    + _moveY,
 				_vTile[i].rc.right  + _moveX,
-				_vTile[i].rc.bottom + _moveY);
+				_vTile[i].rc.bottom + _moveY, 0.5f);
 
 			//샘플타일 정보 -> 타일에 저장
 			if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
 			{
 				//예외처리: 타일 정보가 없으면...통과!!
 				if (_vSaveTr.size() == 0) continue;
-				if (_drawTile.img == NULL) continue;
+				//if (_drawTile.img == NULL) continue;
 
 				//=================================== 타일 타입별 삭제 ===================================
 				if (_btnOneEraser->getBtnOn())
 				{
+
 					switch (_drawTile.tileType)
 					{
 						case TYPE_TERRAIN:
-							if (_btnOneEraser->getBtnOn())
-							{
-								btnTile1Eraser(_vSaveTr[i]);
-								break;
-							}
+
+							btnTile1Eraser(_vSaveTr[i]);
+
 						break;
 						case TYPE_BUILDING:
-							if (_btnOneEraser->getBtnOn())
-							{
-								int tmpIndex = 0;
-								int tmpSelectIndex = i;
 
-								//타일 인덱스번호 -> 벡터넘버
-								for (int i = 0; i < _vSaveBd.size(); ++i)
-								{
-									if (tmpSelectIndex == _vSaveBd[i].index) tmpIndex = i;
-									break;
-								}
+							_tmpSelectIndex = i;
 
-								//지우기
-								btnTile1Eraser(_vSaveBd[tmpIndex]);
-								break;
-							}
+						break;
+						case TYPE_ROAD:
+
+							_tmpSelectIndex = i;
+
+						break;
+						case TYPE_FURNITURE:
+
+							_tmpSelectIndex = i;
+
 						break;
 						case TYPE_ITEM:
+
+							_tmpSelectIndex = i;
 
 						break;
 						case TYPE_WEAPON:
 
+							_tmpSelectIndex = i;
+
 						break;
 						case TYPE_ENEMY:
+
+							_tmpSelectIndex = i;
 
 						break;
 					}
@@ -262,22 +268,72 @@ void mapTool::selectTile(float scale)
 				//------------------------------------ 타일 속성 변경 ------------------------------------
 				if (_btnA_move->getBtnOn() || _btnA_unMove->getBtnOn() || _btnA_ARender->getBtnOn())  //속성변경 버튼을 눌렀으면...
 				{
+					//타일 Index
+					int getIndex = -1;
+					
+					//타일타입 리셋
+					//if (_drawTile.tileType == TYPE_NONE)
+					//{
+					//	switch (_menuTab.menuType)
+					//	{
+					//		case MENU_TERRAIN:
+					//			_drawTile.tileType = TYPE_TERRAIN;
+					//		break;
+					//		case MENU_BULIDING:
+					//			_drawTile.tileType = TYPE_BUILDING;
+					//		break;
+					//		default:
+					//			_drawTile.tileType = TYPE_NONE;
+					//		break;
+					//	}
+					//}
+
 					switch (_drawTile.tileType)
 					{
 						case TYPE_TERRAIN:
 							tileReAtrribute(_vSaveTr[i]);
 						break;
 						case TYPE_BUILDING:
-							tileReAtrribute(_vSaveBd[i]);
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveBd, i);
+							if (getIndex < 0) break;
+
+							tileReAtrribute(_vSaveBd[getIndex]);
+						break;
+						case TYPE_ROAD:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveRd, i);
+							if (getIndex < 0) break;
+
+							tileReAtrribute(_vSaveRd[getIndex]);
+						break;
+						case TYPE_FURNITURE:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveFt, i);
+							if (getIndex < 0) break;
+
+							tileReAtrribute(_vSaveFt[getIndex]);
 						break;
 						case TYPE_ITEM:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveIt, i);
+							if (getIndex < 0) break;
 
+							tileReAtrribute(_vSaveIt[getIndex]);
 						break;
 						case TYPE_WEAPON:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveWp, i);
+							if (getIndex < 0) break;
 
+							tileReAtrribute(_vSaveWp[getIndex]);
 						break;
 						case TYPE_ENEMY:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveEm, i);
+							if (getIndex < 0) break;
 
+							tileReAtrribute(_vSaveEm[getIndex]);
 						break;
 					}
 				}
@@ -289,12 +345,14 @@ void mapTool::selectTile(float scale)
 						{
 							case TYPE_TERRAIN:
 								_vSaveTr[i].tileType = _drawTile.tileType;
+								_vSaveTr[i].attribute = _drawTile.attribute;
 
 								_vSaveTr[i].index = _drawTile.index;
 								_vSaveTr[i].img = _drawTile.img;
 								sprintf(_vSaveTr[i].imgName, "%s", _drawTile.imgName);
 								_vSaveTr[i].frameX = _drawTile.frameX;
 								_vSaveTr[i].frameY = _drawTile.frameY;
+								_vSaveTr[i].id = _drawTile.id;
 							break;
 							case TYPE_BUILDING:
 
@@ -348,28 +406,57 @@ void mapTool::selectTile(float scale)
 				if (_btnT_terrain->getBtnOn() || _btnT_building->getBtnOn() || _btnT_item->getBtnOn() ||
 					_btnT_weapon->getBtnOn() || _btnT_enemy->getBtnOn())    //타입변경 버튼을 눌렀으면...
 				{
-					
+					int getIndex = -1;
+
 					switch (_drawTile.tileType)
 					{
 						case TYPE_TERRAIN:
 							tileReType(_vSaveTr[i]);
 						break;
 						case TYPE_BUILDING:
-							tileReType(_vSaveBd[i]);
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveBd, i);
+							if (getIndex < 0) break;
+
+							tileReType(_vSaveBd[getIndex]);
+						break;
+						case TYPE_ROAD:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveRd, i);
+							if (getIndex < 0) break;
+
+							tileReType(_vSaveRd[getIndex]);
+						break;
+						case TYPE_FURNITURE:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveFt, i);
+							if (getIndex < 0) break;
+
+							tileReType(_vSaveFt[getIndex]);
 						break;
 						case TYPE_ITEM:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveIt, i);
+							if (getIndex < 0) break;
 
+							tileReType(_vSaveIt[getIndex]);
 						break;
 						case TYPE_WEAPON:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveWp, i);
+							if (getIndex < 0) break;
 
+							tileReType(_vSaveWp[getIndex]);
 						break;
 						case TYPE_ENEMY:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveEm, i);
+							if (getIndex < 0) break;
 
+							tileReType(_vSaveEm[getIndex]);
 						break;
 					}
-				
 				}
-
 			}
 			break;
 		}
@@ -381,22 +468,70 @@ void mapTool::selectTile(float scale)
 		switch (_drawTile.tileType)
 		{
 			case TYPE_BUILDING:
-				saveTileVector(_vSaveBd);  //빌딩
+				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+				{
+					setTile1Eraser(_vSaveBd, _tmpSelectIndex);
+					_tmpSelectIndex = -1;
+				}
+				else
+				{
+					saveTileVector(_vSaveBd);  //빌딩
+				}
 			break;
 			case TYPE_ROAD:
-				saveTileVector(_vSaveRd);  //도로
+				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+				{
+					setTile1Eraser(_vSaveBd, _tmpSelectIndex);
+					_tmpSelectIndex = -1;
+				}
+				else
+				{
+					saveTileVector(_vSaveRd);  //도로
+				}
 			break;
 			case TYPE_FURNITURE:
-				saveTileVector(_vSaveFt);  //가구
+				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+				{
+					setTile1Eraser(_vSaveFt, _tmpSelectIndex);
+					_tmpSelectIndex = -1;
+				}
+				else
+				{
+					saveTileVector(_vSaveFt);  //가구
+				}
 			break;
 			case TYPE_ITEM:
-				saveTileVector(_vSaveIt);  //아이템
+				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+				{
+					setTile1Eraser(_vSaveIt, _tmpSelectIndex);
+					_tmpSelectIndex = -1;
+				}
+				else
+				{
+					saveTileVector(_vSaveIt);  //아이템
+				}
 			break;
 			case TYPE_WEAPON:
-				saveTileVector(_vSaveWp);  //무기
+				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+				{
+					setTile1Eraser(_vSaveWp, _tmpSelectIndex);
+					_tmpSelectIndex = -1;
+				}
+				else
+				{
+					saveTileVector(_vSaveWp);  //무기
+				}
 			break;
 			case TYPE_ENEMY:
-				saveTileVector(_vSaveEm);  //적
+				if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+				{
+					setTile1Eraser(_vSaveEm, _tmpSelectIndex);
+					_tmpSelectIndex = -1;
+				}
+				else
+				{
+					saveTileVector(_vSaveEm);  //적
+				}
 			break;
 		}
 
@@ -420,6 +555,20 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 {
 	if (_isSaveVector)
 	{
+		//동일한 위치의 타일이 있습니까?
+		bool indexSame = false;
+		int  tmpIndex = -1;
+		for (int i = 0; i < tileVector.size(); ++i)
+		{
+			if (tileVector[i].index == _tmpSaveTile.index)
+			{
+				indexSame = true;
+				tmpIndex = i;
+				break;
+			}
+		}
+
+
 		//타일정보 가져오기
 		tagTile tmpTile;
 		ZeroMemory(&tmpTile, sizeof(tagTile));
@@ -436,12 +585,66 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 		tmpTile.rc.bottom = _tmpSaveTile.rc.bottom;
 		tmpTile.centerX   = _drawTile.centerX;
 		tmpTile.centerY   = _drawTile.centerY;
+		tmpTile.id		  = _drawTile.id;
+		tmpTile.overPos   = _drawTile.overPos;
 
-		//벡터에 담기
-		tileVector.push_back(tmpTile);
+		if (indexSame)
+		{
+			switch (tileVector[tmpIndex].overPos)
+			{
+				case OVERPO_NO:
+					//같은위치 중복 X (SWAP)
+					tileVector[tmpIndex] = tmpTile;
+				break;
+				case OVERPO_YES:
+					//같은위치 중복 O
+					//벡터에 담기
+					tileVector.push_back(tmpTile);
+				break;
+			}
+		}
+		else
+		{
+			//벡터에 담기
+			tileVector.push_back(tmpTile);
+		}
+
 	}
 
 	//초기화
 	ZeroMemory(&_tmpSaveTile, sizeof(tagTile));
 	_isSaveVector = false;
+}
+
+//타일정보 지우기 셋팅
+void mapTool::setTile1Eraser(vSaveTile& eraseTile, int tsIndex)
+{
+	//예외처리
+	if (eraseTile.size() == 0) return;
+
+	int tmpIndex = -1;
+
+	//타일 인덱스번호 -> 벡터넘버
+	tmpIndex = getTileIndex(eraseTile, tsIndex);
+
+	if (tmpIndex < 0) return;
+	//=============== 지우기 ===============
+	//정보 지우기
+	btnTile1Eraser(eraseTile[tmpIndex]);
+	//벡터 삭제
+	eraseTile.erase(eraseTile.begin() + tmpIndex);
+	//=============== 지우기 ===============
+}
+
+
+//타일 인덱스번호 -> 벡터넘버
+int mapTool::getTileIndex(vSaveTile& vTile, int tsIndex)
+{
+	for (int j = 0; j < vTile.size(); ++j)
+	{
+		if (tsIndex == vTile[j].index)
+		{
+			return j;
+		}
+	}
 }

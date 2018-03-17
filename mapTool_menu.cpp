@@ -239,22 +239,20 @@ void mapTool::menuTerrainTileChange(int num)
 			removeAllChild();
 
 			_tileFloor = new sampleTile;
-			_tileFloor->init("¸ÊÅøÅ¸ÀÏ¹Ù´Ú", ATTR_MOVE, TYPE_TERRAIN, 1.5);
+			_tileFloor->init("¸ÊÅøÅ¸ÀÏ¹Ù´Ú", ATTR_MOVE, TYPE_TERRAIN, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
 			addChild(_tileFloor);
 		break;
 		case 2:
 			removeAllChild();
 
 			_tileStreet = new sampleTile;
-			_tileStreet->init("¸ÊÅøÅ¸ÀÏ°Å¸®", ATTR_MOVE, TYPE_TERRAIN, 1.5);
+			_tileStreet->init("¸ÊÅøÅ¸ÀÏ°Å¸®", ATTR_MOVE, TYPE_TERRAIN, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
 			addChild(_tileStreet);
 		break;
 		case 3:
 			removeAllChild();
 
-			_tileTree1 = new sampleTile;
-			_tileTree1->init("¸ÊÅøÅ¸ÀÏ³ª¹«", ATTR_MOVE, TYPE_ROAD, 1.5);
-			addChild(_tileTree1);
+
 		break;
 		case 4:
 			removeAllChild();
@@ -281,50 +279,50 @@ void mapTool::menuBuildingTileChange(int num)
 			removeAllChild();
 
 			_tileBuilding1 = new sampleTile;
-			_tileBuilding1->init("¸ÊÅøÅ¸ÀÏºôµù1", ATTR_UNMOVE, TYPE_BUILDING, 1);
+			_tileBuilding1->init("¸ÊÅøÅ¸ÀÏºôµù1", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1);
 			addChild(_tileBuilding1);
 		break;
 		case 2:
 			removeAllChild();
 			
 			_tileBuilding2 = new sampleTile;
-			_tileBuilding2->init("¸ÊÅøÅ¸ÀÏºôµù2", ATTR_UNMOVE, TYPE_BUILDING, 1);
+			_tileBuilding2->init("¸ÊÅøÅ¸ÀÏºôµù2", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1);
 			addChild(_tileBuilding2);
 		break;
 		case 3:
 			removeAllChild();
 
 			_tileFurniture1 = new sampleTile;
-			_tileFurniture1->init("¸ÊÅøÅ¸ÀÏ°¡±¸1", ATTR_UNMOVE, TYPE_BUILDING, 1);
+			_tileFurniture1->init("¸ÊÅøÅ¸ÀÏ°¡±¸1", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_CENTER, OVERPO_NO, 1);
 			addChild(_tileFurniture1);
 		break;
 		case 4:
 			removeAllChild();
 	
 			_tileWall = new sampleTile;
-			_tileWall->init("¸ÊÅøÅ¸ÀÏº®", ATTR_UNMOVE, TYPE_BUILDING, 1.5);
+			_tileWall->init("¸ÊÅøÅ¸ÀÏº®", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
 			addChild(_tileWall);
 		break;
 		case 5:
 			removeAllChild();
 
 			_tileDoor = new sampleTile;
-			_tileDoor->init("¸ÊÅøÅ¸ÀÏ¹®", ATTR_UNMOVE, TYPE_BUILDING, 1.5);
+			_tileDoor->init("¸ÊÅøÅ¸ÀÏ¹®", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
 			addChild(_tileDoor);
 		break;
 		case 6:
 			removeAllChild();
 
-			_tileFurniture1 = new sampleTile;
-			_tileFurniture1->init("¸ÊÅøÅ¸ÀÏ°¡±¸1", ATTR_UNMOVE, TYPE_FURNITURE, 1.5);
-			addChild(_tileFurniture1);
+			_tileShelves = new sampleTile;
+			_tileShelves->init("¸ÊÅøÅ¸ÀÏÃ¥Àå", ATTR_UNMOVE, TYPE_FURNITURE, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1.5);
+			addChild(_tileShelves);
 		break;
 		case 7:
 			removeAllChild();
 
-			_tileShelves = new sampleTile;
-			_tileShelves->init("¸ÊÅøÅ¸ÀÏÃ¥Àå", ATTR_UNMOVE, TYPE_FURNITURE, 1.5);
-			addChild(_tileShelves);
+			_tileTree1 = new sampleTile;
+			_tileTree1->init("¸ÊÅøÅ¸ÀÏ³ª¹«", ATTR_MOVE, TYPE_ROAD, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1.5);
+			addChild(_tileTree1);
 		break;
 		case 8:
 			removeAllChild();
@@ -347,7 +345,7 @@ void mapTool::menuItemTileChange(int num)
 			removeAllChild();
 
 			_tileItem1 = new sampleTile;
-			_tileItem1->init("¸ÊÅøÅ¸ÀÏ¾ÆÀÌÅÛ", ATTR_UNMOVE, TYPE_ITEM, 1.5);
+			_tileItem1->init("¸ÊÅøÅ¸ÀÏ¾ÆÀÌÅÛ", ATTR_UNMOVE, TYPE_ITEM, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
 			addChild(_tileItem1);
 		break;
 		case 2:
@@ -384,7 +382,7 @@ void mapTool::menuWeaponTileChange(int num)
 			removeAllChild();
 
 			_tileWeapon1 = new sampleTile;
-			_tileWeapon1->init("¸ÊÅøÅ¸ÀÏ¹«±â", ATTR_UNMOVE, TYPE_WEAPON, 3);
+			_tileWeapon1->init("¸ÊÅøÅ¸ÀÏ¹«±â", ATTR_UNMOVE, TYPE_WEAPON, ANCHOR_CENTER, OVERPO_NO, 3);
 			addChild(_tileWeapon1);
 		break;
 		case 2:
@@ -430,7 +428,7 @@ void mapTool::sTileInputTerrain(int num)
 			selectTileInput(_tileStreet);
 		break;
 		case 3:
-			selectTileInput(_tileTree1);
+			
 		break;
 		case 4:
 
@@ -462,13 +460,13 @@ void mapTool::sTileInputBuilding(int num)
 			selectTileInput(_tileDoor);
 		break;
 		case 6:
-			selectTileInput(_tileFurniture1);
-		break;
-		case 7:
 			selectTileInput(_tileShelves);
 		break;
+		case 7:
+			selectTileInput(_tileTree1);
+		break;
 		case 8:
-
+		
 		break;
 	}
 }

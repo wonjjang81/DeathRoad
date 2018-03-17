@@ -8,6 +8,8 @@ struct tagTileSample
 	string imgName;
 	TILE_TYPE type;
 	ATTRIBUTE att;
+	ANCHOR_TYPE anchor;
+	OVERLAPPOSITION overPos;
 	float scale;
 	float showX;     //클립핑 영역X  
 	float showY;     //클립핑 영역Y
@@ -37,18 +39,18 @@ public:
 	vTile _selectVTile;    //선택한 타일정보를 담아둘 벡터
 
 public:
-	virtual HRESULT init(string imgName,ATTRIBUTE att, TILE_TYPE type, float scale);
-	virtual void release();
-	virtual void update();
-	virtual void render();
+	HRESULT init(string imgName,ATTRIBUTE att, TILE_TYPE type, ANCHOR_TYPE anchorType, OVERLAPPOSITION overPosition, float scale);
+	void release();
+	void update();
+	void render();
 
 
 
-	virtual void resetSelTile();   //선택한 타일 초기화
-	virtual void mapKeyControl();  //맵 키 컨트롤
+	void resetSelTile();   //선택한 타일 초기화
+	void mapKeyControl();  //맵 키 컨트롤
 
 	//=============================== getter & setter ===============================
-
+	inline void resetSelectile() { if (_selectVTile.size() != 0) _selectVTile.clear(); }
 
 	sampleTile();
 	~sampleTile();

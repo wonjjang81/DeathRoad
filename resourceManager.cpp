@@ -32,7 +32,7 @@ void playGround::resourceAdd()
 	IMAGEMANAGER->addFrameImage("맵툴타일아이템", L".//source//image//mapTool//tile//item//dr2c_loot16.png", 128, 48, dFrame(128, 16), dFrame(48, 16));
 	//길
 	IMAGEMANAGER->addFrameImage("맵툴타일거리", L".//source//image//mapTool//tile//road//street.png", 256, 512, dFrame(256, 16), dFrame(512, 16));
-	IMAGEMANAGER->addFrameImage("맵툴타일나무", L".//source//image//mapTool//tile//road//trees_96px.png", 480, 480, dFrame(480, 16), dFrame(480, 16));
+	IMAGEMANAGER->addFrameImage("맵툴타일나무", L".//source//image//mapTool//tile//road//trees_96px.png", 480, 480, dFrame(480, 96), dFrame(480, 96));
 	//지형
 	IMAGEMANAGER->addFrameImage("맵툴타일바닥", L".//source//image//mapTool//tile//terrain//floors.png", 128, 352, dFrame(128, 16), dFrame(352, 16));
 	//무기

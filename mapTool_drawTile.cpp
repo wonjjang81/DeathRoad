@@ -71,16 +71,16 @@ void mapTool::vTileDraw(vSaveTile tileVector, float scale)
 		//예외처리
 		if (tileVector[i].img == NULL) continue;  //이미지 X
 
-												//타일렉트 보정
+		//타일렉트 보정
 		RECT reRect;
-		reRect.left = (tileVector[i].rc.left     + _moveX) * scale;
-		reRect.top = (tileVector[i].rc.top       + _moveY) * scale;
-		reRect.right = (tileVector[i].rc.right   + _moveX) * scale;
+		reRect.left   = (tileVector[i].rc.left   + _moveX) * scale;
+		reRect.top    = (tileVector[i].rc.top    + _moveY) * scale;
+		reRect.right  = (tileVector[i].rc.right  + _moveX) * scale;
 		reRect.bottom = (tileVector[i].rc.bottom + _moveY) * scale;
 
 		//위치 보정(타일 중심)
-		float tmpCenterX = reRect.left + (tileVector[i].centerX * scale);
-		float tmpCenterY = reRect.top  + (tileVector[i].centerY * scale);
+		tileVector[i].centerX = reRect.left + (tileVector[i].centerX * scale);
+		tileVector[i].centerY = reRect.top  + (tileVector[i].centerY * scale);
 
 		//예외처리: 화면밖 렌더X
 		if (reRect.left >= _showWindowX)  continue;  //가로열(우측)
@@ -88,15 +88,15 @@ void mapTool::vTileDraw(vSaveTile tileVector, float scale)
 		if (reRect.top >= _showWindowY)  continue;  //세로열(상부)
 		if (reRect.bottom < 0)			  continue;  //세로열(하부)
 
-		tileVector[i].img->frameRender(1.0f, tmpCenterX, tmpCenterY,
+		tileVector[i].img->frameRender(1.0f, tileVector[i].centerX, tileVector[i].centerY,
 			tileVector[i].frameX, tileVector[i].frameY, 0.0f, scale);
 
 		//렉트 확인용
-		D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
-			reRect.left,
-			reRect.top,
-			reRect.right,
-			reRect.bottom);
+		//D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
+		//	reRect.left,
+		//	reRect.top,
+		//	reRect.right,
+		//	reRect.bottom);
 	}
 
 }

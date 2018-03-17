@@ -32,7 +32,7 @@ void tile::render()
 
 }
 
-void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, float scale)
+void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale)
 {
 	vTile tileVector;
 
@@ -62,22 +62,15 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 			tile.frameY    = i;
 			tile.gapX = tile.img->getFrameWidth() * tile.scale * tile.frameX;
 			tile.gapY = tile.img->getFrameHeight() * tile.scale * tile.frameY;
-			tile.attribute = attribute;
-			tile.tileType  = tileType;
-			tile.id		   = tile.index;
-
-			//----------------------------- 타일 사이즈에 맞게 위치 보정 -----------------------------
-			float tileRatioX = (tile.img->getFrameWidth() / (float)TILE_SIZEX);
-			float tileRatioY = (tile.img->getFrameHeight() / (float)TILE_SIZEY);
-	
-			if (tileRatioX < 1) tile.centerX = (TILE_SIZEX / (tileRatioX * 4 * 2));							//타일사이즈X 보다 이미지가 작으면
-			else tileRatioX == 1 ? tile.centerX = 0 : tile.centerX = -(TILE_SIZEX * (tileRatioX / 4));  //타일사이즈X 보다 이미지가 크면
-			if (tileRatioY < 1) tile.centerY = (TILE_SIZEY / (tileRatioY * 4 * 2));							//타일사이즈Y 보다 이미지가 작으면
-			else tileRatioY == 1 ? tile.centerY = 0 : tile.centerY = -(TILE_SIZEY * (tileRatioY / 4));	//타일사이즈Y 보다 이미지가 크면	
-			//----------------------------- 타일 사이즈에 맞게 위치 보정 -----------------------------
-		
+			tile.attribute  = attribute;
+			tile.tileType   = tileType;
+			tile.anchorType = anchor;
+			tile.overPos = overPosition;
+			tile.id		    = tile.index;
 			tile.reWidth   = TILE_SIZEX;
 			tile.reHeight  = TILE_SIZEY;
+			setTileAnchor(tile, tile.anchorType);
+
 
 			tileVector.push_back(tile);
 		}
@@ -174,6 +167,8 @@ tagTile tile::tileSelect(string tileName, float moveX, float moveY)
 					tmpTile.gapY = viter->gapY;
 					tmpTile.attribute = viter->attribute;
 					tmpTile.tileType = viter->tileType;
+					tmpTile.anchorType = viter->anchorType;
+					tmpTile.overPos = viter->overPos;
 					tmpTile.id = viter->id;
 					tmpTile.centerX = viter->centerX;
 					tmpTile.centerY = viter->centerY;
@@ -213,3 +208,37 @@ void tile::setTileType(tagTile selectTile, TILE_TYPE tileType)
 	selectTile.tileType = tileType;
 }
 //=========================== 타일속성 변경 ===========================
+
+
+//앵커타입별 이미지 Render 기준점 설정
+void tile::setTileAnchor(tagTile& tile, ANCHOR_TYPE anchor)
+{
+	//타일맵 크기비율
+	float tileRatioX = (tile.img->getFrameWidth() / (float)TILE_SIZEX);
+	float tileRatioY = (tile.img->getFrameHeight() / (float)TILE_SIZEY);
+
+	//타일 중심점 셋팅
+	int RectCenterX = tile.rc.left + (tile.rc.right - tile.rc.left) / 2;
+	int RectCenterY = tile.rc.top + (tile.rc.bottom - tile.rc.top) / 2;
+
+	//----------------------------- 타일 사이즈에 맞게 위치 보정 -----------------------------
+	switch (anchor)
+	{
+		case ANCHOR_LEFTTOP:
+			tile.centerX = 0;
+			tile.centerY = 0;
+		break;
+		case ANCHOR_CENTER:
+			if (tileRatioX < 1) tile.centerX = (TILE_SIZEX / (tileRatioX * 4 * 2));								//타일사이즈X 보다 이미지가 작으면
+			else tileRatioX == 1 ? tile.centerX = 0 : tile.centerX = -((TILE_SIZEX / 2) * (tileRatioX - 1));	//타일사이즈X 보다 이미지가 크면
+			if (tileRatioY < 1) tile.centerY = (TILE_SIZEY / (tileRatioY * 4 * 2));								//타일사이즈Y 보다 이미지가 작으면
+			else tileRatioY == 1 ? tile.centerY = 0 : tile.centerY = -((TILE_SIZEY / 2) * (tileRatioY - 1));	//타일사이즈Y 보다 이미지가 크면	
+		break;
+		case ANCHOR_BOTTOMCENTER:
+			if (tileRatioX < 1) tile.centerX = (TILE_SIZEX / (tileRatioX * 4 * 2));								//타일사이즈X 보다 이미지가 작으면
+			else tileRatioX == 1 ? tile.centerX = 0 : tile.centerX = -((TILE_SIZEX / 2) * (tileRatioX - 1));	//타일사이즈X 보다 이미지가 크면
+			if (tileRatioY < 1) tile.centerY = (TILE_SIZEY / (tileRatioX * 4 * 2 * 2));							//타일사이즈Y 보다 이미지가 작으면
+			else tileRatioY == 1 ? tile.centerY = 0 : tile.centerY = -((TILE_SIZEY) * (tileRatioY - 1));	//타일사이즈Y 보다 이미지가 크면
+		break;
+	}
+}

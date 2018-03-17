@@ -295,6 +295,11 @@ void mapTool::btnAllReset()
 		_btnTileType->setBtnOff(false);   //타입버튼 Off
 		_btnEraser->setBtnOff(false);     //타일초기화 버튼 Off
 		_btnAllReset->setBtnOff(false);   //리셋버튼 Off
+
+		//선택 FillRect 지우기
+		samTileFRectInitialize();
+		//선택한 타일정보 구조체 초기화
+		ZeroMemory(&_drawTile, sizeof(tagTile));
 	}
 }
 

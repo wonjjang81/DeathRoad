@@ -103,13 +103,14 @@ private:
 	bool isTResetOn;
 
 	//-------- Edit버튼 --------
-	fButton* _btnAllReset;   //버튼 초기화
+	fButton* _btnAllReset;		//버튼 초기화
 
-	fButton* _btnEraser;    //타일 초기화
-	fButton* _btnOneEraser; //타일 초기화(하나만)
-	fButton* _btnAllEraser; //타일 초기화(전체)
-	fButton* _btnAllSet;    //타일 셋팅(전체)
+	fButton* _btnEraser;		//타일 초기화
+	fButton* _btnOneEraser;		//타일 초기화(하나만)
+	fButton* _btnAllEraser;		//타일 초기화(전체)
+	fButton* _btnAllSet;		//타일 셋팅(전체)
 
+	int      _tmpSelectIndex;   //선택한 벡터 지울 인덱스 담을 변수
 	//------ SaveLoad버튼 ------
 	fButton* _btnSave;
 	fButton* _btnLoad;
@@ -121,7 +122,7 @@ private:
 	//======== 샘플타일 ========
 	//지형
 	sampleTile* _tileFloor;
-	//지형: 길
+	//도로
 	sampleTile* _tileTree1;
 	sampleTile* _tileStreet;
 	//빌딩
@@ -215,12 +216,14 @@ public:
 	void tileReType(tagTile& resetTile);  		//TileType  Reset
 	//------------------ Edit Button -----------------
 	void btnAllReset();
+	void setTile1Eraser(vSaveTile& eraseTile, int tsIndex);
 	void btnTile1Eraser(tagTile& resetTile);
 	void btnTileAllEraser();
 	void btnTileAllSet(tagTile& resetTile);
 
 	void vTileInitialize(vSaveTile& saveTile);
 	void vTileSet(vSaveTile& saveTile, tagTile& resetTile);
+	int getTileIndex(vSaveTile& vTile, int tsIndex);
 	//------------------------------------------------
 	void menuRender();
 	void menuUpdate();
@@ -230,6 +233,8 @@ public:
 
 	//타일정보 저장
 	void saveTileVector(vSaveTile& tileVector);
+	//샘플타일 FillRect 초기화
+	void samTileFRectInitialize();
 	
 	//타일 그리기
 	void tileDraw(float scale);

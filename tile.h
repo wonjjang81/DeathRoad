@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 
-//타일 방향
+//타일방향
 enum TILE_DIRECTION
 {
 	DIR_UP,
@@ -15,13 +15,23 @@ enum TILE_DIRECTION
 	DIR_NONE
 };
 
+//앵커타입
+enum ANCHOR_TYPE
+{
+	ANCHOR_NONE,
+	ANCHOR_LEFTTOP,
+	ANCHOR_CENTER,
+	ANCHOR_BOTTOMCENTER
+};
+
 struct tagTile
 {
 	RECT      rc;
 	image*    img;
 	TILE_TYPE tileType;
 	ATTRIBUTE attribute;
-
+	ANCHOR_TYPE anchorType;   //앵커타입
+	OVERLAPPOSITION overPos;  //중복위치 여부
 	TCHAR imgName[64];
 	int index;
 	float x, y;
@@ -70,12 +80,14 @@ public:
 	void update();
 	void render();
 
-	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, float scale);
+	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale);
 	void tileRender(string tileName, float moveX = 0, float moveY = 0);
 	tagTile tileSelect(string tileName, float moveX = 0, float moveY = 0);
 	void tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity, float moveX = 0, float moveY = 0);
 	void setTileAttribute(tagTile selectTile, ATTRIBUTE attribute);
 	void setTileType(tagTile selectTile, TILE_TYPE tileType);
+
+	void setTileAnchor(tagTile& tile, ANCHOR_TYPE anchor);  //앵커타입별 이미지 Render 기준점 설정
 
 	tile();
 	~tile();

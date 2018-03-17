@@ -10,21 +10,24 @@ sampleTile::~sampleTile()
 
 }
 
-HRESULT sampleTile::init(string imgName, ATTRIBUTE att, TILE_TYPE type, float scale)
+HRESULT sampleTile::init(string imgName, ATTRIBUTE att, TILE_TYPE tileType, ANCHOR_TYPE anchorType, OVERLAPPOSITION overPosition, float scale)
 {
 	//샘플타일 정보
 	_sTile.imgName = imgName;
 	_sTile.att = att;
-	_sTile.type = type;
+	_sTile.type = tileType;
+	_sTile.anchor = anchorType;
+	_sTile.overPos = overPosition;
 	_sTile.scale = scale;
 	_sTile.showX = 740 + 240;
-	_sTile.showY = 100 + 505;
+	_sTile.showY = 100 + 500;
 	_sTile.keyMoveX = 0;
 	_sTile.keyMoveY = 0;
 
+
 	//샘플타일 초기화
 	_tileSample = new tile;
-	_tileSample->tileSetup(_sTile.imgName, 740, 100, _sTile.att, _sTile.type, _sTile.scale);
+	_tileSample->tileSetup(_sTile.imgName, 740, 100, _sTile.att, _sTile.type, _sTile.anchor, _sTile.overPos, _sTile.scale);
 
 	//선택할 샘플타일 담을 구조체
 	ZeroMemory(&_selectTile, sizeof(tagTile));
@@ -116,3 +119,5 @@ void sampleTile::mapKeyControl()
 		_sTile.keyMoveY -= 1 * _moveSpeed;
 	}
 }
+
+

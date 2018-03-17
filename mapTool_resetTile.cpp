@@ -94,10 +94,14 @@ void mapTool::tileReType(tagTile& resetTile)
 		break;
 		case TYPE_ROAD:
 
+			//속성변경
+			resetTile.tileType = TYPE_ROAD;
 
 		break;
 		case TYPE_FURNITURE:
 
+			//속성변경
+			resetTile.tileType = TYPE_FURNITURE;
 
 		break;
 		case TYPE_BUILDING:
@@ -127,22 +131,59 @@ void mapTool::tileReType(tagTile& resetTile)
 	}
 }
 
-//타일정보 지우기: 1
+//============= 타일정보 지우기 =============
+//------------------- One -------------------
 void mapTool::btnTile1Eraser(tagTile& resetTile)
 {
-	resetTile.img = NULL;
-	sprintf(resetTile.imgName, "");
-	resetTile.attribute = ATTR_NONE;
-	resetTile.tileType = TYPE_NONE;
+	//선택한 샘플타일 비우기
+	ZeroMemory(&_drawTile, sizeof(tagTile));
+
+	//예외처리: 지우면 안되는 정보
+	int index;
+	RECT rc;
+
+	switch (resetTile.tileType)
+	{
+		case TYPE_TERRAIN:
+			index = resetTile.index;
+			rc = resetTile.rc;
+
+			ZeroMemory(&resetTile, sizeof(tagTile));
+
+			resetTile.index = index;
+			resetTile.rc = rc;
+		break;
+		case TYPE_BUILDING:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
+		case TYPE_ROAD:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
+		case TYPE_FURNITURE:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
+		case TYPE_ITEM:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
+		case TYPE_WEAPON:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
+		case TYPE_ENEMY:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
+	}
+
+
+
 }
 
-//타일정보 지우기: All
+//------------------- All -------------------
 void mapTool::btnTileAllEraser()
 {
 	//선택한 타일정보 초기화
 	ZeroMemory(&_drawTile, sizeof(tagTile));
 	//선택 FillRect 지우기
-
+	samTileFRectInitialize();
 
 	//Terrain
 	vTileInitialize(_vSaveTr);
@@ -166,6 +207,7 @@ void mapTool::btnTileAllEraser()
 	vTileInitialize(_vSaveEm);
 
 }
+//============= 타일정보 지우기 =============
 
 void mapTool::btnTileAllSet(tagTile& resetTile)
 {
@@ -217,10 +259,22 @@ void mapTool::vTileInitialize(vSaveTile& saveTile)
 {
 	for (int i = 0; i < saveTile.size(); ++i)
 	{
-		saveTile[i].img = NULL;
-		sprintf(saveTile[i].imgName, "");
-		saveTile[i].attribute = ATTR_NONE;
-		saveTile[i].tileType = TYPE_NONE;
+		switch (saveTile[i].tileType)
+		{
+			case TYPE_TERRAIN:
+				saveTile[i].img = NULL;
+				sprintf(saveTile[i].imgName, "");
+				saveTile[i].attribute = ATTR_NONE;
+				saveTile[i].tileType = TYPE_NONE;
+				saveTile[i].index = -1;
+				saveTile[i].id = -1;
+				saveTile[i].anchorType = ANCHOR_NONE;
+			break;
+			default:
+				saveTile.clear();
+				return;
+			break;
+		}
 	}
 }
 
@@ -234,5 +288,180 @@ void mapTool::vTileSet(vSaveTile& saveTile, tagTile& resetTile)
 		saveTile[i].tileType = resetTile.tileType;
 		saveTile[i].frameX = resetTile.frameX;
 		saveTile[i].frameY = resetTile.frameY;
+	}
+}
+
+//모든 샘플 타일벡터 FillRect 초기화 
+void mapTool::samTileFRectInitialize()
+{
+	switch (_drawTile.tileType)
+	{
+		case TYPE_TERRAIN:
+			switch (_btnTabNum)
+			{
+				case 1:
+					_tileFloor->resetSelectile();   //바닥타일
+				break;
+				case 2:
+					_tileStreet->resetSelectile();  //거리
+				break;
+				case 3:
+
+				break;
+				case 4:
+
+				break;
+				case 5:
+
+				break;
+				case 6:
+
+				break;
+			}
+		break;
+		case TYPE_BUILDING:
+			switch (_btnTabNum)
+			{
+				case 1:
+					_tileBuilding1->resetSelectile();   //건물1
+				break;
+				case 2:
+					_tileBuilding2->resetSelectile();   //건물2
+				break;
+				case 3:
+					_tileFurniture1->resetSelectile();	//가구1
+				break;
+				case 4:
+					_tileWall->resetSelectile();		//벽
+				break;
+				case 5:
+					_tileDoor->resetSelectile();		//문
+				break;
+				case 6:
+					_tileShelves->resetSelectile();		//책장
+				break;
+				case 7:
+					_tileTree1->resetSelectile();       //나무
+				break;
+			}
+	
+		break;
+		case TYPE_ROAD:
+	
+			switch (_btnTabNum)
+			{
+				case 1:
+					
+				break;
+				case 2:
+				
+				break;
+				case 3:
+
+				break;
+				case 4:
+
+				break;
+				case 5:
+
+				break;
+				case 6:
+
+				break;
+			}
+		break;
+		case TYPE_FURNITURE:
+			switch (_btnTabNum)
+			{
+				case 1:
+
+				break;
+				case 2:
+
+				break;
+				case 3:
+
+				break;
+				case 4:
+
+				break;
+				case 5:
+
+				break;
+				case 6:
+
+				break;
+			}
+		break;
+		case TYPE_ITEM:
+			switch (_btnTabNum)
+			{
+				case 1:
+					_tileItem1->resetSelectile();		//아이템1
+				break;
+				case 2:
+
+				break;
+				case 3:
+
+				break;
+				case 4:
+
+				break;
+				case 5:
+
+				break;
+				case 6:
+
+				break;
+			}
+		break;
+		case TYPE_WEAPON:
+			switch (_btnTabNum)
+			{
+				case 1:
+					_tileWeapon1->resetSelectile();		//무기1
+				break;
+				case 2:
+
+				break;
+				case 3:
+
+				break;
+				case 4:
+
+				break;
+				case 5:
+
+				break;
+				case 6:
+
+				break;
+			}	
+		break;
+		case TYPE_ENEMY:
+			switch (_btnTabNum)
+			{
+				case 1:
+
+				break;
+				case 2:
+
+				break;
+				case 3:
+
+				break;
+				case 4:
+
+				break;
+				case 5:
+
+				break;
+				case 6:
+
+				break;
+			}
+		
+		break;
 	}
 }
