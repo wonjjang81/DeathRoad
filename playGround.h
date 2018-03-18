@@ -1,8 +1,13 @@
 #pragma once
 #include "gameNode.h"
-#include "testScene.h"
 #include "mapTool.h"
+#include "charEditor.h"
 
+enum SCENEKEY
+{
+	SCENE_MAPTOOL,
+	SCENE_CHAREDITOR
+};
 
 class playGround : public gameNode
 {

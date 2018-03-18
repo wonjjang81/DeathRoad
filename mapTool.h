@@ -46,8 +46,8 @@ private:
 	typedef vector<tagSampleTile>			   vSampTile;
 	typedef vector<tagSampleTile>::iterator    viSampTile;
 
-	typedef vector<tagTile>					vSaveTile;
-	typedef vector<tagTile>::iterator       viSaveTile;
+	typedef vector<tagTile>					   vSaveTile;
+	typedef vector<tagTile>::iterator		   viSaveTile;
 
 private:
 	//editWindow

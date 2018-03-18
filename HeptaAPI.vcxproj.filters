@@ -49,9 +49,6 @@
     <Filter Include="2DGameFramework\dataBase">
       <UniqueIdentifier>{5e3c2393-61d5-429c-a1be-c0403a7d9a87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Test">
-      <UniqueIdentifier>{2723c43a-bcee-4ce6-9739-9689d233b4da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="mapTool">
       <UniqueIdentifier>{a1b693bf-8b4c-421c-bb75-b07497dd13c0}</UniqueIdentifier>
     </Filter>
@@ -63,6 +60,9 @@
     </Filter>
     <Filter Include="mapTool\mapTool_child">
       <UniqueIdentifier>{11c2c71b-4b21-47a6-a4f7-cf018e80922e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="characterEditor">
+      <UniqueIdentifier>{90275d4d-b7b1-47a7-a665-62001ebbd851}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -147,12 +147,6 @@
     <ClInclude Include="d2dManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="testScene.h">
-      <Filter>Test</Filter>
-    </ClInclude>
-    <ClInclude Include="test02.h">
-      <Filter>Test</Filter>
-    </ClInclude>
     <ClInclude Include="cameraManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
@@ -176,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="dialogProc.h">
       <Filter>mapTool\mapTool+</Filter>
+    </ClInclude>
+    <ClInclude Include="charEditor.h">
+      <Filter>characterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="character.h">
+      <Filter>characterEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,12 +245,6 @@
     <ClCompile Include="d2dManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="testScene.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
-    <ClCompile Include="test02.cpp">
-      <Filter>Test</Filter>
-    </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
@@ -292,6 +286,12 @@
     </ClCompile>
     <ClCompile Include="mapTool_newTile.cpp">
       <Filter>mapTool\mapTool+</Filter>
+    </ClCompile>
+    <ClCompile Include="charEditor.cpp">
+      <Filter>characterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="character.cpp">
+      <Filter>characterEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

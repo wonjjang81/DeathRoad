@@ -19,7 +19,7 @@ HRESULT playGround::init()
 	//리소스 추가
 	resourceAdd();
 
-	SCENEMANAGER->addScene("test", new testScene);
+	SCENEMANAGER->addScene("캐릭터툴", new charEditor);
 	SCENEMANAGER->addScene("맵툴", new mapTool);
 
 	SCENEMANAGER->changeScene("맵툴");
@@ -33,8 +33,6 @@ void playGround::release(void)
 	gameNode::release();
 
 
-
-
 }
 
 //연산
@@ -43,6 +41,9 @@ void playGround::update(void)
 	gameNode::update();
 
 	SCENEMANAGER->update();
+
+	if (KEYMANAGER->isOnceKeyDown(VK_F2)) SCENEMANAGER->changeScene("맵툴");
+	if (KEYMANAGER->isOnceKeyDown(VK_F3)) SCENEMANAGER->changeScene("캐릭터툴");
 }
 
 //그리는거.......

@@ -38,6 +38,13 @@ void playGround::resourceAdd()
 	//무기
 	IMAGEMANAGER->addFrameImage("맵툴타일무기", L".//source//image//mapTool//tile//weapon//dr2c_weapons.png", 128, 448, dFrame(128, 8), dFrame(448, 32));
 
+	//==================================================================== 캐릭터 ==================================================================
+	//여성
+	IMAGEMANAGER->addFrameImage("여성머리", L".//source//image//char//dr2c_female_heads.png", 192, 144, dFrame(192, 24), dFrame(144, 24));
+	IMAGEMANAGER->addFrameImage("여성보디", L".//source//image//char//dr2c_female_bodies.png", 480, 408, dFrame(480, 24), dFrame(408, 24));
+	IMAGEMANAGER->addFrameImage("여성안경", L".//source//image//char//dr2c_female_glasses.png", 96, 336, dFrame(96, 24), dFrame(336, 24));
+	IMAGEMANAGER->addFrameImage("여성헤어", L".//source//image//char//dr2c_female_hair.png", 240, 144, dFrame(240, 24), dFrame(144, 24));
+	IMAGEMANAGER->addFrameImage("여성모자", L".//source//image//char//dr2c_female_hats.png", 144, 216, dFrame(144, 24), dFrame(216, 24));
 }
 
 

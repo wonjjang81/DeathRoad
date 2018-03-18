@@ -38,7 +38,6 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 
 	//타일정보
 	tagTile tile;
-	wsprintf(tile.imgName, "%s", tileName);
 	tile.img = IMAGEMANAGER->findImage(tileName);
 	sprintf(tile.imgName, "%s", tileName.c_str());
 	int tileX = tile.img->getMaxFrameX() + 1;  //총타일 수X (*이미지 정보의 maxFrameX는 총 프레임수 - 1)
