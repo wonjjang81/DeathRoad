@@ -29,4 +29,11 @@ namespace HEPTA_UTIL
 
 		return angle;
 	}
+
+	void stringErase(string& editStrName, string eraseName)
+	{
+		int strIndex = editStrName.find(eraseName);
+		int strMaxIndex = editStrName.length();
+		editStrName.erase(strIndex, strMaxIndex);
+	}
 }

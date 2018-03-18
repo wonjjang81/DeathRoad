@@ -132,8 +132,8 @@ void character::charRender(string charTypeName, int index)
 		{
 			//예외처리
 			int maxIndex = (viter->img->getMaxFrameX() * viter->img->getMaxFrameY());
-			if (index > maxIndex) index = 0;  //처음 인덱스로
-			if (index < 0) index = maxIndex;  //맥스 인덱스로
+			if (index > maxIndex) index = maxIndex;  
+			if (index < 0) index = 0;  
 
 			if (viter->index == index)
 			{
@@ -153,7 +153,6 @@ void character::charRender(string charTypeName, int index)
 				break;
 			}
 		}
-
 	}
 }
 
@@ -162,4 +161,22 @@ void character::stringErase(string& editStrName, string eraseName)
 	int strIndex = editStrName.find(eraseName);
 	int strMaxIndex = editStrName.length();
 	editStrName.erase(strIndex, strMaxIndex);
+}
+
+
+//최대 인덱스 넘버 반환
+int character::getMaxIndex(string charTypeName)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		int maxFrameX = viter->img->getMaxFrameX();
+		int maxFrameY = viter->img->getMaxFrameY();
+		return maxFrameX * maxFrameY;
+	}
+
+	return -1;
 }

@@ -37,7 +37,8 @@ private:
 	typedef map<string, vChar>::iterator iterChar;
 
 private:
-	mChar _mChar;
+	mChar	 _mChar;
+	iterChar _miChar;
 
 public:
 	HRESULT init();
@@ -53,6 +54,11 @@ public:
 
 	void charRender(string charTypeName, int index);
 	void stringErase(string& editStrName, string eraseName);
+
+
+	//================================ getter & setter ================================
+	int getMaxIndex(string charTypeName);
+
 
 	character();
 	~character();
