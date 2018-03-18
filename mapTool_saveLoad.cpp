@@ -51,9 +51,12 @@ void mapTool::save()
 	
 
 	//타일 사이즈 저장
-	char tmpBuff[32];
-	INIDATA->addData("mapData", "tileX", itoa(_tileX, tmpBuff, 10));
-	INIDATA->addData("mapData", "tileY", itoa(_tileY, tmpBuff, 10));
+	char tmpTsizeX[32];
+	char tmpTsizeY[32];
+	sprintf(tmpTsizeX, "%d", _tileX);
+	sprintf(tmpTsizeY, "%d", _tileY);
+	INIDATA->addData("mapData", "tileX", tmpTsizeX);
+	INIDATA->addData("mapData", "tileY", tmpTsizeY);
 	INIDATA->iniSave(tmpFileName);  //map 파일명과 동일하게 저장
 
 
@@ -73,7 +76,9 @@ void mapTool::save()
 
 	//-------------------------------------- 빌딩 정보 벡터에서 가져오기 --------------------------------------
 	//벡터 사이즈 저장
-	INIDATA->addData("mapData", "vBdSize", itoa(_vSaveBd.size(), tmpBuff, 10));
+	char tmpVsize[32];
+	sprintf(tmpVsize, "%d", _vSaveBd.size());
+	INIDATA->addData("mapData", "vBdSize", tmpVsize);
 	INIDATA->iniSave(tmpFileName);
 
 	//빌딩 사이즈 먼저 가져오기
@@ -90,7 +95,9 @@ void mapTool::save()
 
 	//-------------------------------------- 도로 정보 벡터에서 가져오기 -------------------------------------
 	//벡터 사이즈 저장
-	INIDATA->addData("mapData", "vRdSize", itoa(_vSaveRd.size(), tmpBuff, 10));
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveRd.size());
+	INIDATA->addData("mapData", "vRdSize", tmpVsize);
 	INIDATA->iniSave(tmpFileName);
 
 	//빌딩 사이즈 먼저 가져오기
@@ -107,7 +114,9 @@ void mapTool::save()
 
 	//-------------------------------------- 가구 정보 벡터에서 가져오기 -------------------------------------
 	//벡터 사이즈 저장
-	INIDATA->addData("mapData", "vFtSize", itoa(_vSaveFt.size(), tmpBuff, 10));
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveFt.size());
+	INIDATA->addData("mapData", "vFtSize", tmpVsize);
 	INIDATA->iniSave(tmpFileName);
 
 	//빌딩 사이즈 먼저 가져오기
@@ -125,7 +134,9 @@ void mapTool::save()
 
 	//------------------------------------- 아이템 정보 벡터에서 가져오기 -------------------------------------
 	//벡터 사이즈 저장
-	INIDATA->addData("mapData", "vItSize", itoa(_vSaveIt.size(), tmpBuff, 10));
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveIt.size());
+	INIDATA->addData("mapData", "vItSize", tmpVsize);
 	INIDATA->iniSave(tmpFileName);
 
 	//빌딩 사이즈 먼저 가져오기
@@ -142,7 +153,9 @@ void mapTool::save()
 
 	//------------------------------------- 무기 정보 벡터에서 가져오기 --------------------------------------
 	//벡터 사이즈 저장
-	INIDATA->addData("mapData", "vWpSize", itoa(_vSaveWp.size(), tmpBuff, 10));
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveWp.size());
+	INIDATA->addData("mapData", "vWpSize", tmpVsize);
 	INIDATA->iniSave(tmpFileName);
 
 	//빌딩 사이즈 먼저 가져오기
@@ -159,7 +172,9 @@ void mapTool::save()
 
 	//-------------------------------------- 적 정보 벡터에서 가져오기 --------------------------------------
 	//벡터 사이즈 저장
-	INIDATA->addData("mapData", "vEmSize", itoa(_vSaveEm.size(), tmpBuff, 10));
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveEm.size());
+	INIDATA->addData("mapData", "vEmSize", tmpVsize);
 	INIDATA->iniSave(tmpFileName);
 
 	//빌딩 사이즈 먼저 가져오기
@@ -238,13 +253,13 @@ void mapTool::load()
 	vTileClear();
 
 	//벡터크기 로드
-	int tmpTileX = INIDATA->loadDataInterger(tmpFileName, "mapData", "tileX");
-	int tmpTileY = INIDATA->loadDataInterger(tmpFileName, "mapData", "tileY");
+	_tileX = INIDATA->loadDataInterger(tmpFileName, "mapData", "tileX");
+	_tileY = INIDATA->loadDataInterger(tmpFileName, "mapData", "tileY");
 
 	//grid 벡터에 담기
-	gridVectorDraw(tmpTileX, tmpTileY);
+	gridVectorDraw(_tileX, _tileY);
 
-	const int terrainSize = tmpTileX * tmpTileY;
+	const int terrainSize = _tileX * _tileY;
 	tagTile* ptTmpTileTr = new tagTile[terrainSize];
 
 	//파일로드
@@ -277,7 +292,7 @@ void mapTool::load()
 
 	//파일로드
 	ReadFile(hFile, ptTmpTileFt, sizeof(tagTile) * ftSize, &numOfByteWritten, NULL);
-	saveVectorTileData(ptTmpTileFt, _vSaveRd, ftSize);
+	saveVectorTileData(ptTmpTileFt, _vSaveFt, ftSize);
 
 	//---------------------------------------- 아이템정보 벡터에 입력 ----------------------------------------
 	//벡터크기 로드
@@ -286,7 +301,7 @@ void mapTool::load()
 
 	//파일로드
 	ReadFile(hFile, ptTmpTileIt, sizeof(tagTile) * itSize, &numOfByteWritten, NULL);
-	saveVectorTileData(ptTmpTileIt, _vSaveRd, itSize);
+	saveVectorTileData(ptTmpTileIt, _vSaveIt, itSize);
 
 	//----------------------------------------- 무기정보 벡터에 입력 ----------------------------------------
 	//벡터크기 로드
@@ -295,7 +310,7 @@ void mapTool::load()
 
 	//파일로드
 	ReadFile(hFile, ptTmpTileWp, sizeof(tagTile) * wpSize, &numOfByteWritten, NULL);
-	saveVectorTileData(ptTmpTileWp, _vSaveRd, wpSize);
+	saveVectorTileData(ptTmpTileWp, _vSaveWp, wpSize);
 
 	//------------------------------------------ 적정보 벡터에 입력 -----------------------------------------
 	//벡터크기 로드
@@ -304,8 +319,14 @@ void mapTool::load()
 
 	//파일로드
 	ReadFile(hFile, ptTmpTileEm, sizeof(tagTile) * emSize, &numOfByteWritten, NULL);
-	saveVectorTileData(ptTmpTileEm, _vSaveRd, emSize);
+	saveVectorTileData(ptTmpTileEm, _vSaveEm, emSize);
+
+	//------------------------------------------- 그리드 정보 입력 ------------------------------------------
+
+
 	//========================================================================================================
+
+	
 
 	CloseHandle(hFile);
 }
