@@ -47,15 +47,15 @@ void mapTool::btnSetup()
 	_btnTileType->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   L"T", 18, imgReX + (_btnImgReWidth * 1), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
 
 	_btnT_terrain = new fButton;
-	_btnT_terrain->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"Kb", 10, imgReX,                        imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_terrain->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"WN", 10, imgReX,                        imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_building = new fButton;
-	_btnT_building->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"Bd", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_building->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"WL", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_item = new fButton;
-	_btnT_item->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",     L"It", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_item->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",     L"WT", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_weapon = new fButton;
-	_btnT_weapon->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   L"Wp", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_weapon->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   L"WR", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_enemy = new fButton;
-	_btnT_enemy->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"Em", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_enemy->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"WB", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
 	//------------------------------------------------------------------ Edit ¹öÆ° ----------------------------------------------------------------

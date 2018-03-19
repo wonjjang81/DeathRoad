@@ -18,9 +18,10 @@ HRESULT playGround::init()
 
 	//리소스 추가
 	resourceAdd();
-
+	
 	SCENEMANAGER->addScene("캐릭터툴", new charEditor);
 	SCENEMANAGER->addScene("맵툴", new mapTool);
+	SCENEMANAGER->addScene("스테이지", new stageManager);
 
 	SCENEMANAGER->changeScene("맵툴");
 	
@@ -44,6 +45,7 @@ void playGround::update(void)
 
 	if (KEYMANAGER->isOnceKeyDown(VK_F2)) SCENEMANAGER->changeScene("맵툴");
 	if (KEYMANAGER->isOnceKeyDown(VK_F3)) SCENEMANAGER->changeScene("캐릭터툴");
+	if (KEYMANAGER->isOnceKeyDown(VK_F4)) SCENEMANAGER->changeScene("스테이지");
 }
 
 //그리는거.......

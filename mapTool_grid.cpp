@@ -65,6 +65,7 @@ void mapTool::gridRender(float scale)
 			for (int j = 0; j < _tileX; ++j)
 			{
 				if (_vSaveTr[(_tileX * i) + j].attribute == ATTR_NONE)  continue;  //속성이 없으면...
+		
 
 				//위치정보
 				float rcWidth = _vTile[(_tileX * i) + j].rc.right - _vTile[(_tileX * i) + j].rc.left;
@@ -99,6 +100,51 @@ void mapTool::gridRender(float scale)
 				}
 			}
 		}
+
+		//속성 그리기(Ellipse)
+		for (int i = 0; i < _vSaveBd.size(); ++i)
+		{
+			if (_vSaveBd[i].attribute == ATTR_NONE)  continue;  //속성이 없으면...
+
+
+			//위치정보
+			float rcWidth = _vSaveBd[i].rc.right - _vSaveBd[i].rc.left;
+			float rcHeight = _vSaveBd[i].rc.bottom - _vSaveBd[i].rc.top;
+			float centerX = _vSaveBd[i].rc.left + (rcWidth / 2);
+			float centerY = _vSaveBd[i].rc.top + (rcHeight / 2);
+			float ellipseSize = 3;
+			float startX = centerX - (ellipseSize / 2);
+			float startY = centerY - (ellipseSize / 2);
+			float endX = centerX + (ellipseSize / 2);
+			float endY = centerY + (ellipseSize / 2);
+
+			//예외처리: 화면밖 렌더X
+			//if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
+			//if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
+			//if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
+			//if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+
+
+			switch (_vSaveBd[i].attribute)
+			{
+				case ATTR_WALL_NONE:
+					D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+				break;
+				case ATTR_WALL_LEFT:
+					D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+				break;
+				case ATTR_WALL_TOP:
+					D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+				break;
+				case ATTR_WALL_RIGHT:
+					D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+				break;
+				case ATTR_WALL_BOTTOM:
+					D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+				break;
+			}
+		}
+
 
 
 		//타입 그리기(Ellipse)
@@ -220,7 +266,6 @@ void mapTool::selectTile(float scale)
 				//=================================== 타일 타입별 삭제 ===================================
 				if (_btnOneEraser->getBtnOn())
 				{
-
 					switch (_drawTile.tileType)
 					{
 						case TYPE_TERRAIN:
@@ -460,79 +505,80 @@ void mapTool::selectTile(float scale)
 			}
 
 
-			if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
+			if (!_btnAttribute->getBtnOn())
 			{
-				switch (_drawTile.tileType)
+				if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
 				{
-					case TYPE_BUILDING:
-						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-						{
-							setTile1Eraser(_vSaveBd, _tmpSelectIndex);
-							_tmpSelectIndex = -1;
-						}
-						else
-						{
-							saveTileVector(_vSaveBd);  //빌딩
-						}
-					break;
-					case TYPE_ROAD:
-						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-						{
-							setTile1Eraser(_vSaveBd, _tmpSelectIndex);
-							_tmpSelectIndex = -1;
-						}
-						else
-						{
-							saveTileVector(_vSaveRd);  //도로
-						}
-					break;
-					case TYPE_FURNITURE:
-						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-						{
-							setTile1Eraser(_vSaveFt, _tmpSelectIndex);
-							_tmpSelectIndex = -1;
-						}
-						else
-						{
-							saveTileVector(_vSaveFt);  //가구
-						}
-					break;
-					case TYPE_ITEM:
-						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-						{
-							setTile1Eraser(_vSaveIt, _tmpSelectIndex);
-							_tmpSelectIndex = -1;
-						}
-						else
-						{
-							saveTileVector(_vSaveIt);  //아이템
-						}
-					break;
-					case TYPE_WEAPON:
-						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-						{
-							setTile1Eraser(_vSaveWp, _tmpSelectIndex);
-							_tmpSelectIndex = -1;
-						}
-						else
-						{
-							saveTileVector(_vSaveWp);  //무기
-						}
-					break;
-					case TYPE_ENEMY:
-						if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
-						{
-							setTile1Eraser(_vSaveEm, _tmpSelectIndex);
-							_tmpSelectIndex = -1;
-						}
-						else
-						{
-							saveTileVector(_vSaveEm);  //적
-						}
-
-					break;
+					switch (_drawTile.tileType)
+					{
+						case TYPE_BUILDING:
+							if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+							{
+								setTile1Eraser(_vSaveBd, _tmpSelectIndex);
+								_tmpSelectIndex = -1;
+							}
+							else
+							{
+								saveTileVector(_vSaveBd);  //빌딩
+							}
+						break;
+						case TYPE_ROAD:
+							if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+							{
+								setTile1Eraser(_vSaveBd, _tmpSelectIndex);
+								_tmpSelectIndex = -1;
+							}
+							else
+							{
+								saveTileVector(_vSaveRd);  //도로
+							}
+						break;
+						case TYPE_FURNITURE:
+							if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+							{
+								setTile1Eraser(_vSaveFt, _tmpSelectIndex);
+								_tmpSelectIndex = -1;
+							}
+							else
+							{
+								saveTileVector(_vSaveFt);  //가구
+							}
+						break;
+						case TYPE_ITEM:
+							if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+							{
+								setTile1Eraser(_vSaveIt, _tmpSelectIndex);
+								_tmpSelectIndex = -1;
+							}
+							else
+							{
+								saveTileVector(_vSaveIt);  //아이템
+							}
+						break;
+						case TYPE_WEAPON:
+							if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+							{
+								setTile1Eraser(_vSaveWp, _tmpSelectIndex);
+								_tmpSelectIndex = -1;
+							}
+							else
+							{
+								saveTileVector(_vSaveWp);  //무기
+							}
+						break;
+						case TYPE_ENEMY:
+							if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
+							{
+								setTile1Eraser(_vSaveEm, _tmpSelectIndex);
+								_tmpSelectIndex = -1;
+							}
+							else
+							{
+								saveTileVector(_vSaveEm);  //적
+							}
+						break;
+					}
 				}
-
 
 			break;
 		}

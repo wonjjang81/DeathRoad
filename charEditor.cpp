@@ -12,9 +12,15 @@ charEditor::~charEditor()
 
 HRESULT charEditor::init()
 {
+	typeChange(CHAR_FEMALE);
+
+	_saveChar = new charInfo;
+
 	_selectChar = new character;
 	_selectChar->init();
-	_selectChar->charSetup("Female", "여성머리", "여성보디", "여성헤어", "여성안경", "여성모자", 100, 100, 7.0f);
+	_selectChar->charSetup(_saveChar->charTypeName, _saveChar->charHeadName,
+		_saveChar->charBodyName, _saveChar->charHairName, _saveChar->charGlasName,
+		_saveChar->charHatsName, 100, 100, 7.0f);
 
 	//================================================== 버튼 ==================================================
 	//HEAD
@@ -66,16 +72,24 @@ HRESULT charEditor::init()
 	_btnHatsLeft->init("맵툴버튼화살", L"",  5, imgReX,		  imgReY + 8, PointMake(1, 0), PointMake(0, 0), 3);
 	_btnHatsRight = new fButton;
 	_btnHatsRight->init("맵툴버튼화살", L"", 5, imgReX + 190, imgReY + 8, PointMake(1, 1), PointMake(0, 1), 3);
+
+	//SAVE
+	imgReX = 600;
+	imgReY = 100;
+	_btnSave = new fButton;
+	_btnSave->initB("맵툴버튼", L"SAVE", 18, imgReX, imgReY, 11, 4, PointMake(1, 2), PointMake(0, 2), 3);
 	//================================================== 버튼 ==================================================
 
-	_headIndex = 0;
+	_headIndex   = 0;
 	_upBodyIndex = 3;
 	_dwBodyIndex = 0;
-	_hairIndex = 0;
-	_glassIndex = 0;
-	_hatsIndex = 0;
+	_hairIndex   = 0;
+	_glassIndex  = 0;
+	_hatsIndex   = 0;
 
 	_previousNum = 0;
+
+
 	
 	return S_OK;
 }
@@ -105,21 +119,29 @@ void charEditor::update()
 	_btnHatsLeft->update();
 	_btnHatsRight->update();
 
+	//SAVE
+	_btnSave->update();
+	if (_btnSave->getBtnOn())
+	{
+		saveChar();
+		_btnSave->setBtnOff(false);
+	}
+
 	//------- keyAction ------
-	btnAction(_btnHeadLeft, "Female", HEAD_LEFT);
-	btnAction(_btnHeadRight, "Female", HEAD_RIGHT);
+	btnAction(_btnHeadLeft,  _saveChar->charTypeName, HEAD_LEFT);
+	btnAction(_btnHeadRight, _saveChar->charTypeName, HEAD_RIGHT);
+							
+	btnAction(_btnBodyLeft,  _saveChar->charTypeName, UPBODY_LEFT);
+	btnAction(_btnBodyRight, _saveChar->charTypeName, UPBODY_RIGHT);
 
-	btnAction(_btnBodyLeft, "Female", UPBODY_LEFT);
-	btnAction(_btnBodyRight, "Female", UPBODY_RIGHT);
-
-	btnAction(_btnHairLeft, "Female", HAIR_LEFT);
-	btnAction(_btnHairRight, "Female", HAIR_RIGHT);
-
-	btnAction(_btnGlasLeft, "Female", GLASS_LEFT);
-	btnAction(_btnGlasRight, "Female", GLASS_RIGHT);
-
-	btnAction(_btnHatsLeft, "Female", HATS_LEFT);
-	btnAction(_btnHatsRight, "Female", HATS_RIGHT);
+	btnAction(_btnHairLeft,  _saveChar->charTypeName, HAIR_LEFT);
+	btnAction(_btnHairRight, _saveChar->charTypeName, HAIR_RIGHT);
+								
+	btnAction(_btnGlasLeft,  _saveChar->charTypeName, GLASS_LEFT);
+	btnAction(_btnGlasRight, _saveChar->charTypeName, GLASS_RIGHT);
+									
+	btnAction(_btnHatsLeft,  _saveChar->charTypeName, HATS_LEFT);
+	btnAction(_btnHatsRight, _saveChar->charTypeName, HATS_RIGHT);
 	//========================
 
 }
@@ -151,6 +173,9 @@ void charEditor::render()
 	_btnHats->render();
 	_btnHatsLeft->render();
 	_btnHatsRight->render();
+
+	//SAVE
+	_btnSave->render();
 	//========================
 
 
@@ -291,7 +316,55 @@ void charEditor::btnIndexAction(int& btnIndexNum, bool Plus, int gapNum, string 
 		}
 	}
 
-		//number +-
+	//number +-
 	if (Plus) btnIndexNum += gapNum;
 	else btnIndexNum -= gapNum;
+}
+
+
+void charEditor::saveChar()
+{
+	//3명까지만 저장
+	if (_team.size() > 3) _team.erase(_team.begin());
+
+	_saveChar->headIndex   = _headIndex;
+	_saveChar->upBodyIndex = _upBodyIndex;
+	_saveChar->dwBodyIndex = _dwBodyIndex;
+	_saveChar->hairIndex   = _hairIndex;
+	_saveChar->glassIndex  = _glassIndex;
+	_saveChar->hatsIndex   = _hatsIndex;
+
+
+	DATABASE->_hero->push_back(_saveChar);
+	//_team.push_back(_saveChar);
+}
+
+void charEditor::typeChange(CHARTYPE typeName)
+{
+	switch (typeName)
+	{
+		case CHAR_FEMALE:
+			_saveChar->charTypeName.clear();
+			_saveChar->charTypeName.append("Female");
+			_saveChar->charHeadName.clear();
+			_saveChar->charHeadName.append("여성머리");
+			_saveChar->charBodyName.clear();
+			_saveChar->charBodyName.append("여성보디");
+			_saveChar->charHairName.clear();
+			_saveChar->charHairName.append("여성헤어");
+			_saveChar->charGlasName.clear();
+			_saveChar->charGlasName.append("여성안경");
+			_saveChar->charHatsName.clear();
+			_saveChar->charHatsName.append("여성모자");
+		break;
+		case CHAR_MAN:
+
+		break;
+		case CHAR_SPECIAL:
+
+		break;
+		case CHAR_ZOMBIE:
+
+		break;
+	}
 }

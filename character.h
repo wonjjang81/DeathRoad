@@ -41,11 +41,6 @@ private:
 	iterChar _miChar;
 
 public:
-	HRESULT init();
-	void release();
-	void update();
-	void render();
-
 	void charSetup(string charTypeName, string imgNameHead, string imgNameBody,
 		string imgNameHair, string imgNameGlas, string imgNameHats,
 		float x, float y, float scale);
@@ -58,6 +53,8 @@ public:
 
 	//================================ getter & setter ================================
 	int getMaxIndex(string charTypeName);
+
+
 
 
 	character();

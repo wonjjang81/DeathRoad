@@ -7,12 +7,7 @@
 class elements
 {
 public:
-	const char* name;
-	int currentHP;
-	int maxHP;
-	float angle;
-	float accelaration;
-	float maxSpeed;
+
 
 	elements() {};
 	~elements() {};
@@ -30,7 +25,11 @@ private:
 
 private:
 	arrElement _mTotalElement;
-	//vector<elements*>* inventory;//벡터 포인터
+
+public:
+	vector<charInfo*>* _hero;//벡터 포인터
+
+
 
 public:
 	HRESULT init();

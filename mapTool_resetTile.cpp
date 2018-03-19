@@ -57,9 +57,9 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 void mapTool::tileReType(tagTile& resetTile)
 {
 	//예외처리: 타일 셋팅이 안되어 있으면
-	//if (resetTile.tileType == TYPE_NONE) return;
+	if (resetTile.tileType == TYPE_NONE || resetTile.tileType == TYPE_TERRAIN) return;
 
-	TILE_TYPE selectBtn;
+	ATTRIBUTE selectBtn;
 
 	//예외처리: 버튼이 두개이상 활성화 되어 있을 경우-> ALL 해제
 	if ((_btnT_terrain->getBtnOn() && _btnT_building->getBtnOn()) ||
@@ -77,55 +77,43 @@ void mapTool::tileReType(tagTile& resetTile)
 	}
 
 	//활성화된 버튼 상태 입력 
-	if (_btnT_terrain->getBtnOn())   selectBtn = TYPE_TERRAIN;
-	if (_btnT_building->getBtnOn())  selectBtn = TYPE_BUILDING;
-	if (_btnT_item->getBtnOn())		 selectBtn = TYPE_ITEM;
-	if (_btnT_weapon->getBtnOn())	 selectBtn = TYPE_WEAPON;
-	if (_btnT_enemy->getBtnOn())	 selectBtn = TYPE_ENEMY;
+	if (_btnT_terrain->getBtnOn())   selectBtn = ATTR_WALL_NONE;
+	if (_btnT_building->getBtnOn())  selectBtn = ATTR_WALL_LEFT;
+	if (_btnT_item->getBtnOn())		 selectBtn = ATTR_WALL_TOP;
+	if (_btnT_weapon->getBtnOn())	 selectBtn = ATTR_WALL_RIGHT;
+	if (_btnT_enemy->getBtnOn())	 selectBtn = ATTR_WALL_BOTTOM;
 
 	//버튼 ACTION
 	switch (selectBtn)
 	{
-		case TYPE_TERRAIN:
+		case ATTR_WALL_NONE:
 
 			//속성변경
-			resetTile.tileType = TYPE_TERRAIN;
+			resetTile.attribute = ATTR_WALL_NONE;
 
 		break;
-		case TYPE_ROAD:
+		case ATTR_WALL_LEFT:
 
 			//속성변경
-			resetTile.tileType = TYPE_ROAD;
+			resetTile.attribute = ATTR_WALL_LEFT;
 
 		break;
-		case TYPE_FURNITURE:
+		case ATTR_WALL_TOP:
 
 			//속성변경
-			resetTile.tileType = TYPE_FURNITURE;
+			resetTile.attribute = ATTR_WALL_TOP;
 
 		break;
-		case TYPE_BUILDING:
+		case ATTR_WALL_RIGHT:
 
 			//속성변경
-			resetTile.tileType = TYPE_BUILDING;
+			resetTile.attribute = ATTR_WALL_RIGHT;
 
 		break;
-		case TYPE_ITEM:
+		case ATTR_WALL_BOTTOM:
 
 			//속성변경
-			resetTile.tileType = TYPE_ITEM;
-
-		break;
-		case TYPE_WEAPON:
-
-			//속성변경
-			resetTile.tileType = TYPE_WEAPON;
-
-		break;
-		case TYPE_ENEMY:
-
-			//속성변경
-			resetTile.tileType = TYPE_ENEMY;
+			resetTile.attribute = ATTR_WALL_BOTTOM;
 
 		break;
 	}

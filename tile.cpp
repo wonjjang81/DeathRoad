@@ -237,7 +237,7 @@ void tile::setTileAnchor(tagTile& tile, ANCHOR_TYPE anchor)
 			if (tileRatioX < 1) tile.centerX = (TILE_SIZEX / (tileRatioX * 4 * 2));								//타일사이즈X 보다 이미지가 작으면
 			else tileRatioX == 1 ? tile.centerX = 0 : tile.centerX = -((TILE_SIZEX / 2) * (tileRatioX - 1));	//타일사이즈X 보다 이미지가 크면
 			if (tileRatioY < 1) tile.centerY = (TILE_SIZEY / (tileRatioX * 4 * 2 * 2));							//타일사이즈Y 보다 이미지가 작으면
-			else tileRatioY == 1 ? tile.centerY = 0 : tile.centerY = -((TILE_SIZEY) * (tileRatioY - 1));	//타일사이즈Y 보다 이미지가 크면
+			else tileRatioY == 1 ? tile.centerY = 0 : tile.centerY = -((TILE_SIZEY) * (tileRatioY - 1));		//타일사이즈Y 보다 이미지가 크면
 		break;
 	}
 }

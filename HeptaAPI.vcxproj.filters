@@ -64,6 +64,9 @@
     <Filter Include="characterEditor">
       <UniqueIdentifier>{90275d4d-b7b1-47a7-a665-62001ebbd851}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{429ea9f2-2d80-4183-88c3-f9b489e60bf1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -176,6 +179,24 @@
     </ClInclude>
     <ClInclude Include="character.h">
       <Filter>characterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="mapLoad.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="stageManager.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="mapRender.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="stage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>characterEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="charInfo.h">
+      <Filter>2DGameFramework\dataBase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +312,21 @@
       <Filter>characterEditor</Filter>
     </ClCompile>
     <ClCompile Include="character.cpp">
+      <Filter>characterEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="mapLoad.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="stageManager.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="mapRender.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="stage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
       <Filter>characterEditor</Filter>
     </ClCompile>
   </ItemGroup>

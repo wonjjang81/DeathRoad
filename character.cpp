@@ -9,28 +9,6 @@ character::~character()
 {
 }
 
-HRESULT character::init()
-{
-
-	return S_OK;
-}
-
-void character::release()
-{
-
-}
-
-void character::update()
-{
-
-}
-
-void character::render()
-{
-
-
-}
-
 
 //캐릭터 부위별 맵에 담기
 void character::charSetup(string charTypeName, string imgNameHead, string imgNameBody,

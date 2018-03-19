@@ -2,6 +2,8 @@
 #include "gameNode.h"
 #include "fButton.h"
 #include "character.h"
+#include "charInfo.h"
+
 
 #include <vector>
 
@@ -21,19 +23,44 @@ enum BTN_CHAR_BODYTYPE
 	HATS_RIGHT
 };
 
+enum CHARTYPE
+{
+	CHAR_FEMALE,
+	CHAR_MAN,
+	CHAR_SPECIAL,
+	CHAR_ZOMBIE
+};
+
+struct tagCharInfo
+{
+	string charTypeName;
+	string charHeadName;
+	string charBodyName;
+	string charHairName;
+	string charGlasName;
+	string charHatsName;
+
+	int headIndex;
+	int upBodyIndex;
+	int dwBodyIndex;
+	int hairIndex;
+	int glassIndex;
+	int hatsIndex;
+};
+
 class charEditor : public gameNode
 {
 private:
-	typedef vector<character*>			   vChar;
-	typedef vector<character*>::iterator  viChar;
+	typedef vector<tagCharInfo>				vChar;
+	typedef vector<tagCharInfo>::iterator  viChar;
 
 private:
 	//Ä³¸¯ÅÍ
+	CHARTYPE _charType;
 	character* _selectChar;
+	charInfo* _saveChar;
 
-	vChar _hero;
-	vChar _friend1;
-	vChar _friend2;
+	vChar _team;
 
 	int _headIndex;
 	int _upBodyIndex;
@@ -60,6 +87,8 @@ private:
 	fButton* _btnHats;
 	fButton* _btnHatsLeft;
 	fButton* _btnHatsRight;
+
+	fButton* _btnSave;
 	//======================
 
 
@@ -72,7 +101,9 @@ public:
 
 	void btnAction(fButton* button, string charTypeName, BTN_CHAR_BODYTYPE btnBodyType);
 	void btnIndexAction(int& btnIndexNum, bool Plus, int gapNum, string bodyTypeName);
-
+	void saveChar();
+	void typeChange(CHARTYPE typeName);
+	
 	charEditor();
 	~charEditor();
 };

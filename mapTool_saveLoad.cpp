@@ -49,7 +49,6 @@ void mapTool::save()
 	sprintf(tmpFileName, "%s", tmpStrFileName.c_str());
 
 	
-
 	//타일 사이즈 저장
 	char tmpTsizeX[32];
 	char tmpTsizeY[32];
@@ -60,9 +59,14 @@ void mapTool::save()
 	INIDATA->iniSave(tmpFileName);  //map 파일명과 동일하게 저장
 
 
+	//벡터 사이즈 저장
+	char tmpVsize[32];
+	sprintf(tmpVsize, "%d", _vSaveTr.size());
+	INIDATA->addData("mapData", "vTrSize", tmpVsize);
+	INIDATA->iniSave(tmpFileName);
+
 	//지형 사이즈 먼저 가져오기
-	const int terrainSize = _tileX * _tileY;
-	tagTile* ptSaveTileTr = new tagTile[terrainSize];
+	tagTile* ptSaveTileTr = new tagTile[_vSaveTr.size()];
 
 	//파일 저장을 위한 옮겨담기(형변환)
 	for (int i = 0; i < _vSaveTr.size(); ++i)
@@ -72,11 +76,11 @@ void mapTool::save()
 
 	//파일저장
 	DWORD numOfByteWritten = 0;
-	WriteFile(hFile, ptSaveTileTr, sizeof(tagTile) * terrainSize, &numOfByteWritten, NULL);
+	WriteFile(hFile, ptSaveTileTr, sizeof(tagTile) * _vSaveTr.size(), &numOfByteWritten, NULL);
 
 	//-------------------------------------- 빌딩 정보 벡터에서 가져오기 --------------------------------------
 	//벡터 사이즈 저장
-	char tmpVsize[32];
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
 	sprintf(tmpVsize, "%d", _vSaveBd.size());
 	INIDATA->addData("mapData", "vBdSize", tmpVsize);
 	INIDATA->iniSave(tmpFileName);
@@ -259,7 +263,7 @@ void mapTool::load()
 	//grid 벡터에 담기
 	gridVectorDraw(_tileX, _tileY);
 
-	const int terrainSize = _tileX * _tileY;
+	const int terrainSize = INIDATA->loadDataInterger(tmpFileName, "mapData", "vTrSize");
 	tagTile* ptTmpTileTr = new tagTile[terrainSize];
 
 	//파일로드

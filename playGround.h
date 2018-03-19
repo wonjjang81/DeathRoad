@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "mapTool.h"
 #include "charEditor.h"
+#include "stageManager.h"
 
 enum SCENEKEY
 {
