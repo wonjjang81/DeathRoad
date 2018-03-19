@@ -1,5 +1,7 @@
 #pragma once
 #include "singletonBase.h"
+#include "charInfo.h"
+
 #include <vector>
 #include <map>
 
@@ -17,17 +19,19 @@ public:
 class database : public singletonBase <database>
 {
 private:
-	typedef vector<string> arrElements;
+	typedef vector<string>			 arrElements;
 	typedef vector<string>::iterator iterElements;
 
-	typedef map<string, elements*> arrElement;
+	typedef map<string, elements*>			 arrElement;
 	typedef map<string, elements*>::iterator iterElement;
 
+	typedef vector<charInfo*>			vCharInfo;
+	typedef vector<charInfo*>::iterator viCharInfo;
 private:
 	arrElement _mTotalElement;
 
 public:
-	vector<charInfo*>* _hero;//벡터 포인터
+	vCharInfo player;
 
 
 

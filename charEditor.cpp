@@ -12,9 +12,10 @@ charEditor::~charEditor()
 
 HRESULT charEditor::init()
 {
+	_saveChar = new charInfo;
+
 	typeChange(CHAR_FEMALE);
 
-	_saveChar = new charInfo;
 
 	_selectChar = new character;
 	_selectChar->init();
@@ -335,7 +336,7 @@ void charEditor::saveChar()
 	_saveChar->hatsIndex   = _hatsIndex;
 
 
-	DATABASE->_hero->push_back(_saveChar);
+	DATABASE->player.push_back(_saveChar);
 	//_team.push_back(_saveChar);
 }
 

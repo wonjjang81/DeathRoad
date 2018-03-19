@@ -5,16 +5,14 @@
 database::database()
 {
 }
-
-
 database::~database()
 {
-
 }
 
 HRESULT database::init()
 {
 	loadDatabase("database.txt");
+
 
 	return S_OK;
 }

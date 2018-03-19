@@ -18,7 +18,7 @@ public:
 	int glassIndex;
 	int hatsIndex;
 
-	charInfo();
-	~charInfo();
+	charInfo() {};
+	~charInfo() {};
 };
 
