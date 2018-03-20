@@ -25,11 +25,22 @@ void character::charSetup(string charTypeName, float x, float y, float scale)
 	//charTypeName 초기화
 	stringErase(charTypeName, "Head");
 	//----------------------------------------------- BODY -----------------------------------------------
-	vChar tmpVCharBody;
+	//----------------------------- upBody
+	vChar tmpVCharUpBody;
 	charTypeName.append("Body");
-	charBodySet(charTypeName, tmpVCharBody, BODY_BODY, x, y, scale);
+	charBodySet(charTypeName, tmpVCharUpBody, BODY_UPBODY, x, y, scale);
 
-	_mChar.insert(make_pair(charTypeName, tmpVCharBody));
+	_mChar.insert(make_pair(charTypeName, tmpVCharUpBody));
+
+	//charTypeName 초기화
+	stringErase(charTypeName, "Body");
+
+	//----------------------------- dwBody
+	vChar tmpVCharDwBody;
+	charTypeName.append("Body");
+	charBodySet(charTypeName, tmpVCharDwBody, BODY_DWBODY, x, y, scale);
+
+	_mChar.insert(make_pair(charTypeName, tmpVCharDwBody));
 
 	//charTypeName 초기화
 	stringErase(charTypeName, "Body");
@@ -158,6 +169,46 @@ int character::getMaxIndex(string charTypeName)
 	return -1;
 }
 
+int character::getX(string charTypeName)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		return viter->x;
+	}
+}
+
+int character::getY(string charTypeName)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		return viter->y;
+	}
+}
+
+void character::setBodyY(string charTypeName, float moveX, float moveY)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		if (viter->type == BODY_DWBODY) return;
+
+		viter->x += moveX;
+		viter->y += moveY;
+	}
+}
+
+
 
 string character::bodyNameChange(string imgName, BODYTYPE typeName)
 {	
@@ -166,7 +217,10 @@ string character::bodyNameChange(string imgName, BODYTYPE typeName)
 		case BODY_HEAD:
 			imgName.append("Head");
 		break;
-		case BODY_BODY:
+		case BODY_UPBODY:
+			imgName.append("Body");
+		break;
+		case BODY_DWBODY:
 			imgName.append("Body");
 		break;
 		case BODY_HAIR:

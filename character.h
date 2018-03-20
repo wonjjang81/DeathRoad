@@ -7,7 +7,8 @@
 enum BODYTYPE
 {
 	BODY_HEAD,
-	BODY_BODY,
+	BODY_UPBODY,
+	BODY_DWBODY,
 	BODY_HAIR,
 	BODY_GLASS,
 	BODY_HATS
@@ -74,6 +75,9 @@ public:
 
 	//================================ getter & setter ================================
 	int getMaxIndex(string charTypeName);
+	int getX(string charTypeName);
+	int getY(string charTypeName);
+	void setBodyY(string charTypeName, float moveX, float moveY);
 
 
 

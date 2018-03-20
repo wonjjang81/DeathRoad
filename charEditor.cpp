@@ -341,8 +341,10 @@ void charEditor::charTypeRender(string charTypeName)
 	//상체
 	tmpName = charTypeName.append("Body");
 	_selectChar->charRender(tmpName, _upBodyIndex);
+	stringErase(charTypeName, "Body");
 
 	//하체
+	tmpName = charTypeName.append("Body");
 	_selectChar->charRender(tmpName, _dwBodyIndex);
 	stringErase(charTypeName, "Body");
 

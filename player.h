@@ -26,13 +26,30 @@ enum MOVE_DIRECTION
 	DIRECTION_DOWN,
 };
 
+struct tagMove
+{
+	float speed;
+	float fric;
+	bool dir;
+	int count;
+};
+
 
 class player : public gameNode
 {
 private:
-	character* _player;
+	character*  _player;
 	tagCharInfo _playerInfo;
 	tagBodyname _playerBody;
+
+	MOVE_STATE	   _currentState;
+	MOVE_DIRECTION _currentDir;
+
+	float _headY;
+	tagMove _head;
+
+	float _bodyY;
+	tagMove _body;
 
 public:
 	HRESULT init(int playerNum);
@@ -42,6 +59,8 @@ public:
 
 	void loadPlayer(charInfo* saveInfo);
 	void Stateframe(MOVE_STATE state, MOVE_DIRECTION direction);
+
+	void bodyAni(tagMove& body, float& moveY, int count);
 
 	player();
 	~player();

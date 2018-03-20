@@ -334,12 +334,12 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
-	// 이미지 Flip
-	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
-	assert(hr == S_OK);
-
 	//첫 번째 프레임을 사용할 수 있는 객체구성
 	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
+	assert(hr == S_OK);
+
+	// 이미지 Flip
+	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
 	assert(hr == S_OK);
 
 	//포맷 컨버터 생성
@@ -642,8 +642,6 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 		if (posY / scale + _imageInfo->frameHeight < 0) return;
 		if (posX / scale > WINSIZEX) return;
 		if (posY / scale > WINSIZEY) return;
-
-		_imageInfo->pWICFlip->Initialize(_imageInfo->pWICFrameDecoder, WICBitmapTransformFlipHorizontal);
 	
 
 		D2D1_RECT_F dxArea = RectF(posX, posY, posX + _imageInfo->frameWidth, posY + _imageInfo->frameHeight);

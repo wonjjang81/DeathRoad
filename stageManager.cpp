@@ -29,7 +29,7 @@ void stageManager::release()
 void stageManager::update()	
 {
 	_room1->update(0, 0);
-
+	_player1->update();
 
 
 }
