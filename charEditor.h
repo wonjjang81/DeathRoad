@@ -23,30 +23,6 @@ enum BTN_CHAR_BODYTYPE
 	HATS_RIGHT
 };
 
-enum CHARTYPE
-{
-	CHAR_FEMALE,
-	CHAR_MAN,
-	CHAR_SPECIAL,
-	CHAR_ZOMBIE
-};
-
-struct tagCharInfo
-{
-	string charTypeName;
-	string charHeadName;
-	string charBodyName;
-	string charHairName;
-	string charGlasName;
-	string charHatsName;
-
-	int headIndex;
-	int upBodyIndex;
-	int dwBodyIndex;
-	int hairIndex;
-	int glassIndex;
-	int hatsIndex;
-};
 
 class charEditor : public gameNode
 {
@@ -60,7 +36,6 @@ private:
 	character* _selectChar;
 	charInfo* _saveChar;
 
-	vChar _team;
 
 	int _headIndex;
 	int _upBodyIndex;
@@ -102,7 +77,8 @@ public:
 	void btnAction(fButton* button, string charTypeName, BTN_CHAR_BODYTYPE btnBodyType);
 	void btnIndexAction(int& btnIndexNum, bool Plus, int gapNum, string bodyTypeName);
 	void saveChar();
-	void typeChange(CHARTYPE typeName);
+	void charTypeRender(string charTypeName);
+
 	
 	charEditor();
 	~charEditor();

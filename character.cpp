@@ -11,51 +11,51 @@ character::~character()
 
 
 //캐릭터 부위별 맵에 담기
-void character::charSetup(string charTypeName, string imgNameHead, string imgNameBody,
-	string imgNameHair, string imgNameGlas, string imgNameHats,
-	float x, float y, float scale)
+void character::charSetup(string charTypeName, float x, float y, float scale)
 {
+	if (charTypeName == "") return;
+
 	//----------------------------------------------- HEAD -----------------------------------------------
 	vChar tmpVCharHead;
-	charBodySet(imgNameHead, tmpVCharHead, BODY_HEAD, x, y, scale);
-
 	charTypeName.append("Head");
+	charBodySet(charTypeName, tmpVCharHead, BODY_HEAD, x, y, scale);
+
 	_mChar.insert(make_pair(charTypeName, tmpVCharHead));
 
 	//charTypeName 초기화
 	stringErase(charTypeName, "Head");
 	//----------------------------------------------- BODY -----------------------------------------------
 	vChar tmpVCharBody;
-	charBodySet(imgNameBody, tmpVCharBody, BODY_BODY, x, y, scale);
-
 	charTypeName.append("Body");
+	charBodySet(charTypeName, tmpVCharBody, BODY_BODY, x, y, scale);
+
 	_mChar.insert(make_pair(charTypeName, tmpVCharBody));
 
 	//charTypeName 초기화
 	stringErase(charTypeName, "Body");
 	//----------------------------------------------- HAIR -----------------------------------------------
 	vChar tmpVCharHair;
-	charBodySet(imgNameHair, tmpVCharHair, BODY_HAIR, x, y, scale);
-
 	charTypeName.append("Hair");
+	charBodySet(charTypeName, tmpVCharHair, BODY_HAIR, x, y, scale);
+
 	_mChar.insert(make_pair(charTypeName, tmpVCharHair));
 
 	//charTypeName 초기화
 	stringErase(charTypeName, "Hair");
 	//----------------------------------------------- GLASS ----------------------------------------------
 	vChar tmpVCharGlass;
-	charBodySet(imgNameGlas, tmpVCharGlass, BODY_GLASS, x, y, scale);
-
 	charTypeName.append("Glass");
+	charBodySet(charTypeName, tmpVCharGlass, BODY_GLASS, x, y, scale);
+
 	_mChar.insert(make_pair(charTypeName, tmpVCharGlass));
 
 	//charTypeName 초기화
 	stringErase(charTypeName, "Glass");
 	//----------------------------------------------- HATS -----------------------------------------------
 	vChar tmpVCharHats;
-	charBodySet(imgNameHats, tmpVCharHats, BODY_HATS, x, y, scale);
-
 	charTypeName.append("Hats");
+	charBodySet(charTypeName, tmpVCharHats, BODY_HATS, x, y, scale);
+
 	_mChar.insert(make_pair(charTypeName, tmpVCharHats));
 
 	//charTypeName 초기화
@@ -69,6 +69,7 @@ void character::charBodySet(string imgName, vChar& charVector, BODYTYPE type, fl
 	tagChar bodyType;
 	bodyType.img = IMAGEMANAGER->findImage(imgName);
 	sprintf(bodyType.imgName, "%s", imgName.c_str());
+
 	int tileX = bodyType.img->getMaxFrameX() + 1;  //총타일 수X (*이미지 정보의 maxFrameX는 총 프레임수 - 1)
 	int tileY = bodyType.img->getMaxFrameY() + 1;  //총타일 수Y
 
@@ -79,17 +80,14 @@ void character::charBodySet(string imgName, vChar& charVector, BODYTYPE type, fl
 		{
 			bodyType.rc.left = x;
 			bodyType.rc.top  = y;
-			bodyType.rc.right  = x + bodyType.img->getFrameWidth()  * scale;
-			bodyType.rc.bottom = y + bodyType.img->getFrameHeight() * scale;
+			bodyType.rc.right  = x + bodyType.img->getFrameWidth()  * abs(scale);
+			bodyType.rc.bottom = y + bodyType.img->getFrameHeight() * abs(scale);
 			bodyType.index = (tileX * i) + j;
 			bodyType.x = x;
 			bodyType.y = y;
 			bodyType.frameX = j;
 			bodyType.frameY = i;
 			bodyType.scale = scale;
-			bodyType.gapX = bodyType.img->getFrameWidth() * bodyType.scale * bodyType.frameX;
-			bodyType.gapY = bodyType.img->getFrameHeight() * bodyType.scale * bodyType.frameY;
-
 
 			bodyType.type = type;
 
@@ -134,6 +132,7 @@ void character::charRender(string charTypeName, int index)
 	}
 }
 
+
 void character::stringErase(string& editStrName, string eraseName)
 {
 	int strIndex = editStrName.find(eraseName);
@@ -157,4 +156,29 @@ int character::getMaxIndex(string charTypeName)
 	}
 
 	return -1;
+}
+
+
+string character::bodyNameChange(string imgName, BODYTYPE typeName)
+{	
+	switch (typeName)
+	{
+		case BODY_HEAD:
+			imgName.append("Head");
+		break;
+		case BODY_BODY:
+			imgName.append("Body");
+		break;
+		case BODY_HAIR:
+			imgName.append("Hair");
+		break;
+		case BODY_GLASS:
+			imgName.append("Glass");
+		break;
+		case BODY_HATS:
+			imgName.append("Hats");
+		break;
+	}
+
+	return imgName;
 }

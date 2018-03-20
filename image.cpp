@@ -123,6 +123,10 @@ HRESULT image::init(LPCWSTR fileName, int width, int height)
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
+	// 이미지 Flip
+	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
+	assert(hr == S_OK);
+
 	// 첫 번째 프레임을 사용할 수 있는 객체 구성
 	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
 	assert(hr == S_OK);
@@ -186,6 +190,10 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height)
 	//디코더 생성
 	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
 		&(_imageInfo->pWICDecoder));
+	assert(hr == S_OK);
+
+	// 이미지 Flip
+	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
 	assert(hr == S_OK);
 
 	//첫 번째 프레임을 사용할 수 있는 객체구성
@@ -260,6 +268,10 @@ HRESULT image::init(LPCWSTR fileName, int width, int height, int frameX, int fra
 	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
 	assert(hr == S_OK);
 
+	// 이미지 Flip
+	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
+	assert(hr == S_OK);
+
 	//포맷 컨버터 생성
 	hr = _imageInfo->pWICImagingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
 	assert(hr == S_OK);
@@ -320,6 +332,10 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 	//디코더 생성
 	hr = _imageInfo->pWICImagingFactory->CreateDecoderFromFilename(_fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand,
 		&(_imageInfo->pWICDecoder));
+	assert(hr == S_OK);
+
+	// 이미지 Flip
+	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
 	assert(hr == S_OK);
 
 	//첫 번째 프레임을 사용할 수 있는 객체구성
@@ -626,6 +642,9 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 		if (posY / scale + _imageInfo->frameHeight < 0) return;
 		if (posX / scale > WINSIZEX) return;
 		if (posY / scale > WINSIZEY) return;
+
+		_imageInfo->pWICFlip->Initialize(_imageInfo->pWICFrameDecoder, WICBitmapTransformFlipHorizontal);
+	
 
 		D2D1_RECT_F dxArea = RectF(posX, posY, posX + _imageInfo->frameWidth, posY + _imageInfo->frameHeight);
 		D2D1_RECT_F dxArea2 = RectF(currentFrameX * _imageInfo->frameWidth, currentFrameY * _imageInfo->frameHeight,

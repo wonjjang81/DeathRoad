@@ -25,6 +25,7 @@ public:
 		IWICImagingFactory*		pWICImagingFactory;		//Windows Imagind Component를 위한 Factory 인터페이스
 		IWICFormatConverter*    pWICFormatConverter;	//Format Converter
 		IWICBitmapDecoder*      pWICDecoder;			//Bitmap Decoder
+		IWICBitmapFlipRotator*  pWICFlip;				//Bitmap Decoder
 		IWICBitmapFrameDecode*  pWICFrameDecoder;       //프레임 Decoder 인터페이스
 		ID2D1Bitmap*			pBitmap;                //D2D용 비트맵
 		float                   x, y;                   //이미지 위치
@@ -46,6 +47,7 @@ public:
 			pWICImagingFactory = nullptr;
 			pWICFormatConverter = nullptr;
 			pWICDecoder = nullptr;
+			pWICFlip = nullptr;
 			pWICFrameDecoder = nullptr;
 			pBitmap = nullptr;
 			x = 0;

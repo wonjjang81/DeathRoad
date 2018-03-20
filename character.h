@@ -13,19 +13,39 @@ enum BODYTYPE
 	BODY_HATS
 };
 
+enum CHARTYPE
+{
+	CHAR_FEMALE,
+	CHAR_MAN,
+	CHAR_SPECIAL,
+	CHAR_ZOMBIE
+};
+
 struct tagChar
 {
 	RECT rc;
 	image* img;
 	TCHAR imgName[64];
 	float x, y;
-	float gapX, gapY;
 	int index;
 	int frameX;
 	int frameY;
 	float scale;
 	BODYTYPE type;
 };
+
+struct tagCharInfo
+{
+	string charTypeName;
+
+	int headIndex;
+	int upBodyIndex;
+	int dwBodyIndex;
+	int hairIndex;
+	int glassIndex;
+	int hatsIndex;
+};
+
 
 class character : public gameNode
 {
@@ -40,16 +60,17 @@ private:
 	mChar	 _mChar;
 	iterChar _miChar;
 
+
+
 public:
-	void charSetup(string charTypeName, string imgNameHead, string imgNameBody,
-		string imgNameHair, string imgNameGlas, string imgNameHats,
-		float x, float y, float scale);
+	void charSetup(string charTypeName, float x, float y, float scale);
 
 	void charBodySet(string imgNameHead, vChar& charVector, BODYTYPE type, float x, float y, float scale);
 
 	void charRender(string charTypeName, int index);
 	void stringErase(string& editStrName, string eraseName);
 
+	string bodyNameChange(string imgName, BODYTYPE typeName);
 
 	//================================ getter & setter ================================
 	int getMaxIndex(string charTypeName);

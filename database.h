@@ -15,6 +15,7 @@ public:
 	~elements() {};
 };
 
+
 //³»ºÎ ½Ì±ÛÅæ DB ¸¸µé¾îµÐ´Ù
 class database : public singletonBase <database>
 {

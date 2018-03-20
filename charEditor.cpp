@@ -13,15 +13,11 @@ charEditor::~charEditor()
 HRESULT charEditor::init()
 {
 	_saveChar = new charInfo;
-
-	typeChange(CHAR_FEMALE);
-
+	_saveChar->charTypeName = "female";
 
 	_selectChar = new character;
 	_selectChar->init();
-	_selectChar->charSetup(_saveChar->charTypeName, _saveChar->charHeadName,
-		_saveChar->charBodyName, _saveChar->charHairName, _saveChar->charGlasName,
-		_saveChar->charHatsName, 100, 100, 7.0f);
+	_selectChar->charSetup(_saveChar->charTypeName, 100, 100, 7.0f);
 
 	//================================================== 버튼 ==================================================
 	//HEAD
@@ -180,13 +176,8 @@ void charEditor::render()
 	//========================
 
 
-	_selectChar->charRender("FemaleHead",  _headIndex);
-	_selectChar->charRender("FemaleBody",  _upBodyIndex);
-	_selectChar->charRender("FemaleBody",  _dwBodyIndex);
-	_selectChar->charRender("FemaleHair",  _hairIndex);
-	_selectChar->charRender("FemaleGlass", _glassIndex);
-	_selectChar->charRender("FemaleHats",  _hatsIndex);
-
+	//캐릭터 렌더
+	charTypeRender(_saveChar->charTypeName);
 }
 
 void charEditor::btnAction(fButton* button, string charTypeName, BTN_CHAR_BODYTYPE btnBodyType)
@@ -326,7 +317,7 @@ void charEditor::btnIndexAction(int& btnIndexNum, bool Plus, int gapNum, string 
 void charEditor::saveChar()
 {
 	//3명까지만 저장
-	if (_team.size() > 3) _team.erase(_team.begin());
+	if (DATABASE->player.size() > 3) DATABASE->player.erase(DATABASE->player.begin());
 
 	_saveChar->headIndex   = _headIndex;
 	_saveChar->upBodyIndex = _upBodyIndex;
@@ -337,35 +328,37 @@ void charEditor::saveChar()
 
 
 	DATABASE->player.push_back(_saveChar);
-	//_team.push_back(_saveChar);
 }
 
-void charEditor::typeChange(CHARTYPE typeName)
+
+void charEditor::charTypeRender(string charTypeName)
 {
-	switch (typeName)
-	{
-		case CHAR_FEMALE:
-			_saveChar->charTypeName.clear();
-			_saveChar->charTypeName.append("Female");
-			_saveChar->charHeadName.clear();
-			_saveChar->charHeadName.append("여성머리");
-			_saveChar->charBodyName.clear();
-			_saveChar->charBodyName.append("여성보디");
-			_saveChar->charHairName.clear();
-			_saveChar->charHairName.append("여성헤어");
-			_saveChar->charGlasName.clear();
-			_saveChar->charGlasName.append("여성안경");
-			_saveChar->charHatsName.clear();
-			_saveChar->charHatsName.append("여성모자");
-		break;
-		case CHAR_MAN:
+	//머리
+	string tmpName = charTypeName.append("Head");
+	_selectChar->charRender(tmpName, _headIndex);
+	stringErase(charTypeName, "Head");
 
-		break;
-		case CHAR_SPECIAL:
+	//상체
+	tmpName = charTypeName.append("Body");
+	_selectChar->charRender(tmpName, _upBodyIndex);
 
-		break;
-		case CHAR_ZOMBIE:
+	//하체
+	_selectChar->charRender(tmpName, _dwBodyIndex);
+	stringErase(charTypeName, "Body");
 
-		break;
-	}
+	//헤어
+	tmpName = charTypeName.append("Hair");
+	_selectChar->charRender(tmpName, _hairIndex);
+	stringErase(charTypeName, "Hair");
+
+	//안경
+	tmpName = charTypeName.append("Glass");
+	_selectChar->charRender(tmpName, _glassIndex);
+	stringErase(charTypeName, "Glass");
+
+	//모자
+	tmpName = charTypeName.append("Hats");
+	_selectChar->charRender(tmpName, _hatsIndex);
+	stringErase(charTypeName, "Hats");
+
 }
