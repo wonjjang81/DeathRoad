@@ -75,9 +75,14 @@ public:
 
 	//================================ getter & setter ================================
 	int getMaxIndex(string charTypeName);
-	int getX(string charTypeName);
-	int getY(string charTypeName);
-	void setBodyY(string charTypeName, float moveX, float moveY);
+
+	int getX(string charTypeName, int index);
+	int getY(string charTypeName, int index);
+
+	void setX(string charTypeName, int index, float x);
+	float setY(string charTypeName, int index, float y, float moveY);
+
+	void setBodyY(string charTypeName, float moveY, int index);
 
 
 

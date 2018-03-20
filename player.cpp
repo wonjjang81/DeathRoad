@@ -29,10 +29,21 @@ HRESULT player::init(int playerNum)
 	_head.count = 1;
 
 	//몸통Ani
-	_body.speed = 0.12f;
-	_body.fric  = 0.017f;
+	_body.speed = 0.1f;
+	_body.fric  = 0.019f;
 	_body.dir   = false;
 	_body.count = 1;
+
+	//전체Ani
+	_pMove.x = 0;
+	_pMove.y = 0;
+	_pMove.speed = 0.7f;
+	_pMove.count = 1;
+	_pMove.keyOn = false;
+
+	_pMove.x = _player->getX(_playerBody.head, _playerInfo.headIndex);
+	_pMove.y = _player->getY(_playerBody.head, _playerInfo.headIndex);
+
 
 
 	return S_OK;
@@ -45,6 +56,7 @@ void player::release()
 
 void player::update()
 {
+	keyControl();
 	Stateframe(STATE_IDLE, DIRECTION_LEFT);
 
 
@@ -53,14 +65,12 @@ void player::update()
 
 void player::render()
 {
-
-	_player->charRender(_playerBody.body, _playerInfo.upBodyIndex);  //상체
-	_player->charRender(_playerBody.body, _playerInfo.dwBodyIndex);  //하체
-	_player->charRender(_playerBody.head, _playerInfo.headIndex);	 //머리
-	_player->charRender(_playerBody.hair, _playerInfo.hairIndex);    //헤어
-	_player->charRender(_playerBody.glass, _playerInfo.glassIndex);  //안경
-	_player->charRender(_playerBody.hats, _playerInfo.hatsIndex);    //모자
-
+	_player->charRender(_playerBody.bodyDw, _playerInfo.dwBodyIndex);   //하체
+	_player->charRender(_playerBody.bodyUp, _playerInfo.upBodyIndex);   //상체
+	_player->charRender(_playerBody.head, _playerInfo.headIndex);		//머리
+	_player->charRender(_playerBody.hair, _playerInfo.hairIndex);		//헤어
+	_player->charRender(_playerBody.glass, _playerInfo.glassIndex);		//안경
+	_player->charRender(_playerBody.hats, _playerInfo.hatsIndex);		//모자
 }
 
 
@@ -68,11 +78,12 @@ void player::render()
 void  player::loadPlayer(charInfo* saveInfo)
 {
 	_playerInfo.charTypeName = saveInfo->charTypeName;
-	_playerBody.head  = _player->bodyNameChange(_playerInfo.charTypeName, BODY_HEAD);
-	_playerBody.body  = _player->bodyNameChange(_playerInfo.charTypeName, BODY_UPBODY);
-	_playerBody.hair  = _player->bodyNameChange(_playerInfo.charTypeName, BODY_HAIR);
-	_playerBody.glass = _player->bodyNameChange(_playerInfo.charTypeName, BODY_GLASS);
-	_playerBody.hats  = _player->bodyNameChange(_playerInfo.charTypeName, BODY_HATS);
+	_playerBody.head    = _player->bodyNameChange(_playerInfo.charTypeName, BODY_HEAD);
+	_playerBody.bodyUp  = _player->bodyNameChange(_playerInfo.charTypeName, BODY_UPBODY);
+	_playerBody.bodyDw  = _player->bodyNameChange(_playerInfo.charTypeName, BODY_DWBODY);
+	_playerBody.hair    = _player->bodyNameChange(_playerInfo.charTypeName, BODY_HAIR);
+	_playerBody.glass   = _player->bodyNameChange(_playerInfo.charTypeName, BODY_GLASS);
+	_playerBody.hats    = _player->bodyNameChange(_playerInfo.charTypeName, BODY_HATS);
 
 	_playerInfo.headIndex   = saveInfo->headIndex;
 	_playerInfo.upBodyIndex = saveInfo->upBodyIndex;
@@ -88,31 +99,26 @@ void player::Stateframe(MOVE_STATE state, MOVE_DIRECTION direction)
 	switch (state)
 	{
 		case STATE_IDLE:
+			totalBodyAni();
+
 			switch (direction)
 			{
 				case DIRECTION_LEFT:
-					bodyAni(_head, _headY, 3);
-					_player->setBodyY(_playerBody.head,  0, _headY);   //머리
-					_player->setBodyY(_playerBody.hair,  0, _headY);   //헤어
-					_player->setBodyY(_playerBody.glass, 0, _headY);   //안경
-					_player->setBodyY(_playerBody.hats,  0, _headY);   //모자
-
-					bodyAni(_body, _bodyY, 2);
-					_player->setBodyY(_playerBody.body, 0, _bodyY);    //상체
+				
 				break;
 				case DIRECTION_RIGHT:
-
+					
 				break;
 				case DIRECTION_UP:
-
+				
 				break;
 				case DIRECTION_DOWN:
-
+				
 				break;
 			}
 		break;
 		case STATE_WALK:
-
+			totalBodyAni();
 
 
 		break;
@@ -137,7 +143,7 @@ void player::Stateframe(MOVE_STATE state, MOVE_DIRECTION direction)
 }
 
 
-void player::bodyAni(tagMove& body, float& moveY, int count)
+void player::bodyAni(tagBodyMove& body, float& moveY, int count)
 {
 	body.count++;
 
@@ -168,4 +174,64 @@ void player::bodyAni(tagMove& body, float& moveY, int count)
 			}
 		}
 	}
+}
+
+void player::totalBodyAni()
+{
+	bodyAni(_head, _headY, 3);
+	_player->setY(_playerBody.head,  _playerInfo.headIndex, _pMove.y, _headY);    //머리
+	_player->setY(_playerBody.hair, _playerInfo.hairIndex,  _pMove.y, _headY);    //헤어
+	_player->setY(_playerBody.glass, _playerInfo.glassIndex,_pMove.y, _headY);	  //안경
+	_player->setY(_playerBody.hats, _playerInfo.hatsIndex,  _pMove.y, _headY);    //모자
+
+	bodyAni(_body, _bodyY, 2);
+	_player->setY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.y, _bodyY);  //상체
+}
+
+void player::keyControl()
+{
+	//좌
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	{
+		_pMove.x -= _pMove.speed;
+	}
+
+
+	//우
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		_pMove.x += _pMove.speed;
+	}
+
+
+	//상
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
+	{
+		_pMove.y -= _pMove.speed;
+	}
+
+
+	//하
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	{
+		_pMove.y += _pMove.speed;
+	}
+
+
+	
+
+	_player->setX(_playerBody.head, _playerInfo.headIndex, _pMove.x);
+	_player->setX(_playerBody.hair, _playerInfo.hairIndex, _pMove.x);
+	_player->setX(_playerBody.glass, _playerInfo.glassIndex, _pMove.x);
+	_player->setX(_playerBody.hats, _playerInfo.hatsIndex, _pMove.x);
+	_player->setX(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.x);
+	_player->setX(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _pMove.x);
+
+	//_player->setY(_playerBody.head, _playerInfo.headIndex, _pMove.y);
+	//_player->setY(_playerBody.hair, _playerInfo.hairIndex, _pMove.y);
+	//_player->setY(_playerBody.glass, _playerInfo.glassIndex, _pMove.y);
+	//_player->setY(_playerBody.hats, _playerInfo.hatsIndex, _pMove.y);
+	//_player->setY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.y);
+	//_player->setY(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _pMove.y);
+
 }

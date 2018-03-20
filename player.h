@@ -5,7 +5,8 @@
 struct tagBodyname
 {
 	string head;
-	string body;
+	string bodyUp;
+	string bodyDw;
 	string hair;
 	string glass;
 	string hats;
@@ -26,12 +27,22 @@ enum MOVE_DIRECTION
 	DIRECTION_DOWN,
 };
 
-struct tagMove
+//부위 애니
+struct tagBodyMove
 {
 	float speed;
 	float fric;
 	bool dir;
 	int count;
+};
+
+//전체 애니
+struct tagPlayerMove
+{
+	float x, y;
+	float speed;
+	int count;
+	bool keyOn;
 };
 
 
@@ -46,10 +57,12 @@ private:
 	MOVE_DIRECTION _currentDir;
 
 	float _headY;
-	tagMove _head;
+	tagBodyMove _head;
 
 	float _bodyY;
-	tagMove _body;
+	tagBodyMove _body;
+
+	tagPlayerMove _pMove;
 
 public:
 	HRESULT init(int playerNum);
@@ -60,7 +73,9 @@ public:
 	void loadPlayer(charInfo* saveInfo);
 	void Stateframe(MOVE_STATE state, MOVE_DIRECTION direction);
 
-	void bodyAni(tagMove& body, float& moveY, int count);
+	void bodyAni(tagBodyMove& body, float& moveY, int count);
+	void totalBodyAni();
+	void keyControl();
 
 	player();
 	~player();

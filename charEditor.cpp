@@ -202,16 +202,16 @@ void charEditor::btnAction(fButton* button, string charTypeName, BTN_CHAR_BODYTY
 			break;
 			case UPBODY_LEFT:
 
-				charTypeName.append("Body");
+				charTypeName.append("BodyUp");
 				btnIndexAction(_upBodyIndex, false, 5, charTypeName);
-				stringErase(charTypeName, "Body");
+				stringErase(charTypeName, "BodyUp");
 	
 			break;
 			case UPBODY_RIGHT:
 
-				charTypeName.append("Body");
+				charTypeName.append("BodyDw");
 				btnIndexAction(_upBodyIndex, true, 5, charTypeName);
-				stringErase(charTypeName, "Body");
+				stringErase(charTypeName, "BodyDw");
 	
 			break;
 			case DWBODY_LEFT:
@@ -339,14 +339,14 @@ void charEditor::charTypeRender(string charTypeName)
 	stringErase(charTypeName, "Head");
 
 	//상체
-	tmpName = charTypeName.append("Body");
+	tmpName = charTypeName.append("BodyUp");
 	_selectChar->charRender(tmpName, _upBodyIndex);
-	stringErase(charTypeName, "Body");
+	stringErase(charTypeName, "BodyUp");
 
 	//하체
-	tmpName = charTypeName.append("Body");
+	tmpName = charTypeName.append("BodyDw");
 	_selectChar->charRender(tmpName, _dwBodyIndex);
-	stringErase(charTypeName, "Body");
+	stringErase(charTypeName, "BodyDw");
 
 	//헤어
 	tmpName = charTypeName.append("Hair");

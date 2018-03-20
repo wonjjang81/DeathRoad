@@ -30,20 +30,22 @@ void character::charSetup(string charTypeName, float x, float y, float scale)
 	charTypeName.append("Body");
 	charBodySet(charTypeName, tmpVCharUpBody, BODY_UPBODY, x, y, scale);
 
+	charTypeName.append("Up");
 	_mChar.insert(make_pair(charTypeName, tmpVCharUpBody));
 
 	//charTypeName 초기화
-	stringErase(charTypeName, "Body");
+	stringErase(charTypeName, "BodyUp");
 
 	//----------------------------- dwBody
 	vChar tmpVCharDwBody;
 	charTypeName.append("Body");
 	charBodySet(charTypeName, tmpVCharDwBody, BODY_DWBODY, x, y, scale);
 
+	charTypeName.append("Dw");
 	_mChar.insert(make_pair(charTypeName, tmpVCharDwBody));
 
 	//charTypeName 초기화
-	stringErase(charTypeName, "Body");
+	stringErase(charTypeName, "BodyDw");
 	//----------------------------------------------- HAIR -----------------------------------------------
 	vChar tmpVCharHair;
 	charTypeName.append("Hair");
@@ -89,10 +91,10 @@ void character::charBodySet(string imgName, vChar& charVector, BODYTYPE type, fl
 	{
 		for (int j = 0; j < tileX; ++j)
 		{
-			bodyType.rc.left = x;
-			bodyType.rc.top  = y;
-			bodyType.rc.right  = x + bodyType.img->getFrameWidth()  * abs(scale);
-			bodyType.rc.bottom = y + bodyType.img->getFrameHeight() * abs(scale);
+			bodyType.rc.left = (8  * scale);
+			bodyType.rc.top  = (10 * scale);
+			bodyType.rc.right  = (15  * scale);
+			bodyType.rc.bottom = (bodyType.img->getFrameHeight() * scale);
 			bodyType.index = (tileX * i) + j;
 			bodyType.x = x;
 			bodyType.y = y;
@@ -130,12 +132,13 @@ void character::charRender(string charTypeName, int index)
 					viter->frameX, viter->frameY,
 					0, viter->scale);
 
+
 				//RECT 확인용
 				D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.2f),
-					viter->rc.left,
-					viter->rc.top,
-					viter->rc.right,
-					viter->rc.bottom);
+					viter->x + viter->rc.left,
+					viter->y + viter->rc.top,
+					viter->x + viter->rc.right,
+					viter->y + viter->rc.bottom);
 
 				break;
 			}
@@ -164,12 +167,13 @@ int character::getMaxIndex(string charTypeName)
 		int maxFrameX = viter->img->getMaxFrameX();
 		int maxFrameY = viter->img->getMaxFrameY();
 		return maxFrameX * maxFrameY;
+
 	}
 
 	return -1;
 }
 
-int character::getX(string charTypeName)
+int character::getX(string charTypeName, int index)
 {
 	iterChar iter = _mChar.find(charTypeName);
 
@@ -177,11 +181,18 @@ int character::getX(string charTypeName)
 	{
 		viChar viter = iter->second.begin();
 
-		return viter->x;
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				return viter->x;
+				break;
+			}
+		}
 	}
 }
 
-int character::getY(string charTypeName)
+int character::getY(string charTypeName, int index)
 {
 	iterChar iter = _mChar.find(charTypeName);
 
@@ -189,11 +200,18 @@ int character::getY(string charTypeName)
 	{
 		viChar viter = iter->second.begin();
 
-		return viter->y;
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				return viter->y;
+				break;
+			}
+		}
 	}
 }
 
-void character::setBodyY(string charTypeName, float moveX, float moveY)
+void character::setX(string charTypeName, int index, float x)
 {
 	iterChar iter = _mChar.find(charTypeName);
 
@@ -201,10 +219,55 @@ void character::setBodyY(string charTypeName, float moveX, float moveY)
 	{
 		viChar viter = iter->second.begin();
 
-		if (viter->type == BODY_DWBODY) return;
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				viter->x = x;
+				break;
+			}
+		}
+	}
+}
 
-		viter->x += moveX;
-		viter->y += moveY;
+float character::setY(string charTypeName, int index, float y, float moveY)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				//viter->y = y;
+				viter->y +=	moveY;
+
+				return viter->y;
+				break;
+			}
+		}
+	}
+}
+
+void character::setBodyY(string charTypeName, float moveY, int index)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				viter->y += moveY;
+				break;
+			}
+		}
 	}
 }
 
@@ -218,10 +281,10 @@ string character::bodyNameChange(string imgName, BODYTYPE typeName)
 			imgName.append("Head");
 		break;
 		case BODY_UPBODY:
-			imgName.append("Body");
+			imgName.append("BodyUp");
 		break;
 		case BODY_DWBODY:
-			imgName.append("Body");
+			imgName.append("BodyDw");
 		break;
 		case BODY_HAIR:
 			imgName.append("Hair");
