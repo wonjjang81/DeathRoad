@@ -367,6 +367,52 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 }
 
 
+HRESULT image::FlipRotateSource()
+{
+	HRESULT hr = E_INVALIDARG;
+
+	if (_imageInfo->pWICFormatConverter)
+	{
+		IWICImagingFactory *pFactory = NULL;
+		IWICBitmapFlipRotator *pFlipRotator = NULL;
+
+		HRESULT hr = CoCreateInstance(
+			CLSID_WICImagingFactory,
+			NULL,
+			CLSCTX_INPROC_SERVER,
+			IID_IWICImagingFactory,
+			(LPVOID*)&pFactory
+		);
+
+		if (SUCCEEDED(hr))
+		{
+			hr = pFactory->CreateBitmapFlipRotator(&pFlipRotator);
+		}
+
+		if (SUCCEEDED(hr))
+		{
+			hr = pFlipRotator->Initialize(_imageInfo->pWICFormatConverter, WICBitmapTransformFlipHorizontal);
+		}
+
+		if (SUCCEEDED(hr))
+		{
+			_imageInfo->pWICFlip = pFlipRotator;
+		}
+
+		if (pFlipRotator)
+		{
+			pFlipRotator->Release();
+		}
+
+		if (pFactory)
+		{
+			pFactory->Release();
+		}
+	}
+
+	return hr;
+}
+
 //================================================================== 
 //	                         Pixel Ãæµ¹
 //==================================================================

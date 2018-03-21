@@ -23,14 +23,14 @@ HRESULT player::init(int playerNum)
 	_bodyY = 0;
 
 	//머리Ani
-	_head.speed = 0.1f;
+	_head.speed = 0.3f;
 	_head.fric  = 0.017f;
 	_head.dir   = false;
 	_head.count = 1;
 
 	//몸통Ani
-	_body.speed = 0.1f;
-	_body.fric  = 0.019f;
+	_body.speed = 0.3f;
+	_body.fric  = 0.015;
 	_body.dir   = false;
 	_body.count = 1;
 
@@ -44,7 +44,15 @@ HRESULT player::init(int playerNum)
 	_pMove.x = _player->getX(_playerBody.head, _playerInfo.headIndex);
 	_pMove.y = _player->getY(_playerBody.head, _playerInfo.headIndex);
 
+	//현재상태
+	_currentState = STATE_IDLE;
+	_currentDir = DIRECTION_LEFT;
 
+	//player moveAni
+	_frameX = 0;
+	_initFrameX = 0;
+	_frmaeCount = 1;
+	_isInit = false;
 
 	return S_OK;
 }
@@ -57,7 +65,7 @@ void player::release()
 void player::update()
 {
 	keyControl();
-	Stateframe(STATE_IDLE, DIRECTION_LEFT);
+	Stateframe(_currentState, _currentDir);
 
 
 
@@ -104,7 +112,7 @@ void player::Stateframe(MOVE_STATE state, MOVE_DIRECTION direction)
 			switch (direction)
 			{
 				case DIRECTION_LEFT:
-				
+
 				break;
 				case DIRECTION_RIGHT:
 					
@@ -118,8 +126,9 @@ void player::Stateframe(MOVE_STATE state, MOVE_DIRECTION direction)
 			}
 		break;
 		case STATE_WALK:
-			totalBodyAni();
 
+			totalBodyAni();
+			walkAni(_playerBody.bodyDw, _playerInfo.dwBodyIndex);
 
 		break;
 		case STATE_DAMAGE:
@@ -145,13 +154,15 @@ void player::Stateframe(MOVE_STATE state, MOVE_DIRECTION direction)
 
 void player::bodyAni(tagBodyMove& body, float& moveY, int count)
 {
+	//증가한 y값만큼 다시 돌아오도록...
+
 	body.count++;
 
 	if (body.count % count == 0)
 	{
 		if (body.dir)
 		{
-			moveY += body.speed * 0.03;
+			moveY += body.speed * 0.04;
 			body.speed -= body.fric;
 
 			if (body.speed <= 0)
@@ -163,7 +174,7 @@ void player::bodyAni(tagBodyMove& body, float& moveY, int count)
 		}
 		else
 		{
-			moveY -= body.speed * 0.03;
+			moveY -= body.speed * 0.04;
 			body.speed -= body.fric;
 
 			if (body.speed <= 0)
@@ -179,20 +190,24 @@ void player::bodyAni(tagBodyMove& body, float& moveY, int count)
 void player::totalBodyAni()
 {
 	bodyAni(_head, _headY, 3);
-	_player->setY(_playerBody.head,  _playerInfo.headIndex, _pMove.y, _headY);    //머리
-	_player->setY(_playerBody.hair, _playerInfo.hairIndex,  _pMove.y, _headY);    //헤어
-	_player->setY(_playerBody.glass, _playerInfo.glassIndex,_pMove.y, _headY);	  //안경
-	_player->setY(_playerBody.hats, _playerInfo.hatsIndex,  _pMove.y, _headY);    //모자
+	_player->setBodyY(_playerBody.head,  _playerInfo.headIndex,  _headY);   //머리
+	_player->setBodyY(_playerBody.hair,  _playerInfo.hairIndex,  _headY);   //헤어
+	_player->setBodyY(_playerBody.glass, _playerInfo.glassIndex, _headY);	//안경
+	_player->setBodyY(_playerBody.hats,  _playerInfo.hatsIndex,  _headY);   //모자
 
 	bodyAni(_body, _bodyY, 2);
-	_player->setY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.y, _bodyY);  //상체
+	_player->setBodyY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _bodyY);  //상체
 }
 
 void player::keyControl()
 {
+	_currentState = STATE_IDLE;
+
 	//좌
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
+		_currentState = STATE_WALK;
+		_currentDir = DIRECTION_LEFT;
 		_pMove.x -= _pMove.speed;
 	}
 
@@ -200,6 +215,8 @@ void player::keyControl()
 	//우
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
+		_currentState = STATE_WALK;
+		_currentDir = DIRECTION_RIGHT;
 		_pMove.x += _pMove.speed;
 	}
 
@@ -207,6 +224,8 @@ void player::keyControl()
 	//상
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
+		_currentState = STATE_WALK;
+		_currentDir = DIRECTION_UP;
 		_pMove.y -= _pMove.speed;
 	}
 
@@ -214,11 +233,11 @@ void player::keyControl()
 	//하
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
+		_currentState = STATE_WALK;
+		_currentDir = DIRECTION_DOWN;
 		_pMove.y += _pMove.speed;
 	}
 
-
-	
 
 	_player->setX(_playerBody.head, _playerInfo.headIndex, _pMove.x);
 	_player->setX(_playerBody.hair, _playerInfo.hairIndex, _pMove.x);
@@ -227,11 +246,32 @@ void player::keyControl()
 	_player->setX(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.x);
 	_player->setX(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _pMove.x);
 
-	//_player->setY(_playerBody.head, _playerInfo.headIndex, _pMove.y);
-	//_player->setY(_playerBody.hair, _playerInfo.hairIndex, _pMove.y);
-	//_player->setY(_playerBody.glass, _playerInfo.glassIndex, _pMove.y);
-	//_player->setY(_playerBody.hats, _playerInfo.hatsIndex, _pMove.y);
-	//_player->setY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.y);
-	//_player->setY(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _pMove.y);
-
+	_player->setY(_playerBody.head, _playerInfo.headIndex, _pMove.y);
+	_player->setY(_playerBody.hair, _playerInfo.hairIndex, _pMove.y);
+	_player->setY(_playerBody.glass, _playerInfo.glassIndex, _pMove.y);
+	_player->setY(_playerBody.hats, _playerInfo.hatsIndex, _pMove.y);
+	_player->setY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.y);
+	_player->setY(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _pMove.y);
 }
+
+void player::walkAni(string pBodyName, int pBodyIndex)
+{
+	_frmaeCount++;
+
+	if (!_isInit)
+	{
+		_frameX = _player->getFrameX(pBodyName, pBodyIndex);
+		_initFrameX = _frameX;
+		_isInit = true;
+	}
+	if (_frameX > _initFrameX + 2) _frameX = _initFrameX;
+
+
+	if (_frmaeCount % 10 == 0)
+	{
+		_player->setFrameX(pBodyName, pBodyIndex, _frameX);
+		_frameX++;
+		_frmaeCount = 1;
+	}
+}
+

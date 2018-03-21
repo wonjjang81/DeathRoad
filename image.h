@@ -198,6 +198,7 @@ public:
 	//==================================== Pixel Collision ====================================
 	const HRESULT loadImageFromWIC(IWICBitmapSource* source, int gridCountX, int gridCountY);
 
-
+	//이미지 플립
+	HRESULT FlipRotateSource();
 };
 

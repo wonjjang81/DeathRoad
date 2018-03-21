@@ -265,3 +265,5 @@ void  d2dManager::drawIntText(LPCWSTR title, int value, float x, float y)
 
 	D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18, strIndex, x, y, x + 200, y + 20);
 }
+
+

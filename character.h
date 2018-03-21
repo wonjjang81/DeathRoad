@@ -25,9 +25,11 @@ enum CHARTYPE
 struct tagChar
 {
 	RECT rc;
+	RECT cRc;  //충돌렉트
 	image* img;
 	TCHAR imgName[64];
 	float x, y;
+	float bodyX, bodyY;
 	int index;
 	int frameX;
 	int frameY;
@@ -75,17 +77,19 @@ public:
 
 	//================================ getter & setter ================================
 	int getMaxIndex(string charTypeName);
+	image* getImg(string charTypeName, int index);
 
 	int getX(string charTypeName, int index);
 	int getY(string charTypeName, int index);
-
 	void setX(string charTypeName, int index, float x);
-	float setY(string charTypeName, int index, float y, float moveY);
+	void setY(string charTypeName, int index, float y);
 
-	void setBodyY(string charTypeName, float moveY, int index);
+	int getFrameX(string charTypeName, int index);
+	int getFrameY(string charTypeName, int index);
+	void setFrameX(string charTypeName, int index, int x);
+	void setFrameY(string charTypeName, int index, int y);
 
-
-
+	void setBodyY(string charTypeName, int index, float moveY);
 
 	character();
 	~character();

@@ -34,6 +34,7 @@ struct tagBodyMove
 	float fric;
 	bool dir;
 	int count;
+	float saveY;
 };
 
 //전체 애니
@@ -56,13 +57,23 @@ private:
 	MOVE_STATE	   _currentState;
 	MOVE_DIRECTION _currentDir;
 
+	//==== BodyAni ====
 	float _headY;
 	tagBodyMove _head;
 
 	float _bodyY;
 	tagBodyMove _body;
+	//=================
 
+	//player Move
 	tagPlayerMove _pMove;
+
+	//player FrameAni
+	int _frameX;
+	int _initFrameX;
+	int _frmaeCount;
+	bool _isInit;
+
 
 public:
 	HRESULT init(int playerNum);
@@ -76,6 +87,9 @@ public:
 	void bodyAni(tagBodyMove& body, float& moveY, int count);
 	void totalBodyAni();
 	void keyControl();
+
+	void walkAni(string pBodyName, int pBodyIndex);
+
 
 	player();
 	~player();

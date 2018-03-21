@@ -98,6 +98,8 @@ void character::charBodySet(string imgName, vChar& charVector, BODYTYPE type, fl
 			bodyType.index = (tileX * i) + j;
 			bodyType.x = x;
 			bodyType.y = y;
+			bodyType.bodyX = 0;
+			bodyType.bodyY = 0;
 			bodyType.frameX = j;
 			bodyType.frameY = i;
 			bodyType.scale = scale;
@@ -127,18 +129,23 @@ void character::charRender(string charTypeName, int index)
 			if (viter->index == index)
 			{
 				viter->img->frameRender(1.0f,
-					viter->x,
-					viter->y,
+					viter->x + (viter->bodyX / viter->scale),
+					viter->y + (viter->bodyY / viter->scale),
 					viter->frameX, viter->frameY,
 					0, viter->scale);
 
+				RECT tmpRc;
+				viter->cRc.left   = viter->x + viter->rc.left;
+				viter->cRc.top    = viter->y + viter->rc.top;
+				viter->cRc.right  = viter->x + viter->rc.right;
+				viter->cRc.bottom = viter->y + viter->rc.bottom;
 
 				//RECT È®ÀÎ¿ë
 				D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.2f),
-					viter->x + viter->rc.left,
-					viter->y + viter->rc.top,
-					viter->x + viter->rc.right,
-					viter->y + viter->rc.bottom);
+					viter->cRc.left,
+					viter->cRc.top,
+					viter->cRc.right,
+					viter->cRc.bottom);
 
 				break;
 			}
@@ -171,6 +178,25 @@ int character::getMaxIndex(string charTypeName)
 	}
 
 	return -1;
+}
+
+image* character::getImg(string charTypeName, int index)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				return viter->img;
+				break;
+			}
+		}
+	}
 }
 
 int character::getX(string charTypeName, int index)
@@ -230,7 +256,7 @@ void character::setX(string charTypeName, int index, float x)
 	}
 }
 
-float character::setY(string charTypeName, int index, float y, float moveY)
+void character::setY(string charTypeName, int index, float y)
 {
 	iterChar iter = _mChar.find(charTypeName);
 
@@ -242,17 +268,14 @@ float character::setY(string charTypeName, int index, float y, float moveY)
 		{
 			if (viter->index == index)
 			{
-				//viter->y = y;
-				viter->y +=	moveY;
-
-				return viter->y;
+				viter->y  = y;
 				break;
 			}
 		}
 	}
 }
 
-void character::setBodyY(string charTypeName, float moveY, int index)
+void character::setBodyY(string charTypeName, int index, float moveY)
 {
 	iterChar iter = _mChar.find(charTypeName);
 
@@ -264,36 +287,112 @@ void character::setBodyY(string charTypeName, float moveY, int index)
 		{
 			if (viter->index == index)
 			{
-				viter->y += moveY;
+				viter->bodyY += moveY;
 				break;
 			}
 		}
 	}
 }
 
+
+int character::getFrameX(string charTypeName, int index)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				return viter->frameX;
+				break;
+			}
+		}
+	}
+}
+
+int character::getFrameY(string charTypeName, int index)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				return viter->frameX;
+				break;
+			}
+		}
+	}
+}
+
+void character::setFrameX(string charTypeName, int index, int x)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				viter->frameX = x;
+				break;
+			}
+		}
+	}
+}
+
+void character::setFrameY(string charTypeName, int index, int y)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				viter->frameY = y;
+				break;
+			}
+		}
+	}
+}
 
 
 string character::bodyNameChange(string imgName, BODYTYPE typeName)
-{	
+{
 	switch (typeName)
 	{
-		case BODY_HEAD:
-			imgName.append("Head");
+	case BODY_HEAD:
+		imgName.append("Head");
 		break;
-		case BODY_UPBODY:
-			imgName.append("BodyUp");
+	case BODY_UPBODY:
+		imgName.append("BodyUp");
 		break;
-		case BODY_DWBODY:
-			imgName.append("BodyDw");
+	case BODY_DWBODY:
+		imgName.append("BodyDw");
 		break;
-		case BODY_HAIR:
-			imgName.append("Hair");
+	case BODY_HAIR:
+		imgName.append("Hair");
 		break;
-		case BODY_GLASS:
-			imgName.append("Glass");
+	case BODY_GLASS:
+		imgName.append("Glass");
 		break;
-		case BODY_HATS:
-			imgName.append("Hats");
+	case BODY_HATS:
+		imgName.append("Hats");
 		break;
 	}
 

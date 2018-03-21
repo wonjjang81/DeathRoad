@@ -46,6 +46,8 @@ public:
 	//≈ÿΩ∫∆Æ in Value
 	void drawIntText(LPCWSTR title, int value, float x, float y);
 
+
+
 	d2dManager();
 	~d2dManager();
 };
