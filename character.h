@@ -66,11 +66,11 @@ private:
 
 
 public:
-	void charSetup(string charTypeName, float x, float y, float scale);
+	void charSetup(string charTypeName, float x, float y, float scale = 1.0f);
 
-	void charBodySet(string imgNameHead, vChar& charVector, BODYTYPE type, float x, float y, float scale);
+	void charBodySet(string imgNameHead, vChar& charVector, BODYTYPE type, float x, float y, float scale = 1.0f);
 
-	void charRender(string charTypeName, int index);
+	void charRender(string charTypeName, int index, bool flip = false);
 	void stringErase(string& editStrName, string eraseName);
 
 	string bodyNameChange(string imgName, BODYTYPE typeName);

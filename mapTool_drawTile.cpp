@@ -54,6 +54,12 @@ void mapTool::tileDraw(float scale)
 
 	//Enemy
 	vTileDraw(_vSaveEm, scale);
+
+	//Wall
+	vTileDraw(_vSaveWl, scale);
+
+	//Door
+	vTileDraw(_vSaveDr, scale);
 	//=========================== 타일 그리기 End ===========================
 
 

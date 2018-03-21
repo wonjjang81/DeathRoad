@@ -49,10 +49,14 @@ HRESULT player::init(int playerNum)
 	_currentDir = DIRECTION_LEFT;
 
 	//player moveAni
-	_frameX = 0;
-	_initFrameX = 0;
-	_frmaeCount = 1;
-	_isInit = false;
+	_bodyFlip = false;
+
+	frameAniInit(_walkAni);
+	frameAniInit(_upHeadAni);
+	frameAniInit(_upBodyUpAni);
+	//frameAniInit(_upHairAni);
+	//frameAniInit(_upGlassAni);
+	//frameAniInit(_upHatsAni);
 
 	return S_OK;
 }
@@ -73,12 +77,12 @@ void player::update()
 
 void player::render()
 {
-	_player->charRender(_playerBody.bodyDw, _playerInfo.dwBodyIndex);   //하체
-	_player->charRender(_playerBody.bodyUp, _playerInfo.upBodyIndex);   //상체
-	_player->charRender(_playerBody.head, _playerInfo.headIndex);		//머리
-	_player->charRender(_playerBody.hair, _playerInfo.hairIndex);		//헤어
-	_player->charRender(_playerBody.glass, _playerInfo.glassIndex);		//안경
-	_player->charRender(_playerBody.hats, _playerInfo.hatsIndex);		//모자
+	_player->charRender(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _bodyFlip);	//하체
+	_player->charRender(_playerBody.bodyUp, _playerInfo.upBodyIndex, _bodyFlip);    //상체
+	_player->charRender(_playerBody.head,   _playerInfo.headIndex,   _bodyFlip);	//머리
+	_player->charRender(_playerBody.hair,   _playerInfo.hairIndex,   _bodyFlip);	//헤어
+	_player->charRender(_playerBody.glass,  _playerInfo.glassIndex,  _bodyFlip);	//안경
+	_player->charRender(_playerBody.hats,   _playerInfo.hatsIndex,   _bodyFlip);	//모자
 }
 
 
@@ -108,47 +112,76 @@ void player::Stateframe(MOVE_STATE state, MOVE_DIRECTION direction)
 	{
 		case STATE_IDLE:
 			totalBodyAni();
+			//walkAni 초기화
+			_player->setFrameX(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _walkAni.initFrameX);
 
 			switch (direction)
 			{
 				case DIRECTION_LEFT:
-
+					_bodyFlip = true;
 				break;
 				case DIRECTION_RIGHT:
-					
+					_bodyFlip = false;
 				break;
 				case DIRECTION_UP:
-				
+					_upHeadAni.isChange = true;
+					_upBodyUpAni.isChange = true;
 				break;
 				case DIRECTION_DOWN:
-				
+					_upHeadAni.isChange = false;
+					_upBodyUpAni.isChange = false;
 				break;
 			}
 		break;
 		case STATE_WALK:
 
 			totalBodyAni();
-			walkAni(_playerBody.bodyDw, _playerInfo.dwBodyIndex);
+			frameAni(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _walkAni, 2, 10);
+
+			switch (direction)
+			{
+				case DIRECTION_LEFT:
+					_bodyFlip = true;
+				break;
+				case DIRECTION_RIGHT:
+					_bodyFlip = false;
+				break;
+				case DIRECTION_UP:
+					_upHeadAni.isChange = true;
+					_upBodyUpAni.isChange = true;
+				break;
+				case DIRECTION_DOWN:
+					_upHeadAni.isChange = false;
+					_upBodyUpAni.isChange = false;
+				break;
+			}
 
 		break;
 		case STATE_DAMAGE:
 			switch (direction)
 			{
 				case DIRECTION_LEFT:
-
+					_bodyFlip = true;
 				break;
 				case DIRECTION_RIGHT:
-
+					_bodyFlip = false;
 				break;
 				case DIRECTION_UP:
-
+					_upHeadAni.isChange = true;
 				break;
 				case DIRECTION_DOWN:
-
+					_upHeadAni.isChange = false;
 				break;
 			}
 		break;
 	}
+
+	//상하 애니
+	frameAniB(_playerBody.head,   _playerInfo.headIndex,   _upHeadAni);
+	frameAniB(_playerBody.bodyUp, _playerInfo.upBodyIndex, _upBodyUpAni);
+	frameAniB(_playerBody.hair,	  _playerInfo.hairIndex,   _upHeadAni);
+	frameAniB(_playerBody.glass,  _playerInfo.glassIndex,  _upHeadAni);
+	frameAniB(_playerBody.hats,   _playerInfo.hatsIndex,   _upHeadAni);
 }
 
 
@@ -239,39 +272,76 @@ void player::keyControl()
 	}
 
 
-	_player->setX(_playerBody.head, _playerInfo.headIndex, _pMove.x);
-	_player->setX(_playerBody.hair, _playerInfo.hairIndex, _pMove.x);
-	_player->setX(_playerBody.glass, _playerInfo.glassIndex, _pMove.x);
-	_player->setX(_playerBody.hats, _playerInfo.hatsIndex, _pMove.x);
+	_player->setX(_playerBody.head,   _playerInfo.headIndex,   _pMove.x);
+	_player->setX(_playerBody.hair,   _playerInfo.hairIndex,   _pMove.x);
+	_player->setX(_playerBody.glass,  _playerInfo.glassIndex,  _pMove.x);
+	_player->setX(_playerBody.hats,   _playerInfo.hatsIndex,   _pMove.x);
 	_player->setX(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.x);
 	_player->setX(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _pMove.x);
 
-	_player->setY(_playerBody.head, _playerInfo.headIndex, _pMove.y);
-	_player->setY(_playerBody.hair, _playerInfo.hairIndex, _pMove.y);
-	_player->setY(_playerBody.glass, _playerInfo.glassIndex, _pMove.y);
-	_player->setY(_playerBody.hats, _playerInfo.hatsIndex, _pMove.y);
+	_player->setY(_playerBody.head,   _playerInfo.headIndex,   _pMove.y);
+	_player->setY(_playerBody.hair,   _playerInfo.hairIndex,   _pMove.y);
+	_player->setY(_playerBody.glass,  _playerInfo.glassIndex,  _pMove.y);
+	_player->setY(_playerBody.hats,   _playerInfo.hatsIndex,   _pMove.y);
 	_player->setY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _pMove.y);
 	_player->setY(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _pMove.y);
 }
 
-void player::walkAni(string pBodyName, int pBodyIndex)
+//애니 초기화
+void player::frameAniInit(tagAni& ani)
 {
-	_frmaeCount++;
+	ani.frameX = 0;
+	ani.initFrameX = 0;
+	ani.frameCount = 1;
+	ani.isInit = false;
+	ani.isChange = false;
+}
 
-	if (!_isInit)
+//애니메이션 타입A: downBody
+void player::frameAni(string pBodyName, int pBodyIndex, tagAni& ani, int maxFrame, int countTime)
+{
+	ani.frameCount++;
+
+	if (!ani.isInit)
 	{
-		_frameX = _player->getFrameX(pBodyName, pBodyIndex);
-		_initFrameX = _frameX;
-		_isInit = true;
+		ani.frameX = _player->getFrameX(pBodyName, pBodyIndex);
+		ani.initFrameX = ani.frameX;
+		ani.isInit = true;
 	}
-	if (_frameX > _initFrameX + 2) _frameX = _initFrameX;
+	if (ani.frameX > ani.initFrameX + maxFrame) ani.frameX = ani.initFrameX;
 
 
-	if (_frmaeCount % 10 == 0)
+	if (ani.frameCount % countTime == 0)
 	{
-		_player->setFrameX(pBodyName, pBodyIndex, _frameX);
-		_frameX++;
-		_frmaeCount = 1;
+		_player->setFrameX(pBodyName, pBodyIndex, ani.frameX);
+		ani.frameX++;
+		ani.frameCount = 1;
 	}
 }
+
+//애니메이션 타입B
+void player::frameAniB(string pBodyName, int pBodyIndex, tagAni& ani)
+{
+	//프레임 추가
+	if (ani.isChange && ani.frameX == ani.initFrameX) ani.frameX++;
+
+	if (!ani.isInit)
+	{
+		//프레임 초기값 저장
+		ani.frameX = _player->getFrameX(pBodyName, pBodyIndex);
+		ani.initFrameX = ani.frameX;
+		ani.isInit = true;
+	}
+
+	//프레임 초기화
+	if (!ani.isChange)
+	{
+		ani.frameX = ani.initFrameX;
+	}
+
+	//프레임 셋팅
+	_player->setFrameX(pBodyName, pBodyIndex, ani.frameX);
+	
+}
+
 

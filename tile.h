@@ -75,11 +75,6 @@ private:
 
 
 public:
-	HRESULT init();
-	void release();
-	void update();
-	void render();
-
 	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale);
 	void tileRender(string tileName, float moveX = 0, float moveY = 0);
 	tagTile tileSelect(string tileName, float moveX = 0, float moveY = 0);

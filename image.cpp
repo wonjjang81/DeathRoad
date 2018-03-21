@@ -123,13 +123,19 @@ HRESULT image::init(LPCWSTR fileName, int width, int height)
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
-	// 이미지 Flip
-	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
-	assert(hr == S_OK);
-
 	// 첫 번째 프레임을 사용할 수 있는 객체 구성
 	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
 	assert(hr == S_OK);
+
+
+	//============================================ 이미지 Flip ============================================
+	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
+	assert(hr == S_OK);
+
+	hr = _imageInfo->pWICFlip->Initialize(_imageInfo->pWICFrameDecoder, WICBitmapTransformFlipHorizontal);
+	assert(hr == S_OK);
+	//=====================================================================================================
+
 
 	// 포맷 컨버터 생성
 	hr = _imageInfo->pWICImagingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
@@ -192,13 +198,17 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height)
 		&(_imageInfo->pWICDecoder));
 	assert(hr == S_OK);
 
-	// 이미지 Flip
-	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
-	assert(hr == S_OK);
-
 	//첫 번째 프레임을 사용할 수 있는 객체구성
 	hr = _imageInfo->pWICDecoder->GetFrame(0, &_imageInfo->pWICFrameDecoder);
 	assert(hr == S_OK);
+
+	//============================================ 이미지 Flip ============================================
+	hr = _imageInfo->pWICImagingFactory->CreateBitmapFlipRotator(&_imageInfo->pWICFlip);
+	assert(hr == S_OK);
+
+	hr = _imageInfo->pWICFlip->Initialize(_imageInfo->pWICFrameDecoder, WICBitmapTransformFlipHorizontal);
+	assert(hr == S_OK);
+	//=====================================================================================================
 
 	//포맷 컨버터 생성
 	hr = _imageInfo->pWICImagingFactory->CreateFormatConverter(&_imageInfo->pWICFormatConverter);
@@ -211,6 +221,10 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height)
 	//변환된 이미지 형식을 사용하여 D2D용 비트맵 생성
 	hr = D2DMANAGER->pRenderTarget->CreateBitmapFromWicBitmap(_imageInfo->pWICFormatConverter, NULL, &_imageInfo->pBitmap);
 
+
+
+
+	
 
 	//비트맵이 생성이 되지않았다면
 	if (_imageInfo->pBitmap == NULL)
@@ -367,52 +381,6 @@ HRESULT image::init(LPCWSTR fileName, float x, float y, int width, int height, i
 }
 
 
-HRESULT image::FlipRotateSource()
-{
-	HRESULT hr = E_INVALIDARG;
-
-	if (_imageInfo->pWICFormatConverter)
-	{
-		IWICImagingFactory *pFactory = NULL;
-		IWICBitmapFlipRotator *pFlipRotator = NULL;
-
-		HRESULT hr = CoCreateInstance(
-			CLSID_WICImagingFactory,
-			NULL,
-			CLSCTX_INPROC_SERVER,
-			IID_IWICImagingFactory,
-			(LPVOID*)&pFactory
-		);
-
-		if (SUCCEEDED(hr))
-		{
-			hr = pFactory->CreateBitmapFlipRotator(&pFlipRotator);
-		}
-
-		if (SUCCEEDED(hr))
-		{
-			hr = pFlipRotator->Initialize(_imageInfo->pWICFormatConverter, WICBitmapTransformFlipHorizontal);
-		}
-
-		if (SUCCEEDED(hr))
-		{
-			_imageInfo->pWICFlip = pFlipRotator;
-		}
-
-		if (pFlipRotator)
-		{
-			pFlipRotator->Release();
-		}
-
-		if (pFactory)
-		{
-			pFactory->Release();
-		}
-	}
-
-	return hr;
-}
-
 //================================================================== 
 //	                         Pixel 충돌
 //==================================================================
@@ -481,10 +449,15 @@ void image::release(void)
 //==================================================================
 
 //기본 이미지 렌더
-void image::render(float opacity)
+void image::render(float opacity, bool flip)
 {
+	Matrix3x2F matFlip;
+
 	float posX = _imageInfo->x;
 	float posY = _imageInfo->y;
+	float centerX = posX + _imageInfo->width / 2;
+	float centerY = posY + _imageInfo->height / 2;
+
 
 	if (_imageInfo->pBitmap != NULL)
 	{
@@ -494,11 +467,18 @@ void image::render(float opacity)
 		if (posX > WINSIZEX) return;
 		if (posY > WINSIZEY) return;
 
+		matFlip = Matrix3x2F::Scale(-1, 1, Point2F(centerX, centerY));
+
 		D2D1_RECT_F dxArea = RectF(posX, posY, posX + _imageInfo->width, posY + _imageInfo->height);
 		D2D1_RECT_F dxArea2 = RectF(0, 0, _imageInfo->width, _imageInfo->height);
 
+		if (flip) D2DMANAGER->pRenderTarget->SetTransform(matFlip);
+
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
 			D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);
+
+		//초기화
+		D2DMANAGER->pRenderTarget->SetTransform(Matrix3x2F::Identity());
 	}
 }
 
@@ -631,8 +611,9 @@ void image::loopRender(float opacity, const LPRECT drawArea, int offSetX, int of
 //	                     프레임 이미지 렌더
 //==================================================================
 
-void image::frameRender(float opacity, float destX, float destY, float angle, float scale)
+void image::frameRender(float opacity, float destX, float destY, float angle, float scale, bool flip)
 {
+	Matrix3x2F matFlip;
 	Matrix3x2F matScale;	//스케일
 	Matrix3x2F matRot;      //회전
 	Matrix3x2F matTM;       //좌우이동 * 회전
@@ -641,6 +622,9 @@ void image::frameRender(float opacity, float destX, float destY, float angle, fl
 	float posY = _imageInfo->y;
 	float centerX = posX + _imageInfo->frameWidth / 2;
 	float centerY = posY + _imageInfo->frameHeight / 2;
+
+	float flipX = posX + (_imageInfo->frameWidth * 1.5);
+	float flipY = posY + (_imageInfo->frameHeight * 1.5);
 
 	if (_imageInfo->pBitmap != NULL)
 	{
@@ -656,9 +640,12 @@ void image::frameRender(float opacity, float destX, float destY, float angle, fl
 									(_imageInfo->currentFrameX + 1) * _imageInfo->frameWidth,
 									(_imageInfo->currentFrameY + 1) * _imageInfo->frameHeight);
 
+		if (flip) matFlip = Matrix3x2F::Scale(-1, 1, Point2F(flipX, flipY));
+		else matFlip = Matrix3x2F::Scale(1, 1, Point2F(centerX, centerY));
+
 		matScale = Matrix3x2F::Scale(scale, scale, Point2F(centerX, centerY));
 		matRot = Matrix3x2F::Rotation(angle, Point2F(centerX, centerY));
-		matTM = matScale * matRot;
+		matTM = matScale * matRot * matFlip;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity,
@@ -670,8 +657,9 @@ void image::frameRender(float opacity, float destX, float destY, float angle, fl
 }
 
 
-void image::frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle, float scale)
+void image::frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle, float scale, bool flip)
 {
+	Matrix3x2F matFlip;
 	Matrix3x2F matScale;	//스케일
 	Matrix3x2F matRot;      //회전
 	Matrix3x2F matTM;       //좌우이동 * 회전
@@ -681,6 +669,9 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 	float centerX = posX + _imageInfo->frameWidth / 2;
 	float centerY = posY + _imageInfo->frameHeight / 2;
 
+	float flipX = posX + (_imageInfo->frameWidth * 1.5);
+	float flipY = posY + (_imageInfo->frameHeight * 1.5);
+
 	if (_imageInfo->pBitmap != NULL)
 	{
 		//화면밖이면 렌더 X
@@ -688,15 +679,19 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 		if (posY / scale + _imageInfo->frameHeight < 0) return;
 		if (posX / scale > WINSIZEX) return;
 		if (posY / scale > WINSIZEY) return;
-	
 
+		
 		D2D1_RECT_F dxArea = RectF(posX, posY, posX + _imageInfo->frameWidth, posY + _imageInfo->frameHeight);
 		D2D1_RECT_F dxArea2 = RectF(currentFrameX * _imageInfo->frameWidth, currentFrameY * _imageInfo->frameHeight,
 			((currentFrameX + 1) * _imageInfo->frameWidth), ((currentFrameY + 1) * _imageInfo->frameHeight));
 
+
+		if (flip) matFlip = Matrix3x2F::Scale(-1, 1, Point2F(flipX, flipY));
+		else matFlip = Matrix3x2F::Scale(1, 1, Point2F(centerX, centerY));
+
 		matScale = Matrix3x2F::Scale(scale, scale, Point2F(posX, posY));
 		matRot = Matrix3x2F::Rotation(angle, Point2F(centerX, centerY));
-		matTM = matScale * matRot;
+		matTM = matScale * matRot * matFlip;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);
 		D2DMANAGER->pRenderTarget->DrawBitmap(_imageInfo->pBitmap, dxArea, opacity, D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, dxArea2);

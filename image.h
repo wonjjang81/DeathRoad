@@ -108,12 +108,12 @@ public:
 	//	                           Render
 	//=================================================================== 
 
-	void render(float opacity = 1.0f);
+	void render(float opacity = 1.0f, bool flip = false);
 	void render(float opacity, float destX, float destY, float angle = 0, float scale = 1.0f);
 	void render(float opacity, float destX, float destY, float sourX, float sourY, float sourWidth, float sourHeight);
 
-	void frameRender(float opacity, float destX, float destY, float angle = 0, float scale = 1);
-	void frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f, float scale = 1);
+	void frameRender(float opacity, float destX, float destY, float angle = 0, float scale = 1, bool flip = false);
+	void frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f, float scale = 1, bool flip = false);
 	void frameAniRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle = 0.0f);
 	void frameEffectRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float frameWidth, float frameHeight, float angle = 0.0f);
 
@@ -198,7 +198,6 @@ public:
 	//==================================== Pixel Collision ====================================
 	const HRESULT loadImageFromWIC(IWICBitmapSource* source, int gridCountX, int gridCountY);
 
-	//이미지 플립
-	HRESULT FlipRotateSource();
+
 };
 

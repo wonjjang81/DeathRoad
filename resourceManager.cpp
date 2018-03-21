@@ -4,6 +4,8 @@
 
 void playGround::resourceAdd()
 {
+	IMAGEMANAGER->addImage("타이틀", L".//source//image//Ui//dr2c_title_small.png", WINSIZEX / 2, WINSIZEY / 2, 144, 48);
+
 	//버튼
 	IMAGEMANAGER->addFrameImage("맵툴버튼", L".//source//image//mapTool//mapTool_button.png", 44, 64, 1, 4);
 	IMAGEMANAGER->addFrameImage("맵툴버튼타이틀탭", L".//source//image//mapTool//mapTool_btn_titleTab.png", 40, 180, 2, 9);

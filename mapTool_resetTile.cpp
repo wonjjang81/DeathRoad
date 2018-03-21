@@ -76,44 +76,43 @@ void mapTool::tileReType(tagTile& resetTile)
 		_btnAllReset->setBtnOff(true);
 	}
 
+
 	//활성화된 버튼 상태 입력 
-	if (_btnT_terrain->getBtnOn())   selectBtn = ATTR_WALL_NONE;
-	if (_btnT_building->getBtnOn())  selectBtn = ATTR_WALL_LEFT;
-	if (_btnT_item->getBtnOn())		 selectBtn = ATTR_WALL_TOP;
-	if (_btnT_weapon->getBtnOn())	 selectBtn = ATTR_WALL_RIGHT;
-	if (_btnT_enemy->getBtnOn())	 selectBtn = ATTR_WALL_BOTTOM;
+	if (_btnT_terrain->getBtnOn())   selectBtn = ATTR_WALL_CENTER;
+	if (_btnT_building->getBtnOn())  selectBtn = ATTR_WALL_UNMOVE;
+	if (_btnT_item->getBtnOn())		 selectBtn = ATTR_DOOR;
+	if (_btnT_weapon->getBtnOn())	 selectBtn = ATTR_STARTPOINT;
+
 
 	//버튼 ACTION
 	switch (selectBtn)
 	{
-		case ATTR_WALL_NONE:
+		case ATTR_WALL_CENTER:
 
+			if (resetTile.tileType != TYPE_WALL) return;
 			//속성변경
-			resetTile.attribute = ATTR_WALL_NONE;
+			resetTile.attribute = ATTR_WALL_CENTER;
 
 		break;
-		case ATTR_WALL_LEFT:
+		case ATTR_WALL_UNMOVE:
 
+			if (resetTile.tileType != TYPE_WALL) return;
 			//속성변경
-			resetTile.attribute = ATTR_WALL_LEFT;
+			resetTile.attribute = ATTR_WALL_UNMOVE;
 
 		break;
-		case ATTR_WALL_TOP:
+		case ATTR_DOOR:
 
+			if (resetTile.tileType != TYPE_DOOR) return;
 			//속성변경
-			resetTile.attribute = ATTR_WALL_TOP;
+			resetTile.attribute = ATTR_DOOR;
 
 		break;
-		case ATTR_WALL_RIGHT:
+		case ATTR_STARTPOINT:
 
+			if (resetTile.tileType != TYPE_TERRAIN) return;
 			//속성변경
-			resetTile.attribute = ATTR_WALL_RIGHT;
-
-		break;
-		case ATTR_WALL_BOTTOM:
-
-			//속성변경
-			resetTile.attribute = ATTR_WALL_BOTTOM;
+			resetTile.attribute = ATTR_STARTPOINT;
 
 		break;
 	}
@@ -159,6 +158,12 @@ void mapTool::btnTile1Eraser(tagTile& resetTile)
 		case TYPE_ENEMY:
 			ZeroMemory(&resetTile, sizeof(tagTile));
 		break;
+		case TYPE_WALL:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
+		case TYPE_DOOR:
+			ZeroMemory(&resetTile, sizeof(tagTile));
+		break;
 	}
 
 
@@ -193,6 +198,12 @@ void mapTool::btnTileAllEraser()
 
 	//Enemy
 	vTileInitialize(_vSaveEm);
+
+	//Wall
+	vTileInitialize(_vSaveWl);
+
+	//Door
+	vTileInitialize(_vSaveDr);
 
 }
 //============= 타일정보 지우기 =============
@@ -237,6 +248,16 @@ void mapTool::btnTileAllSet(tagTile& resetTile)
 		case TYPE_ENEMY:
 
 			vTileSet(_vSaveEm, resetTile);
+
+		break;
+		case TYPE_WALL:
+
+			vTileSet(_vSaveWl, resetTile);
+
+		break;
+		case TYPE_DOOR:
+
+			vTileSet(_vSaveDr, resetTile);
 
 		break;
 	}

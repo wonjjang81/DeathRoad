@@ -193,6 +193,43 @@ void mapTool::save()
 	//파일저장
 	WriteFile(hFile, ptSaveTileEm, sizeof(tagTile) * _vSaveEm.size(), &numOfByteWritten, NULL);
 
+	//-------------------------------------- 벽 정보 벡터에서 가져오기 --------------------------------------
+	//벡터 사이즈 저장
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveWl.size());
+	INIDATA->addData("mapData", "vWlSize", tmpVsize);
+	INIDATA->iniSave(tmpFileName);
+
+	//빌딩 사이즈 먼저 가져오기
+	tagTile* ptSaveTileWl = new tagTile[_vSaveWl.size()];
+
+	//파일 저장을 위한 옮겨담기(형변환)
+	for (int i = 0; i < _vSaveWl.size(); ++i)
+	{
+		loadVectorTileData(_vSaveWl[i], ptSaveTileWl[i]);
+	}
+
+	//파일저장
+	WriteFile(hFile, ptSaveTileWl, sizeof(tagTile) * _vSaveWl.size(), &numOfByteWritten, NULL);
+
+	//-------------------------------------- 문 정보 벡터에서 가져오기 --------------------------------------
+	//벡터 사이즈 저장
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveDr.size());
+	INIDATA->addData("mapData", "vDrSize", tmpVsize);
+	INIDATA->iniSave(tmpFileName);
+
+	//빌딩 사이즈 먼저 가져오기
+	tagTile* ptSaveTileDr = new tagTile[_vSaveDr.size()];
+
+	//파일 저장을 위한 옮겨담기(형변환)
+	for (int i = 0; i < _vSaveDr.size(); ++i)
+	{
+		loadVectorTileData(_vSaveDr[i], ptSaveTileDr[i]);
+	}
+
+	//파일저장
+	WriteFile(hFile, ptSaveTileDr, sizeof(tagTile) * _vSaveDr.size(), &numOfByteWritten, NULL);
 
 	//========================================================================================================
 
@@ -324,6 +361,24 @@ void mapTool::load()
 	//파일로드
 	ReadFile(hFile, ptTmpTileEm, sizeof(tagTile) * emSize, &numOfByteWritten, NULL);
 	saveVectorTileData(ptTmpTileEm, _vSaveEm, emSize);
+
+	//------------------------------------------ 벽정보 벡터에 입력 -----------------------------------------
+	//벡터크기 로드
+	const int wlSize = INIDATA->loadDataInterger(tmpFileName, "mapData", "vWlSize");
+	tagTile* ptTmpTileWl = new tagTile[wlSize];
+
+	//파일로드
+	ReadFile(hFile, ptTmpTileWl, sizeof(tagTile) * wlSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileWl, _vSaveWl, wlSize);
+
+	//------------------------------------------ 문정보 벡터에 입력 -----------------------------------------
+	//벡터크기 로드
+	const int drSize = INIDATA->loadDataInterger(tmpFileName, "mapData", "vDrSize");
+	tagTile* ptTmpTileDr = new tagTile[drSize];
+
+	//파일로드
+	ReadFile(hFile, ptTmpTileDr, sizeof(tagTile) * drSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileDr, _vSaveDr, drSize);
 
 	//------------------------------------------- 그리드 정보 입력 ------------------------------------------
 

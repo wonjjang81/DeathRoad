@@ -111,7 +111,7 @@ void character::charBodySet(string imgName, vChar& charVector, BODYTYPE type, fl
 	}
 }
 
-void character::charRender(string charTypeName, int index)
+void character::charRender(string charTypeName, int index, bool flip)
 {
 	iterChar iter = _mChar.find(charTypeName);
 
@@ -132,7 +132,7 @@ void character::charRender(string charTypeName, int index)
 					viter->x + (viter->bodyX / viter->scale),
 					viter->y + (viter->bodyY / viter->scale),
 					viter->frameX, viter->frameY,
-					0, viter->scale);
+					0, viter->scale, flip);
 
 				RECT tmpRc;
 				viter->cRc.left   = viter->x + viter->rc.left;

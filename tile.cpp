@@ -9,28 +9,6 @@ tile::~tile()
 {
 }
 
-HRESULT tile::init()
-{
-
-
-
-	return S_OK;
-}
-
-void tile::release()
-{
-
-}
-
-void tile::update()	
-{
-
-}
-
-void tile::render()	
-{
-
-}
 
 void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale)
 {

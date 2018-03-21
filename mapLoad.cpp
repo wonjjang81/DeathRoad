@@ -103,6 +103,24 @@ void mapLoad::loadMap(string fileName)
 	//파일로드
 	ReadFile(hFile, ptTmpTileEm, sizeof(tagTile) * emSize, &numOfByteWritten, NULL);
 	saveVectorTileData(ptTmpTileEm, _vSaveEm, emSize);
+
+	//------------------------------------------ 벽정보 벡터에 입력 -----------------------------------------
+	//벡터크기 로드
+	const int wlSize = INIDATA->loadDataInterger(tmpFileName.c_str(), "mapData", "vWlSize");
+	tagTile* ptTmpTileWl = new tagTile[wlSize];
+
+	//파일로드
+	ReadFile(hFile, ptTmpTileWl, sizeof(tagTile) * wlSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileWl, _vSaveWl, wlSize);
+
+	//------------------------------------------ 문정보 벡터에 입력 -----------------------------------------
+	//벡터크기 로드
+	const int drSize = INIDATA->loadDataInterger(tmpFileName.c_str(), "mapData", "vDrSize");
+	tagTile* ptTmpTileDr = new tagTile[drSize];
+
+	//파일로드
+	ReadFile(hFile, ptTmpTileDr, sizeof(tagTile) * drSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileDr, _vSaveDr, drSize);
 	//========================================================================================================
 
 
@@ -168,6 +186,18 @@ void mapLoad::revisonRect(ATTRIBUTE att, RECT& rc)
 		break;
 		case ATTR_AFTER_RENDER:
 			ZeroMemory(&rc, sizeof(RECT));
+		break;
+		case ATTR_WALL_CENTER:
+	
+		break;
+		case ATTR_WALL_UNMOVE:
+	
+		break;
+		case ATTR_DOOR:
+
+		break;
+		case ATTR_STARTPOINT:
+	
 		break;
 	}
 }

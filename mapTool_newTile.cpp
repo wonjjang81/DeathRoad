@@ -34,6 +34,8 @@ void mapTool::vTileClear()
 	_vSaveIt.clear();  //酒捞袍
 	_vSaveWp.clear();  //公扁
 	_vSaveEm.clear();  //利
+	_vSaveWl.clear();  //利
+	_vSaveDr.clear();  //利
 }
 
 

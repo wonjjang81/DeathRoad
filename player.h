@@ -46,6 +46,15 @@ struct tagPlayerMove
 	bool keyOn;
 };
 
+struct tagAni
+{
+	int frameX;      //애니 프레임넘버 
+	int initFrameX;  //시작 프레임넘버
+	int frameCount;  //프레임 카운트
+	bool isInit;     //시작 프레임넘버 저장용
+	bool isChange;   //프레임 변경용
+};
+
 
 class player : public gameNode
 {
@@ -69,11 +78,13 @@ private:
 	tagPlayerMove _pMove;
 
 	//player FrameAni
-	int _frameX;
-	int _initFrameX;
-	int _frmaeCount;
-	bool _isInit;
-
+	bool _bodyFlip;   //이미지 반전
+	tagAni _walkAni;
+	tagAni _upHeadAni;
+	tagAni _upBodyUpAni;
+	//tagAni _upHairAni;
+	//tagAni _upGlassAni;
+	//tagAni _upHatsAni;
 
 public:
 	HRESULT init(int playerNum);
@@ -88,7 +99,10 @@ public:
 	void totalBodyAni();
 	void keyControl();
 
-	void walkAni(string pBodyName, int pBodyIndex);
+	void frameAniInit(tagAni& ani);
+	void frameAni(string pBodyName, int pBodyIndex, tagAni& ani, int maxFrame, int countTime);
+	void frameAniB(string pBodyName, int pBodyIndex, tagAni& ani);
+
 
 
 	player();

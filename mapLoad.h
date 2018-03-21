@@ -33,6 +33,12 @@ public:
 	//----------- Enemy ----------
 	vSaveTile  _vSaveEm;
 	viSaveTile _viSaveEm;
+	//----------- Wall -----------
+	vSaveTile  _vSaveWl;
+	viSaveTile _viSaveWl;
+	//----------- Door -----------
+	vSaveTile  _vSaveDr;
+	viSaveTile _viSaveDr;
 
 public:
 	void loadMap(string fileName);

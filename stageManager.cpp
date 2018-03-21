@@ -31,7 +31,6 @@ void stageManager::update()
 	_room1->update(0, 0);
 	_player1->update();
 
-
 }
 
 void stageManager::render()	
@@ -41,7 +40,6 @@ void stageManager::render()
 
 	_room1->render();
 	_player1->render();
-
 
 }
 

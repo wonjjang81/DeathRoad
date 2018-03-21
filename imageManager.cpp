@@ -184,14 +184,14 @@ BOOL imageManager::deleteAll(void)
 }
 
 
-void imageManager::render(string strKey, float opacity)
+void imageManager::render(string strKey, float opacity, bool flip)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->render(opacity);
+	if (img) img->render(opacity, flip);
 }
 
-void imageManager::render(string strKey, int destX, int destY, float opacity, float angle = 0.0f)
+void imageManager::render(string strKey, int destX, int destY, float opacity, float angle)
 {
 	image* img = findImage(strKey);
 
@@ -205,18 +205,18 @@ void imageManager::render(string strKey, int destX, int destY, int sourX, int so
 	if (img) img->render(opacity, destX, destY, sourX, sourY, sourWidth, sourHeight);
 }
 
-void imageManager::frameRender(string strKey, int destX, int destY, float opacity, float angle = 0.0f)
+void imageManager::frameRender(string strKey, int destX, int destY, float opacity, float angle, bool flip, float scale)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->frameRender(opacity, destX, destY, angle);
+	if (img) img->frameRender(opacity, destX, destY, angle, scale, flip);
 }
 
-void imageManager::frameRender(string strKey, int destX, int destY, int currentFrameX, int currentFrameY, float opacity, float angle = 0.0f)
+void imageManager::frameRender(string strKey, int destX, int destY, int currentFrameX, int currentFrameY, float opacity, float angle, bool flip, float scale)
 {
 	image* img = findImage(strKey);
 
-	if (img) img->frameRender(opacity, destX, destY, currentFrameX, currentFrameY, angle);
+	if (img) img->frameRender(opacity, destX, destY, currentFrameX, currentFrameY, angle, scale, flip);
 }
 
 

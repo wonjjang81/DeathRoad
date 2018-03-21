@@ -151,6 +151,12 @@ private:
 	//---------- Building --------
 	vSaveTile  _vSaveBd;
 	viSaveTile _viSaveBd;
+	//------------ Wall ----------
+	vSaveTile  _vSaveWl;
+	viSaveTile _viSaveWl;
+	//------------ Door ----------
+	vSaveTile  _vSaveDr;
+	viSaveTile _viSaveDr;
 	//------------ Road ----------
 	vSaveTile  _vSaveRd;
 	viSaveTile _viSaveRd;

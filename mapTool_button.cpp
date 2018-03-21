@@ -44,18 +44,18 @@ void mapTool::btnSetup()
 
 	//타입변경 버튼
 	_btnTileType = new fButton;
-	_btnTileType->init("맵툴버튼타이틀탭",   L"T", 18, imgReX + (_btnImgReWidth * 1), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnTileType->init("맵툴버튼타이틀탭",   L"A", 18, imgReX + (_btnImgReWidth * 1), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
 
 	_btnT_terrain = new fButton;
-	_btnT_terrain->init("맵툴버튼타이틀탭",  L"WN", 10, imgReX,                        imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_terrain->init("맵툴버튼타이틀탭",  L"WC", 10, imgReX,                        imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_building = new fButton;
-	_btnT_building->init("맵툴버튼타이틀탭", L"WL", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_building->init("맵툴버튼타이틀탭", L"WU", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_item = new fButton;
-	_btnT_item->init("맵툴버튼타이틀탭",     L"WT", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_item->init("맵툴버튼타이틀탭",     L"DR", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_weapon = new fButton;
-	_btnT_weapon->init("맵툴버튼타이틀탭",   L"WR", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_weapon->init("맵툴버튼타이틀탭",   L"SP", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_enemy = new fButton;
-	_btnT_enemy->init("맵툴버튼타이틀탭",    L"WB", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_enemy->init("맵툴버튼타이틀탭",    L"??", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
 	//------------------------------------------------------------------ Edit 버튼 ----------------------------------------------------------------
