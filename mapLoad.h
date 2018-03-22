@@ -4,8 +4,8 @@
 class mapLoad
 {
 private:
-	typedef vector<tagTile>					   vSaveTile;
-	typedef vector<tagTile>::iterator		   viSaveTile;
+	typedef vector<tagTile>			   vSaveTile;
+	typedef vector<tagTile>::iterator  viSaveTile;
 
 private:
 	int _tileX;
@@ -44,6 +44,8 @@ public:
 	void loadMap(string fileName);
 	void saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int tileSize);
 	void revisonRect(ATTRIBUTE att, RECT& rc);
+
+	void rectResize(RECT& rc, float left, float top, float right, float bottom);
 
 
 	mapLoad();

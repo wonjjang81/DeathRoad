@@ -50,9 +50,12 @@ private:
 	fButton* _btnHead;
 	fButton* _btnHeadLeft;
 	fButton* _btnHeadRight;
-	fButton* _btnBody;
-	fButton* _btnBodyLeft;
-	fButton* _btnBodyRight;
+	fButton* _btnUpBody;
+	fButton* _btnUpBodyLeft;
+	fButton* _btnUpBodyRight;
+	fButton* _btnDwBody;
+	fButton* _btnDwBodyLeft;
+	fButton* _btnDwBodyRight;
 	fButton* _btnHair;
 	fButton* _btnHairLeft;
 	fButton* _btnHairRight;
@@ -63,6 +66,7 @@ private:
 	fButton* _btnHatsLeft;
 	fButton* _btnHatsRight;
 
+	fButton* _btnCharType;
 	fButton* _btnSave;
 	//======================
 

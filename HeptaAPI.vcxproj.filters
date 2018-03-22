@@ -329,6 +329,9 @@
     <ClCompile Include="player.cpp">
       <Filter>characterEditor</Filter>
     </ClCompile>
+    <ClCompile Include="stage_collision.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc">

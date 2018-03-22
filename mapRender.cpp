@@ -34,6 +34,60 @@ void mapRender::mapDraw(vSaveTile tileVector, float moveX, float moveY, float sc
 //타일 그리기 [원형]: 벡터
 void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float scale)
 {
+	//이미지가 없으면 삭제
+	for (int i = 0; i < tileVector.size(); ++i)
+	{
+		if (tileVector[i].img == NULL || tileVector[i].imgName == "")
+		{
+			tileVector.erase(tileVector.begin() + i);
+			continue;
+		}
+	}
+
+	//y축값을 비교해서 작은값부터 임시벡터에 담아서 재정렬
+	vSaveTile tmpVecotr;
+	while (tileVector.size() != 0)
+	{
+		for (int i = 0; i < tileVector.size(); ++i)
+		{
+			int index = 0;
+
+			for (int j = i + 1; j < tileVector.size(); ++j)
+			{
+				if (tileVector[i].y <= tileVector[j].y)
+				{
+					index = i;
+				}
+			}
+
+			tmpVecotr.push_back(tileVector[index]);
+			tileVector.erase(tileVector.begin() + index);
+			break;
+		}
+	}
+	tileVector.clear();  //벡터 초기화
+
+
+	//정렬된 데이터 다시 벡터에 담기
+	while (tmpVecotr.size() != 0)
+	{
+		for (int i = 0; i < tmpVecotr.size(); ++i)
+		{
+			if (tmpVecotr[i].img == NULL)
+			{
+				tmpVecotr.erase(tmpVecotr.begin() + i);
+				continue;
+			}
+
+			tileVector.push_back(tmpVecotr[i]);
+			tmpVecotr.erase(tmpVecotr.begin() + i);
+			break;
+		}
+	}
+	tmpVecotr.clear();	//벡터 초기화
+
+
+	//렌더
 	for (int i = 0; i < tileVector.size(); ++i)
 	{
 		//예외처리

@@ -97,12 +97,21 @@ enum ATTRIBUTE
 	ATTR_AFTER_RENDER,
 
 	//충돌 렉트 생성용 
+	ATTR_WALL_NONE,
 	ATTR_WALL_CENTER,
 	ATTR_WALL_UNMOVE,
 	ATTR_DOOR,
 
 	//시작점
 	ATTR_STARTPOINT
+};
+
+//Render 순서
+enum RENDERTURN
+{
+	RENDER_0,
+	RENDER_1,
+	RENDER_2
 };
 
 //포지션

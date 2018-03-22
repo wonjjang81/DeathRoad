@@ -16,7 +16,6 @@ void mapLoad::loadMap(string fileName)
 	//----------------------------------------- 지형정보 벡터에 입력 -----------------------------------------
 	//----------------- 파일저장명 가져오기 -----------------
 
-
 	char str[256];
 	GetCurrentDirectory(256, str);   //현재 디렉토리 경로
 	string tmpFileName;
@@ -25,6 +24,7 @@ void mapLoad::loadMap(string fileName)
 	tmpFileName.append(fileName);    //파일명
 	tmpFileName.append(".map");      //확장자
 	
+
 	HANDLE hFile;
 	hFile = CreateFile(tmpFileName.c_str(), GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile == INVALID_HANDLE_VALUE)
@@ -134,6 +134,7 @@ void mapLoad::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 	tagTile tmpTile;
 	ZeroMemory(&tmpTile, sizeof(tagTile));
 
+
 	for (int i = 0; i < tileSize; ++i)
 	{
 		vSaveTile.push_back(tmpTile);
@@ -188,16 +189,31 @@ void mapLoad::revisonRect(ATTRIBUTE att, RECT& rc)
 			ZeroMemory(&rc, sizeof(RECT));
 		break;
 		case ATTR_WALL_CENTER:
-	
+			rectResize(rc, 5, 0, 5, 0);
 		break;
 		case ATTR_WALL_UNMOVE:
-	
+		
 		break;
 		case ATTR_DOOR:
-
+			rectResize(rc, 5, 0, 5, 0);
 		break;
 		case ATTR_STARTPOINT:
 	
 		break;
+		case ATTR_WALL_NONE:
+			ZeroMemory(&rc, sizeof(RECT));
+		break;
 	}
+}
+
+
+void mapLoad::rectResize(RECT& rc, float left, float top, float right, float bottom)
+{
+	RECT tmpRc;
+	tmpRc.left   = rc.left   + left;
+	tmpRc.top    = rc.top    + top;
+	tmpRc.right  = rc.right  - right;
+	tmpRc.bottom = rc.bottom - bottom;
+
+	rc = tmpRc;
 }

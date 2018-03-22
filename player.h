@@ -87,7 +87,7 @@ private:
 	//tagAni _upHatsAni;
 
 public:
-	HRESULT init(int playerNum);
+	HRESULT init(int playerNum, float speed = 1.0f);
 	void release();
 	void update();
 	void render();
@@ -103,7 +103,9 @@ public:
 	void frameAni(string pBodyName, int pBodyIndex, tagAni& ani, int maxFrame, int countTime);
 	void frameAniB(string pBodyName, int pBodyIndex, tagAni& ani);
 
-
+	//========================= getter & setter =========================
+	RECT getRect(BODYTYPE type);
+	character* getChar() { return _player; }
 
 	player();
 	~player();

@@ -10,7 +10,7 @@ player::~player()
 }
 
 
-HRESULT player::init(int playerNum)
+HRESULT player::init(int playerNum, float speed)
 {
 	_player = new character;
 
@@ -37,7 +37,7 @@ HRESULT player::init(int playerNum)
 	//전체Ani
 	_pMove.x = 0;
 	_pMove.y = 0;
-	_pMove.speed = 0.7f;
+	_pMove.speed = 0.7f * speed;
 	_pMove.count = 1;
 	_pMove.keyOn = false;
 
@@ -70,8 +70,6 @@ void player::update()
 {
 	keyControl();
 	Stateframe(_currentState, _currentDir);
-
-
 
 }
 
@@ -235,6 +233,7 @@ void player::totalBodyAni()
 void player::keyControl()
 {
 	_currentState = STATE_IDLE;
+	_currentDir = DIRECTION_DOWN;
 
 	//좌
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
@@ -342,6 +341,22 @@ void player::frameAniB(string pBodyName, int pBodyIndex, tagAni& ani)
 	//프레임 셋팅
 	_player->setFrameX(pBodyName, pBodyIndex, ani.frameX);
 	
+}
+
+
+RECT player::getRect(BODYTYPE type)
+{
+	switch (type)
+	{
+		//타격충돌
+		case BODY_UPBODY: 
+			return _player->getRect(_playerBody.bodyUp, _playerInfo.upBodyIndex);
+		break;
+		//물체충돌
+		case BODY_DWBODY:
+			return _player->getRect(_playerBody.bodyDw, _playerInfo.dwBodyIndex);
+		break;
+	}
 }
 
 

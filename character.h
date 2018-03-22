@@ -75,6 +75,7 @@ public:
 
 	string bodyNameChange(string imgName, BODYTYPE typeName);
 
+
 	//================================ getter & setter ================================
 	int getMaxIndex(string charTypeName);
 	image* getImg(string charTypeName, int index);
@@ -90,6 +91,8 @@ public:
 	void setFrameY(string charTypeName, int index, int y);
 
 	void setBodyY(string charTypeName, int index, float moveY);
+
+	RECT getRect(string charTypeName, int index);
 
 	character();
 	~character();

@@ -246,6 +246,7 @@ public:
 	void gridVectorDraw(int tileX, int tileY);
 	void tileDraw(float scale);
 	void vTileDraw(vSaveTile tileVector, float scale);
+	void attrDraw(vSaveTile tileVector);
 
 
 	//저장, 불러오기

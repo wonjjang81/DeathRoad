@@ -91,10 +91,25 @@ void character::charBodySet(string imgName, vChar& charVector, BODYTYPE type, fl
 	{
 		for (int j = 0; j < tileX; ++j)
 		{
-			bodyType.rc.left = (8  * scale);
-			bodyType.rc.top  = (10 * scale);
-			bodyType.rc.right  = (15  * scale);
-			bodyType.rc.bottom = (bodyType.img->getFrameHeight() * scale);
+			switch (type)
+			{
+				case BODY_UPBODY:
+					bodyType.rc.left = (8 * scale);
+					bodyType.rc.top = (10 * scale);
+					bodyType.rc.right = (15 * scale);
+					bodyType.rc.bottom = (bodyType.img->getFrameHeight() * scale);
+				break;
+				case BODY_DWBODY:
+					bodyType.rc.left = (8 * scale);
+					bodyType.rc.top = (20 * scale);
+					bodyType.rc.right = (15 * scale);
+					bodyType.rc.bottom = (bodyType.img->getFrameHeight() * scale);
+				break;
+				default:
+					ZeroMemory(&bodyType.rc, sizeof(RECT));
+				break;
+			}
+
 			bodyType.index = (tileX * i) + j;
 			bodyType.x = x;
 			bodyType.y = y;
@@ -119,12 +134,35 @@ void character::charRender(string charTypeName, int index, bool flip)
 	{
 		viChar viter = iter->second.begin();
 
+
+		//vChar tmpChar;
+		//int i = 0;
+		////index정보만 벡터에 남기고 삭제
+		//for (int i = 0; i < iter->second.size(); ++i)
+		//{
+		//	if (iter->second[i].index == index)
+		//	{
+		//		tmpChar.push_back(iter->second[i]);
+		//		iter->second.erase(iter->second.begin() + i);
+		//		continue;
+		//	}
+		//}
+		//iter->second.clear();
+
+		////다시 데이터 벡터에 담기
+		//for (int i = 0; i < tmpChar.size(); ++i)
+		//{
+		//	iter->second.push_back(tmpChar[i]);
+		//}
+
+
 		for (viter; viter != iter->second.end(); ++viter)
 		{
 			//예외처리
 			int maxIndex = (viter->img->getMaxFrameX() * viter->img->getMaxFrameY());
 			if (index > maxIndex) index = maxIndex;  
 			if (index < 0) index = 0;  
+
 
 			if (viter->index == index)
 			{
@@ -141,11 +179,16 @@ void character::charRender(string charTypeName, int index, bool flip)
 				viter->cRc.bottom = viter->y + viter->rc.bottom;
 
 				//RECT 확인용
-				D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 255, 0), 0.2f),
-					viter->cRc.left,
-					viter->cRc.top,
-					viter->cRc.right,
-					viter->cRc.bottom);
+				switch (viter->type)
+				{
+					case BODY_UPBODY: case BODY_DWBODY:
+						D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255), 0.5f),
+							viter->cRc.left,
+							viter->cRc.top,
+							viter->cRc.right,
+							viter->cRc.bottom);
+					break;
+				}
 
 				break;
 			}
@@ -397,4 +440,24 @@ string character::bodyNameChange(string imgName, BODYTYPE typeName)
 	}
 
 	return imgName;
+}
+
+
+RECT character::getRect(string charTypeName, int index)
+{
+	iterChar iter = _mChar.find(charTypeName);
+
+	if (iter->first == charTypeName)
+	{
+		viChar viter = iter->second.begin();
+
+		for (viter; viter != iter->second.end(); ++viter)
+		{
+			if (viter->index == index)
+			{
+				return viter->cRc;
+				break;
+			}
+		}
+	}
 }

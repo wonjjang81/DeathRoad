@@ -293,21 +293,21 @@ void mapTool::menuBuildingTileChange(int num)
 			removeAllChild();
 
 			_tileFurniture1 = new sampleTile;
-			_tileFurniture1->init("맵툴타일가구1", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_CENTER, OVERPO_NO, 1);
+			_tileFurniture1->init("맵툴타일가구1", ATTR_UNMOVE, TYPE_FURNITURE, ANCHOR_CENTER, OVERPO_NO, 1);
 			addChild(_tileFurniture1);
 		break;
 		case 4:
 			removeAllChild();
 	
 			_tileWall = new sampleTile;
-			_tileWall->init("맵툴타일벽", ATTR_UNMOVE, TYPE_WALL, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
+			_tileWall->init("맵툴타일벽", ATTR_WALL_NONE, TYPE_WALL, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
 			addChild(_tileWall);
 		break;
 		case 5:
 			removeAllChild();
 
 			_tileDoor = new sampleTile;
-			_tileDoor->init("맵툴타일문", ATTR_UNMOVE, TYPE_DOOR, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
+			_tileDoor->init("맵툴타일문", ATTR_DOOR, TYPE_DOOR, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
 			addChild(_tileDoor);
 		break;
 		case 6:

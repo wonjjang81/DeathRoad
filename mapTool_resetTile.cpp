@@ -82,6 +82,7 @@ void mapTool::tileReType(tagTile& resetTile)
 	if (_btnT_building->getBtnOn())  selectBtn = ATTR_WALL_UNMOVE;
 	if (_btnT_item->getBtnOn())		 selectBtn = ATTR_DOOR;
 	if (_btnT_weapon->getBtnOn())	 selectBtn = ATTR_STARTPOINT;
+	if (_btnT_enemy->getBtnOn())	 selectBtn = ATTR_WALL_NONE;
 
 
 	//버튼 ACTION
@@ -113,6 +114,13 @@ void mapTool::tileReType(tagTile& resetTile)
 			if (resetTile.tileType != TYPE_TERRAIN) return;
 			//속성변경
 			resetTile.attribute = ATTR_STARTPOINT;
+
+		break;
+		case ATTR_WALL_NONE:
+
+			if (resetTile.tileType != TYPE_WALL && resetTile.tileType != TYPE_DOOR) return;
+			//속성변경
+			resetTile.attribute = ATTR_WALL_NONE;
 
 		break;
 	}
