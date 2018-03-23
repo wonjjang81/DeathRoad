@@ -28,8 +28,9 @@ struct tagTile
 {
 	RECT      rc;
 	image*    img;
-	TILE_TYPE tileType;
-	ATTRIBUTE attribute;
+	TILE_TYPE tileType;       //타입
+	ATTRIBUTE attribute;      //속성
+	TYPE_ATTRIBUTE typeAtt;   //타입별 속성
 	ANCHOR_TYPE anchorType;   //앵커타입
 	OVERLAPPOSITION overPos;  //중복위치 여부
 	TCHAR imgName[64];
@@ -75,7 +76,7 @@ private:
 
 
 public:
-	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale);
+	void tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, TYPE_ATTRIBUTE typeAttr, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale);
 	void tileRender(string tileName, float moveX = 0, float moveY = 0);
 	tagTile tileSelect(string tileName, float moveX = 0, float moveY = 0);
 	void tileDrawFillRc(tagTile selectTile, COLORREF color, float opacity, float moveX = 0, float moveY = 0);

@@ -5,53 +5,53 @@
 void mapTool::tileReAtrribute(tagTile& resetTile)
 {
 
-	//예외처리: 타일 셋팅이 안되어 있으면(이미지X)
-	if (resetTile.tileType == TYPE_NONE) return;
+	////예외처리: 타일 셋팅이 안되어 있으면(이미지X)
+	//if (resetTile.tileType == TYPE_NONE) return;
 
-	enum BUTTONSELECT
-	{
-		BTN_MOVE,
-		BTN_UNMOVE,
-		BTN_ARENDER
-	};
-	BUTTONSELECT selectBtn;
+	//enum BUTTONSELECT
+	//{
+	//	BTN_MOVE,
+	//	BTN_UNMOVE,
+	//	BTN_ARENDER
+	//};
+	//BUTTONSELECT selectBtn;
 
-	//예외처리: 버튼이 두개이상 활성화 되어 있을 경우-> ALL 해제
-	if ((_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn()) ||
-		(_btnA_move->getBtnOn() && _btnA_ARender->getBtnOn()) ||
-		(_btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()) ||
-		(_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()))
-	{
-		_btnAllReset->setBtnOff(true);
-	}
+	////예외처리: 버튼이 두개이상 활성화 되어 있을 경우-> ALL 해제
+	//if ((_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn()) ||
+	//	(_btnA_move->getBtnOn() && _btnA_ARender->getBtnOn()) ||
+	//	(_btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()) ||
+	//	(_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()))
+	//{
+	//	_btnAllReset->setBtnOff(true);
+	//}
 
-	//활성화된 버튼 상태 입력 
-	if (_btnA_move->getBtnOn())    selectBtn = BTN_MOVE;
-	if (_btnA_unMove->getBtnOn())  selectBtn = BTN_UNMOVE;
-	if (_btnA_ARender->getBtnOn()) selectBtn = BTN_ARENDER;
+	////활성화된 버튼 상태 입력 
+	//if (_btnA_move->getBtnOn())    selectBtn = BTN_MOVE;
+	//if (_btnA_unMove->getBtnOn())  selectBtn = BTN_UNMOVE;
+	//if (_btnA_ARender->getBtnOn()) selectBtn = BTN_ARENDER;
 
-	//버튼 ACTION
-	switch (selectBtn)
-	{
-		case BTN_MOVE:
+	////버튼 ACTION
+	//switch (selectBtn)
+	//{
+	//	case BTN_MOVE:
 
-			//속성변경
-			resetTile.attribute = ATTR_MOVE;
+	//		//속성변경
+	//		resetTile.attribute = ATTR_MOVE;
 
-		break;
-		case BTN_UNMOVE:
+	//	break;
+	//	case BTN_UNMOVE:
 
-			//속성변경
-			resetTile.attribute = ATTR_UNMOVE;
+	//		//속성변경
+	//		resetTile.attribute = ATTR_UNMOVE;
 
-		break;
-		case BTN_ARENDER:
+	//	break;
+	//	case BTN_ARENDER:
 
-			//속성변경
-			resetTile.attribute = ATTR_AFTER_RENDER;
+	//		//속성변경
+	//		resetTile.attribute = ATTR_AFTER_RENDER;
 
-		break;
-	}
+	//	break;
+	//}
 }
 
 void mapTool::tileReType(tagTile& resetTile)
@@ -78,49 +78,50 @@ void mapTool::tileReType(tagTile& resetTile)
 
 
 	//활성화된 버튼 상태 입력 
-	if (_btnT_terrain->getBtnOn())   selectBtn = ATTR_WALL_CENTER;
-	if (_btnT_building->getBtnOn())  selectBtn = ATTR_WALL_UNMOVE;
-	if (_btnT_item->getBtnOn())		 selectBtn = ATTR_DOOR;
-	if (_btnT_weapon->getBtnOn())	 selectBtn = ATTR_STARTPOINT;
-	if (_btnT_enemy->getBtnOn())	 selectBtn = ATTR_WALL_NONE;
+	if (_btnT_terrain->getBtnOn())   selectBtn = ATTR_CRECT_NONE;
+	if (_btnT_building->getBtnOn())  selectBtn = ATTR_CRECT_CENTER;
+	if (_btnT_item->getBtnOn())		 selectBtn = ATTR_CRECT_ORIGINAL;
+	if (_btnT_weapon->getBtnOn())	 selectBtn = ATTR_CRECT_RESIZE;
+	//if (_btnT_enemy->getBtnOn())	 selectBtn = ;
 
 
 	//버튼 ACTION
 	switch (selectBtn)
 	{
-		case ATTR_WALL_CENTER:
+		case ATTR_CRECT_NONE:
 
-			if (resetTile.tileType != TYPE_WALL) return;
+			if (resetTile.tileType == TYPE_NONE) return;
+			if (resetTile.tileType == TYPE_ROAD) return;
+			//if (resetTile.tileType == TYPE_TERRAIN) return;
 			//속성변경
-			resetTile.attribute = ATTR_WALL_CENTER;
+			resetTile.attribute = ATTR_CRECT_NONE;
 
 		break;
-		case ATTR_WALL_UNMOVE:
+		case ATTR_CRECT_CENTER:
 
-			if (resetTile.tileType != TYPE_WALL) return;
+			if (resetTile.tileType == TYPE_NONE) return;
+			if (resetTile.tileType == TYPE_ROAD) return;
+			if (resetTile.tileType == TYPE_TERRAIN) return;
 			//속성변경
-			resetTile.attribute = ATTR_WALL_UNMOVE;
+			resetTile.attribute = ATTR_CRECT_CENTER;
 
 		break;
-		case ATTR_DOOR:
+		case ATTR_CRECT_ORIGINAL:
 
-			if (resetTile.tileType != TYPE_DOOR) return;
+			if (resetTile.tileType == TYPE_NONE) return;
+			if (resetTile.tileType == TYPE_ROAD) return;
+			//if (resetTile.tileType == TYPE_TERRAIN) return;
 			//속성변경
-			resetTile.attribute = ATTR_DOOR;
+			resetTile.attribute = ATTR_CRECT_ORIGINAL;
 
 		break;
-		case ATTR_STARTPOINT:
+		case ATTR_CRECT_RESIZE:
 
-			if (resetTile.tileType != TYPE_TERRAIN) return;
+			if (resetTile.tileType == TYPE_NONE) return;
+			if (resetTile.tileType == TYPE_ROAD) return;
+			if (resetTile.tileType == TYPE_TERRAIN) return;
 			//속성변경
-			resetTile.attribute = ATTR_STARTPOINT;
-
-		break;
-		case ATTR_WALL_NONE:
-
-			if (resetTile.tileType != TYPE_WALL && resetTile.tileType != TYPE_DOOR) return;
-			//속성변경
-			resetTile.attribute = ATTR_WALL_NONE;
+			resetTile.attribute = ATTR_CRECT_RESIZE;
 
 		break;
 	}
@@ -281,7 +282,7 @@ void mapTool::vTileInitialize(vSaveTile& saveTile)
 			case TYPE_TERRAIN:
 				saveTile[i].img = NULL;
 				sprintf(saveTile[i].imgName, "");
-				saveTile[i].attribute = ATTR_NONE;
+				saveTile[i].attribute = ATTR_CRECT_NONE;
 				saveTile[i].tileType = TYPE_NONE;
 				saveTile[i].index = -1;
 				saveTile[i].id = -1;

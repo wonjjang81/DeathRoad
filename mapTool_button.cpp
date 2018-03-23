@@ -36,26 +36,26 @@ void mapTool::btnSetup()
 	_btnAttribute->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"A", 18,  imgReX, imgReY, PointMake(1, 6), PointMake(0, 6), _btnScale);
 
 	_btnA_move = new fButton;
-	_btnA_move->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"Mv", 10, imgReX,						  imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnA_move->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"X", 10, imgReX,						  imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 	_btnA_unMove = new fButton;
-	_btnA_unMove->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"Um", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnA_unMove->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"X", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 	_btnA_ARender = new fButton;
-	_btnA_ARender->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"Ar", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnA_ARender->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"X", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 
 	//Å¸ÀÔº¯°æ ¹öÆ°
 	_btnTileType = new fButton;
 	_btnTileType->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   L"A", 18, imgReX + (_btnImgReWidth * 1), imgReY, PointMake(1, 7), PointMake(0, 7), _btnScale);
 
 	_btnT_terrain = new fButton;
-	_btnT_terrain->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"WC", 10, imgReX,                        imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_terrain->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",  L"RN", 10, imgReX,                        imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_building = new fButton;
-	_btnT_building->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"WU", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_building->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ", L"RC", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_item = new fButton;
-	_btnT_item->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",     L"DR", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_item->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",     L"RO", 10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_weapon = new fButton;
-	_btnT_weapon->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   L"SP", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_weapon->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",   L"RR", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_enemy = new fButton;
-	_btnT_enemy->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"WN", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_enemy->init("¸ÊÅø¹öÆ°Å¸ÀÌÆ²ÅÇ",    L"X", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
 	//------------------------------------------------------------------ Edit ¹öÆ° ----------------------------------------------------------------

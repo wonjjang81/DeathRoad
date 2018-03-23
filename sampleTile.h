@@ -8,6 +8,7 @@ struct tagTileSample
 	string imgName;
 	TILE_TYPE type;
 	ATTRIBUTE att;
+	TYPE_ATTRIBUTE typeAtt;
 	ANCHOR_TYPE anchor;
 	OVERLAPPOSITION overPos;
 	float scale;
@@ -39,7 +40,7 @@ public:
 	vTile _selectVTile;    //선택한 타일정보를 담아둘 벡터
 
 public:
-	HRESULT init(string imgName,ATTRIBUTE att, TILE_TYPE type, ANCHOR_TYPE anchorType, OVERLAPPOSITION overPosition, float scale);
+	HRESULT init(string imgName,ATTRIBUTE att, TILE_TYPE type, TYPE_ATTRIBUTE typeAttr, ANCHOR_TYPE anchorType, OVERLAPPOSITION overPosition, float scale);
 	void release();
 	void update();
 	void render();

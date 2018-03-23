@@ -24,7 +24,7 @@ void mapTool::tileDraw(float scale)
 				tile.rc.right  = TILE_SIZEX * (j + 1);
 				tile.rc.bottom = TILE_SIZEY * (i + 1);
 				tile.index     = (_tileX * i) + j;
-				tile.attribute = ATTR_NONE;
+				tile.attribute = ATTR_CRECT_NONE;
 				tile.tileType  = TYPE_NONE;
 
 				_vSaveTr.push_back(tile);

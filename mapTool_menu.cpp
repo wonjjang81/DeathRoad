@@ -239,14 +239,14 @@ void mapTool::menuTerrainTileChange(int num)
 			removeAllChild();
 
 			_tileFloor = new sampleTile;
-			_tileFloor->init("맵툴타일바닥", ATTR_MOVE, TYPE_TERRAIN, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
+			_tileFloor->init("맵툴타일바닥", ATTR_CRECT_NONE, TYPE_TERRAIN, TYPE_A_NONE, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
 			addChild(_tileFloor);
 		break;
 		case 2:
 			removeAllChild();
 
 			_tileStreet = new sampleTile;
-			_tileStreet->init("맵툴타일거리", ATTR_MOVE, TYPE_TERRAIN, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
+			_tileStreet->init("맵툴타일거리", ATTR_CRECT_NONE, TYPE_TERRAIN, TYPE_A_NONE, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
 			addChild(_tileStreet);
 		break;
 		case 3:
@@ -279,49 +279,49 @@ void mapTool::menuBuildingTileChange(int num)
 			removeAllChild();
 
 			_tileBuilding1 = new sampleTile;
-			_tileBuilding1->init("맵툴타일빌딩1", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1);
+			_tileBuilding1->init("맵툴타일빌딩1", ATTR_CRECT_ORIGINAL, TYPE_BUILDING, TYPE_A_NONE, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1);
 			addChild(_tileBuilding1);
 		break;
 		case 2:
 			removeAllChild();
 			
 			_tileBuilding2 = new sampleTile;
-			_tileBuilding2->init("맵툴타일빌딩2", ATTR_UNMOVE, TYPE_BUILDING, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1);
+			_tileBuilding2->init("맵툴타일빌딩2", ATTR_CRECT_ORIGINAL, TYPE_BUILDING, TYPE_A_NONE, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1);
 			addChild(_tileBuilding2);
 		break;
 		case 3:
 			removeAllChild();
 
 			_tileFurniture1 = new sampleTile;
-			_tileFurniture1->init("맵툴타일가구1", ATTR_UNMOVE, TYPE_FURNITURE, ANCHOR_CENTER, OVERPO_NO, 1);
+			_tileFurniture1->init("맵툴타일가구1", ATTR_CRECT_RESIZE, TYPE_FURNITURE, TYPE_A_NONE, ANCHOR_CENTER, OVERPO_NO, 1);
 			addChild(_tileFurniture1);
 		break;
 		case 4:
 			removeAllChild();
 	
 			_tileWall = new sampleTile;
-			_tileWall->init("맵툴타일벽", ATTR_WALL_NONE, TYPE_WALL, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
+			_tileWall->init("맵툴타일벽", ATTR_CRECT_NONE, TYPE_WALL, TYPE_A_NONE, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
 			addChild(_tileWall);
 		break;
 		case 5:
 			removeAllChild();
 
 			_tileDoor = new sampleTile;
-			_tileDoor->init("맵툴타일문", ATTR_DOOR, TYPE_DOOR, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
+			_tileDoor->init("맵툴타일문", ATTR_CRECT_CENTER, TYPE_DOOR, TYPE_A_NONE, ANCHOR_LEFTTOP, OVERPO_YES, 1.5);
 			addChild(_tileDoor);
 		break;
 		case 6:
 			removeAllChild();
 
 			_tileShelves = new sampleTile;
-			_tileShelves->init("맵툴타일책장", ATTR_UNMOVE, TYPE_FURNITURE, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1.5);
+			_tileShelves->init("맵툴타일책장", ATTR_CRECT_ORIGINAL, TYPE_FURNITURE, TYPE_A_NONE, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1.5);
 			addChild(_tileShelves);
 		break;
 		case 7:
 			removeAllChild();
 
 			_tileTree1 = new sampleTile;
-			_tileTree1->init("맵툴타일나무", ATTR_UNMOVE, TYPE_ROAD, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1.5);
+			_tileTree1->init("맵툴타일나무", ATTR_CRECT_ORIGINAL, TYPE_ROAD, TYPE_A_NONE, ANCHOR_BOTTOMCENTER, OVERPO_NO, 1.5);
 			addChild(_tileTree1);
 		break;
 		case 8:
@@ -345,7 +345,7 @@ void mapTool::menuItemTileChange(int num)
 			removeAllChild();
 
 			_tileItem1 = new sampleTile;
-			_tileItem1->init("맵툴타일아이템", ATTR_MOVE, TYPE_ITEM, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
+			_tileItem1->init("맵툴타일아이템", ATTR_CRECT_ORIGINAL, TYPE_ITEM, TYPE_A_NONE, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
 			addChild(_tileItem1);
 		break;
 		case 2:
@@ -382,7 +382,7 @@ void mapTool::menuWeaponTileChange(int num)
 			removeAllChild();
 
 			_tileWeapon1 = new sampleTile;
-			_tileWeapon1->init("맵툴타일무기", ATTR_MOVE, TYPE_WEAPON, ANCHOR_CENTER, OVERPO_NO, 3);
+			_tileWeapon1->init("맵툴타일무기", ATTR_CRECT_RESIZE, TYPE_WEAPON, TYPE_A_NONE, ANCHOR_CENTER, OVERPO_NO, 3);
 			addChild(_tileWeapon1);
 		break;
 		case 2:

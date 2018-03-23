@@ -10,7 +10,7 @@ tile::~tile()
 }
 
 
-void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale)
+void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TILE_TYPE tileType, TYPE_ATTRIBUTE typeAttr, ANCHOR_TYPE anchor, OVERLAPPOSITION overPosition, float scale)
 {
 	vTile tileVector;
 
@@ -27,25 +27,26 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 	{
 		for (int j = 0; j < tileX; ++j)
 		{
-			tile.rc.left   = tile.img->getFrameWidth()  * scale * j;
-			tile.rc.top	   = tile.img->getFrameHeight() * scale * i;
-			tile.rc.right  = tile.img->getFrameWidth()  * scale * (j + 1);
-			tile.rc.bottom = tile.img->getFrameHeight() * scale * (i + 1);
-			tile.index     = (tileX * i) + j;
-			tile.x		   = x;
-			tile.y		   = y;
-			tile.scale	   = scale;
-			tile.frameX    = j;
-			tile.frameY    = i;
-			tile.gapX = tile.img->getFrameWidth() * tile.scale * tile.frameX;
-			tile.gapY = tile.img->getFrameHeight() * tile.scale * tile.frameY;
+			tile.rc.left    = tile.img->getFrameWidth()  * scale * j;
+			tile.rc.top	    = tile.img->getFrameHeight() * scale * i;
+			tile.rc.right   = tile.img->getFrameWidth()  * scale * (j + 1);
+			tile.rc.bottom  = tile.img->getFrameHeight() * scale * (i + 1);
+			tile.index      = (tileX * i) + j;
+			tile.x		    = x;
+			tile.y		    = y;
+			tile.scale	    = scale;
+			tile.frameX     = j;
+			tile.frameY     = i;
+			tile.gapX       = tile.img->getFrameWidth() * tile.scale * tile.frameX;
+			tile.gapY       = tile.img->getFrameHeight() * tile.scale * tile.frameY;
 			tile.attribute  = attribute;
 			tile.tileType   = tileType;
+			tile.typeAtt    = typeAttr;
 			tile.anchorType = anchor;
-			tile.overPos = overPosition;
+			tile.overPos    = overPosition;
 			tile.id		    = tile.index;
-			tile.reWidth   = TILE_SIZEX;
-			tile.reHeight  = TILE_SIZEY;
+			tile.reWidth    = TILE_SIZEX;
+			tile.reHeight   = TILE_SIZEY;
 			setTileAnchor(tile, tile.anchorType);
 
 

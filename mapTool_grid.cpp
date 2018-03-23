@@ -64,7 +64,7 @@ void mapTool::gridRender(float scale)
 		{
 			for (int j = 0; j < _tileX; ++j)
 			{
-				if (_vSaveTr[(_tileX * i) + j].attribute == ATTR_NONE)  continue;  //속성이 없으면...
+				if (_vSaveTr[(_tileX * i) + j].attribute == ATTR_CRECT_NONE)  continue;  //속성이 없으면...
 		
 
 				//위치정보
@@ -88,14 +88,17 @@ void mapTool::gridRender(float scale)
 
 				switch (_vSaveTr[(_tileX * i) + j].attribute)
 				{
-					case ATTR_MOVE:
+					case ATTR_CRECT_NONE:
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 					break;
-					case ATTR_UNMOVE:
+					case ATTR_CRECT_CENTER:
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 					break;
-					case ATTR_AFTER_RENDER:
+					case ATTR_CRECT_ORIGINAL:
 						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+					break;
+					case ATTR_CRECT_RESIZE:
+						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 					break;
 				}
 			}
@@ -105,6 +108,12 @@ void mapTool::gridRender(float scale)
 		attrDraw(_vSaveWl);
 		//속성 그리기: 문
 		attrDraw(_vSaveDr);
+		//속성 그리기: 문
+		attrDraw(_vSaveFt);
+		//속성 그리기: 아이템
+		attrDraw(_vSaveIt);
+		//속성 그리기: 무기
+		attrDraw(_vSaveWp);
 
 
 
@@ -614,14 +623,14 @@ void mapTool::attrDraw(vSaveTile tileVector)
 	//속성 그리기(Ellipse)
 	for (int i = 0; i < tileVector.size(); ++i)
 	{
-		if (tileVector[i].attribute == ATTR_NONE)  continue;  //속성이 없으면...
+		if (tileVector[i].attribute == ATTR_CRECT_NONE)  continue;  //속성이 없으면...
 
 		//위치정보
 		float rcWidth	  = tileVector[i].rc.right - tileVector[i].rc.left;
 		float rcHeight	  = tileVector[i].rc.bottom - tileVector[i].rc.top;
 		float centerX	  = tileVector[i].rc.left + (rcWidth / 2);
 		float centerY	  = tileVector[i].rc.top + (rcHeight / 2);
-		float ellipseSize = 5;
+		float ellipseSize = 3;
 		float startX      = centerX - (ellipseSize / 2);
 		float startY      = centerY - (ellipseSize / 2);
 		float endX        = centerX + (ellipseSize / 2);
@@ -637,20 +646,17 @@ void mapTool::attrDraw(vSaveTile tileVector)
 
 		switch (tileVector[i].attribute)
 		{
-			case ATTR_WALL_CENTER:
+			case ATTR_CRECT_NONE:
 				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 			break;
-			case ATTR_WALL_UNMOVE:
+			case ATTR_CRECT_CENTER:
 				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 			break;
-			case ATTR_DOOR:
+			case ATTR_CRECT_ORIGINAL:
 				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 			break;
-			case ATTR_STARTPOINT:
+			case ATTR_CRECT_RESIZE:
 				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-			break;
-			case ATTR_WALL_NONE:
-				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 			break;
 		}
 	}

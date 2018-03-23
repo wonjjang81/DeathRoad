@@ -176,32 +176,17 @@ void mapLoad::revisonRect(ATTRIBUTE att, RECT& rc)
 {
 	switch (att)
 	{
-		case ATTR_NONE:
+		case ATTR_CRECT_NONE:
 			ZeroMemory(&rc, sizeof(RECT));
 		break;
-		case ATTR_MOVE:
-			ZeroMemory(&rc, sizeof(RECT));
+		case ATTR_CRECT_CENTER:
+			rectResize(rc, 5, 0, 5, 0);
 		break;
-		case ATTR_UNMOVE:
+		case ATTR_CRECT_ORIGINAL:
 
 		break;
-		case ATTR_AFTER_RENDER:
-			ZeroMemory(&rc, sizeof(RECT));
-		break;
-		case ATTR_WALL_CENTER:
-			rectResize(rc, 5, 0, 5, 0);
-		break;
-		case ATTR_WALL_UNMOVE:
-		
-		break;
-		case ATTR_DOOR:
-			rectResize(rc, 5, 0, 5, 0);
-		break;
-		case ATTR_STARTPOINT:
+		case ATTR_CRECT_RESIZE:
 	
-		break;
-		case ATTR_WALL_NONE:
-			ZeroMemory(&rc, sizeof(RECT));
 		break;
 	}
 }
