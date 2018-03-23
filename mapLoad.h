@@ -36,6 +36,9 @@ public:
 	//----------- Wall -----------
 	vSaveTile  _vSaveWl;
 	viSaveTile _viSaveWl;
+
+	vSaveTile  _vSaveArWl;
+	viSaveTile _viSaveArWl;
 	//----------- Door -----------
 	vSaveTile  _vSaveDr;
 	viSaveTile _viSaveDr;
@@ -43,7 +46,7 @@ public:
 public:
 	void loadMap(string fileName);
 	void saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int tileSize);
-	void revisonRect(ATTRIBUTE att, RECT& rc);
+	void revisonRect(TYPE_ATTRIBUTE typeAtt, RECT& rc);
 
 	void rectResize(RECT& rc, float left, float top, float right, float bottom);
 

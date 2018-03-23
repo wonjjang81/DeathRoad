@@ -48,14 +48,14 @@ char* txtData::vectorArrayCombine(vector<string> vArray)
 	//잡을 수 있게 고쳐봅시다 ^_^*
 
 	//버퍼는 우선 128로 한다. 나중에 늘여도 무관
-	char str[128];
+	char str[1024];
 
 	ZeroMemory(str, sizeof(str));
 	//X Axis, Y Axis, CurrentHP, MaxHP
 	//100, 100, 100, 100
 	for (int i = 0; i < vArray.size(); i++)
 	{
-		strncat_s(str, 128, vArray[i].c_str(), 126);
+		strncat_s(str, 1024, vArray[i].c_str(), 1022);
 		//
 		if (i + 1 < vArray.size()) strcat(str, ",");
 	}

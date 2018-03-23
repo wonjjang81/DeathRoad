@@ -89,6 +89,7 @@
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="d2dManager.h" />
     <ClInclude Include="database.h" />
+    <ClInclude Include="dataSave.h" />
     <ClInclude Include="dialogProc.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="iniDataManager.h" />
+    <ClInclude Include="tileDataInfo.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="mapLoad.h" />
@@ -131,6 +133,7 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="d2dManager.cpp" />
     <ClCompile Include="database.cpp" />
+    <ClCompile Include="dataSave.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="fButton.cpp" />

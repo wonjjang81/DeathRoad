@@ -231,6 +231,25 @@ void mapTool::save()
 	//파일저장
 	WriteFile(hFile, ptSaveTileDr, sizeof(tagTile) * _vSaveDr.size(), &numOfByteWritten, NULL);
 
+	//------------------------------------- AR벽 정보 벡터에서 가져오기 -------------------------------------
+	//벡터 사이즈 저장
+	ZeroMemory(&tmpVsize, sizeof(tmpVsize));
+	sprintf(tmpVsize, "%d", _vSaveArWl.size());
+	INIDATA->addData("mapData", "vArWlSize", tmpVsize);
+	INIDATA->iniSave(tmpFileName);
+
+	//빌딩 사이즈 먼저 가져오기
+	tagTile* ptSaveTileArWl = new tagTile[_vSaveArWl.size()];
+
+	//파일 저장을 위한 옮겨담기(형변환)
+	for (int i = 0; i < _vSaveArWl.size(); ++i)
+	{
+		loadVectorTileData(_vSaveArWl[i], ptSaveTileArWl[i]);
+	}
+
+	//파일저장
+	WriteFile(hFile, ptSaveTileArWl, sizeof(tagTile) * _vSaveArWl.size(), &numOfByteWritten, NULL);
+
 	//========================================================================================================
 
 
@@ -379,6 +398,15 @@ void mapTool::load()
 	//파일로드
 	ReadFile(hFile, ptTmpTileDr, sizeof(tagTile) * drSize, &numOfByteWritten, NULL);
 	saveVectorTileData(ptTmpTileDr, _vSaveDr, drSize);
+
+	//----------------------------------------- AR벽정보 벡터에 입력 ----------------------------------------
+	//벡터크기 로드
+	const int arWlSize = INIDATA->loadDataInterger(tmpFileName, "mapData", "vArWlSize");
+	tagTile* ptTmpTileArWl = new tagTile[arWlSize];
+
+	//파일로드
+	ReadFile(hFile, ptTmpTileArWl, sizeof(tagTile) * arWlSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileArWl, _vSaveArWl, arWlSize);
 
 	//------------------------------------------- 그리드 정보 입력 ------------------------------------------
 

@@ -41,7 +41,10 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 			tile.gapY       = tile.img->getFrameHeight() * tile.scale * tile.frameY;
 			tile.attribute  = attribute;
 			tile.tileType   = tileType;
-			tile.typeAtt    = typeAttr;
+
+			tile.typeAtt    = loadTileTypeAttribute(tile.tileType, tile.index);
+			tile.typeAtt2   = loadTileTypeAttribute(tile.tileType, tile.index, 2);
+
 			tile.anchorType = anchor;
 			tile.overPos    = overPosition;
 			tile.id		    = tile.index;
@@ -145,6 +148,8 @@ tagTile tile::tileSelect(string tileName, float moveX, float moveY)
 					tmpTile.gapY = viter->gapY;
 					tmpTile.attribute = viter->attribute;
 					tmpTile.tileType = viter->tileType;
+					tmpTile.typeAtt = viter->typeAtt;
+					tmpTile.typeAtt2 = viter->typeAtt2;
 					tmpTile.anchorType = viter->anchorType;
 					tmpTile.overPos = viter->overPos;
 					tmpTile.id = viter->id;
@@ -217,6 +222,111 @@ void tile::setTileAnchor(tagTile& tile, ANCHOR_TYPE anchor)
 			else tileRatioX == 1 ? tile.centerX = 0 : tile.centerX = -((TILE_SIZEX / 2) * (tileRatioX - 1));	//타일사이즈X 보다 이미지가 크면
 			if (tileRatioY < 1) tile.centerY = (TILE_SIZEY / (tileRatioX * 4 * 2 * 2));							//타일사이즈Y 보다 이미지가 작으면
 			else tileRatioY == 1 ? tile.centerY = 0 : tile.centerY = -((TILE_SIZEY) * (tileRatioY - 1));		//타일사이즈Y 보다 이미지가 크면
+		break;
+	}
+}
+
+
+TYPE_ATTRIBUTE tile::loadTileTypeAttribute(TILE_TYPE tileType, int index, int typeNum)
+{
+	//타일정보 생성
+	_tileData = new dataSave;
+
+	//타일정보 로드
+	int tmp;
+
+	//타입별 데이터 로드
+	switch (tileType)
+	{
+		case TYPE_NONE:
+			tmp = -1;
+		break;
+		case TYPE_TERRAIN:
+			tmp = -1;
+		break;
+		case TYPE_BUILDING:
+			tmp = -1;
+		break;
+		case TYPE_ROAD:
+			tmp = -1;
+		break;
+		case TYPE_FURNITURE:
+			tmp = -1;
+		break;
+		case TYPE_ITEM:
+			tmp = _tileData->txtLoad("itemData", index, INFO_TYPE);
+		break;
+		case TYPE_WEAPON:
+			tmp = -1;
+		break;
+		case TYPE_ENEMY:
+			tmp = -1;
+		break;
+		case TYPE_WALL:
+			if (typeNum == 1) tmp = _tileData->txtLoad("wallData", index, INFO_TYPE);
+			if (typeNum == 2) tmp = _tileData->txtLoad("wallData", index, INFO_TYPE2);
+		break;
+		case TYPE_DOOR:
+			tmp = -1;
+		break;
+	}
+
+	//예외처리
+	if (tmp == -1) tmp = 0;
+
+	//로드된 데이터 열거체로 변경
+	switch (tmp)
+	{
+		case TYPE_A_NONE:
+			return TYPE_A_NONE;
+		break;
+
+
+		//Terrain
+		case TYPE_A_TR_START:
+			return TYPE_A_TR_START;
+		break;
+
+
+		//Item
+		case TYPE_A_IT_DRUG:
+			return TYPE_A_IT_DRUG;
+		break;
+		case TYPE_A_IT_FOOD:
+			return TYPE_A_IT_FOOD;
+		break;
+		case TYPE_A_IT_OIL:
+			return TYPE_A_IT_OIL;
+		break;
+		case TYPE_A_IT_BULLET:
+			return TYPE_A_IT_BULLET;
+		break;
+
+
+		//Wall
+		case TYPE_A_WL_CENTER:
+			return TYPE_A_WL_CENTER;
+		break;
+		case TYPE_A_WL_ORIGINAL:
+			return TYPE_A_WL_ORIGINAL;
+		break;
+		case TYPE_A_WL_ARENDER:
+			return TYPE_A_WL_ARENDER;
+		break;
+
+
+		//Weapon
+		case TYPE_A_WP_GUN:
+			return TYPE_A_WP_GUN;
+		break;
+		case TYPE_A_WP_BOMB:
+			return TYPE_A_WP_BOMB;
+		break;
+		case TYPE_A_WP_SWORD:
+			return TYPE_A_WP_SWORD;
+		break;
+		case TYPE_A_WP_MACHINE:
+			return TYPE_A_WP_MACHINE;
 		break;
 	}
 }

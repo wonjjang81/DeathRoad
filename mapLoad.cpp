@@ -121,6 +121,15 @@ void mapLoad::loadMap(string fileName)
 	//파일로드
 	ReadFile(hFile, ptTmpTileDr, sizeof(tagTile) * drSize, &numOfByteWritten, NULL);
 	saveVectorTileData(ptTmpTileDr, _vSaveDr, drSize);
+
+	//----------------------------------------- AR벽정보 벡터에 입력 ----------------------------------------
+	//벡터크기 로드
+	const int arWlSize = INIDATA->loadDataInterger(tmpFileName.c_str(), "mapData", "vArWlSize");
+	tagTile* ptTmpTileArWl = new tagTile[arWlSize];
+
+	//파일로드
+	ReadFile(hFile, ptTmpTileArWl, sizeof(tagTile) * arWlSize, &numOfByteWritten, NULL);
+	saveVectorTileData(ptTmpTileArWl, _vSaveArWl, arWlSize);
 	//========================================================================================================
 
 
@@ -149,6 +158,7 @@ void mapLoad::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile[i].index = getTile[i].index;
 		vSaveTile[i].attribute = getTile[i].attribute;
 		vSaveTile[i].tileType = getTile[i].tileType;
+		vSaveTile[i].typeAtt = getTile[i].typeAtt;
 		vSaveTile[i].anchorType = getTile[i].anchorType;
 		vSaveTile[i].overPos = getTile[i].overPos;
 		vSaveTile[i].img = IMAGEMANAGER->findImage(getTile[i].imgName);
@@ -159,7 +169,7 @@ void mapLoad::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile[i].y = getTile[i].rc.top;
 
 		vSaveTile[i].rc = getTile[i].rc;
-		revisonRect(vSaveTile[i].attribute, vSaveTile[i].rc);
+		revisonRect(vSaveTile[i].typeAtt, vSaveTile[i].rc);
 
 		vSaveTile[i].scale = getTile[i].scale;
 		vSaveTile[i].gapX = getTile[i].gapX;
@@ -172,20 +182,17 @@ void mapLoad::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 }
 
 
-void mapLoad::revisonRect(ATTRIBUTE att, RECT& rc)
+void mapLoad::revisonRect(TYPE_ATTRIBUTE typeAtt, RECT& rc)
 {
-	switch (att)
+	switch (typeAtt)
 	{
-		case ATTR_CRECT_NONE:
+		case TYPE_A_NONE:
 			ZeroMemory(&rc, sizeof(RECT));
 		break;
-		case ATTR_CRECT_CENTER:
-			rectResize(rc, 5, 0, 5, 0);
+		case TYPE_A_WL_CENTER:
+			rectResize(rc, 4, 0, 4, 0);
 		break;
-		case ATTR_CRECT_ORIGINAL:
-
-		break;
-		case ATTR_CRECT_RESIZE:
+		case TYPE_A_WL_ORIGINAL:
 	
 		break;
 	}

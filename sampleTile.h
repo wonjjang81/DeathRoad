@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "tile.h"
+#include "tileDataInfo.h"
 #include <vector>
 
 struct tagTileSample

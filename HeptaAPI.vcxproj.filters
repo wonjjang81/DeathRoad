@@ -67,6 +67,9 @@
     <Filter Include="Stage">
       <UniqueIdentifier>{429ea9f2-2d80-4183-88c3-f9b489e60bf1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mapTool\data">
+      <UniqueIdentifier>{04141f90-812a-4744-80d0-fb532bf92d0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -197,6 +200,12 @@
     </ClInclude>
     <ClInclude Include="charInfo.h">
       <Filter>2DGameFramework\dataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="dataSave.h">
+      <Filter>mapTool\data</Filter>
+    </ClInclude>
+    <ClInclude Include="tileDataInfo.h">
+      <Filter>mapTool\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="stage_collision.cpp">
       <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="dataSave.cpp">
+      <Filter>mapTool\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

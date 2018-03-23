@@ -345,7 +345,7 @@ void mapTool::menuItemTileChange(int num)
 			removeAllChild();
 
 			_tileItem1 = new sampleTile;
-			_tileItem1->init("맵툴타일아이템", ATTR_CRECT_ORIGINAL, TYPE_ITEM, TYPE_A_NONE, ANCHOR_LEFTTOP, OVERPO_NO, 1.5);
+			_tileItem1->init("맵툴타일아이템", ATTR_CRECT_ORIGINAL, TYPE_ITEM, TYPE_A_NONE, ANCHOR_LEFTTOP, OVERPO_NO, 2);
 			addChild(_tileItem1);
 		break;
 		case 2:

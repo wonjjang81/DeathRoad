@@ -106,14 +106,20 @@ void mapTool::gridRender(float scale)
 
 		//속성 그리기: 벽
 		attrDraw(_vSaveWl);
+		typeAttrDraw(_vSaveWl);
+		typeAttrDraw(_vSaveArWl);
 		//속성 그리기: 문
 		attrDraw(_vSaveDr);
-		//속성 그리기: 문
+		typeAttrDraw(_vSaveDr);
+		//속성 그리기: 가구
 		attrDraw(_vSaveFt);
+		typeAttrDraw(_vSaveFt);
 		//속성 그리기: 아이템
 		attrDraw(_vSaveIt);
+		typeAttrDraw(_vSaveIt);
 		//속성 그리기: 무기
 		attrDraw(_vSaveWp);
+		typeAttrDraw(_vSaveWp);
 
 
 
@@ -471,7 +477,14 @@ void mapTool::selectTile(float scale)
 							}
 							else
 							{
-								saveTileVector(_vSaveWl);  //벽
+								if (_drawTile.typeAtt2 == TYPE_A_WL_ARENDER)
+								{
+									saveTileVector(_vSaveArWl);  //After렌더 벽
+								}
+								else
+								{
+									saveTileVector(_vSaveWl);  //벽
+								}						
 							}
 						break;
 						case TYPE_DOOR:
@@ -529,10 +542,10 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 		}
 
 		//예외처리
-		if (indexSame && tileVector[tmpIndex].id == _tmpSaveTile.id) return;
-		if (_btnEraser->getBtnOn()) return;
+		if (indexSame && tileVector[tmpIndex].id == _drawTile.id) return;  //중복처리
+		if (_btnEraser->getBtnOn())    return;
 		if (_btnOneEraser->getBtnOn()) return;
-		if (_btnTileType->getBtnOn()) return;
+		if (_btnTileType->getBtnOn())  return;
 		if (_btnAttribute->getBtnOn()) return;
 
 		//타일정보 가져오기
@@ -542,6 +555,8 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 		tmpTile.img       = _drawTile.img;
 		sprintf(tmpTile.imgName, "%s", _drawTile.imgName);
 		tmpTile.attribute = _drawTile.attribute;
+		tmpTile.typeAtt	  = _drawTile.typeAtt;
+		tmpTile.typeAtt2  = _drawTile.typeAtt2;
 		tmpTile.tileType  = _drawTile.tileType;
 		tmpTile.frameX    = _drawTile.frameX;
 		tmpTile.frameY    = _drawTile.frameY;
@@ -630,7 +645,7 @@ void mapTool::attrDraw(vSaveTile tileVector)
 		float rcHeight	  = tileVector[i].rc.bottom - tileVector[i].rc.top;
 		float centerX	  = tileVector[i].rc.left + (rcWidth / 2);
 		float centerY	  = tileVector[i].rc.top + (rcHeight / 2);
-		float ellipseSize = 3;
+		float ellipseSize = 7;
 		float startX      = centerX - (ellipseSize / 2);
 		float startY      = centerY - (ellipseSize / 2);
 		float endX        = centerX + (ellipseSize / 2);
@@ -660,4 +675,119 @@ void mapTool::attrDraw(vSaveTile tileVector)
 			break;
 		}
 	}
+}
+
+
+//타입속성 그리기
+void mapTool::typeAttrDraw(vSaveTile tileVector)
+{
+	//속성 그리기(Ellipse)
+	for (int i = 0; i < tileVector.size(); ++i)
+	{
+		if (tileVector[i].typeAtt == TYPE_A_NONE && tileVector[i].typeAtt2 == TYPE_A_NONE)  continue;  //속성이 없으면...
+
+		WCHAR font[32] = L"Press Start 2P";
+		int fontSize = 5;
+
+		//위치정보
+		float ellipseSize = 10;
+		float startX = tileVector[i].rc.left;
+		float startY = tileVector[i].rc.top;
+		float endX   = startX + (fontSize * 2);
+		float endY   = startY + (fontSize * 2);
+
+		float startY2 = tileVector[i].rc.top + fontSize;
+		float endY2 = startY2 + (fontSize * 2);
+
+
+
+		//예외처리: 화면밖 렌더X
+		//if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
+		//if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
+		//if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
+		//if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+
+
+		switch (tileVector[i].typeAtt)
+		{
+			//Start Point
+			case TYPE_A_TR_START:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RED), font, fontSize, L"SP",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+
+
+			//Item
+			case TYPE_A_IT_DRUG:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"D",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_IT_FOOD:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"F",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_IT_OIL:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"O",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_IT_BULLET:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"B",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+
+
+			//Wall
+			case TYPE_A_WL_CENTER:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(CYAN), font, fontSize, L"C",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_WL_ORIGINAL:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(CYAN), font, fontSize, L"O",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_WL_ARENDER:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(CYAN), font, fontSize, L"AR",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+
+
+			//Weapon
+			case TYPE_A_WP_GUN:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(MAGENTA), font, fontSize, L"G",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_WP_BOMB:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(MAGENTA), font, fontSize, L"BB",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_WP_SWORD:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(MAGENTA), font, fontSize, L"SW",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_WP_MACHINE:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(MAGENTA), font, fontSize, L"M",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+		}
+
+		switch (tileVector[i].typeAtt2)
+		{
+			//Wall
+			case TYPE_A_WL_CENTER:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(CYAN), font, fontSize, L"C",
+					startX + _moveX, startY2 + _moveY, endX + _moveX, endY2 + _moveY);
+			break;
+			case TYPE_A_WL_ORIGINAL:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(CYAN), font, fontSize, L"O",
+					startX + _moveX, startY2 + _moveY, endX + _moveX, endY2 + _moveY);
+			break;
+			case TYPE_A_WL_ARENDER:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(CYAN), font, fontSize, L"AR",
+					startX + _moveX, startY2 + _moveY, endX + _moveX, endY2 + _moveY);
+			break;
+		}
+	}
+
+
+
 }

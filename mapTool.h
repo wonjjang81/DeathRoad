@@ -11,6 +11,9 @@
 #include "tileBuildingA.h"
 #include "tileBuildingF.h"
 
+#include "dataSave.h"
+#include "tileDataInfo.h"
+
 #include <vector>
 #include <commdlg.h>
 
@@ -154,6 +157,9 @@ private:
 	//------------ Wall ----------
 	vSaveTile  _vSaveWl;
 	viSaveTile _viSaveWl;
+
+	vSaveTile  _vSaveArWl;
+	viSaveTile _viSaveArWl;
 	//------------ Door ----------
 	vSaveTile  _vSaveDr;
 	viSaveTile _viSaveDr;
@@ -175,12 +181,15 @@ private:
 	//============================
 
 
-
 	//========= NewTile ==========
 	//타일 사이즈 입력
 	HWND _hDlgNewTile;
 	fButton* _btnNewTile;
 	//============================
+
+
+	//DataInfo
+	dataSave* _tileData;
 
 
 public:
@@ -247,6 +256,7 @@ public:
 	void tileDraw(float scale);
 	void vTileDraw(vSaveTile tileVector, float scale);
 	void attrDraw(vSaveTile tileVector);
+	void typeAttrDraw(vSaveTile tileVector);
 
 
 	//저장, 불러오기

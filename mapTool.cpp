@@ -14,6 +14,10 @@ HRESULT mapTool::init()
 {
 	gameNode::init();
 
+	//타일정보 생성
+	_tileData = new dataSave;
+	_tileData->dataSet();
+
 	//에디트창
 	_editWindow = IMAGEMANAGER->findImage("맵툴창");
 

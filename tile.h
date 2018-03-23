@@ -2,6 +2,9 @@
 #include "gameNode.h"
 #include "tileInfo.h"
 
+#include "dataSave.h"
+#include "tileDataInfo.h"
+
 #include <vector>
 #include <map>
 
@@ -31,6 +34,7 @@ struct tagTile
 	TILE_TYPE tileType;       //타입
 	ATTRIBUTE attribute;      //속성
 	TYPE_ATTRIBUTE typeAtt;   //타입별 속성
+	TYPE_ATTRIBUTE typeAtt2;  //타입별 속성
 	ANCHOR_TYPE anchorType;   //앵커타입
 	OVERLAPPOSITION overPos;  //중복위치 여부
 	TCHAR imgName[64];
@@ -73,6 +77,8 @@ private:
 private:
 	mTile _mTile;
 
+	//DataInfo
+	dataSave* _tileData;
 
 
 public:
@@ -84,6 +90,8 @@ public:
 	void setTileType(tagTile selectTile, TILE_TYPE tileType);
 
 	void setTileAnchor(tagTile& tile, ANCHOR_TYPE anchor);  //앵커타입별 이미지 Render 기준점 설정
+
+	TYPE_ATTRIBUTE loadTileTypeAttribute(TILE_TYPE tileType, int index, int typeNum = 1);
 
 	tile();
 	~tile();

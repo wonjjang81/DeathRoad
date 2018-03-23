@@ -16,6 +16,16 @@
 #define SAMPLETILEX 15
 #define SAMPLETILEY 15
 
+//RGB
+#define WHITE	 RGB(255,255,255)
+#define BLACK	 RGB(0  ,0  ,0)
+#define BLUE	 RGB(255,0  ,0)
+#define GREEN	 RGB(0  ,255,0)
+#define RED		 RGB(0  ,0  ,255)
+#define CYAN	 RGB(255,255,0)
+#define MAGENTA  RGB(255,0  ,255)
+#define YELLOW   RGB(0  ,255,255)
+
 enum TILE_TYPE
 {
 	TYPE_NONE,
@@ -46,24 +56,6 @@ enum OVERLAPPOSITION
 	OVERPO_YES
 };
 
-//아이템
-enum TYPE_ATTRIBUTE
-{
-	TYPE_A_NONE,
 
-	TYPE_A_TR_START,		//시작점
 
-	TYPE_A_IT_HEAL,			//약품류
-	TYPE_A_IT_FOOD,			//음식류
-	TYPE_A_IT_OIL,			//기름류
-	TYPE_A_IT_BULLET,		//총알류
-
-	TYPE_A_WP_GUN,			//총류
-	TYPE_A_WP_BOMB,			//폭탄류
-	TYPE_A_WP_SWORD,		//칼류
-	TYPE_A_WP_ROD,			//창류 (휘두를수 있는것)
-	TYPE_A_WP_AXE,			//도끼류
-	TYPE_A_WP_BOW,			//활류
-	TYPE_A_WP_MACHINE 		//기계류 (기름소비)
-};
 

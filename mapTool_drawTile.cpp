@@ -37,11 +37,15 @@ void mapTool::tileDraw(float scale)
 	//Terrain
 	vTileDraw(_vSaveTr, scale);
 
-	//Building
-	vTileDraw(_vSaveBd, scale);
-
 	//Road
 	vTileDraw(_vSaveRd, scale);
+
+
+	//Wall
+	vTileDraw(_vSaveWl, scale);
+
+	//Building
+	vTileDraw(_vSaveBd, scale);
 
 	//Furniture
 	vTileDraw(_vSaveFt, scale);
@@ -55,11 +59,11 @@ void mapTool::tileDraw(float scale)
 	//Enemy
 	vTileDraw(_vSaveEm, scale);
 
-	//Wall
-	vTileDraw(_vSaveWl, scale);
-
 	//Door
 	vTileDraw(_vSaveDr, scale);
+
+	//AfterRender Wall
+	vTileDraw(_vSaveArWl, scale);
 	//=========================== 타일 그리기 End ===========================
 
 
