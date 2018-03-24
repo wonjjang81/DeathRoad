@@ -304,6 +304,8 @@ void mapTool::selectTile(float scale)
 							case TYPE_TERRAIN:
 								_vSaveTr[i].tileType = _drawTile.tileType;
 								_vSaveTr[i].attribute = _drawTile.attribute;
+								_vSaveTr[i].typeAtt = _drawTile.typeAtt;
+								_vSaveTr[i].typeAtt2 = _drawTile.typeAtt2;
 
 								_vSaveTr[i].index = _drawTile.index;
 								_vSaveTr[i].img = _drawTile.img;
@@ -713,6 +715,13 @@ void mapTool::typeAttrDraw(vSaveTile tileVector)
 			//Start Point
 			case TYPE_A_TR_START:
 				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RED), font, fontSize, L"SP",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+
+
+			//Furniture
+			case TYPE_A_FT_ITEM:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(GREEN), font, fontSize, L"FI",
 					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
 			break;
 

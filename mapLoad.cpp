@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "mapLoad.h"
+#include "tileDataInfo.h"
 
 
 mapLoad::mapLoad()
@@ -159,6 +160,7 @@ void mapLoad::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile[i].attribute = getTile[i].attribute;
 		vSaveTile[i].tileType = getTile[i].tileType;
 		vSaveTile[i].typeAtt = getTile[i].typeAtt;
+		vSaveTile[i].typeAtt2 = getTile[i].typeAtt2;
 		vSaveTile[i].anchorType = getTile[i].anchorType;
 		vSaveTile[i].overPos = getTile[i].overPos;
 		vSaveTile[i].img = IMAGEMANAGER->findImage(getTile[i].imgName);

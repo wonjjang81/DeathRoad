@@ -44,6 +44,7 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 
 			tile.typeAtt    = loadTileTypeAttribute(tile.tileType, tile.index);
 			tile.typeAtt2   = loadTileTypeAttribute(tile.tileType, tile.index, 2);
+			if (tile.tileType == TYPE_WALL && tile.typeAtt == TYPE_A_NONE) tile.typeAtt = TYPE_A_WL_ORIGINAL;
 
 			tile.anchorType = anchor;
 			tile.overPos    = overPosition;
@@ -251,7 +252,7 @@ TYPE_ATTRIBUTE tile::loadTileTypeAttribute(TILE_TYPE tileType, int index, int ty
 			tmp = -1;
 		break;
 		case TYPE_FURNITURE:
-			tmp = -1;
+			tmp = _tileData->txtLoad("FurnitureData", index, INFO_TYPE);
 		break;
 		case TYPE_ITEM:
 			tmp = _tileData->txtLoad("itemData", index, INFO_TYPE);
@@ -285,6 +286,12 @@ TYPE_ATTRIBUTE tile::loadTileTypeAttribute(TILE_TYPE tileType, int index, int ty
 		//Terrain
 		case TYPE_A_TR_START:
 			return TYPE_A_TR_START;
+		break;
+
+
+		//Furniture
+		case TYPE_A_FT_ITEM:
+			return TYPE_A_FT_ITEM;
 		break;
 
 

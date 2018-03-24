@@ -22,8 +22,68 @@ void dataSave::dataSet()
 {
 	itemSet();
 	wallSet();
-
+	furnitureSet();
 }
+
+
+//Furniture Info
+void dataSave::furnitureSet()
+{
+	tagDataInfo tmpInfo;
+	vItemInfo vItemInfo;
+
+	int tileX = 8;
+	int tileY = 30;
+
+	for (int i = 0; i < tileY; ++i)
+	{
+		for (int j = 0; j < tileX; ++j)
+		{
+			if (i < tileY)
+			{
+				ZeroMemory(&tmpInfo, sizeof(tagDataInfo));
+
+				if (i == 1 && j == 4)  continue;
+				if (i == 2)			   continue;
+				if (i == 3 && j == 4)  continue;
+				if (i == 4 && j == 4)  continue;
+				if (i == 6 && j == 4)  continue;
+				if (i == 7)			   continue;
+				if (i == 8 && j == 4)  continue;
+				if (i == 9 && j == 4)  continue;
+				if (i == 11 && j == 4) continue;
+				if (i == 12)		   continue;
+				if (i == 13 && j == 4) continue;
+				if (i == 14 && j == 4) continue;
+				if (i == 16 && j == 4) continue;
+				if (i == 17)		   continue;
+				if (i == 18 && j == 4) continue;
+				if (i == 19 && j == 4) continue;
+				if (i == 21 && j == 4) continue;
+				if (i == 22)		   continue;
+				if (i == 23 && j == 4) continue;
+				if (i == 24 && j == 4) continue;
+				if (i == 26 && j == 4) continue;
+				if (i == 27)		   continue;
+				if (i == 28 && j == 4) continue;
+				if (i == 29 && j == 4) continue;
+
+
+				if (j == 0 || j == 2 || j == 4)
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_FT_ITEM;
+
+					vItemInfo.push_back(tmpInfo);
+				}
+			}
+		}
+	}
+
+	//Data Save
+	str2IntSave(vItemInfo, "FurnitureData");
+}
+
 
 
 //Item Info
@@ -84,6 +144,7 @@ void dataSave::itemSet()
 	str2IntSave(vItemInfo, "itemData");
 }
 
+
 //Wall Info
 void dataSave::wallSet()
 {
@@ -103,7 +164,7 @@ void dataSave::wallSet()
 
 				if (j == 1 || j == 5)
 				{
-					tmpInfo.index = (i * tileY) + j;
+					tmpInfo.index = (i * tileX) + j;
 					tmpInfo.type  = TYPE_A_WL_CENTER;
 					tmpInfo.type2 = TYPE_A_WL_ARENDER;
 
@@ -111,8 +172,8 @@ void dataSave::wallSet()
 				}
 				else  
 				{
-					tmpInfo.index = (i * tileY) + j;
-					tmpInfo.type  = TYPE_A_NONE;
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type  = TYPE_A_WL_EMPTY;
 					tmpInfo.type2 = TYPE_A_WL_ARENDER;
 
 					vItemInfo.push_back(tmpInfo);
@@ -124,7 +185,7 @@ void dataSave::wallSet()
 
 				if (j == 0)
 				{
-					tmpInfo.index = (i * tileY) + j;
+					tmpInfo.index = (i * tileX) + j;
 					tmpInfo.type = TYPE_A_WL_CENTER;
 					tmpInfo.type2 = TYPE_A_WL_ARENDER;
 
@@ -132,9 +193,16 @@ void dataSave::wallSet()
 				}
 				else if (j < 10)
 				{
-					tmpInfo.index = (i * tileY) + j;
+					tmpInfo.index = (i * tileX) + j;
 					tmpInfo.type  = TYPE_A_WL_ORIGINAL;
 					tmpInfo.type2 = TYPE_A_WL_ARENDER;
+
+					vItemInfo.push_back(tmpInfo);
+				}
+				else
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_WL_EMPTY;
 
 					vItemInfo.push_back(tmpInfo);
 				}
@@ -145,9 +213,16 @@ void dataSave::wallSet()
 
 				if (j == 5 || j == 7 || j == 9 || j == 10 || j == 14)
 				{
-					tmpInfo.index = (i * tileY) + j;
+					tmpInfo.index = (i * tileX) + j;
 					tmpInfo.type  = TYPE_A_NONE;
 					tmpInfo.type2 = TYPE_A_WL_ARENDER;
+
+					vItemInfo.push_back(tmpInfo);
+				}
+				else
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_WL_EMPTY;
 
 					vItemInfo.push_back(tmpInfo);
 				}
@@ -156,15 +231,8 @@ void dataSave::wallSet()
 			{
 				if (j == 0 || j == 8)
 				{
-					tmpInfo.index = (i * tileY) + j;
+					tmpInfo.index = (i * tileX) + j;
 					tmpInfo.type  = TYPE_A_WL_CENTER;
-
-					vItemInfo.push_back(tmpInfo);
-				}
-				else
-				{
-					tmpInfo.index = (i * tileY) + j;
-					tmpInfo.type = TYPE_A_WL_ORIGINAL;
 
 					vItemInfo.push_back(tmpInfo);
 				}
@@ -184,7 +252,7 @@ void dataSave::txtSave(string saveFileName, vector<string> vStr)
 
 	int strSize = vStr.size() * 2 + 2;
 	char buff[32];
-	INIDATA->addData("Wall", "vSize", itoa(strSize, buff, 10));
+	INIDATA->addData(saveFileName.c_str(), "vSize", itoa(strSize, buff, 10));
 	INIDATA->iniSave("TileData");
 
 	char* str = new char[strSize];
@@ -228,7 +296,7 @@ int dataSave::txtLoad(string loadFileName, int index, int data)
 {
 	HANDLE file;
 	
-	int vSize = INIDATA->loadDataInterger("TileData", "Wall", "vSize");
+	int vSize = INIDATA->loadDataInterger("TileData", loadFileName.c_str(), "vSize");
 	char* str = new char[vSize];
 	DWORD read;
 
@@ -274,6 +342,8 @@ int dataSave::txtLoad(string loadFileName, int index, int data)
 		}
 	}
 	//--------------------------------------------------------
+
+	//데이터 로드후 임시벡터에 담기 -> 따로 분리 (임시벡터 -> 메모리상 저장해서 쓰기) || 멀티스레드
 
 	//--------------------- 데이터 반환 ----------------------
 	for (int i = 0; i < tmpVItemInfo.size(); ++i)

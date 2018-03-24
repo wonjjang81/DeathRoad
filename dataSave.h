@@ -20,6 +20,7 @@ public:
 	HRESULT init();
 
 	void dataSet();
+	void furnitureSet();
 	void itemSet();
 	void wallSet();
 

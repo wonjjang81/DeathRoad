@@ -41,12 +41,13 @@ void stage::render()
 	_mapRenderer->mapDraw(_newMap->_vSaveTr, _moveX, _moveY, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveRd, _moveX, _moveY, _mapScale);
 
+	_mapRenderer->mapDraw(_newMap->_vSaveWl, _moveX, _moveY, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveBd, _moveX, _moveY, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveFt, _moveX, _moveY, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveIt, _moveX, _moveY, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveWp, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveWl, _moveX, _moveY, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveDr, _moveX, _moveY, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveArWl, _moveX, _moveY, _mapScale);
 }
 
 
