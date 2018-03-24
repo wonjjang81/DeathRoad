@@ -59,66 +59,68 @@ void mapTool::gridRender(float scale)
 		//	}
 		//}
 
-		//속성 그리기(Ellipse)
-		for (int i = 0; i < _tileY; ++i)
-		{
-			for (int j = 0; j < _tileX; ++j)
-			{
-				if (_vSaveTr[(_tileX * i) + j].attribute == ATTR_CRECT_NONE)  continue;  //속성이 없으면...
-		
+		////속성 그리기(Ellipse)
+		//for (int i = 0; i < _tileY; ++i)
+		//{
+		//	for (int j = 0; j < _tileX; ++j)
+		//	{
+		//		if (_vSaveTr[(_tileX * i) + j].attribute == ATTR_CRECT_NONE)  continue;  //속성이 없으면...
+		//
 
-				//위치정보
-				float rcWidth = _vTile[(_tileX * i) + j].rc.right - _vTile[(_tileX * i) + j].rc.left;
-				float rcHeight = _vTile[(_tileX * i) + j].rc.bottom - _vTile[(_tileX * i) + j].rc.top;
-				float centerX = _vTile[(_tileX * i) + j].rc.left + (rcWidth / 2);
-				float centerY = _vTile[(_tileX * i) + j].rc.top + (rcHeight / 2);
-				float ellipseSize = 3;
-				float startX = centerX - (ellipseSize / 2);
-				float startY = centerY - (ellipseSize / 2);
-				float endX = centerX + (ellipseSize / 2);
-				float endY = centerY + (ellipseSize / 2);
+		//		//위치정보
+		//		float rcWidth = _vTile[(_tileX * i) + j].rc.right - _vTile[(_tileX * i) + j].rc.left;
+		//		float rcHeight = _vTile[(_tileX * i) + j].rc.bottom - _vTile[(_tileX * i) + j].rc.top;
+		//		float centerX = _vTile[(_tileX * i) + j].rc.left + (rcWidth / 2);
+		//		float centerY = _vTile[(_tileX * i) + j].rc.top + (rcHeight / 2);
+		//		float ellipseSize = 3;
+		//		float startX = centerX - (ellipseSize / 2);
+		//		float startY = centerY - (ellipseSize / 2);
+		//		float endX = centerX + (ellipseSize / 2);
+		//		float endY = centerY + (ellipseSize / 2);
 
 
-				//예외처리: 화면밖 렌더X
-				if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
-				if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
-				if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
-				if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+		//		//예외처리: 화면밖 렌더X
+		//		if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
+		//		if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
+		//		if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
+		//		if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
 	
 
-				switch (_vSaveTr[(_tileX * i) + j].attribute)
-				{
-					case ATTR_CRECT_NONE:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case ATTR_CRECT_CENTER:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case ATTR_CRECT_ORIGINAL:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-					case ATTR_CRECT_RESIZE:
-						D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-					break;
-				}
-			}
-		}
+		//		switch (_vSaveTr[(_tileX * i) + j].attribute)
+		//		{
+		//			case ATTR_CRECT_NONE:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case ATTR_CRECT_CENTER:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case ATTR_CRECT_ORIGINAL:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//			case ATTR_CRECT_RESIZE:
+		//				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+		//			break;
+		//		}
+		//	}
+		//}
 
+		//속성 그리기: 바닥
+		typeAttrDraw(_vSaveTr);
 		//속성 그리기: 벽
-		attrDraw(_vSaveWl);
+		//attrDraw(_vSaveWl);
 		typeAttrDraw(_vSaveWl);
 		typeAttrDraw(_vSaveArWl);
 		//속성 그리기: 문
-		attrDraw(_vSaveDr);
+		//attrDraw(_vSaveDr);
 		typeAttrDraw(_vSaveDr);
 		//속성 그리기: 가구
-		attrDraw(_vSaveFt);
+		//attrDraw(_vSaveFt);
 		typeAttrDraw(_vSaveFt);
 		//속성 그리기: 아이템
-		attrDraw(_vSaveIt);
+		//attrDraw(_vSaveIt);
 		typeAttrDraw(_vSaveIt);
 		//속성 그리기: 무기
-		attrDraw(_vSaveWp);
+		//attrDraw(_vSaveWp);
 		typeAttrDraw(_vSaveWp);
 
 
@@ -313,6 +315,9 @@ void mapTool::selectTile(float scale)
 								_vSaveTr[i].frameX = _drawTile.frameX;
 								_vSaveTr[i].frameY = _drawTile.frameY;
 								_vSaveTr[i].id = _drawTile.id;
+
+								_vSaveTr[i].centerX = _drawTile.centerX;
+								_vSaveTr[i].centerY = _drawTile.centerY;
 							break;
 							case TYPE_BUILDING: case TYPE_ROAD: case TYPE_FURNITURE: case TYPE_ITEM:
 							case TYPE_WEAPON: case TYPE_ENEMY: case TYPE_WALL: case TYPE_DOOR:
@@ -475,6 +480,7 @@ void mapTool::selectTile(float scale)
 							if (_btnOneEraser->getBtnOn() && (_tmpSelectIndex >= 0))
 							{
 								setTile1Eraser(_vSaveWl, _tmpSelectIndex);
+								setTile1Eraser(_vSaveArWl, _tmpSelectIndex);
 								_tmpSelectIndex = -1;
 							}
 							else

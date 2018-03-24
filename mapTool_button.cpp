@@ -36,7 +36,7 @@ void mapTool::btnSetup()
 	_btnAttribute->init("맵툴버튼타이틀탭", L"A", 18,  imgReX, imgReY, PointMake(1, 6), PointMake(0, 6), _btnScale);
 
 	_btnA_move = new fButton;
-	_btnA_move->init("맵툴버튼타이틀탭",    L"X", 10, imgReX,						  imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnA_move->init("맵툴버튼타이틀탭",    L"SP", 10, imgReX,						 imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 	_btnA_unMove = new fButton;
 	_btnA_unMove->init("맵툴버튼타이틀탭",  L"X", 10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 	_btnA_ARender = new fButton;

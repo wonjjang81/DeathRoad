@@ -21,6 +21,8 @@ HRESULT stage::init(string mapFileName, float scale)
 	_moveX = 0;
 	_moveY = 0;
 
+	_startPoint = _newMap->getStartPoint();
+
 	return S_OK;
 }
 
@@ -85,6 +87,9 @@ RECT stage::getRect(RECTTYPE type, int i)
 		case RECT_WALL:
 			return _newMap->_vSaveWl[i].rc;
 		break;
+		case RECT_WALL2:
+			return _newMap->_vSaveArWl[i].rc;
+		break;
 		case RECT_DOOR:
 			return _newMap->_vSaveDr[i].rc;
 		break;
@@ -107,6 +112,9 @@ int stage::getVectorSize(RECTTYPE type)
 		break;
 		case RECT_WALL:
 			return _newMap->_vSaveWl.size();
+		break;
+		case RECT_WALL2:
+			return _newMap->_vSaveArWl.size();
 		break;
 		case RECT_DOOR:
 			return _newMap->_vSaveDr.size();

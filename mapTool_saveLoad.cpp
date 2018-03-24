@@ -424,6 +424,8 @@ void mapTool::loadVectorTileData(tagTile setTile, tagTile& getTile)
 	getTile.id         = setTile.id;
 	getTile.index      = setTile.index;
 	getTile.attribute  = setTile.attribute;
+	getTile.typeAtt    = setTile.typeAtt;
+	getTile.typeAtt2   = setTile.typeAtt2;
 	getTile.tileType   = setTile.tileType;
 	getTile.anchorType = setTile.anchorType;
 	getTile.overPos    = setTile.overPos;
@@ -463,6 +465,8 @@ void mapTool::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile[i].index      = getTile[i].index;
 		vSaveTile[i].attribute  = getTile[i].attribute;
 		vSaveTile[i].tileType   = getTile[i].tileType;
+		vSaveTile[i].typeAtt	= getTile[i].typeAtt;
+		vSaveTile[i].typeAtt2	= getTile[i].typeAtt2;
 		vSaveTile[i].anchorType = getTile[i].anchorType;
 		vSaveTile[i].overPos    = getTile[i].overPos;
 		vSaveTile[i].img	    = IMAGEMANAGER->findImage(getTile[i].imgName);

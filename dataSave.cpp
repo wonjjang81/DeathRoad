@@ -23,6 +23,7 @@ void dataSave::dataSet()
 	itemSet();
 	wallSet();
 	furnitureSet();
+	weaponSet();
 }
 
 
@@ -162,7 +163,7 @@ void dataSave::wallSet()
 			{
 				ZeroMemory(&tmpInfo, sizeof(tagDataInfo));
 
-				if (j == 1 || j == 5)
+				if (j == 1 || j == 3 || j == 5 || j == 9)
 				{
 					tmpInfo.index = (i * tileX) + j;
 					tmpInfo.type  = TYPE_A_WL_CENTER;
@@ -236,6 +237,13 @@ void dataSave::wallSet()
 
 					vItemInfo.push_back(tmpInfo);
 				}
+				else if (j == 1 || j == 2 || j == 9 || j == 10)
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_WL_EMPTY;
+
+					vItemInfo.push_back(tmpInfo);
+				}
 			}
 		}
 
@@ -244,6 +252,62 @@ void dataSave::wallSet()
 	//Data Save
 	str2IntSave(vItemInfo, "wallData");
 }
+
+
+//Weapon Info
+void dataSave::weaponSet()
+{
+	tagDataInfo tmpInfo;
+	vItemInfo vItemInfo;
+
+	int tileX = 17;
+	int tileY = 14;
+
+	for (int i = 0; i < tileY; ++i)
+	{
+		for (int j = 0; j < tileX; ++j)
+		{
+			if (i == 0)  //0번째 열
+			{
+				ZeroMemory(&tmpInfo, sizeof(tagDataInfo));
+
+				if (j == 0 || j == 15 || j == 16)
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_WP_BOMB;
+
+					vItemInfo.push_back(tmpInfo);
+				}
+				else
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_WP_GUN;
+
+					vItemInfo.push_back(tmpInfo);
+				}
+			}
+			else if (i == 11)  //11번째 열
+			{
+				ZeroMemory(&tmpInfo, sizeof(tagDataInfo));
+
+				tmpInfo.index = (i * tileX) + j;
+				tmpInfo.type = TYPE_A_WP_GUN;
+
+				vItemInfo.push_back(tmpInfo);
+			}
+
+		}
+
+	}
+
+	//Data Save
+	str2IntSave(vItemInfo, "weaponData");
+}
+
+
+
+
+
 
 //Save
 void dataSave::txtSave(string saveFileName, vector<string> vStr)

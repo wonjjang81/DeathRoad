@@ -5,53 +5,51 @@
 void mapTool::tileReAtrribute(tagTile& resetTile)
 {
 
-	////예외처리: 타일 셋팅이 안되어 있으면(이미지X)
-	//if (resetTile.tileType == TYPE_NONE) return;
+	//예외처리: 타일 셋팅이 안되어 있으면(이미지X)
+	if (resetTile.tileType == TYPE_NONE) return;
 
-	//enum BUTTONSELECT
-	//{
-	//	BTN_MOVE,
-	//	BTN_UNMOVE,
-	//	BTN_ARENDER
-	//};
-	//BUTTONSELECT selectBtn;
+	enum BUTTONSELECT
+	{
+		BTN_STARTPOINT,
+	};
+	BUTTONSELECT selectBtn;
 
-	////예외처리: 버튼이 두개이상 활성화 되어 있을 경우-> ALL 해제
-	//if ((_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn()) ||
-	//	(_btnA_move->getBtnOn() && _btnA_ARender->getBtnOn()) ||
-	//	(_btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()) ||
-	//	(_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()))
-	//{
-	//	_btnAllReset->setBtnOff(true);
-	//}
+	//예외처리: 버튼이 두개이상 활성화 되어 있을 경우-> ALL 해제
+	if ((_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn()) ||
+		(_btnA_move->getBtnOn() && _btnA_ARender->getBtnOn()) ||
+		(_btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()) ||
+		(_btnA_move->getBtnOn() && _btnA_unMove->getBtnOn() && _btnA_ARender->getBtnOn()))
+	{
+		_btnAllReset->setBtnOff(true);
+	}
 
-	////활성화된 버튼 상태 입력 
-	//if (_btnA_move->getBtnOn())    selectBtn = BTN_MOVE;
+	//활성화된 버튼 상태 입력 
+	if (_btnA_move->getBtnOn())    selectBtn = BTN_STARTPOINT;
 	//if (_btnA_unMove->getBtnOn())  selectBtn = BTN_UNMOVE;
 	//if (_btnA_ARender->getBtnOn()) selectBtn = BTN_ARENDER;
 
-	////버튼 ACTION
-	//switch (selectBtn)
-	//{
-	//	case BTN_MOVE:
+	//버튼 ACTION
+	switch (selectBtn)
+	{
+		case BTN_STARTPOINT:
 
-	//		//속성변경
-	//		resetTile.attribute = ATTR_MOVE;
+			//속성변경
+			resetTile.typeAtt = TYPE_A_TR_START;
 
-	//	break;
-	//	case BTN_UNMOVE:
+		break;
+		//case BTN_UNMOVE:
 
-	//		//속성변경
-	//		resetTile.attribute = ATTR_UNMOVE;
+		//	//속성변경
+		//	resetTile.attribute = ATTR_UNMOVE;
 
-	//	break;
-	//	case BTN_ARENDER:
+		//break;
+		//case BTN_ARENDER:
 
-	//		//속성변경
-	//		resetTile.attribute = ATTR_AFTER_RENDER;
+		//	//속성변경
+		//	resetTile.attribute = ATTR_AFTER_RENDER;
 
-	//	break;
-	//}
+		//break;
+	}
 }
 
 void mapTool::tileReType(tagTile& resetTile)
@@ -214,6 +212,9 @@ void mapTool::btnTileAllEraser()
 	//Door
 	vTileInitialize(_vSaveDr);
 
+	//Wall2
+	vTileInitialize(_vSaveArWl);
+
 }
 //============= 타일정보 지우기 =============
 
@@ -262,6 +263,7 @@ void mapTool::btnTileAllSet(tagTile& resetTile)
 		case TYPE_WALL:
 
 			vTileSet(_vSaveWl, resetTile);
+			vTileSet(_vSaveArWl, resetTile);
 
 		break;
 		case TYPE_DOOR:
@@ -282,10 +284,12 @@ void mapTool::vTileInitialize(vSaveTile& saveTile)
 			case TYPE_TERRAIN:
 				saveTile[i].img = NULL;
 				sprintf(saveTile[i].imgName, "");
-				saveTile[i].attribute = ATTR_CRECT_NONE;
-				saveTile[i].tileType = TYPE_NONE;
-				saveTile[i].index = -1;
-				saveTile[i].id = -1;
+				saveTile[i].attribute  = ATTR_CRECT_NONE;
+				saveTile[i].tileType   = TYPE_NONE;
+				saveTile[i].typeAtt    = TYPE_A_NONE;
+				saveTile[i].typeAtt2   = TYPE_A_NONE;
+				saveTile[i].index	   = -1;
+				saveTile[i].id		   = -1; 
 				saveTile[i].anchorType = ANCHOR_NONE;
 			break;
 			default:
@@ -303,9 +307,11 @@ void mapTool::vTileSet(vSaveTile& saveTile, tagTile& resetTile)
 		saveTile[i].img = resetTile.img;
 		sprintf(saveTile[i].imgName, "%s", resetTile.imgName);
 		saveTile[i].attribute = resetTile.attribute;
-		saveTile[i].tileType = resetTile.tileType;
-		saveTile[i].frameX = resetTile.frameX;
-		saveTile[i].frameY = resetTile.frameY;
+		saveTile[i].typeAtt   = resetTile.typeAtt;
+		saveTile[i].typeAtt2  = resetTile.typeAtt2;
+		saveTile[i].tileType  = resetTile.tileType;
+		saveTile[i].frameX	  = resetTile.frameX;
+		saveTile[i].frameY	  = resetTile.frameY;
 	}
 }
 

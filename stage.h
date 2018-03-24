@@ -9,6 +9,7 @@ enum RECTTYPE
 	RECT_ITEM,
 	RECT_WEAPON,
 	RECT_WALL,
+	RECT_WALL2,
 	RECT_DOOR
 };
 
@@ -16,8 +17,11 @@ enum RECTTYPE
 class stage : public gameNode
 {
 private: 
-	typedef vector<tagTile>			   vSaveTile;
-	typedef vector<tagTile>::iterator  viSaveTile;
+	typedef vector<tagTile>					vSaveTile;
+	typedef vector<tagTile>::iterator		viSaveTile;
+
+	typedef vector<vSaveTile>				vvSaveTile;
+	typedef vector<vSaveTile>::iterator		vviSaveTile;
 
 private:
 	mapLoad* _newMap;
@@ -25,6 +29,8 @@ private:
 
 	float _mapScale;
 	float _moveX, _moveY;
+
+	POINT _startPoint;
 
 	//afterRender ¥„¿ª ∫§≈Õ
 	vSaveTile  _afterVTile;
@@ -42,6 +48,8 @@ public:
 	//========================= getter & setter =========================
 	RECT getRect(RECTTYPE type, int i);
 	int getVectorSize(RECTTYPE type);
+
+	POINT getStartPoint() { return _startPoint; }
 
 	stage();
 	~stage();

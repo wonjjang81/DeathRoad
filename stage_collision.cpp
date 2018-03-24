@@ -19,6 +19,9 @@ void stageManager::collisionPS(player* player, stage* room, int scale)
 
 	//문
 	collisionRect(player, BODY_DWBODY, room, RECT_DOOR, scale);
+
+	//After Render 벽
+	collisionRect(player, BODY_DWBODY, room, RECT_WALL2, scale);
 }
 
 
@@ -44,6 +47,7 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room,
 		//충돌체크
 		if (isCollisionReaction(tmpRoom, tmpPlayer))
 		{
+			//키 컨트롤 제한
 			_collOn = true;
 			break;
 		}

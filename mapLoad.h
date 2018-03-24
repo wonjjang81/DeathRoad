@@ -10,6 +10,9 @@ private:
 private:
 	int _tileX;
 	int _tileY;
+
+	POINT _startPoint;
+
 	
 public:
 	//----------- Terrain --------
@@ -50,6 +53,7 @@ public:
 
 	void rectResize(RECT& rc, float left, float top, float right, float bottom);
 
+	POINT getStartPoint() { return _startPoint; }
 
 	mapLoad();
 	~mapLoad();

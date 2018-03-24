@@ -87,7 +87,7 @@ private:
 	//tagAni _upHatsAni;
 
 public:
-	HRESULT init(int playerNum, float speed = 1.0f);
+	HRESULT init(int playerNum, float startX, float startY, float speed = 1.0f);
 	void release();
 	void update();
 	void render();

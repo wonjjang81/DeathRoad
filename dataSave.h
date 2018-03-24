@@ -23,6 +23,7 @@ public:
 	void furnitureSet();
 	void itemSet();
 	void wallSet();
+	void weaponSet();
 
 	void str2IntSave(vItemInfo saveVector, string fileName);
 	void txtSave(string saveFileName, vector<string> vStr);

@@ -135,6 +135,16 @@ void mapLoad::loadMap(string fileName)
 
 
 	CloseHandle(hFile);
+
+	//Start Point
+	for (int i = 0; i < _vSaveTr.size(); ++i)
+	{
+		if (_vSaveTr[i].typeAtt == TYPE_A_TR_START)
+		{
+			_startPoint.x =  _vSaveTr[i].x - TILE_SIZEX / 3;
+			_startPoint.y =  _vSaveTr[i].y - TILE_SIZEY / 2;
+		}
+	}
 }
 
 
@@ -191,11 +201,29 @@ void mapLoad::revisonRect(TYPE_ATTRIBUTE typeAtt, RECT& rc)
 		case TYPE_A_NONE:
 			ZeroMemory(&rc, sizeof(RECT));
 		break;
+		case TYPE_A_TR_START:
+			ZeroMemory(&rc, sizeof(RECT));
+		break;
+		case TYPE_A_WL_EMPTY:
+			ZeroMemory(&rc, sizeof(RECT));
+		break;
 		case TYPE_A_WL_CENTER:
 			rectResize(rc, 4, 0, 4, 0);
 		break;
 		case TYPE_A_WL_ORIGINAL:
 	
+		break;
+		case TYPE_A_WP_GUN:
+			rectResize(rc, 4, 0, 4, 0);
+		break;
+		case TYPE_A_WP_BOMB:
+			rectResize(rc, 4, 0, 4, 0);
+		break;
+		case TYPE_A_WP_SWORD:
+			rectResize(rc, 4, 0, 4, 0);
+		break;
+		case TYPE_A_WP_MACHINE:
+			rectResize(rc, 4, 0, 4, 0);
 		break;
 	}
 }

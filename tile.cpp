@@ -34,6 +34,8 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 			tile.index      = (tileX * i) + j;
 			tile.x		    = x;
 			tile.y		    = y;
+			tile.centerX    = x + (tile.rc.right - tile.rc.left) / 2;
+			tile.centerY    = y + (tile.rc.bottom - tile.rc.top) / 2;
 			tile.scale	    = scale;
 			tile.frameX     = j;
 			tile.frameY     = i;
@@ -45,6 +47,7 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 			tile.typeAtt    = loadTileTypeAttribute(tile.tileType, tile.index);
 			tile.typeAtt2   = loadTileTypeAttribute(tile.tileType, tile.index, 2);
 			if (tile.tileType == TYPE_WALL && tile.typeAtt == TYPE_A_NONE) tile.typeAtt = TYPE_A_WL_ORIGINAL;
+			if (tile.tileType == TYPE_WEAPON && tile.typeAtt == TYPE_A_NONE) tile.typeAtt = TYPE_A_WP_SWORD;
 
 			tile.anchorType = anchor;
 			tile.overPos    = overPosition;
@@ -258,7 +261,7 @@ TYPE_ATTRIBUTE tile::loadTileTypeAttribute(TILE_TYPE tileType, int index, int ty
 			tmp = _tileData->txtLoad("itemData", index, INFO_TYPE);
 		break;
 		case TYPE_WEAPON:
-			tmp = -1;
+			tmp = _tileData->txtLoad("weaponData", index, INFO_TYPE);
 		break;
 		case TYPE_ENEMY:
 			tmp = -1;

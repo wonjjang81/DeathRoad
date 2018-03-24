@@ -17,8 +17,11 @@ HRESULT stageManager::init()
 	_room1 = new stage;
 	_room1->init("room1", stageScale);
 
+	_startPoint.x = _room1->getStartPoint().x * stageScale;
+	_startPoint.y = _room1->getStartPoint().y * stageScale;
+
 	_player1 = new player;
-	_player1->init(0, 1.5);
+	_player1->init(0, _startPoint.x, _startPoint.y, 1.5);
 
 
 	_collOn = false;

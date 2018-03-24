@@ -26,16 +26,17 @@ void mapTool::createDefaultMap(POINT mapSize)
 //타일정보 초기화(벡터 클리어)
 void mapTool::vTileClear()
 {
-	_vTile.clear();    //그리드
-	_vSaveTr.clear();  //지형
-	_vSaveBd.clear();  //빌딩
-	_vSaveRd.clear();  //도로
-	_vSaveFt.clear();  //가구
-	_vSaveIt.clear();  //아이템
-	_vSaveWp.clear();  //무기
-	_vSaveEm.clear();  //적
-	_vSaveWl.clear();  //적
-	_vSaveDr.clear();  //적
+	_vTile.clear();		//그리드
+	_vSaveTr.clear();	//지형
+	_vSaveBd.clear();	//빌딩
+	_vSaveRd.clear();	//도로
+	_vSaveFt.clear();	//가구
+	_vSaveIt.clear();	//아이템
+	_vSaveWp.clear();	//무기
+	_vSaveEm.clear();	//적
+	_vSaveWl.clear();	//벽
+	_vSaveArWl.clear(); //벽2
+	_vSaveDr.clear();   //문
 }
 
 

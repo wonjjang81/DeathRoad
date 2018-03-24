@@ -12,6 +12,9 @@ private:
 
 	bool _collOn;
 	int stageScale;
+
+	POINT _startPoint;
+
 public:
 	HRESULT init();
 	void release();

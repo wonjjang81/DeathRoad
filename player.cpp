@@ -10,14 +10,14 @@ player::~player()
 }
 
 
-HRESULT player::init(int playerNum, float speed)
+HRESULT player::init(int playerNum, float startX, float startY, float speed)
 {
 	_player = new character;
 
 	//저장한 플레이어 데이터 로드
 	loadPlayer(DATABASE->player[playerNum]);
 
-	_player->charSetup(_playerInfo.charTypeName, 200, 200, 3);
+	_player->charSetup(_playerInfo.charTypeName, startX, startY, 3);
 
 	_headY = 0;
 	_bodyY = 0;
@@ -46,7 +46,7 @@ HRESULT player::init(int playerNum, float speed)
 
 	//현재상태
 	_currentState = STATE_IDLE;
-	_currentDir = DIRECTION_LEFT;
+	_currentDir = DIRECTION_UP;
 
 	//player moveAni
 	_bodyFlip = false;

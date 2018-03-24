@@ -58,6 +58,7 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 				{
 					index = i;
 				}
+				else index = j;
 			}
 
 			tmpVecotr.push_back(tileVector[index]);
