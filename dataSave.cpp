@@ -24,6 +24,7 @@ void dataSave::dataSet()
 	wallSet();
 	furnitureSet();
 	weaponSet();
+	doorSet();
 }
 
 
@@ -82,7 +83,7 @@ void dataSave::furnitureSet()
 	}
 
 	//Data Save
-	str2IntSave(vItemInfo, "FurnitureData");
+	str2IntSave(vItemInfo, "furnitureData");
 }
 
 
@@ -302,6 +303,49 @@ void dataSave::weaponSet()
 
 	//Data Save
 	str2IntSave(vItemInfo, "weaponData");
+}
+
+
+//Door Info
+void dataSave::doorSet()
+{
+	tagDataInfo tmpInfo;
+	vItemInfo vItemInfo;
+
+	int tileX = 16;
+	int tileY = 6;
+
+	for (int i = 0; i < tileY; ++i)
+	{
+		for (int j = 0; j < tileX; ++j)
+		{
+			if (i < tileY)  //0¹øÂ° ¿­
+			{
+				ZeroMemory(&tmpInfo, sizeof(tagDataInfo));
+
+				if (j == 1 || j == 9)
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_DR_ORIGINAL;
+
+					vItemInfo.push_back(tmpInfo);
+				}
+
+				if (j == 4 || j == 12)
+				{
+					tmpInfo.index = (i * tileX) + j;
+					tmpInfo.type = TYPE_A_DR_CENTER;
+
+					vItemInfo.push_back(tmpInfo);
+				}
+
+			}
+		}
+
+	}
+
+	//Data Save
+	str2IntSave(vItemInfo, "doorData");
 }
 
 

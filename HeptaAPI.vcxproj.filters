@@ -70,6 +70,9 @@
     <Filter Include="mapTool\data">
       <UniqueIdentifier>{04141f90-812a-4744-80d0-fb532bf92d0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="camera">
+      <UniqueIdentifier>{17642624-1e57-462c-8bcd-610c5ce1761e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -153,9 +156,6 @@
     <ClInclude Include="d2dManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="cameraManager.h">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="tile.h">
       <Filter>mapTool\tile</Filter>
     </ClInclude>
@@ -206,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="tileDataInfo.h">
       <Filter>mapTool\data</Filter>
+    </ClInclude>
+    <ClInclude Include="cameraManager.h">
+      <Filter>camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,9 +278,6 @@
     <ClCompile Include="d2dManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="cameraManager.cpp">
-      <Filter>2DGameFramework\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="tile.cpp">
       <Filter>mapTool\tile</Filter>
     </ClCompile>
@@ -343,6 +343,9 @@
     </ClCompile>
     <ClCompile Include="dataSave.cpp">
       <Filter>mapTool\data</Filter>
+    </ClCompile>
+    <ClCompile Include="cameraManager.cpp">
+      <Filter>camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 
 namespace HEPTA_UTIL
 {
-	bool isCollisionReaction(const RECT& rcHold, RECT& rcMove);
+	int isCollisionReaction(const RECT& rcHold, RECT& rcMove);
 
 }
 

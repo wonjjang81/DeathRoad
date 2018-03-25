@@ -10,70 +10,85 @@ cameraManager::~cameraManager()
 }
 
 
-HRESULT cameraManager::init(int totalWidth, int totalHeight, int showWidth, int showHeight, float x, float y, float magnification)
+HRESULT cameraManager::init()
 {
-	if (_cameraInfo != NULL) release();
+	float rcWidth  = 300;
+	float rcHeight = 300;
 
-	HRESULT hr = E_FAIL;
+	_camRc.left	  = (WINSIZEX - rcWidth) / 2;
+	_camRc.top	  = (WINSIZEY - rcHeight) / 2;
+	_camRc.right  = _camRc.left + rcWidth;
+	_camRc.bottom = _camRc.top + rcHeight;
 
-	_cameraInfo = new CAMERAINFO;
-	_cameraInfo->pD2DCameraFactory		= D2DMANAGER->pD2DFactory;
-	_cameraInfo->pCameraRenderTarget	= nullptr;
-	_cameraInfo->pOCameraRenderTarget	= nullptr;
-	_cameraInfo->showWidth				= showWidth / magnification;
-	_cameraInfo->showHeight				= showHeight / magnification;
-	_cameraInfo->totalWidth				= totalWidth;
-	_cameraInfo->totalHeight			= totalHeight;
-	_cameraInfo->magnification			= magnification;
-
-	//---------------------------------------------------------------------------
-	//	Hwnd Render Target 생성
-	//---------------------------------------------------------------------------
-	hr = _cameraInfo->pD2DCameraFactory->CreateHwndRenderTarget(RenderTargetProperties(),
-		HwndRenderTargetProperties(_hWnd, SizeU(totalWidth, totalHeight)), &_cameraInfo->pCameraRenderTarget);
-	assert(hr == S_OK);
-
-	_cameraInfo->pOCameraRenderTarget = _cameraInfo->pCameraRenderTarget;
-
-
-	//if (_cameraInfo->pCameraRenderTarget == nullptr)
-	//{
-	//	this->release();
-
-	//	return E_FAIL;
-	//}
-
-	//COM 라이브러리 초기화
-	CoInitialize(NULL);
+	_moveSpeed = 1.0f;
+	_moveTIle.x = 0.0f;
+	_moveTIle.y = 0.0f;
 
 	return S_OK;
 }
 
 void cameraManager::release()
 {
-	if (_cameraInfo)
+
+}
+
+
+void cameraManager::render()
+{
+	//카메라 범위
+	D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)), _camRc.left, _camRc.top, _camRc.right, _camRc.bottom);
+}
+
+
+
+void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom)
+{
+	left   = false;
+	top    = false;
+	right  = false;
+	bottom = false;
+	ZeroMemory(&_moveTIle, sizeof(_moveTIle));
+
+	//좌
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		SAFE_RELEASE_D2D(_cameraInfo->pCameraRenderTarget);
-		SAFE_RELEASE_D2D(_cameraInfo->pOCameraRenderTarget);
-		SAFE_RELEASE_D2D(_cameraInfo->pD2DCameraFactory);
+		left = true;
 
-		SAFE_DELETE(_cameraInfo)
+		if (_player.x < _camRc.left) _moveTIle.x += 1 * _moveSpeed;
 	}
+
+
+	//우
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		right = true;
+
+		if (_player.x > _camRc.right) _moveTIle.x -= 1 * _moveSpeed;
+	}
+
+
+	//상
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
+	{
+		top = true;
+
+		if (_player.y < _camRc.top) _moveTIle.y += 1 * _moveSpeed;
+	}
+
+
+	//하
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	{
+		bottom = true;
+
+		if (_player.y > _camRc.bottom) _moveTIle.y -= 1 * _moveSpeed;
+	}
+
 }
 
-void cameraManager::cameraMove(float focusX, float focusY)
+
+void cameraManager::getPlayerXY(float playerX, float playerY)
 {
-	_cameraInfo->x = focusX - _cameraInfo->showWidth / 2;
-	_cameraInfo->y = focusY - _cameraInfo->showHeight / 2;
-
-	if (_cameraInfo->x < 0)														_cameraInfo->x = 0;
-	if (_cameraInfo->x + _cameraInfo->showWidth > _cameraInfo->totalWidth)		_cameraInfo->x = _cameraInfo->totalWidth - _cameraInfo->showWidth;
-
-	if (_cameraInfo->y < 0)														_cameraInfo->y = 0;
-	if (_cameraInfo->y + _cameraInfo->showHeight > _cameraInfo->totalHeight)	_cameraInfo->y = _cameraInfo->totalHeight - _cameraInfo->showHeight;
-}
-
-void cameraManager::render(ID2D1HwndRenderTarget* renderTarget)
-{
-	//_cameraInfo->pCameraRenderTarget->CreateCompatibleRenderTarget(D2D1::SizeF(_cameraInfo->showWidth, _cameraInfo->showHeight), );
+	_player.x = playerX;
+	_player.y = playerY;
 }

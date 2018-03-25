@@ -783,6 +783,17 @@ void mapTool::typeAttrDraw(vSaveTile tileVector)
 				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(MAGENTA), font, fontSize, L"M",
 					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
 			break;
+
+
+			//Door
+			case TYPE_A_DR_ORIGINAL:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(YELLOW), font, fontSize, L"O",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case TYPE_A_DR_CENTER:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(YELLOW), font, fontSize, L"C",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
 		}
 
 		switch (tileVector[i].typeAtt2)

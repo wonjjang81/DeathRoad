@@ -28,7 +28,7 @@ private:
 	mapRender* _mapRenderer;
 
 	float _mapScale;
-	float _moveX, _moveY;
+	POINT _map;
 
 	POINT _startPoint;
 
@@ -37,13 +37,14 @@ private:
 	viSaveTile _afterViTile;
 
 public:
-	HRESULT init(string mapFileName, float scale);
+	HRESULT init(string mapFileName, float mapX, float mapY, float scale);
 	void release();
 	void update(float moveX, float moveY);
 	void render();
 
 	void afterRender();
 	void afterVectorAdd(vSaveTile& vTile);
+
 
 	//========================= getter & setter =========================
 	RECT getRect(RECTTYPE type, int i);

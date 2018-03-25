@@ -100,10 +100,10 @@ void character::charBodySet(string imgName, vChar& charVector, BODYTYPE type, fl
 					bodyType.rc.bottom = (bodyType.img->getFrameHeight() * scale);
 				break;
 				case BODY_DWBODY:
-					bodyType.rc.left   = (8 * scale);
+					bodyType.rc.left   = (6 * scale);
 					bodyType.rc.top    = (20 * scale);
-					bodyType.rc.right  = (15 * scale);
-					bodyType.rc.bottom = (bodyType.img->getFrameHeight() * scale);
+					bodyType.rc.right  = (18 * scale);
+					bodyType.rc.bottom = ((bodyType.img->getFrameHeight() + 2) * scale);
 				break;
 				default:
 					ZeroMemory(&bodyType.rc, sizeof(RECT));

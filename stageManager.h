@@ -3,6 +3,15 @@
 #include "stage.h"
 #include "player.h"
 
+enum COLLISION_DIRECTION
+{
+	C_NONE,
+	C_TOP,
+	C_BOTTOM,
+	C_LEFT,
+	C_RIGHT
+};
+
 
 class stageManager : public gameNode
 {
@@ -14,6 +23,19 @@ private:
 	int stageScale;
 
 	POINT _startPoint;
+
+	string _mapFileName;
+
+	float _moveX;
+	float _moveY;
+
+	//==== keyControl ====
+	bool _isLeft;
+	bool _isRight;
+	bool _isTop;
+	bool _isBottom;
+
+	POINT _tilePoint;
 
 public:
 	HRESULT init();

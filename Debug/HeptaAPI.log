@@ -1,15 +1,4 @@
-﻿  mapRender.cpp
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(38): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(51): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(55): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(75): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(92): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(99): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(100): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(101): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(102): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(122): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(121): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(120): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\maprender.cpp(119): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  d2dManager.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\d2dmanager.cpp(299): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_wstdio.h(1822): note: 'swprintf' 선언을 참조하십시오.
   HeptaAPI.vcxproj -> D:\C++\C++ 포트폴리오\github\ff6\DeathRoad\Debug\DeathRoad.exe

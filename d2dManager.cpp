@@ -52,6 +52,42 @@ HRESULT d2dManager::init()
 	// COM 라이브러리 초기화 -> 호출하지 않으면 CoCreateInstance가 제대로 수행되지 않음
 	CoInitialize(NULL);
 
+
+	//---------------------------------------------------------------------------
+	//	RadialGradientMask Layer 생성
+	//---------------------------------------------------------------------------
+
+
+	//---------------------------------------- GradientStop ----------------------------------------
+	pGradientStops = NULL;
+
+	static const D2D1_GRADIENT_STOP gradientStops[] =
+	{
+		{ 0.0f, ColorF(ColorF::White, 0.0f) },
+	{ 1.0f, ColorF(ColorF::Black, 1.0f) },
+	};
+
+	hr = D2DMANAGER->pRenderTarget->CreateGradientStopCollection(gradientStops, 2, &pGradientStops);
+	//----------------------------------------------------------------------------------------------
+
+	//---------------------------------------- Create layer ----------------------------------------
+	pLayer = NULL;
+
+	D2DMANAGER->pRenderTarget->CreateLayer(NULL, &pLayer);
+
+	pLayerParmeters = &LayerParameters(InfiniteRect(), NULL, D2D1_ANTIALIAS_MODE_PER_PRIMITIVE, IdentityMatrix(),
+		1.0f, pRadialGradientBrush, D2D1_LAYER_OPTIONS_NONE);
+
+	if (SUCCEEDED(hr))
+	{
+		D2DMANAGER->pRenderTarget->PushLayer(pLayerParmeters, pLayer);
+	}
+	//----------------------------------------------------------------------------------------------
+
+
+	// Layer 초기화
+	pLayer = NULL;
+
 	return S_OK;
 }
 
@@ -263,6 +299,31 @@ void  d2dManager::drawIntText(LPCWSTR title, int value, float x, float y)
 	swprintf(strIndex, L"%s %d", title, value);
 
 	D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"맑은고딕", 18, strIndex, x, y, x + 200, y + 20);
+}
+
+
+HRESULT d2dManager::opacityMask(float x, float y)
+{
+	HRESULT hr;
+
+	//------------------------------------ RadialGradientBrush -------------------------------------
+	pRadialGradientBrush = NULL;
+
+	hr = D2DMANAGER->pRenderTarget->CreateRadialGradientBrush(
+		RadialGradientBrushProperties(Point2F(x, y), Point2F(50, 50), 200, 200),
+		pGradientStops, &pRadialGradientBrush);
+
+	pGradientStops->Release();
+	//----------------------------------------------------------------------------------------------
+
+	pLayerParmeters->opacityBrush = pRadialGradientBrush;
+
+	D2DMANAGER->pRenderTarget->FillRectangle(RectF(0, 0, WINSIZEX, WINSIZEY), D2DMANAGER->defaultBrush);
+
+	//if (pLayer == NULL) D2DMANAGER->pRenderTarget->PopLayer();
+	//SAFE_RELEASE_D2D(pLayer);
+
+	return hr;
 }
 
 

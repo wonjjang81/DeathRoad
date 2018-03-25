@@ -48,6 +48,8 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 			tile.typeAtt2   = loadTileTypeAttribute(tile.tileType, tile.index, 2);
 			if (tile.tileType == TYPE_WALL && tile.typeAtt == TYPE_A_NONE) tile.typeAtt = TYPE_A_WL_ORIGINAL;
 			if (tile.tileType == TYPE_WEAPON && tile.typeAtt == TYPE_A_NONE) tile.typeAtt = TYPE_A_WP_SWORD;
+			if (tile.tileType == TYPE_FURNITURE && tile.typeAtt == TYPE_A_NONE) tile.typeAtt = TYPE_A_FT_NONE;
+			if (tile.tileType == TYPE_DOOR && tile.typeAtt == TYPE_A_NONE) tile.typeAtt = TYPE_A_DR_NONE;
 
 			tile.anchorType = anchor;
 			tile.overPos    = overPosition;
@@ -255,7 +257,7 @@ TYPE_ATTRIBUTE tile::loadTileTypeAttribute(TILE_TYPE tileType, int index, int ty
 			tmp = -1;
 		break;
 		case TYPE_FURNITURE:
-			tmp = _tileData->txtLoad("FurnitureData", index, INFO_TYPE);
+			tmp = _tileData->txtLoad("furnitureData", index, INFO_TYPE);
 		break;
 		case TYPE_ITEM:
 			tmp = _tileData->txtLoad("itemData", index, INFO_TYPE);
@@ -271,7 +273,7 @@ TYPE_ATTRIBUTE tile::loadTileTypeAttribute(TILE_TYPE tileType, int index, int ty
 			if (typeNum == 2) tmp = _tileData->txtLoad("wallData", index, INFO_TYPE2);
 		break;
 		case TYPE_DOOR:
-			tmp = -1;
+			tmp = _tileData->txtLoad("doorData", index, INFO_TYPE);
 		break;
 	}
 
@@ -337,6 +339,15 @@ TYPE_ATTRIBUTE tile::loadTileTypeAttribute(TILE_TYPE tileType, int index, int ty
 		break;
 		case TYPE_A_WP_MACHINE:
 			return TYPE_A_WP_MACHINE;
+		break;
+
+
+		//Door
+		case TYPE_A_DR_ORIGINAL:
+			return TYPE_A_DR_ORIGINAL;
+		break;
+		case TYPE_A_DR_CENTER:
+			return TYPE_A_DR_CENTER;
 		break;
 	}
 }

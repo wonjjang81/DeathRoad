@@ -5,6 +5,13 @@ void stageManager::collisionPS(player* player, stage* room, int scale)
 {
 	_collOn = false;
 
+	_isLeft   = true;
+	_isRight  = true;
+	_isTop    = true;
+	_isBottom = true;																																 
+
+	CAMERAMANAGER->charMove(_isLeft, _isTop, _isRight, _isBottom);
+
 	//가구
 	collisionRect(player, BODY_DWBODY, room, RECT_FURNITURE, scale);
 
@@ -22,6 +29,7 @@ void stageManager::collisionPS(player* player, stage* room, int scale)
 
 	//After Render 벽
 	collisionRect(player, BODY_DWBODY, room, RECT_WALL2, scale);
+
 }
 
 
@@ -37,16 +45,36 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room,
 		RECT tmpRoom;
 		RECT tmpPlayer = player->getRect(bodyType);
 
-		tmpRoom.left   = room->getRect(rectType, i).left   * scale;
-		tmpRoom.top    = room->getRect(rectType, i).top    * scale;
-		tmpRoom.right  = room->getRect(rectType, i).right  * scale;
-		tmpRoom.bottom = room->getRect(rectType, i).bottom * scale;
+		tmpRoom.left   = room->getRect(rectType, i).left   * scale + _moveX;
+		tmpRoom.top    = room->getRect(rectType, i).top    * scale + _moveY;
+		tmpRoom.right  = room->getRect(rectType, i).right  * scale + _moveX;
+		tmpRoom.bottom = room->getRect(rectType, i).bottom * scale + _moveY;
 
 		if (tmpRoom.top == tmpRoom.bottom) continue;
+		
 
 		//충돌체크
-		if (isCollisionReaction(tmpRoom, tmpPlayer))
+		int cDirection = isCollisionReaction(tmpRoom, tmpPlayer);
+		if (cDirection > 0)
 		{
+			if (rectType == RECT_ITEM || rectType == RECT_WEAPON) continue;
+
+			switch (cDirection)
+			{
+				case C_TOP:
+					_isBottom = false;
+				break;
+				case C_BOTTOM:
+					_isTop = false;
+				break;
+				case C_LEFT:
+					_isRight = false;
+				break;
+				case C_RIGHT:
+					_isLeft = false;
+				break;
+			}
+
 			//키 컨트롤 제한
 			_collOn = true;
 			break;

@@ -225,6 +225,15 @@ void mapLoad::revisonRect(TYPE_ATTRIBUTE typeAtt, RECT& rc)
 		case TYPE_A_WP_MACHINE:
 			rectResize(rc, 4, 0, 4, 0);
 		break;
+		case TYPE_A_DR_NONE:
+			ZeroMemory(&rc, sizeof(RECT));
+		break;
+		case TYPE_A_DR_ORIGINAL:
+		
+		break;
+		case TYPE_A_DR_CENTER:
+			rectResize(rc, 4, 0, 4, 0);
+		break;
 	}
 }
 

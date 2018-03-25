@@ -10,7 +10,7 @@ stage::~stage()
 }
 
 
-HRESULT stage::init(string mapFileName, float scale)
+HRESULT stage::init(string mapFileName, float mapX, float mapY, float scale)
 {
 	_newMap = new mapLoad;
 	_newMap->loadMap(mapFileName);
@@ -18,8 +18,10 @@ HRESULT stage::init(string mapFileName, float scale)
 	_mapRenderer = new mapRender;
 
 	_mapScale = scale;
-	_moveX = 0;
-	_moveY = 0;
+
+	_map.x = mapX;
+	_map.y = mapY;
+
 
 	_startPoint = _newMap->getStartPoint();
 
@@ -33,29 +35,29 @@ void stage::release()
 
 void stage::update(float moveX, float moveY)
 {
-	_moveX = moveX;
-	_moveY = moveY;
+	_map.x += moveX;
+	_map.y += moveY;
 }
 
 void stage::render() 
 {
 	//¸Ê
-	_mapRenderer->mapDraw(_newMap->_vSaveTr, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveRd, _moveX, _moveY, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveTr, _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveRd, _map.x, _map.y, _mapScale);
 
-	_mapRenderer->mapDraw(_newMap->_vSaveWl, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveBd, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveFt, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveIt, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveWp, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveDr, _moveX, _moveY, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveArWl, _moveX, _moveY, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveWl, _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveBd, _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveFt, _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveIt, _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveWp, _map.x, _map.y, _mapScale);
+	
 }
 
 
 void stage::afterRender()
 {
-	
+	_mapRenderer->mapDraw(_newMap->_vSaveArWl, _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveDr,   _map.x, _map.y, _mapScale);
 }
 
 

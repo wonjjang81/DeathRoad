@@ -86,10 +86,13 @@ private:
 	//tagAni _upGlassAni;
 	//tagAni _upHatsAni;
 
+	//==== keyControl ====
+
+
 public:
 	HRESULT init(int playerNum, float startX, float startY, float speed = 1.0f);
 	void release();
-	void update();
+	void update(bool left, bool top, bool right, bool bottom);
 	void render();
 
 	void loadPlayer(charInfo* saveInfo);
@@ -97,7 +100,7 @@ public:
 
 	void bodyAni(tagBodyMove& body, float& moveY, int count);
 	void totalBodyAni();
-	void keyControl();
+	void keyControl(bool left, bool top, bool right, bool bottom);
 
 	void frameAniInit(tagAni& ani);
 	void frameAni(string pBodyName, int pBodyIndex, tagAni& ani, int maxFrame, int countTime);
@@ -106,6 +109,9 @@ public:
 	//========================= getter & setter =========================
 	RECT getRect(BODYTYPE type);
 	character* getChar() { return _player; }
+
+	POINT getPlayerXY();
+	
 
 	player();
 	~player();

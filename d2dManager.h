@@ -5,15 +5,19 @@
 class d2dManager : public singletonBase<d2dManager>
 {
 public:
-	ID2D1Factory*				pD2DFactory;
-	ID2D1HwndRenderTarget*		pRenderTarget;
-	ID2D1BitmapRenderTarget*	pBitmapRenderTarget;
-	IDWriteFactory*				pWriteFacory;
-	IDWriteTextFormat*			pDefaultTextFormat;
-	IDWriteTextFormat*			pCustomTextFormat;
-	ID2D1SolidColorBrush*		defaultBrush;
+	ID2D1Factory*					pD2DFactory;
+	ID2D1HwndRenderTarget*			pRenderTarget;
+	ID2D1BitmapRenderTarget*		pBitmapRenderTarget;
+	IDWriteFactory*					pWriteFacory;
+	IDWriteTextFormat*				pDefaultTextFormat;
+	IDWriteTextFormat*				pCustomTextFormat;
+	ID2D1SolidColorBrush*			defaultBrush;
 
-
+	ID2D1GradientStopCollection*	pGradientStops;
+	D2D1_LAYER_PARAMETERS*		    pLayerParmeters;
+	ID2D1RadialGradientBrush*		pRadialGradientBrush;
+	ID2D1Layer*						pLayer;
+		
 public:
 	HRESULT init();
 	void release();
@@ -45,6 +49,9 @@ public:
 
 	//≈ÿΩ∫∆Æ in Value
 	void drawIntText(LPCWSTR title, int value, float x, float y);
+
+	//Opacity Mask
+	HRESULT opacityMask(float x, float y);
 
 
 

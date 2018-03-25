@@ -44,6 +44,7 @@ HRESULT gameNode::init(bool managerInit)
 		INIDATA->init();
 		DATABASE->init();
 		D2DMANAGER->init();
+		CAMERAMANAGER->init();
 	}
 
 	return S_OK;
@@ -73,6 +74,8 @@ void gameNode::release(void)
 		DATABASE->releaseSingleton();
 		D2DMANAGER->release();
 		D2DMANAGER->releaseSingleton();
+		CAMERAMANAGER->release();
+		CAMERAMANAGER->releaseSingleton();
 	}
 
 	_current = _childrenHead;

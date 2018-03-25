@@ -58,6 +58,8 @@ HRESULT player::init(int playerNum, float startX, float startY, float speed)
 	//frameAniInit(_upGlassAni);
 	//frameAniInit(_upHatsAni);
 
+
+
 	return S_OK;
 }
 
@@ -66,11 +68,10 @@ void player::release()
 
 }
 
-void player::update()
+void player::update(bool left, bool top, bool right, bool bottom)
 {
-	keyControl();
+	keyControl(left, top, right, bottom);
 	Stateframe(_currentState, _currentDir);
-
 }
 
 void player::render()
@@ -230,13 +231,13 @@ void player::totalBodyAni()
 	_player->setBodyY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _bodyY);  //상체
 }
 
-void player::keyControl()
+void player::keyControl(bool left, bool top, bool right, bool bottom)
 {
 	_currentState = STATE_IDLE;
 	_currentDir = DIRECTION_DOWN;
 
 	//좌
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	if (left)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_LEFT;
@@ -245,7 +246,7 @@ void player::keyControl()
 
 
 	//우
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	if (right)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_RIGHT;
@@ -254,7 +255,7 @@ void player::keyControl()
 
 
 	//상
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
+	if (top)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_UP;
@@ -263,7 +264,7 @@ void player::keyControl()
 
 
 	//하
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	if (bottom)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_DOWN;
@@ -359,4 +360,15 @@ RECT player::getRect(BODYTYPE type)
 	}
 }
 
+
+POINT player::getPlayerXY()
+{
+	POINT tmpMove;
+	RECT tmpPlayerRc = _player->getRect(_playerBody.bodyDw, _playerInfo.dwBodyIndex);
+
+	tmpMove.x = _pMove.x + (tmpPlayerRc.right - tmpPlayerRc.left) / 2;
+	tmpMove.y = _pMove.y + (tmpPlayerRc.bottom - tmpPlayerRc.top) / 2;
+
+	return tmpMove;
+}
 

@@ -24,6 +24,7 @@ public:
 	void itemSet();
 	void wallSet();
 	void weaponSet();
+	void doorSet();
 
 	void str2IntSave(vItemInfo saveVector, string fileName);
 	void txtSave(string saveFileName, vector<string> vStr);

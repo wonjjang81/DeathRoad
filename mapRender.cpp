@@ -46,19 +46,19 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 
 	//y축값을 비교해서 작은값부터 임시벡터에 담아서 재정렬
 	vSaveTile tmpVecotr;
+	int index = 0;
 	while (tileVector.size() != 0)
 	{
 		for (int i = 0; i < tileVector.size(); ++i)
-		{
-			int index = 0;
-
-			for (int j = i + 1; j < tileVector.size(); ++j)
+		{	
+			for (int j = 0; j < tileVector.size(); ++j)
 			{
-				if (tileVector[i].y <= tileVector[j].y)
+				index = i;
+
+				if (tileVector[i].y >= tileVector[j].y)
 				{
-					index = i;
+					index = j;
 				}
-				else index = j;
 			}
 
 			tmpVecotr.push_back(tileVector[index]);
@@ -96,16 +96,16 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 
 		//타일렉트 보정
 		RECT reRect;
-		reRect.left   = (tileVector[i].rc.left   + moveX) * scale;
-		reRect.top    = (tileVector[i].rc.top    + moveY) * scale;
-		reRect.right  = (tileVector[i].rc.right  + moveX) * scale;
-		reRect.bottom = (tileVector[i].rc.bottom + moveY) * scale;
+		reRect.left   = (tileVector[i].rc.left  ) * scale + moveX;
+		reRect.top    = (tileVector[i].rc.top   ) * scale + moveY;
+		reRect.right  = (tileVector[i].rc.right ) * scale + moveX;
+		reRect.bottom = (tileVector[i].rc.bottom) * scale + moveY;
 
 		//위치 보정(타일 중심)
-		tileVector[i].centerX = (tileVector[i].x + tileVector[i].centerX) * scale;
-		tileVector[i].centerY = (tileVector[i].y + tileVector[i].centerY) * scale;
+		tileVector[i].centerX = (tileVector[i].x + tileVector[i].centerX) * scale + moveX;
+		tileVector[i].centerY = (tileVector[i].y + tileVector[i].centerY) * scale + moveY;
 
-		//예외처리: 화면밖 렌더X
+		//예외처리: 화면밖 렌더X													
 		if (reRect.left > WINSIZEX)  continue;  //가로열(우측)
 		if (reRect.right  < 0)		 continue;  //가로열(좌측)
 		if (reRect.top > WINSIZEY)   continue;  //세로열(상부)

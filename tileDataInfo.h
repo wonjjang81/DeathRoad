@@ -9,6 +9,7 @@ enum TYPE_ATTRIBUTE
 
 	TYPE_A_TR_START,		//시작점
 
+	TYPE_A_FT_NONE,			//가구
 	TYPE_A_FT_ITEM,			//아이템 가구
 
 	TYPE_A_IT_DRUG,			//약품류
@@ -24,7 +25,11 @@ enum TYPE_ATTRIBUTE
 	TYPE_A_WP_GUN,			//총류 (총알/화살 발사)
 	TYPE_A_WP_BOMB,			//폭탄류
 	TYPE_A_WP_SWORD,		//칼류 (휘두르는 것)
-	TYPE_A_WP_MACHINE 		//기계류 (기름소비)
+	TYPE_A_WP_MACHINE, 		//기계류 (기름소비)
+
+	TYPE_A_DR_NONE, 		//문
+	TYPE_A_DR_ORIGINAL,     //렉트문
+	TYPE_A_DR_CENTER        //센터문
 };
 
 enum TXTDATAINFO
