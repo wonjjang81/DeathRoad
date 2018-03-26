@@ -95,31 +95,36 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 		if (tileVector[i].img == NULL) continue;  //이미지 X
 
 		//타일렉트 보정
-		RECT reRect;
-		reRect.left   = (tileVector[i].rc.left  ) * scale + moveX;
-		reRect.top    = (tileVector[i].rc.top   ) * scale + moveY;
-		reRect.right  = (tileVector[i].rc.right ) * scale + moveX;
-		reRect.bottom = (tileVector[i].rc.bottom) * scale + moveY;
+		//RECT reRect;
+		//reRect.left   = (tileVector[i].rc.left  ) * scale + moveX;
+		//reRect.top    = (tileVector[i].rc.top   ) * scale + moveY;
+		//reRect.right  = (tileVector[i].rc.right ) * scale + moveX;
+		//reRect.bottom = (tileVector[i].rc.bottom) * scale + moveY;
+
+		tileVector[i].cRc.left   = (tileVector[i].rc.left)   * scale + moveX;
+		tileVector[i].cRc.top    = (tileVector[i].rc.top)    * scale + moveY;
+		tileVector[i].cRc.right  = (tileVector[i].rc.right)  * scale + moveX;
+		tileVector[i].cRc.bottom = (tileVector[i].rc.bottom) * scale + moveY;
 
 		//위치 보정(타일 중심)
 		tileVector[i].centerX = (tileVector[i].x + tileVector[i].centerX) * scale + moveX;
 		tileVector[i].centerY = (tileVector[i].y + tileVector[i].centerY) * scale + moveY;
 
 		//예외처리: 화면밖 렌더X													
-		if (reRect.left > WINSIZEX)  continue;  //가로열(우측)
-		if (reRect.right  < 0)		 continue;  //가로열(좌측)
-		if (reRect.top > WINSIZEY)   continue;  //세로열(상부)
-		if (reRect.bottom < 0)		 continue;  //세로열(하부)
+		if (tileVector[i].cRc.left > WINSIZEX)  continue;  //가로열(우측)
+		if (tileVector[i].cRc.right  < 0)	   continue;  //가로열(좌측)
+		if (tileVector[i].cRc.top > WINSIZEY)   continue;  //세로열(상부)
+		if (tileVector[i].cRc.bottom < 0)	   continue;  //세로열(하부)
 
 		tileVector[i].img->frameRender(1.0f, tileVector[i].centerX, tileVector[i].centerY,
 			tileVector[i].frameX, tileVector[i].frameY, 0.0f, scale);
 
 		//렉트 확인용
 		D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(255, 0, 0)),
-			reRect.left,
-			reRect.top,
-			reRect.right,
-			reRect.bottom);
+			tileVector[i].cRc.left,
+			tileVector[i].cRc.top,
+			tileVector[i].cRc.right,
+			tileVector[i].cRc.bottom);
 	}
 
 }

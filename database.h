@@ -1,6 +1,7 @@
 #pragma once
 #include "singletonBase.h"
 #include "charInfo.h"
+#include "inventory.h"
 
 #include <vector>
 #include <map>
@@ -20,20 +21,23 @@ public:
 class database : public singletonBase <database>
 {
 private:
-	typedef vector<string>			 arrElements;
-	typedef vector<string>::iterator iterElements;
+	typedef vector<string>						arrElements;
+	typedef vector<string>::iterator			iterElements;
 
-	typedef map<string, elements*>			 arrElement;
-	typedef map<string, elements*>::iterator iterElement;
+	typedef map<string, elements*>				arrElement;
+	typedef map<string, elements*>::iterator	iterElement;
 
-	typedef vector<charInfo*>			vCharInfo;
-	typedef vector<charInfo*>::iterator viCharInfo;
+	typedef vector<charInfo*>					vCharInfo;
+	typedef vector<charInfo*>::iterator			viCharInfo;
+
+	typedef vector<inventory*>					vInven;
+	typedef vector<inventory*>::iterator		viInven;
 private:
 	arrElement _mTotalElement;
 
 public:
 	vCharInfo player;
-
+	vInven	  inven;
 
 
 public:
@@ -42,10 +46,10 @@ public:
 
 	void loadDatabase(string name);
 
-	//속성에 대한 접근자
+	//=================================== getter & setter ===================================
+	//-------------------------------------- elements ---------------------------------------
 	elements* getElementData(string str) { return _mTotalElement.find(str)->second; }
 
-	//설정자
 	void setElementDataCurrentHP(string str, float ch);
 	void setElementDataMaxHP(string str, float mh);
 	void setElementDataAngle(string str, float a);

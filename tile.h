@@ -30,6 +30,7 @@ enum ANCHOR_TYPE
 struct tagTile
 {
 	RECT      rc;
+	RECT      cRc;
 	image*    img;
 	TILE_TYPE tileType;       //타입
 	ATTRIBUTE attribute;      //속성

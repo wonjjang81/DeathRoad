@@ -46,9 +46,6 @@
     <Filter Include="2DGameFramework\button">
       <UniqueIdentifier>{fdd9079e-654a-4eca-b42b-ccdc2f90c269}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2DGameFramework\dataBase">
-      <UniqueIdentifier>{5e3c2393-61d5-429c-a1be-c0403a7d9a87}</UniqueIdentifier>
-    </Filter>
     <Filter Include="mapTool">
       <UniqueIdentifier>{a1b693bf-8b4c-421c-bb75-b07497dd13c0}</UniqueIdentifier>
     </Filter>
@@ -72,6 +69,18 @@
     </Filter>
     <Filter Include="camera">
       <UniqueIdentifier>{17642624-1e57-462c-8bcd-610c5ce1761e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DGameFramework\thread">
+      <UniqueIdentifier>{57c4292e-3a21-4cfc-acc1-a5730b225cd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataBase">
+      <UniqueIdentifier>{5e3c2393-61d5-429c-a1be-c0403a7d9a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dataBase\info">
+      <UniqueIdentifier>{375c0229-0f7f-4f8c-8261-56f800ebb91d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="time">
+      <UniqueIdentifier>{29c38812-fd4b-468f-91ba-56d921ac2ecf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -151,7 +160,7 @@
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
     <ClInclude Include="database.h">
-      <Filter>2DGameFramework\dataBase</Filter>
+      <Filter>dataBase</Filter>
     </ClInclude>
     <ClInclude Include="d2dManager.h">
       <Filter>2DGameFramework\Manager</Filter>
@@ -198,9 +207,6 @@
     <ClInclude Include="player.h">
       <Filter>characterEditor</Filter>
     </ClInclude>
-    <ClInclude Include="charInfo.h">
-      <Filter>2DGameFramework\dataBase</Filter>
-    </ClInclude>
     <ClInclude Include="dataSave.h">
       <Filter>mapTool\data</Filter>
     </ClInclude>
@@ -209,6 +215,18 @@
     </ClInclude>
     <ClInclude Include="cameraManager.h">
       <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="thread.h">
+      <Filter>2DGameFramework\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="charInfo.h">
+      <Filter>dataBase\info</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>dataBase\info</Filter>
+    </ClInclude>
+    <ClInclude Include="gameTime.h">
+      <Filter>time</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -273,7 +291,7 @@
       <Filter>2DGameFramework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="database.cpp">
-      <Filter>2DGameFramework\dataBase</Filter>
+      <Filter>dataBase</Filter>
     </ClCompile>
     <ClCompile Include="d2dManager.cpp">
       <Filter>2DGameFramework\Manager</Filter>
@@ -346,6 +364,12 @@
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="thread.cpp">
+      <Filter>2DGameFramework\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="gameTime.cpp">
+      <Filter>time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

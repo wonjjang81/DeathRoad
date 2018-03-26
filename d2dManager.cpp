@@ -21,7 +21,7 @@ HRESULT d2dManager::init()
 	//---------------------------------------------------------------------------
 	//	D2D Factory 생성
 	//---------------------------------------------------------------------------
-	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pD2DFactory);
+	hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_MULTI_THREADED, &pD2DFactory);
 	assert(hr == S_OK);
 
 	//---------------------------------------------------------------------------
@@ -58,35 +58,8 @@ HRESULT d2dManager::init()
 	//---------------------------------------------------------------------------
 
 
-	//---------------------------------------- GradientStop ----------------------------------------
-	pGradientStops = NULL;
-
-	static const D2D1_GRADIENT_STOP gradientStops[] =
-	{
-		{ 0.0f, ColorF(ColorF::White, 0.0f) },
-	{ 1.0f, ColorF(ColorF::Black, 1.0f) },
-	};
-
-	hr = D2DMANAGER->pRenderTarget->CreateGradientStopCollection(gradientStops, 2, &pGradientStops);
-	//----------------------------------------------------------------------------------------------
-
-	//---------------------------------------- Create layer ----------------------------------------
-	pLayer = NULL;
-
-	D2DMANAGER->pRenderTarget->CreateLayer(NULL, &pLayer);
-
-	pLayerParmeters = &LayerParameters(InfiniteRect(), NULL, D2D1_ANTIALIAS_MODE_PER_PRIMITIVE, IdentityMatrix(),
-		1.0f, pRadialGradientBrush, D2D1_LAYER_OPTIONS_NONE);
-
-	if (SUCCEEDED(hr))
-	{
-		D2DMANAGER->pRenderTarget->PushLayer(pLayerParmeters, pLayer);
-	}
-	//----------------------------------------------------------------------------------------------
 
 
-	// Layer 초기화
-	pLayer = NULL;
 
 	return S_OK;
 }
@@ -302,28 +275,58 @@ void  d2dManager::drawIntText(LPCWSTR title, int value, float x, float y)
 }
 
 
-HRESULT d2dManager::opacityMask(float x, float y)
+HRESULT d2dManager::opacityMask(float x, float y, float light, bool on)
 {
+
 	HRESULT hr;
 
-	//------------------------------------ RadialGradientBrush -------------------------------------
-	pRadialGradientBrush = NULL;
+	if (on)
+	{
+		//---------------------------------------- GradientStop ----------------------------------------
+		ID2D1GradientStopCollection* pGradientStops = NULL;
 
-	hr = D2DMANAGER->pRenderTarget->CreateRadialGradientBrush(
-		RadialGradientBrushProperties(Point2F(x, y), Point2F(50, 50), 200, 200),
-		pGradientStops, &pRadialGradientBrush);
+		D2D1_GRADIENT_STOP gradientStops[] =
+		{
+			{ 0.0f, ColorF(ColorF::White, light) },
+			{ 1.0f, ColorF(ColorF::Black, 1.0f) },
+		};
 
-	pGradientStops->Release();
-	//----------------------------------------------------------------------------------------------
+		hr = D2DMANAGER->pRenderTarget->CreateGradientStopCollection(gradientStops, 2, &pGradientStops);
+		//----------------------------------------------------------------------------------------------
 
-	pLayerParmeters->opacityBrush = pRadialGradientBrush;
 
-	D2DMANAGER->pRenderTarget->FillRectangle(RectF(0, 0, WINSIZEX, WINSIZEY), D2DMANAGER->defaultBrush);
+		//------------------------------------ RadialGradientBrush -------------------------------------
+		ID2D1RadialGradientBrush* pRadialGradientBrush = NULL;
 
-	//if (pLayer == NULL) D2DMANAGER->pRenderTarget->PopLayer();
-	//SAFE_RELEASE_D2D(pLayer);
+		hr = D2DMANAGER->pRenderTarget->CreateRadialGradientBrush(
+			RadialGradientBrushProperties(Point2F(x, y), Point2F(50, 50), 200, 200),
+			pGradientStops, &pRadialGradientBrush);
 
-	return hr;
+		pGradientStops->Release();
+		//----------------------------------------------------------------------------------------------
+
+
+		//---------------------------------------- Create layer ----------------------------------------
+		ID2D1Layer* pLayer = NULL;
+
+		D2DMANAGER->pRenderTarget->CreateLayer(NULL, &pLayer);
+
+		if (SUCCEEDED(hr)) D2DMANAGER->pRenderTarget->PushLayer(LayerParameters(InfiniteRect(), NULL,
+			D2D1_ANTIALIAS_MODE_PER_PRIMITIVE, IdentityMatrix(),
+			1.0f, pRadialGradientBrush, D2D1_LAYER_OPTIONS_NONE), pLayer);
+		//----------------------------------------------------------------------------------------------
+
+
+		D2DMANAGER->pRenderTarget->FillRectangle(RectF(0, 0, WINSIZEX, WINSIZEY), D2DMANAGER->defaultBrush);
+
+
+		D2DMANAGER->pRenderTarget->PopLayer();
+		SAFE_RELEASE_D2D(pLayer);
+
+		return hr;
+	}
+
+	return hr = S_OK;
 }
 
 

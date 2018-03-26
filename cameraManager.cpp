@@ -41,8 +41,9 @@ void cameraManager::render()
 
 
 
-void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom)
+void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom, bool move)
 {
+
 	left   = false;
 	top    = false;
 	right  = false;
@@ -52,7 +53,7 @@ void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom)
 	//аб
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		left = true;
+		if (move) left = true;
 
 		if (_player.x < _camRc.left) _moveTIle.x += 1 * _moveSpeed;
 	}
@@ -61,7 +62,7 @@ void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom)
 	//©Л
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
-		right = true;
+		if (move) right = true;
 
 		if (_player.x > _camRc.right) _moveTIle.x -= 1 * _moveSpeed;
 	}
@@ -70,7 +71,7 @@ void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom)
 	//╩С
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
-		top = true;
+		if (move) top = true;
 
 		if (_player.y < _camRc.top) _moveTIle.y += 1 * _moveSpeed;
 	}
@@ -79,7 +80,7 @@ void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom)
 	//го
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
-		bottom = true;
+		if (move) bottom = true;
 
 		if (_player.y > _camRc.bottom) _moveTIle.y -= 1 * _moveSpeed;
 	}

@@ -51,7 +51,7 @@ public:
 	void drawIntText(LPCWSTR title, int value, float x, float y);
 
 	//Opacity Mask
-	HRESULT opacityMask(float x, float y);
+	HRESULT opacityMask(float x, float y, float light, bool on);
 
 
 

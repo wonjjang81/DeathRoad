@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "stage.h"
 #include "player.h"
+#include "gameTime.h"
 
 enum COLLISION_DIRECTION
 {
@@ -29,13 +30,27 @@ private:
 	float _moveX;
 	float _moveY;
 
+	POINT _moveChange;
+
 	//==== keyControl ====
 	bool _isLeft;
 	bool _isRight;
 	bool _isTop;
 	bool _isBottom;
 
+	bool _isPlayerMove;
+	//====================
+
 	POINT _tilePoint;
+
+	//======= Time =======
+	//Day & Night
+	bool _isNight;
+	int _gRadiusCount;
+	float _gradientRadius;
+
+	gameTime* _timer;
+	//====================
 
 public:
 	HRESULT init();
@@ -43,8 +58,11 @@ public:
 	void update();
 	void render();
 
-	void collisionPS(player* player, stage* room, int scale);
+	void collisionPS(player* player, stage* room, int scale, bool playerMove);
 	void collisionRect(player* player, BODYTYPE bodyType, stage* room, RECTTYPE rectType, float scale);
+
+	void daynNightInit();
+	void daynNightSet();
 	
 
 	stageManager();

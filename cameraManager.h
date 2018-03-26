@@ -17,7 +17,7 @@ public:
 	void release();
 	void render();
 
-	void charMove(bool& left, bool& top, bool& right, bool& bottom);
+	void charMove(bool& left, bool& top, bool& right, bool& bottom, bool move);
 
 	POINT tileCamMove() { return _moveTIle; }
 	void getPlayerXY(float playerX, float playerY);

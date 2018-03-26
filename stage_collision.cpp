@@ -1,16 +1,17 @@
 #include "stdafx.h"
 #include "stageManager.h"
 
-void stageManager::collisionPS(player* player, stage* room, int scale)
+void stageManager::collisionPS(player* player, stage* room, int scale, bool playerMove)
 {
 	_collOn = false;
 
-	_isLeft   = true;
-	_isRight  = true;
-	_isTop    = true;
-	_isBottom = true;																																 
+	_isLeft   = false;
+	_isRight  = false;
+	_isTop    = false;
+	_isBottom = false;	
 
-	CAMERAMANAGER->charMove(_isLeft, _isTop, _isRight, _isBottom);
+
+	CAMERAMANAGER->charMove(_isLeft, _isTop, _isRight, _isBottom, playerMove);
 
 	//가구
 	collisionRect(player, BODY_DWBODY, room, RECT_FURNITURE, scale);
@@ -45,13 +46,13 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room,
 		RECT tmpRoom;
 		RECT tmpPlayer = player->getRect(bodyType);
 
-		tmpRoom.left   = room->getRect(rectType, i).left   * scale + _moveX;
-		tmpRoom.top    = room->getRect(rectType, i).top    * scale + _moveY;
-		tmpRoom.right  = room->getRect(rectType, i).right  * scale + _moveX;
-		tmpRoom.bottom = room->getRect(rectType, i).bottom * scale + _moveY;
+		tmpRoom.left   = room->getRect(rectType, i).left   * scale + _moveX + _moveChange.x;
+		tmpRoom.top    = room->getRect(rectType, i).top    * scale + _moveY + _moveChange.y;
+		tmpRoom.right  = room->getRect(rectType, i).right  * scale + _moveX + _moveChange.x;
+		tmpRoom.bottom = room->getRect(rectType, i).bottom * scale + _moveY + _moveChange.y;
 
 		if (tmpRoom.top == tmpRoom.bottom) continue;
-		
+		 
 
 		//충돌체크
 		int cDirection = isCollisionReaction(tmpRoom, tmpPlayer);

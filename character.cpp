@@ -172,7 +172,7 @@ void character::charRender(string charTypeName, int index, bool flip)
 					viter->frameX, viter->frameY,
 					0, viter->scale, flip);
 
-				RECT tmpRc;
+
 				viter->cRc.left   = viter->x + viter->rc.left;
 				viter->cRc.top    = viter->y + viter->rc.top;
 				viter->cRc.right  = viter->x + viter->rc.right;

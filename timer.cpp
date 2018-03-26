@@ -14,11 +14,6 @@ timer::~timer()
 
 }
 
-//IRC -> ip -> 
-//ADSL -> www자료 와레즈
-//IRC -> 단군넷 -> 
-//단군넷 -> 누리넷 자료공유 -> 카운트 스트라이크 , 퀘이크 
-//누리넷 -> 단군넷
 
 HRESULT timer::init(void)
 {
