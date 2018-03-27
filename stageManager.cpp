@@ -58,9 +58,10 @@ HRESULT stageManager::init()
 	//쓰레드
 
 
-	//Item Data
-	_pItem = new inventory;
 
+	//UI
+	_ui = new UIManager;
+	_ui->init();
 
 
 	return S_OK;
@@ -69,10 +70,13 @@ HRESULT stageManager::init()
 void stageManager::release()
 {
 
+
+
 }
 
 void stageManager::update()	
 {
+
 	_player1->update(_isLeft, _isTop, _isRight, _isBottom);
 
 	collisionPS(_player1, _room1, stageScale, _isPlayerMove);
@@ -89,6 +93,9 @@ void stageManager::update()
 
 	//밤낮 전환
 	daynNightSet();
+
+	//UI
+	_ui->update();
 }
 
 void stageManager::render()	 
@@ -103,10 +110,12 @@ void stageManager::render()
 
 	D2DMANAGER->opacityMask(_player1->getPlayerXY().x + 15, _player1->getPlayerXY().y + 15, _gradientRadius, _isNight);
 
+
 	//게임시간
 	_timer->render();
 
-
+	//UI
+	_ui->render();
 
 
 	//======================================== TEST ========================================

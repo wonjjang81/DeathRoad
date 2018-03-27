@@ -60,34 +60,51 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room,
 		{
 			if (rectType == RECT_ITEM || rectType == RECT_WEAPON)
 			{
+				tagInvenItem tmpItem;
+				tagInvenWp   tmpWp;
+
 				switch (rectType)
 				{
 					case RECT_ITEM:
 						if (room->getVectorSize(RECT_ITEM) == 0) continue;
-			
 
-						sprintf(_pItem->imgName, "%s", room->getTileInfo(RECT_ITEM, i).imgName);
-						_pItem->tileType  = room->getTileInfo(RECT_ITEM, i).tileType;
-						_pItem->attribute = room->getTileInfo(RECT_ITEM, i).attribute;
-						_pItem->typeAtt   = room->getTileInfo(RECT_ITEM, i).typeAtt;
-						_pItem->index     = room->getTileInfo(RECT_ITEM, i).index;
+						sprintf(tmpItem.imgName, "%s", room->getTileInfo(RECT_ITEM, i).imgName);
+						tmpItem.typeAtt   = room->getTileInfo(RECT_ITEM, i).typeAtt;
+						tmpItem.index     = room->getTileInfo(RECT_ITEM, i).index;
 
-						DATABASE->inven.push_back(_pItem);
+						switch (tmpItem.typeAtt)
+						{
+							case TYPE_A_IT_DRUG:
+								tmpItem.value = RND->getFromIntTo(1, 3);
+							break;
+							case TYPE_A_IT_FOOD:
+								tmpItem.value = RND->getFromIntTo(1, 3);
+							break;
+							case TYPE_A_IT_OIL:
+								tmpItem.value = RND->getFromIntTo(5, 50);
+							break;
+							case TYPE_A_IT_BULLET:
+								tmpItem.value = RND->getFromIntTo(7, 30);
+							break;
+						}
+					
+
+						DATABASE->item.push_back(tmpItem);
 
 						room->removeVItem(RECT_ITEM, i);
 						return;
 					break;
 					case RECT_WEAPON:
 						if (room->getVectorSize(RECT_WEAPON) == 0) continue;
-		
 
-						sprintf(_pItem->imgName, "%s", room->getTileInfo(RECT_WEAPON, i).imgName);
-						_pItem->tileType  = room->getTileInfo(RECT_WEAPON, i).tileType;
-						_pItem->attribute = room->getTileInfo(RECT_WEAPON, i).attribute;
-						_pItem->typeAtt   = room->getTileInfo(RECT_WEAPON, i).typeAtt;
-						_pItem->index     = room->getTileInfo(RECT_WEAPON, i).index;
+						sprintf(tmpWp.imgName, "%s", room->getTileInfo(RECT_WEAPON, i).imgName);
+						tmpWp.typeAtt   = room->getTileInfo(RECT_WEAPON, i).typeAtt;
+						tmpWp.index     = room->getTileInfo(RECT_WEAPON, i).index;
+						tmpWp.frameX    = room->getTileInfo(RECT_WEAPON, i).frameX;
+						tmpWp.frameY    = room->getTileInfo(RECT_WEAPON, i).frameY;
+						//tmpItem.value = 0;
 
-						DATABASE->inven.push_back(_pItem);
+						DATABASE->weapon.push_back(tmpWp);
 
 						room->removeVItem(RECT_WEAPON, i);
 						return;

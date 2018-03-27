@@ -30,14 +30,18 @@ private:
 	typedef vector<charInfo*>					vCharInfo;
 	typedef vector<charInfo*>::iterator			viCharInfo;
 
-	typedef vector<inventory*>					vInven;
-	typedef vector<inventory*>::iterator		viInven;
+	typedef vector<tagInvenItem>				vInItem;
+	typedef vector<tagInvenItem>::iterator		viInItem;
+
+	typedef vector<tagInvenWp>					vInWp;
+	typedef vector<tagInvenWp>::iterator		viInWp;
 private:
 	arrElement _mTotalElement;
 
 public:
 	vCharInfo player;
-	vInven	  inven;
+	vInItem	  item;
+	vInWp	  weapon;
 
 
 public:

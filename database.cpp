@@ -14,6 +14,9 @@ HRESULT database::init()
 	loadDatabase("database.txt");
 
 
+
+
+
 	return S_OK;
 }
 

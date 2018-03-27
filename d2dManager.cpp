@@ -265,13 +265,13 @@ HRESULT d2dManager::layerContentBound(ID2D1RenderTarget* pRt, D2D1_RECT_F cRect)
 }
 
 
-void  d2dManager::drawIntText(LPCWSTR title, int value, float x, float y)
+void  d2dManager::drawIntText(LPCWSTR title, int value, float x, float y, COLORREF rgb, LPCWSTR font)
 {
 	WCHAR strIndex[128];
 	ZeroMemory(&strIndex, sizeof(strIndex));
 	swprintf(strIndex, L"%s %d", title, value);
 
-	D2DMANAGER->drawTextDwd(D2DMANAGER->defaultBrush, L"¸¼Àº°íµñ", 18, strIndex, x, y, x + 200, y + 20);
+	D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(rgb), font, 18, strIndex, x, y, x + 500, y + 20);
 }
 
 
@@ -283,7 +283,7 @@ HRESULT d2dManager::opacityMask(float x, float y, float light, bool on)
 	if (on)
 	{
 		//---------------------------------------- GradientStop ----------------------------------------
-		ID2D1GradientStopCollection* pGradientStops = NULL;
+		pGradientStops = NULL;
 
 		D2D1_GRADIENT_STOP gradientStops[] =
 		{
@@ -296,7 +296,7 @@ HRESULT d2dManager::opacityMask(float x, float y, float light, bool on)
 
 
 		//------------------------------------ RadialGradientBrush -------------------------------------
-		ID2D1RadialGradientBrush* pRadialGradientBrush = NULL;
+		pRadialGradientBrush = NULL;
 
 		hr = D2DMANAGER->pRenderTarget->CreateRadialGradientBrush(
 			RadialGradientBrushProperties(Point2F(x, y), Point2F(50, 50), 200, 200),
@@ -307,7 +307,7 @@ HRESULT d2dManager::opacityMask(float x, float y, float light, bool on)
 
 
 		//---------------------------------------- Create layer ----------------------------------------
-		ID2D1Layer* pLayer = NULL;
+		pLayer = NULL;
 
 		D2DMANAGER->pRenderTarget->CreateLayer(NULL, &pLayer);
 
@@ -319,9 +319,10 @@ HRESULT d2dManager::opacityMask(float x, float y, float light, bool on)
 
 		D2DMANAGER->pRenderTarget->FillRectangle(RectF(0, 0, WINSIZEX, WINSIZEY), D2DMANAGER->defaultBrush);
 
-
 		D2DMANAGER->pRenderTarget->PopLayer();
+
 		SAFE_RELEASE_D2D(pLayer);
+
 
 		return hr;
 	}

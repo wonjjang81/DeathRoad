@@ -165,6 +165,8 @@ tagTile stage::getTileInfo(RECTTYPE type, int i)
 			tmpTile.typeAtt2  = _newMap->_vSaveWp[i].typeAtt2;
 			sprintf(tmpTile.imgName, "%s", _newMap->_vSaveWp[i].imgName);
 			tmpTile.index     = _newMap->_vSaveWp[i].index;
+			tmpTile.frameX	  = _newMap->_vSaveWp[i].frameX;
+			tmpTile.frameY	  = _newMap->_vSaveWp[i].frameY;
 
 			return tmpTile;
 		break;

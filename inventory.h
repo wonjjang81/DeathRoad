@@ -2,15 +2,36 @@
 #include "tileInfo.h"
 #include "tileDataInfo.h"
 
-class inventory
+
+struct tagInvenItem
 {
-public:
-	TILE_TYPE tileType;       //타입
-	ATTRIBUTE attribute;      //속성
 	TYPE_ATTRIBUTE typeAtt;   //타입별 속성
 
 	TCHAR imgName[64];
 	int index;
+	int value;
+};
+
+struct tagInvenWp
+{
+	TYPE_ATTRIBUTE typeAtt;   //타입별 속성
+
+	TCHAR imgName[64];
+	int index;
+	int damage;
+
+	int frameX;
+	int frameY;
+};
+
+
+
+
+
+
+class inventory
+{
+public:
 
 
 

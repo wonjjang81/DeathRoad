@@ -4,6 +4,7 @@
 #include "player.h"
 #include "gameTime.h"
 #include "inventory.h"
+#include "UIManager.h"
 
 
 enum COLLISION_DIRECTION
@@ -56,8 +57,14 @@ private:
 
 
 	//====== Thread ======
-	inventory* _pItem;
+
 	//====================
+
+	//======== UI ========
+	UIManager* _ui;
+	//====================
+
+
 
 public:
 	HRESULT init();

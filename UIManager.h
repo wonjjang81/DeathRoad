@@ -10,6 +10,15 @@ private:
 	int _oilNum;
 	int _bulletNum;
 
+	float textX, textY;
+
+	//아이템
+	image* _itemImg;
+
+	//무기
+	image* _wpImg;
+	int _wpFrameX;
+	int _wpFrameY;
 
 public:
 	HRESULT init();
@@ -17,7 +26,9 @@ public:
 	void update();
 	void render();
 
-	void getItem(TYPE_ATTRIBUTE attr);
+	int getItem(TYPE_ATTRIBUTE attr);
+
+	void weaponSet();
 
 	UIManager();
 	~UIManager();

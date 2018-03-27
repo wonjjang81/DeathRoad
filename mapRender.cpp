@@ -40,7 +40,7 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 		if (tileVector[i].img == NULL || tileVector[i].imgName == "")
 		{
 			tileVector.erase(tileVector.begin() + i);
-			continue;
+			//continue;
 		}
 	}
 
