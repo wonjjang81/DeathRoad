@@ -160,6 +160,11 @@ void mapLoad::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile.push_back(tmpTile);
 	}
 
+	if (tileSize == 0)
+	{
+		ZeroMemory(&vSaveTile, sizeof(vSaveTile));
+	}
+
 
 	for (int i = 0; i < tileSize; ++i)
 	{

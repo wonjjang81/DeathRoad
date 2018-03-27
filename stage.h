@@ -45,12 +45,16 @@ public:
 	void afterRender();
 	void afterVectorAdd(vSaveTile& vTile);
 
+	void removeVItem(RECTTYPE type, int i);
+
 
 	//========================= getter & setter =========================
 	RECT getRect(RECTTYPE type, int i);
 	int getVectorSize(RECTTYPE type);
 
 	POINT getStartPoint() { return _startPoint; }
+
+	tagTile getTileInfo(RECTTYPE type, int i);
 
 	stage();
 	~stage();

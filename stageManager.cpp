@@ -55,6 +55,12 @@ HRESULT stageManager::init()
 	//³·&¹ã Á¶¸íÃ³¸®
 	daynNightInit();
 
+	//¾²·¹µå
+
+
+	//Item Data
+	_pItem = new inventory;
+
 
 
 	return S_OK;
@@ -94,8 +100,8 @@ void stageManager::render()
 	_player1->render();
 	_room1->afterRender();
 
-	D2DMANAGER->opacityMask(_player1->getPlayerXY().x + 15, _player1->getPlayerXY().y + 15, _gradientRadius, _isNight);
 
+	D2DMANAGER->opacityMask(_player1->getPlayerXY().x + 15, _player1->getPlayerXY().y + 15, _gradientRadius, _isNight);
 
 	//°ÔÀÓ½Ã°£
 	_timer->render();

@@ -3,6 +3,8 @@
 #include "stage.h"
 #include "player.h"
 #include "gameTime.h"
+#include "inventory.h"
+
 
 enum COLLISION_DIRECTION
 {
@@ -52,6 +54,11 @@ private:
 	gameTime* _timer;
 	//====================
 
+
+	//====== Thread ======
+	inventory* _pItem;
+	//====================
+
 public:
 	HRESULT init();
 	void release();
@@ -60,6 +67,7 @@ public:
 
 	void collisionPS(player* player, stage* room, int scale, bool playerMove);
 	void collisionRect(player* player, BODYTYPE bodyType, stage* room, RECTTYPE rectType, float scale);
+
 
 	void daynNightInit();
 	void daynNightSet();

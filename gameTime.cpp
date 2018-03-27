@@ -14,7 +14,7 @@ HRESULT gameTime::init()
 {
 	_second = 0;
 	_minute = 0;
-	_hour   = 3;  // RND->getFromIntTo(0, 23)
+	_hour   = RND->getFromIntTo(0, 23);
 	_day    = 0;
 
 

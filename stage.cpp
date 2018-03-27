@@ -124,3 +124,75 @@ int stage::getVectorSize(RECTTYPE type)
 	}
 }
 
+
+tagTile stage::getTileInfo(RECTTYPE type, int i)
+{
+	tagTile tmpTile;
+	ZeroMemory(&tmpTile, sizeof(tagTile));
+
+	switch (type)
+	{
+		case RECT_FURNITURE:
+			if (_newMap->_vSaveFt.size() == 0) break;
+
+			tmpTile.tileType  = _newMap->_vSaveFt[i].tileType;
+			tmpTile.attribute = _newMap->_vSaveFt[i].attribute;
+			tmpTile.typeAtt   = _newMap->_vSaveFt[i].typeAtt;
+			tmpTile.typeAtt2  = _newMap->_vSaveFt[i].typeAtt2;
+			sprintf(tmpTile.imgName, "%s", _newMap->_vSaveFt[i].imgName);
+			tmpTile.index     = _newMap->_vSaveFt[i].index;
+
+			return tmpTile;
+		break;
+		case RECT_ITEM:
+			if (_newMap->_vSaveIt.size() == 0) break;
+
+			tmpTile.tileType  = _newMap->_vSaveIt[i].tileType;
+			tmpTile.attribute = _newMap->_vSaveIt[i].attribute;
+			tmpTile.typeAtt   = _newMap->_vSaveIt[i].typeAtt;
+			tmpTile.typeAtt2  = _newMap->_vSaveIt[i].typeAtt2;
+			sprintf(tmpTile.imgName, "%s", _newMap->_vSaveIt[i].imgName);
+			tmpTile.index     = _newMap->_vSaveIt[i].index;
+
+			return tmpTile;
+		break;
+		case RECT_WEAPON:
+			if (_newMap->_vSaveWp.size() == 0) break;
+
+			tmpTile.tileType  = _newMap->_vSaveWp[i].tileType;
+			tmpTile.attribute = _newMap->_vSaveWp[i].attribute;
+			tmpTile.typeAtt   = _newMap->_vSaveWp[i].typeAtt;
+			tmpTile.typeAtt2  = _newMap->_vSaveWp[i].typeAtt2;
+			sprintf(tmpTile.imgName, "%s", _newMap->_vSaveWp[i].imgName);
+			tmpTile.index     = _newMap->_vSaveWp[i].index;
+
+			return tmpTile;
+		break;
+	}
+}
+
+
+void stage::removeVItem(RECTTYPE type, int i)
+{
+	switch (type)
+	{
+		case RECT_FURNITURE:
+			if (_newMap->_vSaveFt.size() == 0) break;
+
+
+		break;
+		case RECT_ITEM:
+			if (_newMap->_vSaveIt.size() == 0) break;
+
+			_newMap->_vSaveIt.erase(_newMap->_vSaveIt.begin() + i);
+			
+
+		break;
+		case RECT_WEAPON:
+			if (_newMap->_vSaveWp.size() == 0) break;
+
+			_newMap->_vSaveWp.erase(_newMap->_vSaveWp.begin() + i);
+
+		break;
+	}
+}

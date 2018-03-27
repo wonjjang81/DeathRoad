@@ -58,7 +58,44 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room,
 		int cDirection = isCollisionReaction(tmpRoom, tmpPlayer);
 		if (cDirection > 0)
 		{
-			if (rectType == RECT_ITEM || rectType == RECT_WEAPON) continue;
+			if (rectType == RECT_ITEM || rectType == RECT_WEAPON)
+			{
+				switch (rectType)
+				{
+					case RECT_ITEM:
+						if (room->getVectorSize(RECT_ITEM) == 0) continue;
+			
+
+						sprintf(_pItem->imgName, "%s", room->getTileInfo(RECT_ITEM, i).imgName);
+						_pItem->tileType  = room->getTileInfo(RECT_ITEM, i).tileType;
+						_pItem->attribute = room->getTileInfo(RECT_ITEM, i).attribute;
+						_pItem->typeAtt   = room->getTileInfo(RECT_ITEM, i).typeAtt;
+						_pItem->index     = room->getTileInfo(RECT_ITEM, i).index;
+
+						DATABASE->inven.push_back(_pItem);
+
+						room->removeVItem(RECT_ITEM, i);
+						return;
+					break;
+					case RECT_WEAPON:
+						if (room->getVectorSize(RECT_WEAPON) == 0) continue;
+		
+
+						sprintf(_pItem->imgName, "%s", room->getTileInfo(RECT_WEAPON, i).imgName);
+						_pItem->tileType  = room->getTileInfo(RECT_WEAPON, i).tileType;
+						_pItem->attribute = room->getTileInfo(RECT_WEAPON, i).attribute;
+						_pItem->typeAtt   = room->getTileInfo(RECT_WEAPON, i).typeAtt;
+						_pItem->index     = room->getTileInfo(RECT_WEAPON, i).index;
+
+						DATABASE->inven.push_back(_pItem);
+
+						room->removeVItem(RECT_WEAPON, i);
+						return;
+					break;
+				}
+			
+				continue;
+			}
 
 			switch (cDirection)
 			{
