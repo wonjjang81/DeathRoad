@@ -96,6 +96,7 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room,
 					break;
 					case RECT_WEAPON:
 						if (room->getVectorSize(RECT_WEAPON) == 0) continue;
+						if (DATABASE->weapon.size() >= 3) continue;
 
 						sprintf(tmpWp.imgName, "%s", room->getTileInfo(RECT_WEAPON, i).imgName);
 						tmpWp.typeAtt   = room->getTileInfo(RECT_WEAPON, i).typeAtt;
@@ -106,7 +107,11 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room,
 
 						DATABASE->weapon.push_back(tmpWp);
 
-						room->removeVItem(RECT_WEAPON, i);
+						//무기 먹고 보유무기 버리기
+						if (DATABASE->weapon.size() < 3)
+						{
+							room->removeVItem(RECT_WEAPON, i);
+						}
 						return;
 					break;
 				}

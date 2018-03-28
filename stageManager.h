@@ -64,6 +64,10 @@ private:
 	UIManager* _ui;
 	//====================
 
+	//====== Weapon ======
+	POINT pCenter;
+	//====================
+
 
 
 public:
@@ -79,6 +83,8 @@ public:
 	void daynNightInit();
 	void daynNightSet();
 	
+
+	void playerCenter();
 
 	stageManager();
 	~stageManager();

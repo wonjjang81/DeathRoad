@@ -231,6 +231,9 @@
     <ClInclude Include="UIManager.h">
       <Filter>Stage</Filter>
     </ClInclude>
+    <ClInclude Include="weapon.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -375,6 +378,9 @@
       <Filter>time</Filter>
     </ClCompile>
     <ClCompile Include="UIManager.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="weapon.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
   </ItemGroup>

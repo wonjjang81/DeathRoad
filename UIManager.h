@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "weapon.h"
 
 
 class UIManager : public gameNode
@@ -16,6 +17,7 @@ private:
 	image* _itemImg;
 
 	//¹«±â
+	weapon* _vWp;
 	image* _wpImg;
 	int _wpFrameX;
 	int _wpFrameY;
@@ -28,7 +30,7 @@ public:
 
 	int getItem(TYPE_ATTRIBUTE attr);
 
-	void weaponSet();
+
 
 	UIManager();
 	~UIManager();

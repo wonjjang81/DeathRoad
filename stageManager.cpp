@@ -64,6 +64,11 @@ HRESULT stageManager::init()
 	_ui->init();
 
 
+	//Weapon
+	pCenter.x = _player1->getPlayerXY().x;
+	pCenter.y = _player1->getPlayerXY().y;
+
+
 	return S_OK;
 }
 
@@ -125,6 +130,8 @@ void stageManager::render()
 		_player1->getRect(BODY_UPBODY).left + 100, _player1->getRect(BODY_UPBODY).top);
 
 	CAMERAMANAGER->render();
+
+	playerCenter();
 }
 
 
@@ -209,4 +216,15 @@ void stageManager::daynNightSet()
 			}
 		}
 	}
+}
+
+
+void stageManager::playerCenter()
+{
+	pCenter.x = _player1->getPlayerXY().x + 18;
+	pCenter.y = _player1->getPlayerXY().y + 50;
+
+	int length = 5;
+	D2DMANAGER->drawLine(D2DMANAGER->createBrush(RED), pCenter.x - length, pCenter.y, pCenter.x + length, pCenter.y);
+	D2DMANAGER->drawLine(D2DMANAGER->createBrush(RED), pCenter.x, pCenter.y - length, pCenter.x, pCenter.y + length);
 }

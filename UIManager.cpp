@@ -26,6 +26,10 @@ HRESULT UIManager::init()
 	_wpFrameX = -1;
 	_wpFrameY = -1;
 
+	//무기
+	_vWp = new weapon;
+	_vWp->init();
+
 	return S_OK;
 }
 
@@ -41,13 +45,15 @@ void UIManager::update()
 	_oilNum    = getItem(TYPE_A_IT_OIL);
 	_bulletNum = getItem(TYPE_A_IT_BULLET);
 
-	weaponSet();
+	//무기
+	_vWp->weaponChange();
+	_vWp->update(textX + 20, textY - 50);
 }
 
 void UIManager::render() 
 {
 	//무기
-	if (_wpFrameX >= 0) _wpImg->frameRender(1.0f, textX + 20, textY - 50, _wpFrameX, _wpFrameY, 45, 2.0f);
+	_vWp->render(2, 45);
 
 
 	//아이템
@@ -62,7 +68,6 @@ void UIManager::render()
 
 	_itemImg->frameRender(1.0f, textX + 300, textY, 0, 2, 0, 2.0f);
 	D2DMANAGER->drawIntText(L"", _bulletNum, textX + 320, textY + 5, RGB(255, 255, 255), L"Press Start 2P");
-
 }
 
 
@@ -81,29 +86,3 @@ int UIManager::getItem(TYPE_ATTRIBUTE attr)
 }
 
 
-void UIManager::weaponSet()
-{
-	for (int i = 0; i < DATABASE->weapon.size(); ++i)
-	{
-		switch (DATABASE->weapon[i].typeAtt)
-		{
-			case TYPE_A_WP_GUN:
-				_wpFrameX = DATABASE->weapon[i].frameX;
-				_wpFrameY = DATABASE->weapon[i].frameY;
-			break;
-			case TYPE_A_WP_BOMB:
-				_wpFrameX = DATABASE->weapon[i].frameX;
-				_wpFrameY = DATABASE->weapon[i].frameY;
-			break;
-			case TYPE_A_WP_SWORD:
-				_wpFrameX = DATABASE->weapon[i].frameX;
-				_wpFrameY = DATABASE->weapon[i].frameY;
-			break;
-			case TYPE_A_WP_MACHINE:
-				_wpFrameX = DATABASE->weapon[i].frameX;
-				_wpFrameY = DATABASE->weapon[i].frameY;
-			break;
-		}
-	}
-
-}
