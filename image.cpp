@@ -657,7 +657,7 @@ void image::frameRender(float opacity, float destX, float destY, float angle, fl
 }
 
 
-void image::frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle, float scale, bool flip)
+void image::frameRender(float opacity, float destX, float destY, int currentFrameX, int currentFrameY, float angle, float scale, bool flip, float roX, float roY)
 {
 	Matrix3x2F matFlip;
 	Matrix3x2F matScale;	//½ºÄÉÀÏ
@@ -669,8 +669,8 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 	float centerX = posX + _imageInfo->frameWidth / 2;
 	float centerY = posY + _imageInfo->frameHeight / 2;
 
-	float flipX = posX + (_imageInfo->frameWidth * 1.5);
-	float flipY = posY + (_imageInfo->frameHeight * 1.5);
+	float flipX = posX + (_imageInfo->frameWidth * roX);
+	float flipY = posY + (_imageInfo->frameHeight * roY);
 
 	if (_imageInfo->pBitmap != NULL)
 	{
@@ -690,7 +690,7 @@ void image::frameRender(float opacity, float destX, float destY, int currentFram
 		else matFlip = Matrix3x2F::Scale(1, 1, Point2F(centerX, centerY));
 
 		matScale = Matrix3x2F::Scale(scale, scale, Point2F(posX, posY));
-		matRot = Matrix3x2F::Rotation(angle, Point2F(centerX, centerY));
+		matRot = Matrix3x2F::Rotation(angle, Point2F(flipX, flipY));
 		matTM = matScale * matRot * matFlip;
 
 		D2DMANAGER->pRenderTarget->SetTransform(matTM);

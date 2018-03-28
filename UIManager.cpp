@@ -28,7 +28,7 @@ HRESULT UIManager::init()
 
 	//무기
 	_vWp = new weapon;
-	_vWp->init();
+	_vWp->init(2);
 
 	return S_OK;
 }
@@ -47,13 +47,13 @@ void UIManager::update()
 
 	//무기
 	_vWp->weaponChange();
-	_vWp->update(textX + 20, textY - 50);
+	_vWp->update(textX, textY);
 }
 
 void UIManager::render() 
 {
 	//무기
-	_vWp->render(2, 45);
+	_vWp->render(45);
 
 
 	//아이템

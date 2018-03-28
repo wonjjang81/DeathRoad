@@ -68,6 +68,12 @@ HRESULT stageManager::init()
 	pCenter.x = _player1->getPlayerXY().x;
 	pCenter.y = _player1->getPlayerXY().y;
 
+	_pWp = new weapon;
+	_pWp->init(stageScale);
+
+	_wpAngle = 0;
+	_wpFlip = false;
+	_prevDir = DIRECTION_DOWN;
 
 	return S_OK;
 }
@@ -101,6 +107,12 @@ void stageManager::update()
 
 	//UI
 	_ui->update();
+
+	//¹«±â
+	_pWp->update(pCenter.x, pCenter.y);
+	weaponAngleSet();
+
+
 }
 
 void stageManager::render()	 
@@ -109,8 +121,12 @@ void stageManager::render()
 	D2DMANAGER->fillRectangle(D2DMANAGER->createBrush(RGB(0, 0, 0)), 0, 0, WINSIZEX, WINSIZEY);
 
 	_room1->render();
-	_player1->render();
+
+	playerRender();
+
 	_room1->afterRender();
+
+
 
 
 	D2DMANAGER->opacityMask(_player1->getPlayerXY().x + 15, _player1->getPlayerXY().y + 15, _gradientRadius, _isNight);
@@ -132,6 +148,60 @@ void stageManager::render()
 	CAMERAMANAGER->render();
 
 	playerCenter();
+}
+
+
+void stageManager::playerRender()
+{
+	if (_player1->getDirect() == DIRECTION_DOWN || _player1->getDirect() == DIRECTION_UP)
+	{
+		_prevDir = _player1->getDirect();
+	}
+
+	switch (_player1->getDirect())
+	{
+		case DIRECTION_LEFT: case DIRECTION_RIGHT:
+
+			if (_player1->getDirect() == DIRECTION_LEFT)
+			{
+				_wpAngle = 45;
+				_wpFlip = true;
+			}
+			if (_player1->getDirect() == DIRECTION_RIGHT)
+			{
+				_wpFlip = false;
+			}
+
+			switch (_prevDir)
+			{
+				case DIRECTION_DOWN:
+					_player1->render();
+
+					if (_ui->getVwp().size() != 0 && _ui->getWpNum() < _ui->getVwp().size())
+						_pWp->renderB(_ui->getVwp()[_ui->getWpNum()].frameX, _ui->getVwp()[_ui->getWpNum()].frameY, _wpAngle, _wpFlip);
+				break;
+				case DIRECTION_UP:
+					if (_ui->getVwp().size() != 0 && _ui->getWpNum() < _ui->getVwp().size())
+						_pWp->renderB(_ui->getVwp()[_ui->getWpNum()].frameX, _ui->getVwp()[_ui->getWpNum()].frameY, _wpAngle, _wpFlip);
+
+					_player1->render();
+				break;
+			}
+		break;
+		case DIRECTION_DOWN: 
+			_player1->render();
+
+			if (_ui->getVwp().size() != 0 && _ui->getWpNum() < _ui->getVwp().size())
+				_pWp->renderB(_ui->getVwp()[_ui->getWpNum()].frameX, _ui->getVwp()[_ui->getWpNum()].frameY, _wpAngle, _wpFlip);
+		break;
+		case DIRECTION_UP: 
+			if (_ui->getVwp().size() != 0 && _ui->getWpNum() < _ui->getVwp().size())
+				_pWp->renderB(_ui->getVwp()[_ui->getWpNum()].frameX, _ui->getVwp()[_ui->getWpNum()].frameY, _wpAngle, _wpFlip);
+
+			_player1->render();
+		break;
+	}
+
 }
 
 
@@ -227,4 +297,14 @@ void stageManager::playerCenter()
 	int length = 5;
 	D2DMANAGER->drawLine(D2DMANAGER->createBrush(RED), pCenter.x - length, pCenter.y, pCenter.x + length, pCenter.y);
 	D2DMANAGER->drawLine(D2DMANAGER->createBrush(RED), pCenter.x, pCenter.y - length, pCenter.x, pCenter.y + length);
+}
+
+
+void stageManager::weaponAngleSet()
+{
+	if (_wpAngle > 360) _wpAngle = 0;
+
+	//_wpAngle += 10;
+
+
 }

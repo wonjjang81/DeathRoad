@@ -5,6 +5,7 @@
 #include "gameTime.h"
 #include "inventory.h"
 #include "UIManager.h"
+#include "weapon.h"
 
 
 enum COLLISION_DIRECTION
@@ -66,6 +67,10 @@ private:
 
 	//====== Weapon ======
 	POINT pCenter;
+	weapon* _pWp;
+	int _wpAngle;
+	bool _wpFlip;
+	MOVE_DIRECTION _prevDir;
 	//====================
 
 
@@ -76,15 +81,18 @@ public:
 	void update();
 	void render();
 
+	void playerRender();
+
 	void collisionPS(player* player, stage* room, int scale, bool playerMove);
 	void collisionRect(player* player, BODYTYPE bodyType, stage* room, RECTTYPE rectType, float scale);
 
-
+	//시각효과
 	void daynNightInit();
 	void daynNightSet();
 	
+	void playerCenter();  //플레이어 위치XY
 
-	void playerCenter();
+	void weaponAngleSet();  //무기회전 셋팅
 
 	stageManager();
 	~stageManager();

@@ -112,6 +112,7 @@ public:
 
 	POINT getPlayerXY();
 	
+	MOVE_DIRECTION getDirect() { return _currentDir; }
 
 	player();
 	~player();

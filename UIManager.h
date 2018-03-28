@@ -6,6 +6,10 @@
 class UIManager : public gameNode
 {
 private:
+	typedef vector<tagInvenWp>				vInWp;
+	typedef vector<tagInvenWp>::iterator	viInWp;
+
+private:
 	int _foodNum;
 	int _drugNum;
 	int _oilNum;
@@ -30,6 +34,10 @@ public:
 
 	int getItem(TYPE_ATTRIBUTE attr);
 
+
+	//========================= getter && setter =========================
+	vInWp getVwp() { return _vWp->getVWp(); }
+	int getWpNum() { return _vWp->getWpNum(); }
 
 
 	UIManager();
