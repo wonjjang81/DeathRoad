@@ -12,25 +12,27 @@ stageManager::~stageManager()
 
 HRESULT stageManager::init()
 {
-	_mapFileName = "room1";
+	intToMapFileName(1);
+
 	stageScale = 3;
 
 	//타일 화면 중앙으로
-	string tmpFileName;
-	tmpFileName.append("map//");
-	tmpFileName.append(_mapFileName);
-	int tileX = INIDATA->loadDataInterger(tmpFileName.c_str(), "mapData", "tileX");
-	int tileY = INIDATA->loadDataInterger(tmpFileName.c_str(), "mapData", "tileY");
-	_moveX = (WINSIZEX - tileX * TILE_SIZEX * stageScale) / 2;
-	_moveY = (WINSIZEY - tileY * TILE_SIZEY * stageScale) / 2;
+	tileCenterXY();
 
-
-	_room1 = new stage;
+	//stage
+	_room1 = new stage1;
 	_room1->init(_mapFileName, _moveX, _moveY, stageScale);
+	addChild(_room1);
+
+	_room2 = new stage1;
+
+	_currentStage = new stage1;
+	_currentStage = _room1;
 
 	_startPoint.x = _room1->getStartPoint().x * stageScale + _moveX;
 	_startPoint.y = _room1->getStartPoint().y * stageScale + _moveY;
 
+	//player
 	_player1 = new player;
 	_player1->init(0, _startPoint.x, _startPoint.y, 1.5);
 
@@ -58,7 +60,6 @@ HRESULT stageManager::init()
 	//쓰레드
 
 
-
 	//UI
 	_ui = new UIManager;
 	_ui->init();
@@ -82,20 +83,21 @@ HRESULT stageManager::init()
 void stageManager::release()
 {
 
-
-
 }
 
 void stageManager::update()	
 {
+	//스테이지 변경
+	stageChange();
 
 	_player1->update(_isLeft, _isTop, _isRight, _isBottom);
 
-	collisionPS(_player1, _room1, stageScale, _isPlayerMove);
+	collisionPS(_player1, _currentStage, stageScale, _isPlayerMove);
 
 	CAMERAMANAGER->getPlayerXY(_player1->getPlayerXY().x, _player1->getPlayerXY().y);
 
-	_room1->update(CAMERAMANAGER->tileCamMove().x, CAMERAMANAGER->tileCamMove().y);
+	//stage
+	gameNode::update();
 
 	_moveChange.x += CAMERAMANAGER->tileCamMove().x;
 	_moveChange.y += CAMERAMANAGER->tileCamMove().y;
@@ -113,7 +115,6 @@ void stageManager::update()
 	_pWp->update(pCenter.x, pCenter.y);
 	weaponAngleSet();
 
-
 }
 
 void stageManager::render()	 
@@ -121,12 +122,12 @@ void stageManager::render()
 	//배경색
 	D2DMANAGER->fillRectangle(D2DMANAGER->createBrush(RGB(0, 0, 0)), 0, 0, WINSIZEX, WINSIZEY);
 
-	_room1->render();
+	//stage
+	gameNode::render();  
 
 	playerRender();
 
-	_room1->afterRender();
-
+	gameNode::afterRender();
 
 
 
@@ -165,7 +166,7 @@ void stageManager::playerRender()
 
 			if (_player1->getDirect() == DIRECTION_LEFT)
 			{
-				_wpAngle = 45;
+				_wpAngle = 315;
 				_wpFlip = true;
 			}
 			if (_player1->getDirect() == DIRECTION_RIGHT)
@@ -303,7 +304,7 @@ void stageManager::playerCenter()
 
 void stageManager::weaponAngleSet()
 {
-	if (!_swordAction) _wpAngle = 45;
+	if (!_swordAction) _wpAngle = 315;
 
 	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
@@ -312,11 +313,53 @@ void stageManager::weaponAngleSet()
 
 	if (_swordAction)
 	{
-		if (_wpAngle <= 180)
-		{
-			_wpAngle += 20;
-		}
+		if ((_wpAngle >= 315 && _wpAngle <= 360) || (_wpAngle >= 0 && _wpAngle <= 180)) _wpAngle += 30;
 		else _swordAction = false;
+
+		if (_wpAngle >= 360) _wpAngle = 0;
 	}
 
+	
+}
+
+
+string stageManager::intToMapFileName(int mapNum)
+{
+	TCHAR intNum[32];
+	sprintf(intNum, "%d", mapNum);
+
+	_mapFileName.clear();
+	_mapFileName.append("room");
+	_mapFileName.append(intNum);
+
+	return _mapFileName;
+}
+
+
+void stageManager::stageChange()
+{
+	if (KEYMANAGER->isOnceKeyDown('T'))
+	{
+		removeChild(_room1);
+
+		intToMapFileName(2);  //mapFileName 변경  
+		tileCenterXY();	      //타일 화면 중앙으로
+
+		_room2->init(_mapFileName, _moveX, _moveY, stageScale);
+		addChild(_room2);
+		_currentStage = _room2;
+	}
+}
+
+
+
+void stageManager::tileCenterXY()
+{
+	string tmpFileName;
+	tmpFileName.append("map//");
+	tmpFileName.append(_mapFileName);
+	int tileX = INIDATA->loadDataInterger(tmpFileName.c_str(), "mapData", "tileX");
+	int tileY = INIDATA->loadDataInterger(tmpFileName.c_str(), "mapData", "tileY");
+	_moveX = (WINSIZEX - tileX * TILE_SIZEX * stageScale) / 2;
+	_moveY = (WINSIZEY - tileY * TILE_SIZEY * stageScale) / 2;
 }

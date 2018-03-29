@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "stageManager.h"
 
-void stageManager::collisionPS(player* player, stage* room, int scale, bool playerMove)
+void stageManager::collisionPS(player* player, stage1* room, int scale, bool playerMove)
 {
 	_collOn = false;
 
@@ -36,7 +36,7 @@ void stageManager::collisionPS(player* player, stage* room, int scale, bool play
 
 
 //렉트충돌 [원형]
-void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage* room, RECTTYPE rectType, float scale)
+void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room, RECTTYPE rectType, float scale)
 {
 	//벡터 사이즈
 	int vSize = room->getVectorSize(rectType);

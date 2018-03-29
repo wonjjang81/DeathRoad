@@ -56,6 +56,8 @@ public:
 
 	tagTile getTileInfo(RECTTYPE type, int i);
 
+	mapLoad* getNewMap() { return _newMap; }
+
 	stage();
 	~stage();
 };

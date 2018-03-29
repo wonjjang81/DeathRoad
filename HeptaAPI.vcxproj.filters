@@ -82,6 +82,18 @@
     <Filter Include="time">
       <UniqueIdentifier>{29c38812-fd4b-468f-91ba-56d921ac2ecf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stage\tileMap">
+      <UniqueIdentifier>{6d384a77-ddce-4185-9a94-d96895f339b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\player">
+      <UniqueIdentifier>{839ca9b2-9d33-495a-b119-803a2ce6b89a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\ui">
+      <UniqueIdentifier>{1cc61765-d2e0-496b-bff4-aadbcfd29e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\stage">
+      <UniqueIdentifier>{5732c688-0156-404a-8428-42d48ab6ac54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -192,16 +204,7 @@
     <ClInclude Include="character.h">
       <Filter>characterEditor</Filter>
     </ClInclude>
-    <ClInclude Include="mapLoad.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
     <ClInclude Include="stageManager.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="mapRender.h">
-      <Filter>Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="stage.h">
       <Filter>Stage</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
@@ -228,11 +231,23 @@
     <ClInclude Include="gameTime.h">
       <Filter>time</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Stage</Filter>
+    <ClInclude Include="mapLoad.h">
+      <Filter>Stage\tileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="mapRender.h">
+      <Filter>Stage\tileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="stage.h">
+      <Filter>Stage\tileMap</Filter>
     </ClInclude>
     <ClInclude Include="weapon.h">
-      <Filter>Stage</Filter>
+      <Filter>Stage\player</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Stage\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="stage1.h">
+      <Filter>Stage\stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -347,16 +362,7 @@
     <ClCompile Include="character.cpp">
       <Filter>characterEditor</Filter>
     </ClCompile>
-    <ClCompile Include="mapLoad.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
     <ClCompile Include="stageManager.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="mapRender.cpp">
-      <Filter>Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="stage.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
@@ -377,11 +383,23 @@
     <ClCompile Include="gameTime.cpp">
       <Filter>time</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Stage</Filter>
+    <ClCompile Include="mapLoad.cpp">
+      <Filter>Stage\tileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="mapRender.cpp">
+      <Filter>Stage\tileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="stage.cpp">
+      <Filter>Stage\tileMap</Filter>
     </ClCompile>
     <ClCompile Include="weapon.cpp">
-      <Filter>Stage</Filter>
+      <Filter>Stage\player</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Stage\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="stage1.cpp">
+      <Filter>Stage\stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

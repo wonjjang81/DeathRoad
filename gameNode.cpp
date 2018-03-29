@@ -115,6 +115,16 @@ void gameNode::render(void)
 	}
 }
 
+void gameNode::afterRender(void)
+{
+	gameNode* current = _childrenHead;
+	while (current != NULL)
+	{
+		current->afterRender();
+		current = current->getNext();
+	}
+}
+
 void gameNode::addChild(gameNode* node)
 {
 	//연결된 씬이 없다면

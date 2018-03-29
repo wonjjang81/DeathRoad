@@ -100,6 +100,7 @@
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="iniDataManager.h" />
     <ClInclude Include="inventory.h" />
+    <ClInclude Include="stage1.h" />
     <ClInclude Include="thread.h" />
     <ClInclude Include="tileDataInfo.h" />
     <ClInclude Include="keyAniManager.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stage.cpp" />
+    <ClCompile Include="stage1.cpp" />
     <ClCompile Include="stageManager.cpp" />
     <ClCompile Include="stage_collision.cpp" />
     <ClCompile Include="stdafx.cpp">

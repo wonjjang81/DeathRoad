@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-#include "stage.h"
+#include "stage1.h"
 #include "player.h"
 #include "gameTime.h"
 #include "inventory.h"
@@ -21,7 +21,10 @@ enum COLLISION_DIRECTION
 class stageManager : public gameNode
 {
 private:
-	stage* _room1;
+	stage1* _room1;
+	stage1* _room2;
+	stage1* _currentStage;
+
 	player* _player1;
 
 	bool _collOn;
@@ -61,6 +64,7 @@ private:
 
 	//====================
 
+
 	//======== UI ========
 	UIManager* _ui;
 	//====================
@@ -85,8 +89,8 @@ public:
 
 	void playerRender();
 
-	void collisionPS(player* player, stage* room, int scale, bool playerMove);
-	void collisionRect(player* player, BODYTYPE bodyType, stage* room, RECTTYPE rectType, float scale);
+	void collisionPS(player* player, stage1* room, int scale, bool playerMove);
+	void collisionRect(player* player, BODYTYPE bodyType, stage1* room, RECTTYPE rectType, float scale);
 
 	//시각효과
 	void daynNightInit();
@@ -95,6 +99,13 @@ public:
 	void playerCenter();  //플레이어 위치XY
 
 	void weaponAngleSet();  //무기회전 셋팅
+
+	string intToMapFileName(int mapNum);  //맵 로드 파일명 변경
+
+	void stageChange();
+
+	void tileCenterXY();
+
 
 	stageManager();
 	~stageManager();
