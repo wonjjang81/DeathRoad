@@ -71,6 +71,8 @@ private:
 	int _wpAngle;
 	bool _wpFlip;
 	MOVE_DIRECTION _prevDir;
+
+	bool _swordAction;
 	//====================
 
 

@@ -57,7 +57,7 @@ HRESULT d2dManager::init()
 	//	RadialGradientMask Layer »ý¼º
 	//---------------------------------------------------------------------------
 
-
+	D2DMANAGER->pRenderTarget->CreateLayer(NULL, &pLayer);
 
 
 
@@ -309,18 +309,16 @@ HRESULT d2dManager::opacityMask(float x, float y, float light, bool on)
 		//---------------------------------------- Create layer ----------------------------------------
 		pLayer = NULL;
 
-		D2DMANAGER->pRenderTarget->CreateLayer(NULL, &pLayer);
-
 		if (SUCCEEDED(hr)) D2DMANAGER->pRenderTarget->PushLayer(LayerParameters(InfiniteRect(), NULL,
 			D2D1_ANTIALIAS_MODE_PER_PRIMITIVE, IdentityMatrix(),
 			1.0f, pRadialGradientBrush, D2D1_LAYER_OPTIONS_NONE), pLayer);
 		//----------------------------------------------------------------------------------------------
 
-
 		D2DMANAGER->pRenderTarget->FillRectangle(RectF(0, 0, WINSIZEX, WINSIZEY), D2DMANAGER->defaultBrush);
 
 		D2DMANAGER->pRenderTarget->PopLayer();
 
+		pRadialGradientBrush->Release();
 		SAFE_RELEASE_D2D(pLayer);
 
 

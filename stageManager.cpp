@@ -74,6 +74,7 @@ HRESULT stageManager::init()
 	_wpAngle = 0;
 	_wpFlip = false;
 	_prevDir = DIRECTION_DOWN;
+	_swordAction = false;
 
 	return S_OK;
 }
@@ -141,7 +142,7 @@ void stageManager::render()
 
 	//======================================== TEST ========================================
 	//충돌 확인용
-	if (_collOn) D2DMANAGER->drawTextD2d(D2DMANAGER->createBrush(RGB(0, 0, 255)), L"충돌",
+	if (_collOn) D2DMANAGER->drawTextD2d(D2DMANAGER->createBrush(RGB(0, 0, 255)), L"!!!",
 		_player1->getRect(BODY_UPBODY).left, _player1->getRect(BODY_UPBODY).top - 50,
 		_player1->getRect(BODY_UPBODY).left + 100, _player1->getRect(BODY_UPBODY).top);
 
@@ -302,9 +303,20 @@ void stageManager::playerCenter()
 
 void stageManager::weaponAngleSet()
 {
-	if (_wpAngle > 360) _wpAngle = 0;
+	if (!_swordAction) _wpAngle = 45;
 
-	//_wpAngle += 10;
+	if (KEYMANAGER->isOnceKeyDown('X'))
+	{
+		_swordAction = true;
+	}
 
+	if (_swordAction)
+	{
+		if (_wpAngle <= 180)
+		{
+			_wpAngle += 20;
+		}
+		else _swordAction = false;
+	}
 
 }

@@ -47,6 +47,10 @@ void playGround::resourceAdd()
 	IMAGEMANAGER->addFrameImage("femaleGlass", L".//source//image//char//dr2c_female_glasses.png", 96, 336, dFrame(96, 24), dFrame(336, 24));
 	IMAGEMANAGER->addFrameImage("femaleHair", L".//source//image//char//dr2c_female_hair.png", 240, 144, dFrame(240, 24), dFrame(144, 24));
 	IMAGEMANAGER->addFrameImage("femaleHats", L".//source//image//char//dr2c_female_hats.png", 144, 216, dFrame(144, 24), dFrame(216, 24));
+
+	//==================================================================== 파티클 ==================================================================
+	IMAGEMANAGER->addFrameImage("파티클", L".//source//image//mapTool//tile//particle//dr2c_particles.png", 256, 192, dFrame(256, 16), dFrame(192, 16));
+
 }
 
 
