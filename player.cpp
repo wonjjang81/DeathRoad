@@ -21,6 +21,7 @@ HRESULT player::init(int playerNum, float startX, float startY, float speed)
 
 	_headY = 0;
 	_bodyY = 0;
+	_walkY = 0;
 
 	//머리Ani
 	_head.speed = 0.3f;
@@ -33,6 +34,12 @@ HRESULT player::init(int playerNum, float startX, float startY, float speed)
 	_body.fric  = 0.015;
 	_body.dir   = false;
 	_body.count = 1;
+
+	//WalkAni
+	_walk.speed = 0.7f;
+	_walk.fric = 0.015;
+	_walk.dir = false;
+	_walk.count = 1;
 
 	//전체Ani
 	_pMove.x = 0;
@@ -85,6 +92,11 @@ void player::render()
 }
 
 
+
+
+
+
+
 //내부 데이터베이스 정보 로드
 void  player::loadPlayer(charInfo* saveInfo)
 {
@@ -135,6 +147,7 @@ void player::Stateframe(MOVE_STATE state, MOVE_DIRECTION direction)
 		case STATE_WALK:
 
 			totalBodyAni();
+			walkBodyAni();
 			frameAni(_playerBody.bodyDw, _playerInfo.dwBodyIndex, _walkAni, 2, 10);
 
 			switch (direction)
@@ -222,13 +235,21 @@ void player::bodyAni(tagBodyMove& body, float& moveY, int count)
 void player::totalBodyAni()
 {
 	bodyAni(_head, _headY, 3);
-	_player->setBodyY(_playerBody.head,  _playerInfo.headIndex,  _headY);   //머리
-	_player->setBodyY(_playerBody.hair,  _playerInfo.hairIndex,  _headY);   //헤어
-	_player->setBodyY(_playerBody.glass, _playerInfo.glassIndex, _headY);	//안경
-	_player->setBodyY(_playerBody.hats,  _playerInfo.hatsIndex,  _headY);   //모자
+	_player->setBodyY(_playerBody.head,  _playerInfo.headIndex,  _headY);	 //머리
+	_player->setBodyY(_playerBody.hair,  _playerInfo.hairIndex,  _headY);	 //헤어
+	_player->setBodyY(_playerBody.glass, _playerInfo.glassIndex, _headY);	 //안경
+	_player->setBodyY(_playerBody.hats,  _playerInfo.hatsIndex,  _headY);	 //모자
 
 	bodyAni(_body, _bodyY, 2);
 	_player->setBodyY(_playerBody.bodyUp, _playerInfo.upBodyIndex, _bodyY);  //상체
+}
+
+void player::walkBodyAni()
+{
+	bodyAni(_walk, _walkY, 3);
+
+
+
 }
 
 void player::keyControl(bool left, bool top, bool right, bool bottom)
@@ -241,7 +262,7 @@ void player::keyControl(bool left, bool top, bool right, bool bottom)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_LEFT;
-		_pMove.x -= _pMove.speed;
+		//_pMove.x -= _pMove.speed;
 	}
 
 
@@ -250,7 +271,7 @@ void player::keyControl(bool left, bool top, bool right, bool bottom)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_RIGHT;
-		_pMove.x += _pMove.speed;
+		//_pMove.x += _pMove.speed;
 	}
 
 
@@ -259,7 +280,7 @@ void player::keyControl(bool left, bool top, bool right, bool bottom)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_UP;
-		_pMove.y -= _pMove.speed;
+		//_pMove.y -= _pMove.speed;
 	}
 
 
@@ -268,7 +289,7 @@ void player::keyControl(bool left, bool top, bool right, bool bottom)
 	{
 		_currentState = STATE_WALK;
 		_currentDir = DIRECTION_DOWN;
-		_pMove.y += _pMove.speed;
+		//_pMove.y += _pMove.speed;
 	}
 
 

@@ -51,7 +51,6 @@ void timeManager::render()
 		swprintf(str, L"worldTime : %f", _timer->getWorldTime());
 		D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RGB(255, 255, 255)), L"¸¼Àº°íµñ", 18.0f, str, 0, 20, 200, 40);
 
-
 		swprintf(str, L"elapsedTime : %f", _timer->getElapsedTime());
 		D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RGB(255, 255, 255)), L"¸¼Àº°íµñ", 18.0f, str, 0, 40, 200, 60);
 

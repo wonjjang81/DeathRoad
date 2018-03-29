@@ -11,7 +11,10 @@ void stageManager::collisionPS(player* player, stage1* room, int scale, bool pla
 	_isBottom = false;	
 
 
-	CAMERAMANAGER->charMove(_isLeft, _isTop, _isRight, _isBottom, playerMove);
+	CAMERAMANAGER->setCamMoveLeftOn(true);
+	CAMERAMANAGER->setCamMoveRightOn(true);
+	CAMERAMANAGER->setCamMoveTopOn(true);
+	CAMERAMANAGER->setCamMoveBottomOn(true);
 
 	//°¡±¸
 	collisionRect(player, BODY_DWBODY, room, RECT_FURNITURE, scale);
@@ -31,6 +34,8 @@ void stageManager::collisionPS(player* player, stage1* room, int scale, bool pla
 	//After Render º®
 	collisionRect(player, BODY_DWBODY, room, RECT_WALL2, scale);
 
+
+	CAMERAMANAGER->charMove(_isLeft, _isTop, _isRight, _isBottom, playerMove);
 }
 
 
@@ -123,15 +128,19 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 			{
 				case C_TOP:
 					_isBottom = false;
+					CAMERAMANAGER->setCamMoveBottomOn(false);
 				break;
 				case C_BOTTOM:
 					_isTop = false;
+					CAMERAMANAGER->setCamMoveTopOn(false);
 				break;
 				case C_LEFT:
 					_isRight = false;
+					CAMERAMANAGER->setCamMoveRightOn(false);
 				break;
 				case C_RIGHT:
 					_isLeft = false;
+					CAMERAMANAGER->setCamMoveLeftOn(false);
 				break;
 			}
 

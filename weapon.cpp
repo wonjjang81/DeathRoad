@@ -88,7 +88,7 @@ void weapon::weaponChange()
 	if (_vWp.size() == 0) return;
 
 	//무기 체인지
-	if (KEYMANAGER->isOnceKeyDown('Z'))
+	if (KEYMANAGER->isOnceKeyDown('C'))
 	{
 		_wpNum++;
 	}

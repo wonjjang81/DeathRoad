@@ -1,47 +1,50 @@
-﻿  stageManager.cpp
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(24): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(32): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(33): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(37): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(50): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(51): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(73): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(97): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(115): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(134): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(148): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(147): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(182): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(186): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(196): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(200): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(300): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(301): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(329): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+﻿  mapTool_grid.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(25): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(160): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(170): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(171): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(172): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(173): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(314): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(348): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(365): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(366): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(544): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(566): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(636): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(651): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(656): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(657): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(697): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(706): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(707): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(711): warning C4244: '초기화 중': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(727): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(732): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(739): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(746): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(750): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(754): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(758): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(765): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(769): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(773): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(780): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(784): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(788): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(792): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(799): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(803): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(812): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(816): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\maptool_grid.cpp(820): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  d2dManager.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\d2dmanager.cpp(274): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\d2dmanager.cpp(272): warning C4996: 'swprintf': function has been changed to conform with the ISO C standard, adding an extra character count parameter. To use the traditional Microsoft version, set _CRT_NON_CONFORMING_SWPRINTFS.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_wstdio.h(1822): note: 'swprintf' 선언을 참조하십시오.
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
-  stage_collision.cpp
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(17): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(20): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(23): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(26): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(29): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(32): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(49): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(50): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(51): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(52): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(71): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
-d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage_collision.cpp(101): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
-  playGround.cpp
+  mapTool_newTile.cpp
   코드를 생성하고 있습니다...
   건너뛰고 있습니다... (관련된 변경 내용 없음)
-  winMain.cpp
-  resourceManager.cpp
+  mapTool_resetTile.cpp
   HeptaAPI.vcxproj -> D:\C++\C++ 포트폴리오\github\ff6\DeathRoad\Debug\DeathRoad.exe

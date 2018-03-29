@@ -72,6 +72,9 @@ private:
 
 	float _bodyY;
 	tagBodyMove _body;
+
+	float _walkY;
+	tagBodyMove _walk;
 	//=================
 
 	//player Move
@@ -100,6 +103,8 @@ public:
 
 	void bodyAni(tagBodyMove& body, float& moveY, int count);
 	void totalBodyAni();
+	void walkBodyAni();
+
 	void keyControl(bool left, bool top, bool right, bool bottom);
 
 	void frameAniInit(tagAni& ani);

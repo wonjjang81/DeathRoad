@@ -318,13 +318,15 @@ void mapTool::selectTile(float scale)
 
 								_vSaveTr[i].centerX = _drawTile.centerX;
 								_vSaveTr[i].centerY = _drawTile.centerY;
+
+								_vSaveTr[i].gridIndex = _vTile[i].index;
 							break;
 							case TYPE_BUILDING: case TYPE_ROAD: case TYPE_FURNITURE: case TYPE_ITEM:
 							case TYPE_WEAPON: case TYPE_ENEMY: case TYPE_WALL: case TYPE_DOOR:
 
 								_isSaveVector = true;
 								_tmpSaveTile.rc = _vTile[i].rc;
-								_tmpSaveTile.index = i;
+								_tmpSaveTile.gridIndex = _vTile[i].index;
 
 							break;
 						}
@@ -559,7 +561,7 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 		//타일정보 가져오기
 		tagTile tmpTile;
 		ZeroMemory(&tmpTile, sizeof(tagTile));
-		tmpTile.index     = _tmpSaveTile.index;
+		tmpTile.index     = _drawTile.index;
 		tmpTile.img       = _drawTile.img;
 		sprintf(tmpTile.imgName, "%s", _drawTile.imgName);
 		tmpTile.attribute = _drawTile.attribute;
@@ -576,6 +578,8 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 		tmpTile.centerY   = _drawTile.centerY;
 		tmpTile.id		  = _drawTile.id;
 		tmpTile.overPos   = _drawTile.overPos;
+
+		tmpTile.gridIndex = _tmpSaveTile.gridIndex;
 
 		if (indexSame)
 		{
@@ -631,7 +635,7 @@ int mapTool::getTileIndex(vSaveTile& vTile, int tsIndex)
 {
 	for (int j = 0; j < vTile.size(); ++j)
 	{
-		if (tsIndex == vTile[j].index)
+		if (_vTile[tsIndex].index == vTile[j].gridIndex)
 		{
 			return j;
 		}
@@ -723,6 +727,11 @@ void mapTool::typeAttrDraw(vSaveTile tileVector)
 				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RED), font, fontSize, L"SP",
 					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
 			break;
+			//Exit Point
+			case TYPE_A_TR_EXIT:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(RED), font, fontSize, L"EP",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
 
 
 			//Furniture
@@ -811,7 +820,14 @@ void mapTool::typeAttrDraw(vSaveTile tileVector)
 				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(CYAN), font, fontSize, L"AR",
 					startX + _moveX, startY2 + _moveY, endX + _moveX, endY2 + _moveY);
 			break;
+
+			//Door
+			case TYPE_A_DR_ORIGINAL: case TYPE_A_DR_CENTER :
+				if (tileVector[i].id != 0) D2DMANAGER->drawIntText(L"", tileVector[i].id,
+					startX + _moveX, startY2 + _moveY, RED, font, fontSize);
+			break;
 		}
+
 	}
 
 

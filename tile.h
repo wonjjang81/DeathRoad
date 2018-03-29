@@ -50,6 +50,8 @@ struct tagTile
 	float centerX, centerY;   //렉트 중심좌표
 	float reWidth, reHeight;  //렉트 사이즈 재설정(16 X 16)
 	int id;                   //tile ID
+
+	int gridIndex;            //그리드상 인덱스
 };
 
 struct tagSampleTile

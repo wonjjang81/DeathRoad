@@ -218,6 +218,13 @@ void charEditor::render()
 	charTypeRender(_saveChar->charTypeName);
 }
 
+
+
+
+
+
+
+
 void charEditor::btnAction(fButton* button, string charTypeName, BTN_CHAR_BODYTYPE btnBodyType)
 {
 	if (button->getBtnOn())

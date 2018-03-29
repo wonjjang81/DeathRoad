@@ -53,10 +53,14 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 
 			tile.anchorType = anchor;
 			tile.overPos    = overPosition;
-			tile.id		    = tile.index;
 			tile.reWidth    = TILE_SIZEX;
 			tile.reHeight   = TILE_SIZEY;
 			setTileAnchor(tile, tile.anchorType);
+
+			if (tile.tileType == TYPE_DOOR) tile.id = 0;
+			else tile.id = tile.index;
+
+			tile.gridIndex = 0;
 
 
 			tileVector.push_back(tile);

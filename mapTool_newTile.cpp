@@ -8,6 +8,11 @@ void mapTool::newTileMap()
 	DialogBoxParam(_hInstance, MAKEINTRESOURCE(IDD_DIALOG1), _hWnd, newTileProc, (LPARAM)this);
 }
 
+void mapTool::doorIDSet()
+{
+	DialogBoxParam(_hInstance, MAKEINTRESOURCE(IDD_DIALOG2), _hWnd, doorIDProc, (LPARAM)this);
+}
+
 
 void mapTool::createDefaultMap(POINT mapSize)
 {
@@ -16,6 +21,8 @@ void mapTool::createDefaultMap(POINT mapSize)
 
 	_tileX = mapSize.x;
 	_tileY = mapSize.y;
+
+	_doorId = 0;
 
 	//----------------------- grid -----------------------
 	//grid º¤ÅÍ¿¡ ´ã±â
@@ -55,6 +62,7 @@ void mapTool::gridVectorDraw(int tileX, int tileY)
 				tile.rc.right = TILE_SIZEX * (j + 1);
 				tile.rc.bottom = TILE_SIZEY * (i + 1);
 				tile.index = (_tileX * i) + j;
+
 
 				_vTile.push_back(tile);
 			}

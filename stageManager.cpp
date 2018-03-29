@@ -12,7 +12,7 @@ stageManager::~stageManager()
 
 HRESULT stageManager::init()
 {
-	intToMapFileName(1);
+	intToMapFileName(2);
 
 	stageScale = 3;
 
@@ -24,7 +24,6 @@ HRESULT stageManager::init()
 	_room1->init(_mapFileName, _moveX, _moveY, stageScale);
 	addChild(_room1);
 
-	_room2 = new stage1;
 
 	_currentStage = new stage1;
 	_currentStage = _room1;
@@ -34,7 +33,7 @@ HRESULT stageManager::init()
 
 	//player
 	_player1 = new player;
-	_player1->init(0, _startPoint.x, _startPoint.y, 1.5);
+	_player1->init(0, WINSIZEX / 2, WINSIZEY / 2, 1.5);
 
 	//플레이어  이동
 	_isLeft   = true;
@@ -76,14 +75,17 @@ HRESULT stageManager::init()
 	_wpFlip = false;
 	_prevDir = DIRECTION_DOWN;
 	_swordAction = false;
+	_swordDirSwing = false;
 
 	return S_OK;
 }
+
 
 void stageManager::release()
 {
 
 }
+
 
 void stageManager::update()	
 {
@@ -92,7 +94,7 @@ void stageManager::update()
 
 	_player1->update(_isLeft, _isTop, _isRight, _isBottom);
 
-	collisionPS(_player1, _currentStage, stageScale, _isPlayerMove);
+	collisionPS(_player1, _room1, stageScale, _isPlayerMove);
 
 	CAMERAMANAGER->getPlayerXY(_player1->getPlayerXY().x, _player1->getPlayerXY().y);
 
@@ -116,6 +118,7 @@ void stageManager::update()
 	weaponAngleSet();
 
 }
+
 
 void stageManager::render()	 
 {
@@ -144,7 +147,7 @@ void stageManager::render()
 	//======================================== TEST ========================================
 	//충돌 확인용
 	if (_collOn) D2DMANAGER->drawTextD2d(D2DMANAGER->createBrush(RGB(0, 0, 255)), L"!!!",
-		_player1->getRect(BODY_UPBODY).left, _player1->getRect(BODY_UPBODY).top - 50,
+		_player1->getRect(BODY_UPBODY).left + 20, _player1->getRect(BODY_UPBODY).top - 50,
 		_player1->getRect(BODY_UPBODY).left + 100, _player1->getRect(BODY_UPBODY).top);
 
 	CAMERAMANAGER->render();
@@ -166,7 +169,6 @@ void stageManager::playerRender()
 
 			if (_player1->getDirect() == DIRECTION_LEFT)
 			{
-				_wpAngle = 315;
 				_wpFlip = true;
 			}
 			if (_player1->getDirect() == DIRECTION_RIGHT)
@@ -313,13 +315,20 @@ void stageManager::weaponAngleSet()
 
 	if (_swordAction)
 	{
-		if ((_wpAngle >= 315 && _wpAngle <= 360) || (_wpAngle >= 0 && _wpAngle <= 180)) _wpAngle += 30;
-		else _swordAction = false;
-
+		if ((_wpAngle >= 315 && _wpAngle <= 360 && !_swordDirSwing) || (_wpAngle >= 0 && _wpAngle <= 120 && !_swordDirSwing)) _wpAngle += 30;
 		if (_wpAngle >= 360) _wpAngle = 0;
-	}
 
-	
+		if (_wpAngle >= 120 && _wpAngle <= 315 && !_swordDirSwing) _swordDirSwing = true;
+		if (_wpAngle < 0) _wpAngle = 360;
+
+		if (_swordDirSwing) _wpAngle -= 10;
+
+		if (_wpAngle >= 300 && _wpAngle <= 315)
+		{
+			_swordDirSwing = false;
+			_swordAction = false;
+		}
+	}
 }
 
 
@@ -342,15 +351,18 @@ void stageManager::stageChange()
 	{
 		removeChild(_room1);
 
-		intToMapFileName(2);  //mapFileName 변경  
+		intToMapFileName(1);  //mapFileName 변경  
 		tileCenterXY();	      //타일 화면 중앙으로
 
-		_room2->init(_mapFileName, _moveX, _moveY, stageScale);
-		addChild(_room2);
-		_currentStage = _room2;
+		_room1 = new stage1;
+		_room1->init(_mapFileName, _moveX, _moveY, stageScale);
+		addChild(_room1);
+
+		//위치 초기화
+		_moveChange.x = 0.0f;
+		_moveChange.y = 0.0f;
 	}
 }
-
 
 
 void stageManager::tileCenterXY()

@@ -48,7 +48,7 @@ public:
 
 
 	//≈ÿΩ∫∆Æ in Value
-	void drawIntText(LPCWSTR title, int value, float x, float y, COLORREF rgb = RGB(0, 0, 0), LPCWSTR font = L"∏º¿∫∞ÌµÒ");
+	void drawIntText(LPCWSTR title, int value, float x, float y, COLORREF rgb = RGB(0, 0, 0), LPCWSTR font = L"∏º¿∫∞ÌµÒ", int fontSize = 18);
 
 	//Opacity Mask
 	HRESULT opacityMask(float x, float y, float light, bool on);

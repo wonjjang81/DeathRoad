@@ -191,6 +191,9 @@ private:
 	//DataInfo
 	dataSave* _tileData;
 
+	HWND _hDlgDoorID;
+	int _doorId;
+
 
 public:
 	HRESULT init();
@@ -270,9 +273,16 @@ public:
 	void createDefaultMap(POINT mapSize);  //타일 사이즈 입력
 	void vTileClear();
 
+	//문 아이디 생성
+	void doorIDSet();
+
 	//=========================== getter & setter ===========================
-	inline void setHandleNewTile(HWND handle) { _hDlgNewTile = handle; }  //다이얼로그 박스 get
-	inline HWND getHandleNewTile(void) { return _hDlgNewTile; }           //다이얼로그 박스 set
+	inline void setHandleNewTile(HWND handle) { _hDlgNewTile = handle; }  //다이얼로그 박스 NewTile get
+	inline HWND getHandleNewTile(void) { return _hDlgNewTile; }           //다이얼로그 박스 NewTile set
+
+	inline void setHandleDoorID(HWND handle) { _hDlgDoorID = handle; }  //다이얼로그 박스 DoorID get
+	inline HWND getHandleDoorID(void) { return _hDlgDoorID; }           //다이얼로그 박스 DoorID set
+	void setDoorID(int id) { _doorId = id; }
 
 
 	mapTool();

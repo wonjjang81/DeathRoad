@@ -8,6 +8,7 @@ enum TYPE_ATTRIBUTE
 	TYPE_A_NONE,
 
 	TYPE_A_TR_START,		//시작점
+	TYPE_A_TR_EXIT,		    //출구
 
 	TYPE_A_FT_NONE,			//가구
 	TYPE_A_FT_ITEM,			//아이템 가구

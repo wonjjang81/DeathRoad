@@ -59,7 +59,7 @@ void playGround::render(void)
 
 
 	//시간 정보 출력
-	//TIMEMANAGER->render();
+	TIMEMANAGER->render();
 
 
 	//================== 이 아래는 손대지 마시오 ========================

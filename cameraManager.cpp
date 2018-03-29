@@ -24,6 +24,7 @@ HRESULT cameraManager::init()
 	_moveTIle.x = 0.0f;
 	_moveTIle.y = 0.0f;
 
+
 	return S_OK;
 }
 
@@ -36,7 +37,7 @@ void cameraManager::release()
 void cameraManager::render()
 {
 	//카메라 범위
-	D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)), _camRc.left, _camRc.top, _camRc.right, _camRc.bottom);
+	//D2DMANAGER->drawRectangle(D2DMANAGER->createBrush(RGB(0, 0, 255)), _camRc.left, _camRc.top, _camRc.right, _camRc.bottom);
 }
 
 
@@ -51,38 +52,38 @@ void cameraManager::charMove(bool& left, bool& top, bool& right, bool& bottom, b
 	ZeroMemory(&_moveTIle, sizeof(_moveTIle));
 
 	//좌
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && _camMoveOn.left)
 	{
 		if (move) left = true;
 
-		if (_player.x < _camRc.left) _moveTIle.x += 1 * _moveSpeed;
+		_moveTIle.x += 1 * _moveSpeed;
 	}
 
 
 	//우
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && _camMoveOn.right)
 	{
 		if (move) right = true;
 
-		if (_player.x > _camRc.right) _moveTIle.x -= 1 * _moveSpeed;
+		_moveTIle.x -= 1 * _moveSpeed;
 	}
 
 
 	//상
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
+	if (KEYMANAGER->isStayKeyDown(VK_UP) && _camMoveOn.top)
 	{
 		if (move) top = true;
 
-		if (_player.y < _camRc.top) _moveTIle.y += 1 * _moveSpeed;
+		_moveTIle.y += 1 * _moveSpeed;
 	}
 
 
 	//하
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN) && _camMoveOn.bottom)
 	{
 		if (move) bottom = true;
 
-		if (_player.y > _camRc.bottom) _moveTIle.y -= 1 * _moveSpeed;
+		_moveTIle.y -= 1 * _moveSpeed;
 	}
 
 }

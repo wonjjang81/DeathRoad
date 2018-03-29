@@ -77,6 +77,7 @@ private:
 	MOVE_DIRECTION _prevDir;
 
 	bool _swordAction;
+	bool _swordDirSwing;
 	//====================
 
 

@@ -6,11 +6,13 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 {
 
 	//예외처리: 타일 셋팅이 안되어 있으면(이미지X)
-	if (resetTile.tileType == TYPE_NONE) return;
+	if (resetTile.tileType != TYPE_TERRAIN && resetTile.tileType != TYPE_DOOR) return;
 
 	enum BUTTONSELECT
 	{
 		BTN_STARTPOINT,
+		BTN_EXITPOINT,
+		BTN_DOORPOINT,
 	};
 	BUTTONSELECT selectBtn;
 
@@ -25,8 +27,8 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 
 	//활성화된 버튼 상태 입력 
 	if (_btnA_move->getBtnOn())    selectBtn = BTN_STARTPOINT;
-	//if (_btnA_unMove->getBtnOn())  selectBtn = BTN_UNMOVE;
-	//if (_btnA_ARender->getBtnOn()) selectBtn = BTN_ARENDER;
+	if (_btnA_unMove->getBtnOn())  selectBtn = BTN_EXITPOINT;
+	if (_btnA_ARender->getBtnOn()) selectBtn = BTN_DOORPOINT;
 
 	//버튼 ACTION
 	switch (selectBtn)
@@ -37,18 +39,23 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 			resetTile.typeAtt = TYPE_A_TR_START;
 
 		break;
-		//case BTN_UNMOVE:
+		case BTN_EXITPOINT:
 
-		//	//속성변경
-		//	resetTile.attribute = ATTR_UNMOVE;
+			//속성변경
+			resetTile.typeAtt = TYPE_A_TR_EXIT;
 
-		//break;
-		//case BTN_ARENDER:
+		break;
+		case BTN_DOORPOINT:
 
-		//	//속성변경
-		//	resetTile.attribute = ATTR_AFTER_RENDER;
+			//예외처리
+			if (resetTile.id != 0) break;
 
-		//break;
+	
+			//속성변경
+			doorIDSet();
+			resetTile.id = _doorId;
+
+		break;
 	}
 }
 

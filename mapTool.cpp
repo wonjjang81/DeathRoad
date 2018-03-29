@@ -21,7 +21,6 @@ HRESULT mapTool::init()
 	//에디트창
 	_editWindow = IMAGEMANAGER->findImage("맵툴창");
 
-
 	//맵이동
 	_moveX = _moveY = 0;
 	_moveSpeed = 3.0f;
@@ -50,6 +49,9 @@ HRESULT mapTool::init()
 
 	//타일 
 	_tileX = _tileY = 0;
+
+	//문ID
+	_doorId = 0;
 
 
 	return S_OK;

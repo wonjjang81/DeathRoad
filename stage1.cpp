@@ -23,7 +23,8 @@ HRESULT stage1::init(string mapFileName, float mapX, float mapY, float scale)
 
 void stage1::release() 
 {
-	delete _room;
+	//_room->release();
+	SAFE_DELETE(_room);
 }
 
 void stage1::update()  

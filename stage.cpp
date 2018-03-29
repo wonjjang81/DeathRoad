@@ -30,7 +30,8 @@ HRESULT stage::init(string mapFileName, float mapX, float mapY, float scale)
 
 void stage::release()
 {
-
+	SAFE_DELETE(_mapRenderer);
+	SAFE_DELETE(_newMap);
 }
 
 void stage::update(float moveX, float moveY)
@@ -65,10 +66,9 @@ void stage::afterVectorAdd(vSaveTile& vTile)
 {
 	for (int i = 0; i < vTile.size(); ++i)
 	{
-		//if (vTile[i].y == )
-		//{
 
-		//}
+
+
 	}
 }
 
