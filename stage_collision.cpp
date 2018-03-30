@@ -63,6 +63,7 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 		int cDirection = isCollisionReaction(tmpRoom, tmpPlayer);
 		if (cDirection > 0)
 		{
+			//====================================== ITEM ======================================
 			if (rectType == RECT_ITEM || rectType == RECT_WEAPON)
 			{
 				tagInvenItem tmpItem;
@@ -74,8 +75,8 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 						if (room->getVectorSize(RECT_ITEM) == 0) continue;
 
 						sprintf(tmpItem.imgName, "%s", room->getTileInfo(RECT_ITEM, i).imgName);
-						tmpItem.typeAtt   = room->getTileInfo(RECT_ITEM, i).typeAtt;
-						tmpItem.index     = room->getTileInfo(RECT_ITEM, i).index;
+						tmpItem.typeAtt = room->getTileInfo(RECT_ITEM, i).typeAtt;
+						tmpItem.index = room->getTileInfo(RECT_ITEM, i).index;
 
 						switch (tmpItem.typeAtt)
 						{
@@ -92,7 +93,7 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 								tmpItem.value = RND->getFromIntTo(7, 30);
 							break;
 						}
-					
+
 
 						DATABASE->item.push_back(tmpItem);
 
@@ -100,30 +101,101 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 						return;
 					break;
 					case RECT_WEAPON:
-						if (room->getVectorSize(RECT_WEAPON) == 0) continue;
-						if (DATABASE->weapon.size() >= 3) continue;
-
-						sprintf(tmpWp.imgName, "%s", room->getTileInfo(RECT_WEAPON, i).imgName);
-						tmpWp.typeAtt   = room->getTileInfo(RECT_WEAPON, i).typeAtt;
-						tmpWp.index     = room->getTileInfo(RECT_WEAPON, i).index;
-						tmpWp.frameX    = room->getTileInfo(RECT_WEAPON, i).frameX;
-						tmpWp.frameY    = room->getTileInfo(RECT_WEAPON, i).frameY;
-						//tmpItem.value = 0;
-
-						DATABASE->weapon.push_back(tmpWp);
-
-						//무기 먹고 보유무기 버리기
-						if (DATABASE->weapon.size() < 3)
+						if (KEYMANAGER->isOnceKeyDown('Z'))
 						{
-							room->removeVItem(RECT_WEAPON, i);
+							if (room->getVectorSize(RECT_WEAPON) == 0) continue;
+							if (DATABASE->weapon.size() >= 3) continue;
+
+							sprintf(tmpWp.imgName, "%s", room->getTileInfo(RECT_WEAPON, i).imgName);
+							tmpWp.typeAtt = room->getTileInfo(RECT_WEAPON, i).typeAtt;
+							tmpWp.index = room->getTileInfo(RECT_WEAPON, i).index;
+							tmpWp.frameX = room->getTileInfo(RECT_WEAPON, i).frameX;
+							tmpWp.frameY = room->getTileInfo(RECT_WEAPON, i).frameY;
+							//tmpItem.value = 0;
+
+							DATABASE->weapon.push_back(tmpWp);
+
+							//무기 먹고 보유무기 버리기
+							if (DATABASE->weapon.size() < 3)
+							{
+								room->removeVItem(RECT_WEAPON, i);
+							}
+							return;
 						}
-						return;
 					break;
 				}
-			
+
 				continue;
 			}
+			//==================================================================================
 
+			//====================================== DOOR ======================================
+			if (rectType == RECT_DOOR)
+			{
+				tagCollDoor tmpDoor;
+
+				//문(열림/닫힘)
+				if (KEYMANAGER->isOnceKeyDown('Z'))
+				{
+					if (room->getTileInfo(RECT_DOOR, i).actionValue == 0)
+					{
+						room->setTileDrAction(i, 1);
+					}
+					else room->setTileDrAction(i, 0);
+				}
+
+				//------------------------- 문 통과 -------------------------
+				if (room->getTileInfo(RECT_DOOR, i).direction == DIR_LEFT)    //좌측문 
+				{
+					if (tmpRoom.left >= tmpPlayer.left)
+					{
+						//스테이지 변경
+						stageChange(room->getTileInfo(RECT_DOOR, i).id);
+						return;
+					}
+				}
+				else if (room->getTileInfo(RECT_DOOR, i).direction == DIR_RIGHT)   //우측문 
+				{
+					if (tmpRoom.right <= tmpPlayer.right)
+					{
+						//스테이지 변경
+						stageChange(room->getTileInfo(RECT_DOOR, i).id);
+						return;
+					}
+				}
+				else if (room->getTileInfo(RECT_DOOR, i).direction == DIR_TOP)     //상부문 
+				{
+					if (tmpRoom.bottom >= tmpPlayer.bottom)
+					{
+						//스테이지 변경
+						stageChange(room->getTileInfo(RECT_DOOR, i).id);
+						return;
+					}
+				}
+				else if (room->getTileInfo(RECT_DOOR, i).direction == DIR_BOTTOM)  //하부문 
+				{
+					if (tmpRoom.top <= tmpPlayer.top)
+					{
+						//스테이지 변경
+						stageChange(room->getTileInfo(RECT_DOOR, i).id);
+						return;
+					}
+				}
+				//-----------------------------------------------------------
+
+	
+
+
+				//충돌X
+				if (room->getTileInfo(RECT_DOOR, i).actionValue == 1) continue;
+			}
+			//==================================================================================
+
+			//예외처리
+			if(rectType == RECT_ITEM || rectType == RECT_WEAPON) continue;
+
+
+			//충돌(이동불가)
 			switch (cDirection)
 			{
 				case C_TOP:
@@ -150,3 +222,4 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 		}
 	}
 }
+

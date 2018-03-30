@@ -140,6 +140,15 @@ tagTile stage1::getTileInfo(RECTTYPE type, int i)
 
 			return tmpTile;
 		break;
+		case RECT_DOOR:
+			if (_room->getNewMap()->_vSaveDr.size() == 0) break;
+
+			tmpTile.actionValue = _room->getNewMap()->_vSaveDr[i].actionValue;
+			tmpTile.direction   = _room->getNewMap()->_vSaveDr[i].direction;
+			tmpTile.id			= _room->getNewMap()->_vSaveDr[i].id;
+
+			return tmpTile;
+		break;
 	}
 }
 
@@ -166,5 +175,20 @@ void stage1::removeVItem(RECTTYPE type, int i)
 			_room->getNewMap()->_vSaveWp.erase(_room->getNewMap()->_vSaveWp.begin() + i);
 
 		break;
+	}
+}
+
+
+void stage1::getDoorID(int num)
+{
+	for (int i = 0; i < _room->getNewMap()->_vSaveDr.size(); ++i)
+	{
+		if (_room->getNewMap()->_vSaveDr[i].typeAtt != TYPE_A_DR_NONE)
+		{
+			if (_room->getNewMap()->_vSaveDr[i].id != 0)
+			{
+
+			}
+		}
 	}
 }

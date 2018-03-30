@@ -47,6 +47,8 @@ enum ATTRIBUTE
 	ATTR_CRECT_CENTER,    //충돌렉트 긴직사각형
 	ATTR_CRECT_ORIGINAL,  //충돌렉트 타일사이즈
 	ATTR_CRECT_RESIZE,    //충돌렉트 수정
+
+	ATTR_AFTERRENDER      //Z-order
 };
 
 //중복위치 렌더

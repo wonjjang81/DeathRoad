@@ -57,6 +57,7 @@ public:
 	tagTile getTileInfo(RECTTYPE type, int i);
 
 	mapLoad* getNewMap() { return _newMap; }
+	void setNewMapDrAction(int i, int value) { _newMap->_vSaveDr[i].actionValue = value; }
 
 	stage();
 	~stage();

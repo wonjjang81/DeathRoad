@@ -14,8 +14,8 @@ private:
 
 public:
 
-	void mapDraw(vSaveTile tileVector, float moveX, float moveY, float scale);
-	void vMapDraw(vSaveTile tileVector, float moveX, float moveY, float scale);
+	void mapDraw(vSaveTile tileVector, float moveX, float moveY, float scale, bool aRender = false);
+	void vMapDraw(vSaveTile tileVector, float moveX, float moveY, float scale, bool aRender);
 
 	mapRender();
 	~mapRender();

@@ -97,6 +97,12 @@ private:
 	fButton* _btnT_weapon;
 	fButton* _btnT_enemy;
 
+	fButton* _btnTileDir;
+	fButton* _btnT_left;
+	fButton* _btnT_right;
+	fButton* _btnT_top;
+	fButton* _btnT_bottom;
+
 	float	_btnRCenterX;
 	float   _btnRCenterY;
 	float   _btnImgReWidth;
@@ -232,6 +238,7 @@ public:
 	//--------------------- Reset --------------------
 	void tileReAtrribute(tagTile& resetTile);  	//Attribute Reset
 	void tileReType(tagTile& resetTile);  		//TileType  Reset
+	void tileReDir(tagTile& resetTile);  		//TileDir   Reset
 	//------------------ Edit Button -----------------
 	void btnAllReset();
 	void setTile1Eraser(vSaveTile& eraseTile, int tsIndex);
@@ -260,6 +267,7 @@ public:
 	void vTileDraw(vSaveTile tileVector, float scale);
 	void attrDraw(vSaveTile tileVector);
 	void typeAttrDraw(vSaveTile tileVector);
+	void typeDirDraw(vSaveTile tileVector);
 
 
 	//저장, 불러오기

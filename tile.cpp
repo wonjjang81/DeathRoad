@@ -16,6 +16,7 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 
 	//타일정보
 	tagTile tile;
+	ZeroMemory(&tile, sizeof(tagTile));
 	tile.img = IMAGEMANAGER->findImage(tileName);
 	sprintf(tile.imgName, "%s", tileName.c_str());
 	int tileX = tile.img->getMaxFrameX() + 1;  //총타일 수X (*이미지 정보의 maxFrameX는 총 프레임수 - 1)
@@ -61,7 +62,8 @@ void tile::tileSetup(string tileName, float x, float y, ATTRIBUTE attribute, TIL
 			else tile.id = tile.index;
 
 			tile.gridIndex = 0;
-
+			tile.actionValue = 0;
+			tile.direction = DIR_NONE;
 
 			tileVector.push_back(tile);
 		}
@@ -167,6 +169,10 @@ tagTile tile::tileSelect(string tileName, float moveX, float moveY)
 					tmpTile.centerY = viter->centerY;
 					tmpTile.reWidth = viter->reWidth;
 					tmpTile.reHeight = viter->reHeight;
+
+					tmpTile.gridIndex   = viter->gridIndex;
+					tmpTile.actionValue = viter->actionValue;
+					tmpTile.direction   = viter->direction;
 
 					return tmpTile;
 				}

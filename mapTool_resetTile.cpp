@@ -48,11 +48,12 @@ void mapTool::tileReAtrribute(tagTile& resetTile)
 		case BTN_DOORPOINT:
 
 			//예외처리
-			if (resetTile.id != 0) break;
+			//if (resetTile.id != 0) break;
 
 	
 			//속성변경
 			doorIDSet();
+			if (resetTile.id < 0) break;
 			resetTile.id = _doorId;
 
 		break;
@@ -87,7 +88,7 @@ void mapTool::tileReType(tagTile& resetTile)
 	if (_btnT_building->getBtnOn())  selectBtn = ATTR_CRECT_CENTER;
 	if (_btnT_item->getBtnOn())		 selectBtn = ATTR_CRECT_ORIGINAL;
 	if (_btnT_weapon->getBtnOn())	 selectBtn = ATTR_CRECT_RESIZE;
-	//if (_btnT_enemy->getBtnOn())	 selectBtn = ;
+	if (_btnT_enemy->getBtnOn())	 selectBtn = ATTR_AFTERRENDER;
 
 
 	//버튼 ACTION
@@ -129,7 +130,71 @@ void mapTool::tileReType(tagTile& resetTile)
 			resetTile.attribute = ATTR_CRECT_RESIZE;
 
 		break;
+		case ATTR_AFTERRENDER:
+
+			if (resetTile.tileType == TYPE_NONE) return;
+			if (resetTile.tileType == TYPE_ROAD) return;
+			if (resetTile.tileType == TYPE_TERRAIN) return;
+			//속성변경
+			resetTile.attribute = ATTR_AFTERRENDER;
+
+		break;
 	}
+}
+
+void mapTool::tileReDir(tagTile& resetTile)
+{
+	//예외처리
+	if (resetTile.tileType != TYPE_DOOR) return;
+
+	//예외처리: 버튼이 두개이상 활성화 되어 있을 경우-> ALL 해제
+	if ((_btnT_left->getBtnOn() && _btnT_right->getBtnOn()) ||
+		(_btnT_left->getBtnOn() && _btnT_top->getBtnOn()) ||
+		(_btnT_left->getBtnOn() && _btnT_bottom->getBtnOn()) ||
+		(_btnT_right->getBtnOn() && _btnT_top->getBtnOn()) ||
+		(_btnT_right->getBtnOn() && _btnT_bottom->getBtnOn()) ||
+		(_btnT_top->getBtnOn() && _btnT_bottom->getBtnOn()))
+	{
+		_btnAllReset->setBtnOff(true);
+	}
+
+	TILE_DIRECTION selectBtn;
+
+	//활성화된 버튼 상태 입력 
+	if (_btnT_left->getBtnOn())   selectBtn = DIR_LEFT;
+	if (_btnT_right->getBtnOn())  selectBtn = DIR_RIGHT;
+	if (_btnT_top->getBtnOn())	  selectBtn = DIR_TOP;
+	if (_btnT_bottom->getBtnOn()) selectBtn = DIR_BOTTOM;
+
+	//버튼 ACTION
+	switch (selectBtn)
+	{
+		case DIR_LEFT:
+
+			//속성변경
+			resetTile.direction = DIR_LEFT;
+
+		break;
+		case DIR_RIGHT:
+
+			//속성변경
+			resetTile.direction = DIR_RIGHT;
+
+		break;
+		case DIR_TOP:
+
+			//속성변경
+			resetTile.direction = DIR_TOP;
+
+		break;
+		case DIR_BOTTOM:
+
+			//속성변경
+			resetTile.direction = DIR_BOTTOM;
+
+		break;
+	}
+
 }
 
 //============= 타일정보 지우기 =============

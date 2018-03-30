@@ -11,11 +11,11 @@
 //타일방향
 enum TILE_DIRECTION
 {
-	DIR_UP,
-	DIR_DOWN,
+	DIR_NONE,
+	DIR_TOP,
+	DIR_BOTTOM,
 	DIR_LEFT,
-	DIR_RIGHT,
-	DIR_NONE
+	DIR_RIGHT
 };
 
 //앵커타입
@@ -38,6 +38,7 @@ struct tagTile
 	TYPE_ATTRIBUTE typeAtt2;  //타입별 속성
 	ANCHOR_TYPE anchorType;   //앵커타입
 	OVERLAPPOSITION overPos;  //중복위치 여부
+	TILE_DIRECTION direction;
 	TCHAR imgName[64];
 	int index;
 	float x, y;
@@ -52,6 +53,7 @@ struct tagTile
 	int id;                   //tile ID
 
 	int gridIndex;            //그리드상 인덱스
+	int actionValue;          //특정행동 값
 };
 
 struct tagSampleTile

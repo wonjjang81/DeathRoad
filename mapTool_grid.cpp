@@ -107,20 +107,21 @@ void mapTool::gridRender(float scale)
 		//속성 그리기: 바닥
 		typeAttrDraw(_vSaveTr);
 		//속성 그리기: 벽
-		//attrDraw(_vSaveWl);
+		attrDraw(_vSaveWl);
 		typeAttrDraw(_vSaveWl);
 		typeAttrDraw(_vSaveArWl);
 		//속성 그리기: 문
-		//attrDraw(_vSaveDr);
+		attrDraw(_vSaveDr);
 		typeAttrDraw(_vSaveDr);
+		typeDirDraw(_vSaveDr);
 		//속성 그리기: 가구
-		//attrDraw(_vSaveFt);
+		attrDraw(_vSaveFt);
 		typeAttrDraw(_vSaveFt);
 		//속성 그리기: 아이템
-		//attrDraw(_vSaveIt);
+		attrDraw(_vSaveIt);
 		typeAttrDraw(_vSaveIt);
 		//속성 그리기: 무기
-		//attrDraw(_vSaveWp);
+		attrDraw(_vSaveWp);
 		typeAttrDraw(_vSaveWp);
 
 
@@ -406,6 +407,29 @@ void mapTool::selectTile(float scale)
 			}
 
 
+			//------------------------------------ Direction 변경 ------------------------------------
+			if (_btnT_left->getBtnOn() || _btnT_right->getBtnOn() || _btnT_top->getBtnOn() ||
+				_btnT_bottom->getBtnOn())    //타입변경 버튼을 눌렀으면...
+			{
+				if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
+				{
+					int getIndex = -1;
+
+					switch (_drawTile.tileType)
+					{
+						case TYPE_DOOR:
+							//타일 인덱스번호 -> 벡터넘버
+							getIndex = getTileIndex(_vSaveDr, i);
+							if (getIndex < 0) break;
+
+
+							tileReDir(_vSaveDr[getIndex]);
+						break;
+					}
+				}
+			}
+
+
 			if (!_btnAttribute->getBtnOn())
 			{
 				if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON))
@@ -557,6 +581,7 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 		if (_btnOneEraser->getBtnOn()) return;
 		if (_btnTileType->getBtnOn())  return;
 		if (_btnAttribute->getBtnOn()) return;
+		if (_btnTileDir->getBtnOn())   return;
 
 		//타일정보 가져오기
 		tagTile tmpTile;
@@ -579,7 +604,9 @@ void mapTool::saveTileVector(vSaveTile& tileVector)
 		tmpTile.id		  = _drawTile.id;
 		tmpTile.overPos   = _drawTile.overPos;
 
-		tmpTile.gridIndex = _tmpSaveTile.gridIndex;
+		tmpTile.gridIndex   = _tmpSaveTile.gridIndex;
+		tmpTile.actionValue = _drawTile.actionValue;
+		tmpTile.direction   = _drawTile.direction;
 
 		if (indexSame)
 		{
@@ -657,7 +684,7 @@ void mapTool::attrDraw(vSaveTile tileVector)
 		float rcHeight	  = tileVector[i].rc.bottom - tileVector[i].rc.top;
 		float centerX	  = tileVector[i].rc.left + (rcWidth / 2);
 		float centerY	  = tileVector[i].rc.top + (rcHeight / 2);
-		float ellipseSize = 7;
+		float ellipseSize = 3;
 		float startX      = centerX - (ellipseSize / 2);
 		float startY      = centerY - (ellipseSize / 2);
 		float endX        = centerX + (ellipseSize / 2);
@@ -673,17 +700,8 @@ void mapTool::attrDraw(vSaveTile tileVector)
 
 		switch (tileVector[i].attribute)
 		{
-			case ATTR_CRECT_NONE:
-				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(255, 0, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-			break;
-			case ATTR_CRECT_CENTER:
-				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 0)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-			break;
-			case ATTR_CRECT_ORIGINAL:
-				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 0, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
-			break;
-			case ATTR_CRECT_RESIZE:
-				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RGB(0, 255, 255)), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
+			case ATTR_AFTERRENDER:
+				D2DMANAGER->drawEllipse(D2DMANAGER->createBrush(RED), startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY, 0.5f);
 			break;
 		}
 	}
@@ -827,9 +845,57 @@ void mapTool::typeAttrDraw(vSaveTile tileVector)
 					startX + _moveX, startY2 + _moveY, RED, font, fontSize);
 			break;
 		}
-
 	}
+}
 
 
+//Direction 그리기
+void mapTool::typeDirDraw(vSaveTile tileVector)
+{
+	for (int i = 0; i < tileVector.size(); ++i)
+	{
+		if (tileVector[i].typeAtt == TYPE_A_NONE && tileVector[i].typeAtt2 == TYPE_A_NONE)  continue;  //속성이 없으면...
+		if (tileVector[i].direction == DIR_NONE) continue;  //속성이 없으면...
 
+		WCHAR font[32] = L"Press Start 2P";
+		int fontSize = 5;
+
+		//위치정보
+		float ellipseSize = 10;
+		float startX = tileVector[i].rc.left;
+		float startY = tileVector[i].rc.bottom - fontSize;
+		float endX = startX + (fontSize * 2);
+		float endY = startY + (fontSize * 2);
+
+		float startY2 = tileVector[i].rc.top + fontSize;
+		float endY2 = startY2 + (fontSize * 2);
+
+
+		//예외처리: 화면밖 렌더X
+		//if ((j * TILE_SIZEX) + _moveX >= _showWindowX / scale) continue;  //가로열(우측)
+		//if ((j * TILE_SIZEX) + _moveX < 0)					   continue;  //가로열(좌측)
+		//if ((i * TILE_SIZEY) + _moveY >= _showWindowY / scale) continue;  //세로열(우측)
+		//if ((i * TILE_SIZEY) + _moveY < 0)					   continue;  //세로열(좌측)
+
+
+		switch (tileVector[i].direction)
+		{
+			case DIR_LEFT:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"L",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case DIR_RIGHT:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"R",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case DIR_TOP:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"T",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+			case DIR_BOTTOM:
+				D2DMANAGER->drawTextDwd(D2DMANAGER->createBrush(BLUE), font, fontSize, L"B",
+					startX + _moveX, startY + _moveY, endX + _moveX, endY + _moveY);
+			break;
+		}
+	}
 }

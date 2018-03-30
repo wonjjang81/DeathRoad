@@ -195,6 +195,10 @@ void mapLoad::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile[i].moveY = getTile[i].moveY;
 		vSaveTile[i].centerX = getTile[i].centerX;
 		vSaveTile[i].centerY = getTile[i].centerY;
+
+		vSaveTile[i].gridIndex = getTile[i].gridIndex;
+		vSaveTile[i].actionValue = getTile[i].actionValue;
+		vSaveTile[i].direction = getTile[i].direction;
 	}
 }
 

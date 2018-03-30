@@ -11,7 +11,7 @@ mapRender::~mapRender()
 
 
 
-void mapRender::mapDraw(vSaveTile tileVector, float moveX, float moveY, float scale)
+void mapRender::mapDraw(vSaveTile tileVector, float moveX, float moveY, float scale, bool aRender)
 {
 	//-------------------------------------------------- 타일맵 클립핑 Start --------------------------------------------------
 	D2DMANAGER->pRenderTarget->PushAxisAlignedClip(RectF(0, 0, WINSIZEX, WINSIZEY), D2D1_ANTIALIAS_MODE_PER_PRIMITIVE);
@@ -20,7 +20,7 @@ void mapRender::mapDraw(vSaveTile tileVector, float moveX, float moveY, float sc
 
 	//========================== 타일 그리기 Start ==========================
 
-	vMapDraw(tileVector, moveX, moveY, scale);
+	vMapDraw(tileVector, moveX, moveY, scale, aRender);
 
 	//=========================== 타일 그리기 End ===========================
 
@@ -32,7 +32,7 @@ void mapRender::mapDraw(vSaveTile tileVector, float moveX, float moveY, float sc
 
 
 //타일 그리기 [원형]: 벡터
-void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float scale)
+void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float scale, bool aRender)
 {
 	//이미지가 없으면 삭제
 	for (int i = 0; i < tileVector.size(); ++i)
@@ -93,6 +93,21 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 	{
 		//예외처리
 		if (tileVector[i].img == NULL) continue;  //이미지 X
+		if (aRender)
+		{
+			if (tileVector[i].attribute != ATTR_AFTERRENDER) continue;
+		}
+		else
+		{
+			if (tileVector[i].attribute == ATTR_AFTERRENDER) continue;
+		}
+
+		//문 예외처리(열린 문)
+		if (tileVector[i].tileType == TYPE_DOOR)
+		{
+			if (tileVector[i].actionValue != 0) continue;
+		}
+	
 
 		//타일렉트 보정
 		//RECT reRect;

@@ -12,7 +12,7 @@ stageManager::~stageManager()
 
 HRESULT stageManager::init()
 {
-	intToMapFileName(2);
+	intToMapFileName(1);
 
 	stageScale = 3;
 
@@ -89,9 +89,6 @@ void stageManager::release()
 
 void stageManager::update()	
 {
-	//스테이지 변경
-	stageChange();
-
 	_player1->update(_isLeft, _isTop, _isRight, _isBottom);
 
 	collisionPS(_player1, _room1, stageScale, _isPlayerMove);
@@ -345,23 +342,21 @@ string stageManager::intToMapFileName(int mapNum)
 }
 
 
-void stageManager::stageChange()
+void stageManager::stageChange(int num)
 {
-	if (KEYMANAGER->isOnceKeyDown('T'))
-	{
-		removeChild(_room1);
+	removeChild(_room1);
 
-		intToMapFileName(1);  //mapFileName 변경  
-		tileCenterXY();	      //타일 화면 중앙으로
+	intToMapFileName(num);  //mapFileName 변경  
+	tileCenterXY();	        //타일 화면 중앙으로
 
-		_room1 = new stage1;
-		_room1->init(_mapFileName, _moveX, _moveY, stageScale);
-		addChild(_room1);
+	_room1 = new stage1;
+	_room1->init(_mapFileName, _moveX, _moveY, stageScale);
+	addChild(_room1);
 
-		//위치 초기화
-		_moveChange.x = 0.0f;
-		_moveChange.y = 0.0f;
-	}
+	//위치 초기화
+	_moveChange.x = 0.0f;
+	_moveChange.y = 0.0f;
+
 }
 
 
@@ -375,3 +370,5 @@ void stageManager::tileCenterXY()
 	_moveX = (WINSIZEX - tileX * TILE_SIZEX * stageScale) / 2;
 	_moveY = (WINSIZEY - tileY * TILE_SIZEY * stageScale) / 2;
 }
+
+

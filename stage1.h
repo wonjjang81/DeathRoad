@@ -19,6 +19,7 @@ public:
 	void afterRender();
 
 	void removeVItem(RECTTYPE type, int i);
+	void getDoorID(int num);
 
 
 	//========================= getter & setter =========================
@@ -28,6 +29,8 @@ public:
 	POINT getStartPoint() { return _startPoint; }
 
 	tagTile getTileInfo(RECTTYPE type, int i);
+	void setTileDrAction(int i, int value) { _room->getNewMap()->_vSaveDr[i].actionValue = value; };  //문 액션값 설정
+
 
 
 	stage1();

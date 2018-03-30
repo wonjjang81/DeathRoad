@@ -51,14 +51,23 @@ void stage::render()
 	_mapRenderer->mapDraw(_newMap->_vSaveFt, _map.x, _map.y, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveIt, _map.x, _map.y, _mapScale);
 	_mapRenderer->mapDraw(_newMap->_vSaveWp, _map.x, _map.y, _mapScale);
+
+	_mapRenderer->mapDraw(_newMap->_vSaveArWl, _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveDr,   _map.x, _map.y, _mapScale);
 	
 }
 
 
 void stage::afterRender()
 {
-	_mapRenderer->mapDraw(_newMap->_vSaveArWl, _map.x, _map.y, _mapScale);
-	_mapRenderer->mapDraw(_newMap->_vSaveDr,   _map.x, _map.y, _mapScale);
+	_mapRenderer->mapDraw(_newMap->_vSaveWl, _map.x, _map.y, _mapScale, true);
+	_mapRenderer->mapDraw(_newMap->_vSaveBd, _map.x, _map.y, _mapScale, true);
+	_mapRenderer->mapDraw(_newMap->_vSaveFt, _map.x, _map.y, _mapScale, true);
+	_mapRenderer->mapDraw(_newMap->_vSaveIt, _map.x, _map.y, _mapScale, true);
+	_mapRenderer->mapDraw(_newMap->_vSaveWp, _map.x, _map.y, _mapScale, true);
+
+	_mapRenderer->mapDraw(_newMap->_vSaveArWl, _map.x, _map.y, _mapScale, true);
+	_mapRenderer->mapDraw(_newMap->_vSaveDr,   _map.x, _map.y, _mapScale, true);
 }
 
 

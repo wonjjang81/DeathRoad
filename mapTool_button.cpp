@@ -55,7 +55,20 @@ void mapTool::btnSetup()
 	_btnT_weapon = new fButton;
 	_btnT_weapon->init("맵툴버튼타이틀탭",   L"RR", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
 	_btnT_enemy = new fButton;
-	_btnT_enemy->init("맵툴버튼타이틀탭",    L"X", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+	_btnT_enemy->init("맵툴버튼타이틀탭",    L"AR", 10, imgReX + (_btnImgReWidth * 4), imgReY - (_btnImgReHeight), PointMake(1, 7), PointMake(0, 7), _btnScale);
+
+	//Direction변경 버튼
+	_btnTileDir = new fButton;
+	_btnTileDir->init("맵툴버튼타이틀탭", L"D", 18, imgReX + (_btnImgReWidth * 2), imgReY, PointMake(1, 6), PointMake(0, 6), _btnScale);
+
+	_btnT_left = new fButton;
+	_btnT_left->init("맵툴버튼타이틀탭",  L"L",  10, imgReX + (_btnImgReWidth * 0), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnT_right = new fButton;
+	_btnT_right->init("맵툴버튼타이틀탭", L"R",  10, imgReX + (_btnImgReWidth * 1), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnT_top = new fButton;
+	_btnT_top->init("맵툴버튼타이틀탭", L"T",    10, imgReX + (_btnImgReWidth * 2), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
+	_btnT_bottom = new fButton;
+	_btnT_bottom->init("맵툴버튼타이틀탭", L"B", 10, imgReX + (_btnImgReWidth * 3), imgReY - (_btnImgReHeight), PointMake(1, 6), PointMake(0, 6), _btnScale);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 
 	//------------------------------------------------------------------ Edit 버튼 ----------------------------------------------------------------
@@ -124,6 +137,7 @@ void mapTool::btnUpdate()
 	//------ 타일 리셋 -------
 	_btnAttribute->update();
 	_btnTileType->update();
+	_btnTileDir->update();
 
 	//버튼 On/Off
 	btnSwitch();
@@ -144,6 +158,15 @@ void mapTool::btnUpdate()
 		_btnT_item->update();
 		_btnT_weapon->update();
 		_btnT_enemy->update();
+	}
+
+	//Dir병경 디테일
+	if (_btnTileDir->getBtnOn())
+	{
+		_btnT_left->update();
+		_btnT_right->update();
+		_btnT_top->update();
+		_btnT_bottom->update();
 	}
 	//-----------------------
 
@@ -206,6 +229,7 @@ void mapTool::btnRender()
 	//---------- 타일 리셋 ----------
 	_btnAttribute->render();
 	_btnTileType->render();
+	_btnTileDir->render();
 
 	//속성버튼 디테일
 	if (_btnAttribute->getBtnOn())
@@ -223,6 +247,15 @@ void mapTool::btnRender()
 		_btnT_item->render();
 		_btnT_weapon->render();
 		_btnT_enemy->render();
+	}
+
+	//Dir버튼 디테일
+	if (_btnTileDir->getBtnOn())
+	{
+		_btnT_left->render();
+		_btnT_right->render();
+		_btnT_top->render();
+		_btnT_bottom->render();
 	}
 	//-------------------------------
 
@@ -275,6 +308,17 @@ void mapTool::btnSwitch()
 	}
 	//--------------------------------------------------------------------------------------------------
 
+	//-------------------------------------------- DIR버튼 ---------------------------------------------
+	//하부버튼 ON/OFF
+	if (!_btnTileDir->getBtnOn())
+	{
+		_btnT_left->setBtnOff(false);
+		_btnT_right->setBtnOff(false);
+		_btnT_top->setBtnOff(false);
+		_btnT_bottom->setBtnOff(false);
+	}
+	//--------------------------------------------------------------------------------------------------
+
 	//--------------------------------------------- Eraser ---------------------------------------------
 	//하부버튼 ON/OFF
 	if (!_btnEraser->getBtnOn())
@@ -293,6 +337,7 @@ void mapTool::btnAllReset()
 	{
 		_btnAttribute->setBtnOff(false);  //속성버튼 Off
 		_btnTileType->setBtnOff(false);   //타입버튼 Off
+		_btnTileDir->setBtnOff(false);    //Dir버튼 Off
 		_btnEraser->setBtnOff(false);     //타일초기화 버튼 Off
 		_btnAllReset->setBtnOff(false);   //리셋버튼 Off
 

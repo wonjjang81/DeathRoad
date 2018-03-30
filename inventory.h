@@ -24,6 +24,13 @@ struct tagInvenWp
 	int frameY;
 };
 
+struct tagCollDoor
+{
+	TYPE_ATTRIBUTE typeAtt;   //타입별 속성
+
+	int id;
+};
+
 
 
 

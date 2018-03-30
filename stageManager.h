@@ -93,6 +93,7 @@ public:
 	void collisionPS(player* player, stage1* room, int scale, bool playerMove);
 	void collisionRect(player* player, BODYTYPE bodyType, stage1* room, RECTTYPE rectType, float scale);
 
+
 	//시각효과
 	void daynNightInit();
 	void daynNightSet();
@@ -103,9 +104,10 @@ public:
 
 	string intToMapFileName(int mapNum);  //맵 로드 파일명 변경
 
-	void stageChange();
+	void stageChange(int num);
 
 	void tileCenterXY();
+
 
 
 	stageManager();

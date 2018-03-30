@@ -443,6 +443,11 @@ void mapTool::loadVectorTileData(tagTile setTile, tagTile& getTile)
 	getTile.moveY	   = setTile.moveY;
 	getTile.centerX    = setTile.centerX;
 	getTile.centerY    = setTile.centerY;
+
+	getTile.gridIndex   = setTile.gridIndex;
+	getTile.actionValue = setTile.actionValue;
+	getTile.direction   = setTile.direction;
+
 }
 
 void mapTool::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int tileSize)
@@ -483,6 +488,10 @@ void mapTool::saveVectorTileData(tagTile* getTile, vSaveTile& vSaveTile, int til
 		vSaveTile[i].moveY	    = getTile[i].moveY;
 		vSaveTile[i].centerX    = getTile[i].centerX;
 		vSaveTile[i].centerY    = getTile[i].centerY;
+
+		vSaveTile[i].gridIndex   = getTile[i].gridIndex;
+		vSaveTile[i].actionValue = getTile[i].actionValue;
+		vSaveTile[i].direction   = getTile[i].direction;
 	}
 }
 
