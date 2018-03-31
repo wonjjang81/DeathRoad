@@ -35,12 +35,16 @@ void stage1::update()
 void stage1::render()  
 {
 	_room->render();
+	if (_vHaveFt.size() != 0) _room->playerFtRender(_vHaveFt, false);
 }
 
 void stage1::afterRender()
 {
 	_room->afterRender();
+	if (_vHaveFt.size() != 0) _room->playerFtRender(_vHaveFt, true);
 }
+
+
 
 
 
@@ -105,6 +109,7 @@ tagTile stage1::getTileInfo(RECTTYPE type, int i)
 		case RECT_FURNITURE:
 			if (_room->getNewMap()->_vSaveFt.size() == 0) break;
 
+			tmpTile.img = _room->getNewMap()->_vSaveFt[i].img;
 			tmpTile.tileType  = _room->getNewMap()->_vSaveFt[i].tileType;
 			tmpTile.attribute = _room->getNewMap()->_vSaveFt[i].attribute;
 			tmpTile.typeAtt   = _room->getNewMap()->_vSaveFt[i].typeAtt;
@@ -112,6 +117,13 @@ tagTile stage1::getTileInfo(RECTTYPE type, int i)
 			sprintf(tmpTile.imgName, "%s", _room->getNewMap()->_vSaveFt[i].imgName);
 			tmpTile.index     = _room->getNewMap()->_vSaveFt[i].index;
 			tmpTile.rc = _room->getNewMap()->_vSaveFt[i].rc;
+			tmpTile.cRc = _room->getNewMap()->_vSaveFt[i].cRc;
+			tmpTile.x = _room->getNewMap()->_vSaveFt[i].x;
+			tmpTile.y = _room->getNewMap()->_vSaveFt[i].y;
+			tmpTile.centerX = _room->getNewMap()->_vSaveFt[i].centerX;
+			tmpTile.centerY = _room->getNewMap()->_vSaveFt[i].centerY;
+			tmpTile.frameX = _room->getNewMap()->_vSaveFt[i].frameX;
+			tmpTile.frameY = _room->getNewMap()->_vSaveFt[i].frameY;
 
 			return tmpTile;
 		break;

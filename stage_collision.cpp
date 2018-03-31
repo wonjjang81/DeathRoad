@@ -46,8 +46,12 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 	//벡터 사이즈
 	int vSize = room->getVectorSize(rectType);
 
+
 	for (int i = 0; i < vSize; ++i)
 	{
+		//예외처리
+		if (i >= vSize) return;
+
 		RECT tmpRoom;
 		RECT tmpPlayer = player->getRect(bodyType);
 
@@ -198,38 +202,56 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 			//=================================== FURNITURE ====================================
 			if (rectType == RECT_FURNITURE)
 			{			
-				float moveValue = 3;
-				switch (cDirection)
-				{
-					case C_TOP:		
-						room->setTileFtMoveRc(i, 0.0f, moveValue);
-						room->setTileFtMoveXY(i, 0.0f, moveValue);
-					break;
-					case C_BOTTOM:
-						room->setTileFtMoveXY(i, 0.0f, -moveValue);
-						room->setTileFtMoveRc(i, 0.0f, -moveValue);
-					break;
-					case C_LEFT:
-						room->setTileFtMoveXY(i, moveValue, 0.0f);
-						room->setTileFtMoveRc(i, moveValue, 0.0f);
-					break;
-					case C_RIGHT:
-						room->setTileFtMoveRc(i, -moveValue, 0.0f);
-						room->setTileFtMoveXY(i, -moveValue, 0.0f);
-					break;
-				}
-
-
-
 				//가구들기
 				if (KEYMANAGER->isOnceKeyDown('Z'))
 				{
-					_vHaveFt.push_back(room->getTileInfo(RECT_FURNITURE, i));
-					room->removeVItem(RECT_FURNITURE, i);
+					if (_vHaveFt.size() == 0)
+					{
+						_vHaveFt.push_back(room->getTileInfo(RECT_FURNITURE, i));
+						room->removeVItem(RECT_FURNITURE, i);
+					}
+					else
+					{
+						room->setVTilePush(RECT_FURNITURE, _vHaveFt[0]);     //플레이어 보유벡터 -> 가구벡터에 담기
+						room->setVTileCpoy(RECT_FURNITURE, i, _vHaveFt[0]);  //위치정보 복사
+						_vHaveFt.erase(_vHaveFt.begin());                    //플레이어 보유벡터 지우기
+						_vHaveFt.clear();
 
-					//위치 리셋
-
+						_vHaveFt.push_back(room->getTileInfo(RECT_FURNITURE, i));  //플레이어 보유벡터에 담기
+						room->removeVItem(RECT_FURNITURE, i);                      //가구벡터에서 지우기
+					}
+			
+					return;
 				}
+				else
+				{
+					float moveValue = 2;
+
+					//예외처리: 벽에 부딪치면
+
+
+					switch (cDirection)
+					{
+						case C_TOP:
+							room->setTileFtMoveRc(i, 0.0f, moveValue);
+							room->setTileFtMoveXY(i, 0.0f, moveValue);
+						break;
+						case C_BOTTOM:
+							room->setTileFtMoveXY(i, 0.0f, -moveValue);
+							room->setTileFtMoveRc(i, 0.0f, -moveValue);
+						break;
+						case C_LEFT:
+							room->setTileFtMoveXY(i, moveValue, 0.0f);
+							room->setTileFtMoveRc(i, moveValue, 0.0f);
+						break;
+						case C_RIGHT:
+							room->setTileFtMoveRc(i, -moveValue, 0.0f);
+							room->setTileFtMoveXY(i, -moveValue, 0.0f);
+						break;
+					}
+				}
+
+				continue;
 			}
 			else
 			{

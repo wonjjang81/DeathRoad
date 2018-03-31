@@ -207,3 +207,59 @@ void stage::removeVItem(RECTTYPE type, int i)
 		break;
 	}
 }
+
+void stage::setVtilePush(RECTTYPE type, tagTile newTile)
+{
+	switch (type)
+	{
+		case RECT_FURNITURE:
+			_newMap->_vSaveFt.push_back(newTile);
+		break;
+		case RECT_ITEM:
+			_newMap->_vSaveIt.push_back(newTile);
+		break;
+		case RECT_WEAPON:
+			_newMap->_vSaveWp.push_back(newTile);
+		break;
+		case RECT_WALL:
+			_newMap->_vSaveWl.push_back(newTile);
+		break;
+		case RECT_WALL2:
+			_newMap->_vSaveArWl.push_back(newTile);
+		break;
+		case RECT_DOOR:
+			_newMap->_vSaveDr.push_back(newTile);
+		break;
+	}
+}
+
+void stage::setVtileCopy(RECTTYPE type, int i, tagTile newTile)
+{
+	switch (type)
+	{
+		case RECT_FURNITURE:
+			//특정 정보만 복사
+			_newMap->_vSaveFt[i].x = newTile.x;
+			_newMap->_vSaveFt[i].y = newTile.y;
+			_newMap->_vSaveFt[i].centerX = newTile.centerX;
+			_newMap->_vSaveFt[i].centerY = newTile.centerY;
+			_newMap->_vSaveFt[i].rc = newTile.rc;
+			_newMap->_vSaveFt[i].cRc = newTile.cRc;
+		break;
+		case RECT_ITEM:
+			_newMap->_vSaveIt[i] = newTile;
+		break;
+		case RECT_WEAPON:
+			_newMap->_vSaveWp[i] = newTile;
+		break;
+		case RECT_WALL:
+			_newMap->_vSaveWl[i] = newTile;
+		break;
+		case RECT_WALL2:
+			_newMap->_vSaveArWl[i] = newTile;
+		break;
+		case RECT_DOOR:
+			_newMap->_vSaveDr[i] = newTile;
+		break;
+	}
+}

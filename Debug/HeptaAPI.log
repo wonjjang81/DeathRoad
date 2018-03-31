@@ -1,6 +1,60 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(361,5): warning MSB4220: 현재 실행 중인 "CL" 작업이 취소되기를 기다리고 있습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(361,5): warning MSB4220: 현재 실행 중인 "CL" 작업이 취소되기를 기다리고 있습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(361,5): warning MSB4220: 현재 실행 중인 "CL" 작업이 취소되기를 기다리고 있습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(361,5): warning MSB4220: 현재 실행 중인 "CL" 작업이 취소되기를 기다리고 있습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(361,5): warning MSB4220: 현재 실행 중인 "CL" 작업이 취소되기를 기다리고 있습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppCommon.targets(361,5): warning MSB4220: 현재 실행 중인 "CL" 작업이 취소되기를 기다리고 있습니다.
+﻿  stageManager.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(67): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(68): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(69): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(70): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(24): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(31): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(32): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(49): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(50): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(72): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(96): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(113): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(130): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(130): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(133): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(146): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(145): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(178): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(182): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(192): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(196): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(296): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(297): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(332): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(350): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(354): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(355): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(367): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stagemanager.cpp(368): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  stage1.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(67): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(68): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(69): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(70): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(32): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(115): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(135): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(147): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: 'sprintf' 선언을 참조하십시오.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(196): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(72): warning C4715: 'stage1::getRect': 모든 제어 경로에서 값을 반환하지는 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(97): warning C4715: 'stage1::getVectorSize': 모든 제어 경로에서 값을 반환하지는 않습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage1.cpp(164): warning C4715: 'stage1::getTileInfo': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  컴파일하고 있습니다...
+  playGround.cpp
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(67): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(68): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(69): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\c++\c++ 포트폴리오\github\ff6\deathroad\stage.h(70): warning C4244: '+=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  건너뛰고 있습니다... (관련된 변경 내용 없음)
+  winMain.cpp
+  stage_collision.cpp
+  resourceManager.cpp
+  HeptaAPI.vcxproj -> D:\C++\C++ 포트폴리오\github\ff6\DeathRoad\Debug\DeathRoad.exe

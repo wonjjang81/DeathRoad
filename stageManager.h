@@ -87,6 +87,7 @@ private:
 
 	//===== Furniture ====
 	vSaveTile _vHaveFt;
+	mapRender* _mapRenderer;
 	//====================
 
 
@@ -116,6 +117,8 @@ public:
 	void stageChange(int num);
 
 	void tileCenterXY();
+
+
 
 
 

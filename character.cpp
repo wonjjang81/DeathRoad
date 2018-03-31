@@ -187,6 +187,12 @@ void character::charRender(string charTypeName, int index, bool flip)
 							viter->cRc.top,
 							viter->cRc.right,
 							viter->cRc.bottom);
+
+						if (viter->type == BODY_DWBODY)
+						{
+							D2DMANAGER->drawIntText(L"", viter->x, viter->cRc.left, viter->cRc.bottom, RED);
+							D2DMANAGER->drawIntText(L"", viter->y, viter->cRc.left + 30, viter->cRc.bottom, RED);
+						}
 					break;
 				}
 

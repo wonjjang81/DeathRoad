@@ -55,6 +55,8 @@ public:
 	POINT getStartPoint() { return _startPoint; }
 
 	tagTile getTileInfo(RECTTYPE type, int i);
+	void setVtilePush(RECTTYPE type, tagTile newTile);
+	void setVtileCopy(RECTTYPE type, int i, tagTile newTile);
 
 	mapLoad* getNewMap() { return _newMap; }
 	void setNewMapDrAction(int i, int value) { _newMap->_vSaveDr[i].actionValue = value; }

@@ -108,7 +108,6 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 			if (tileVector[i].actionValue != 0) continue;
 		}
 	
-
 		//타일렉트 보정
 		//RECT reRect;
 		//reRect.left   = (tileVector[i].rc.left  ) * scale + moveX;
@@ -140,6 +139,12 @@ void mapRender::vMapDraw(vSaveTile tileVector, float moveX, float moveY, float s
 			tileVector[i].cRc.top,
 			tileVector[i].cRc.right,
 			tileVector[i].cRc.bottom);
+
+		if (tileVector[i].tileType == TYPE_FURNITURE)
+		{
+			D2DMANAGER->drawIntText(L"", tileVector[i].x, tileVector[i].centerX, tileVector[i].centerY, WHITE);
+			D2DMANAGER->drawIntText(L"", tileVector[i].y, tileVector[i].centerX, tileVector[i].centerY + 20, WHITE);
+		}
 	}
 
 }

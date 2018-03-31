@@ -97,7 +97,6 @@ void stageManager::update()
 
 	//stage
 	gameNode::update();
-
 	_moveChange.x += CAMERAMANAGER->tileCamMove().x;
 	_moveChange.y += CAMERAMANAGER->tileCamMove().y;
 
@@ -128,11 +127,10 @@ void stageManager::render()
 	playerRender();
 
 	gameNode::afterRender();
+	_mapRenderer->mapDraw(_vHaveFt, _moveChange.x, _moveChange.y, stageScale, false);
 
-
-
+	//시야
 	D2DMANAGER->opacityMask(_player1->getPlayerXY().x + 15, _player1->getPlayerXY().y + 15, _gradientRadius, _isNight);
-
 
 	//게임시간
 	_timer->render();
@@ -147,7 +145,6 @@ void stageManager::render()
 		_player1->getRect(BODY_UPBODY).left + 20, _player1->getRect(BODY_UPBODY).top - 50,
 		_player1->getRect(BODY_UPBODY).left + 100, _player1->getRect(BODY_UPBODY).top);
 
-	CAMERAMANAGER->render();
 
 	playerCenter();
 }
