@@ -12,7 +12,7 @@ stageManager::~stageManager()
 
 HRESULT stageManager::init()
 {
-	intToMapFileName(1);
+	intToMapFileName(3);
 
 	stageScale = 3;
 

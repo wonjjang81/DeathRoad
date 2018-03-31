@@ -59,6 +59,15 @@ public:
 	mapLoad* getNewMap() { return _newMap; }
 	void setNewMapDrAction(int i, int value) { _newMap->_vSaveDr[i].actionValue = value; }
 
+	void setNewMapFtMoveXY(int i, float x, float y) { _newMap->_vSaveFt[i].x += x; _newMap->_vSaveFt[i].y += y; }
+	void setNewMapFtMoveRc(int i, float x, float y) 
+	{ 
+		_newMap->_vSaveFt[i].rc.left   += x; 
+		_newMap->_vSaveFt[i].rc.top    += y;
+		_newMap->_vSaveFt[i].rc.right  += x;
+		_newMap->_vSaveFt[i].rc.bottom += y;
+	}
+
 	stage();
 	~stage();
 };

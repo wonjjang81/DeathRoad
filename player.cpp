@@ -393,3 +393,8 @@ POINT player::getPlayerXY()
 	return tmpMove;
 }
 
+
+float player::getPlayerScale()
+{
+	return 0;
+}

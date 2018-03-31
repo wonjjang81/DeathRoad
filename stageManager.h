@@ -21,6 +21,11 @@ enum COLLISION_DIRECTION
 class stageManager : public gameNode
 {
 private:
+	typedef vector<tagTile>			   vSaveTile;
+	typedef vector<tagTile>::iterator  viSaveTile;
+
+
+private:
 	stage1* _room1;
 	stage1* _room2;
 	stage1* _currentStage;
@@ -78,6 +83,10 @@ private:
 
 	bool _swordAction;
 	bool _swordDirSwing;
+	//====================
+
+	//===== Furniture ====
+	vSaveTile _vHaveFt;
 	//====================
 
 

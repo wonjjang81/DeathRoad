@@ -111,6 +111,7 @@ tagTile stage1::getTileInfo(RECTTYPE type, int i)
 			tmpTile.typeAtt2  = _room->getNewMap()->_vSaveFt[i].typeAtt2;
 			sprintf(tmpTile.imgName, "%s", _room->getNewMap()->_vSaveFt[i].imgName);
 			tmpTile.index     = _room->getNewMap()->_vSaveFt[i].index;
+			tmpTile.rc = _room->getNewMap()->_vSaveFt[i].rc;
 
 			return tmpTile;
 		break;
@@ -160,6 +161,7 @@ void stage1::removeVItem(RECTTYPE type, int i)
 		case RECT_FURNITURE:
 			if (_room->getNewMap()->_vSaveFt.size() == 0) break;
 
+			_room->getNewMap()->_vSaveFt.erase(_room->getNewMap()->_vSaveFt.begin() + i);
 
 		break;
 		case RECT_ITEM:

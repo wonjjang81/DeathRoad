@@ -120,6 +120,9 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 							{
 								room->removeVItem(RECT_WEAPON, i);
 							}
+
+							//무기가 꽉찬 상태일 경우
+
 							return;
 						}
 					break;
@@ -127,6 +130,9 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 
 				continue;
 			}
+
+			//충돌X
+			if (rectType == RECT_ITEM || rectType == RECT_WEAPON) continue;
 			//==================================================================================
 
 			//====================================== DOOR ======================================
@@ -183,16 +189,54 @@ void stageManager::collisionRect(player* player, BODYTYPE bodyType, stage1* room
 				}
 				//-----------------------------------------------------------
 
-	
-
 
 				//충돌X
 				if (room->getTileInfo(RECT_DOOR, i).actionValue == 1) continue;
 			}
 			//==================================================================================
 
-			//예외처리
-			if(rectType == RECT_ITEM || rectType == RECT_WEAPON) continue;
+			//=================================== FURNITURE ====================================
+			if (rectType == RECT_FURNITURE)
+			{			
+				float moveValue = 3;
+				switch (cDirection)
+				{
+					case C_TOP:		
+						room->setTileFtMoveRc(i, 0.0f, moveValue);
+						room->setTileFtMoveXY(i, 0.0f, moveValue);
+					break;
+					case C_BOTTOM:
+						room->setTileFtMoveXY(i, 0.0f, -moveValue);
+						room->setTileFtMoveRc(i, 0.0f, -moveValue);
+					break;
+					case C_LEFT:
+						room->setTileFtMoveXY(i, moveValue, 0.0f);
+						room->setTileFtMoveRc(i, moveValue, 0.0f);
+					break;
+					case C_RIGHT:
+						room->setTileFtMoveRc(i, -moveValue, 0.0f);
+						room->setTileFtMoveXY(i, -moveValue, 0.0f);
+					break;
+				}
+
+
+
+				//가구들기
+				if (KEYMANAGER->isOnceKeyDown('Z'))
+				{
+					_vHaveFt.push_back(room->getTileInfo(RECT_FURNITURE, i));
+					room->removeVItem(RECT_FURNITURE, i);
+
+					//위치 리셋
+
+				}
+			}
+			else
+			{
+				room->setTileFtMoveXY(i, 0, 0);
+				room->setTileFtMoveRc(i, 0, 0);
+			}
+			//==================================================================================
 
 
 			//충돌(이동불가)

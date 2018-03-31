@@ -116,6 +116,7 @@ public:
 	character* getChar() { return _player; }
 
 	POINT getPlayerXY();
+	float getPlayerScale();
 	
 	MOVE_DIRECTION getDirect() { return _currentDir; }
 
